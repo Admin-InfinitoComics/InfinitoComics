@@ -28,8 +28,8 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <input
           type="text"
-          placeholder="INFINITO ULTIMATE >"
-          className="bg-[#FFFFFF] border-black text-black placeholder-black px-8 py-2 focus:outline-none"
+          placeholder="INFINITO ULTIMATE"
+          className="bg-white/10 border border-white text-white placeholder-white px-6 py-3 rounded w-64 focus:outline-none"
         />
           <FiSearch className="text-white text-xl cursor-pointer hover:text-gray-300" />
         </div>

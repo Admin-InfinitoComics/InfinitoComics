@@ -1,23 +1,31 @@
 import './App.css'
-import Navbar from './components/Navbar'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home/Home'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import appStore from '../src/utils/appStore';
+import Body from './components/Body';
 import SignupPage from './pages/login/Signup'
 import Login from './pages/login/login'
+import Home from '../src/pages/Home/Home'
+
 function App() {
   
   return (
     <>
-    <Router>
-      <Navbar/>
+      <Provider store={appStore}>
+      <BrowserRouter basename="/">
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/signup" element={<SignupPage/>} />
-        <Route path="/login" element={<Login/>} />
+        
+        <Route path="/"  element={<Body/>} > 
+           <Route path="/"  element={<Home/>} />
+           <Route path="/login"  element={<Login/>} />
+           <Route path="/signup"  element={<SignupPage/>} />
+        </Route>
       </Routes>
-    </Router>
+      </BrowserRouter> 
+      </Provider>
+  
     </>
   )
 }
 
-export default App
+export default App;

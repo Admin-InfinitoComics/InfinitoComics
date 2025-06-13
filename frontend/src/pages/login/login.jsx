@@ -1,97 +1,109 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import loginBg from "../../../assets/images/login.png"; // Adjust path as needed
+import React, { useState } from 'react';
+import LoginBackground from '../../../assets/Images/LoginBackground.jpg';
+import Bullet from '../../../assets/Images/Bullet.png';
+import Riza from '../../../assets/Images/Riza Jose.png';
 
-export default function Login() {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-
-    if (!formData.email || !formData.password) {
-      setError("All fields are required.");
-      return;
-    }
-
-    setError("");
-    console.log("Login data:", formData);
-
-    navigate("/");
+    console.log({ email, password });
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center">
-      {/* Background image layer with dimmed effect */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${loginBg})`,
-          filter: "brightness(0.4)", // Dim only the image
-          zIndex: 0,
-        }}
-      ></div>
-
-      {/* Form with higher z-index */}
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md border-t-4 relative z-10"
-        style={{ borderColor: "#DD1215" }}
-      >
-        <h2 className="text-2xl font-bold mb-6 text-center" style={{ color: "#DD1215" }}>
-          Login to Your Account
-        </h2>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-1">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-            placeholder="john@example.com"
-            required
+    <div className="w-screen h-screen relative overflow-hidden">
+      {/* Background Section */}
+      <div className="absolute inset-0 z-0 flex flex-col">
+        {/* Top 70% - Image with Gradient */}
+        <div className="h-[70%] w-full relative">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${LoginBackground})` }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(to bottom, #310303, #000000)',
+              opacity: 0.7,
+            }}
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-1">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-            placeholder="••••••••"
-            required
-          />
+        {/* Bottom 30% - Secondary Gradient */}
+        <div
+          className="h-[30%] w-full"
+          style={{
+            background: 'linear-gradient(to bottom, #111111, #663939)',
+          }}
+        />
+      </div>
+
+      {/* Characters - Bullet (left) and Riza (right) */}
+      <img
+        src={Bullet}
+        alt="Bullet"
+        className="absolute  left-56 bottom-8 h-[700px] z-50 object-contain pointer-events-none"
+      />
+      <img
+        src={Riza}
+        alt="Riza"
+        className="absolute right-48 bottom-8 h-[700px] z-50 object-contain pointer-events-none"
+      />
+
+      {/* Foreground Form */}
+      <div className="absolute inset-0 z-30 flex items-center justify-center">
+        <div className="w-[550px] min-h-[650px] bg-white bg-opacity-90 shadow-lg p-12 relative z-30">
+          <form onSubmit={handleLogin} className="flex flex-col items-center gap-4">
+            {/* You can replace below with your INFINITO logo image if needed */}
+            <h1 className="text-3xl font-bold text-red-600">INFINITO</h1>
+            <h2 className="text-xl font-semibold">Log-in to our universe</h2>
+            <p className="text-sm text-gray-600">
+              Don’t have an account?{' '}
+              <a href="#" className="text-blue-600 font-medium">Create one!</a>
+            </p>
+
+            <input
+              type="email"
+              placeholder="Please type your email here"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+              required
+            />
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+              required
+            />
+
+            <div className="text-right w-full text-sm text-blue-600 cursor-pointer">
+              Forgot password?
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
+            >
+              CONTINUE
+            </button>
+
+            {/* Optional Social Icons */}
+            <div className="flex justify-center gap-4 mt-6">
+              <div className="w-8 h-8 bg-gray-200 rounded-full" />
+              <div className="w-8 h-8 bg-gray-200 rounded-full" />
+              <div className="w-8 h-8 bg-gray-200 rounded-full" />
+            </div>
+          </form>
         </div>
-
-        {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
-
-        <button
-          type="submit"
-          className="w-full py-2 bg-[#DD1215] text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300"
-        >
-          Login
-        </button>
-
-        <p className="text-sm text-black-200 mt-4 text-center">
-          Don't have an account?{" "}
-          <span
-            className="text-[#DD1215] font-medium cursor-pointer"
-            onClick={() => navigate("/signup")}
-          >
-            Create one!
-          </span>
-        </p>
-      </form>
+      </div>
     </div>
   );
-}
+};
+
+export default Login;
+

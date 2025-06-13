@@ -3,8 +3,8 @@ import { FiSearch } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 const Navbar = () => {
   return (
-    <div className="text-white font-montserrat">
-      <div className="bg-[#202020] text-white text-sm py-2 px-30 border-b border-[#595959] flex justify-between items-center">
+    <div className="text-white font-sans">
+      <div className="bg-[#202020] text-white text-sm py-2 px-30 border-b border-gray-500 flex justify-between items-center">
         <div>
             Use code <span className="font-bold">INFIN25</span> to get 25% off on our shop!
         </div>
@@ -15,8 +15,8 @@ const Navbar = () => {
             <Link to="/funding"className="hover:underline">Funding</Link>
         </div>
       </div>
-      <div className="bg-[#202020] py-2 px-30 flex items-center justify-between">
-        <button className="border px-8 py-2 text-sm uppercase">
+      <div className="bg-[#202020] py-4 px-30 flex items-center justify-between">
+        <button className="border px-4 py-1 text-sm uppercase">
           Log In | Sign Up &gt;
         </button>
         <div>
@@ -34,7 +34,7 @@ const Navbar = () => {
           <FiSearch className="text-white text-xl cursor-pointer hover:text-gray-300" />
         </div>
       </div>
-      <div className="sticky top-0 z-50 bg-[#171717] shadow-[0_4px_10px_0_rgba(0,0,0,0.3)]">
+      <div className="bg-[#202020] border-t border-white/20 text-sm">
         <div className="flex justify-center space-x-6 py-2 uppercase tracking-wide">
           <Link to="/" className="hover:underline">Home</Link>
           <span>|</span>

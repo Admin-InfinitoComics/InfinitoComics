@@ -1,5 +1,6 @@
 import UserRepository from "../repository/user-repository.js";
-
+import jwt from "jsonwebtoken";
+import config from "../config/server-config.js"
 class UserService {
     constructor() {
         this.userrepository = new UserRepository();
@@ -33,7 +34,14 @@ class UserService {
             if (!isMatch) {
                 throw new Error("Invalid password");
             }
-            return "mock-token";
+            const payload = {
+                id: user._id,
+                email: user.email
+            }
+            const token = jwt.sign(payload, config.JWT_SECRET_KEY, {
+                expiresIn: config.JWT_EXPIRY_DATE
+            })
+            return {token, user};
         } catch (error) {
             console.log("Error in login - UserService");
             throw error;

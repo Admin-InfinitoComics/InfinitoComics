@@ -9,49 +9,6 @@ const UserSchema = new mongoose.Schema({
   password : {
     type: String,
     required: true
-  },
-  memberId: { 
-    type: String, 
-    required: true, 
-    unique: true 
-  },         
-  name: { 
-    type: String, 
-    required: true 
-   },                              
-  gender: { 
-    type: String, 
-    enum: ['Male', 'Female', 'Other'] 
-  },
-  maritalStatus: { 
-    type: String, 
-    enum: ['Single', 'Married', 'Other'] 
-  },
-  dob: { 
-    type: Date 
-  },                                                
-  nationality: { 
-    type: String, 
-    default: 'Indian' 
-  },
-  contactNumber: { 
-    type: String 
-  },                                
-  address: { 
-    type: String 
-  },                                           
-  category: { 
-    type: String, 
-    enum: ['Recurve', 'Compound', 'Barebow'] 
-  },
-  memberAssociation: { 
-    type: String 
-  },                                
-  photoUrl: { 
-    type: String 
-  },                                          
-  signatureUrl: { 
-    type: String 
   },                                      
 }, {timestamps: true});
 

@@ -4,6 +4,7 @@ import Navbar from '../pages/Navbar/Navbar'
 import Footer from '../pages/Footer/Footer'
 import CharacterCarousel from '../pages/Home/CharacterCarousel'
 import CharacterSpotlight from '../pages/Home/CharacterSpotlight'
+import NewsletterSection from '../pages/Footer/Newsletter'
 
 
 const Body = () => {
@@ -13,6 +14,7 @@ const Body = () => {
       <Outlet/>
       <CharacterCarousel/>
       <CharacterSpotlight/>
+      <NewsletterSection/>
       <Footer/>
     </div>
   )

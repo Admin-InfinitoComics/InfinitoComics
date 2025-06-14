@@ -2,10 +2,21 @@ import React, { useState } from 'react';
 import LoginBackground from '../../../assets/Images/LoginBackground.jpg';
 import Bullet from '../../../assets/Images/Bullet.png';
 import Riza from '../../../assets/Images/Riza Jose.png';
+import { FaGoogle, FaFacebookF, FaApple } from 'react-icons/fa';
+import { AiOutlineEye } from 'react-icons/ai';
+import LoginLogo from '../../../assets/Images/LoginLogo.png';
+import { Eye, EyeOff } from 'lucide-react';
+
+
+
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  
+
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -13,10 +24,9 @@ const Login = () => {
   };
 
   return (
-    <div className="w-screen h-screen relative overflow-hidden">
+    <div className="w-screen h-screen relative overflow-hidden font-sans">
       {/* Background Section */}
       <div className="absolute inset-0 z-0 flex flex-col">
-        {/* Top 70% - Image with Gradient */}
         <div className="h-[70%] w-full relative">
           <div
             className="absolute inset-0 bg-cover bg-center"
@@ -30,75 +40,106 @@ const Login = () => {
             }}
           />
         </div>
-
-        {/* Bottom 30% - Secondary Gradient */}
-        <div
-          className="h-[30%] w-full"
-          style={{
-            background: 'linear-gradient(to bottom, #111111, #663939)',
-          }}
-        />
+        <div className="h-[30%] w-full" style={{ background: 'linear-gradient(to bottom, #111111, #663939)' }} />
       </div>
 
-      {/* Characters - Bullet (left) and Riza (right) */}
-      <img
-        src={Bullet}
-        alt="Bullet"
-        className="absolute  left-56 bottom-8 h-[700px] z-50 object-contain pointer-events-none"
-      />
-      <img
-        src={Riza}
-        alt="Riza"
-        className="absolute right-48 bottom-8 h-[700px] z-50 object-contain pointer-events-none"
-      />
+      {/* Characters */}
+      <img src={Bullet} alt="Bullet" className="absolute left-56 bottom-8 h-[700px] z-50 object-contain pointer-events-none" />
+      <img src={Riza} alt="Riza" className="absolute right-48 bottom-8 h-[700px] z-50 object-contain pointer-events-none" />
 
-      {/* Foreground Form */}
+      {/* Central Card */}
       <div className="absolute inset-0 z-30 flex items-center justify-center">
-        <div className="w-[550px] min-h-[650px] bg-white bg-opacity-90 shadow-lg p-12 relative z-30">
-          <form onSubmit={handleLogin} className="flex flex-col items-center gap-4">
-            {/* You can replace below with your INFINITO logo image if needed */}
-            <h1 className="text-3xl font-bold text-red-600">INFINITO</h1>
-            <h2 className="text-xl font-semibold">Log-in to our universe</h2>
-            <p className="text-sm text-gray-600">
-              Don’t have an account?{' '}
-              <a href="#" className="text-blue-600 font-medium">Create one!</a>
-            </p>
+        <div className="w-[500px] bg-white bg-opacity-95 px-8 py-10 rounded shadow-md">
+<form onSubmit={handleLogin} className="flex flex-col gap-5">
+  {/* Logo - centered */}
+  <div className="flex justify-center">
+    <img
+      src={LoginLogo}
+      alt="Login Logo"
+      className="w-[160px] object-contain m-5"
+    />
+  </div>
 
-            <input
-              type="email"
-              placeholder="Please type your email here"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
-              required
-            />
-            <input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-red-500"
-              required
-            />
+  {/* Heading and Link - aligned to left */}
+  <div className="flex pl-7 flex-col gap-1 text-left">
+    <h2 className="font-semibold text-2xl">Log-in to our universe</h2>
+    <p className="text-sm mt-2 text-gray-600">
+      Don’t have an account?{' '}
+      <a href="#" className="text-blue-600 font-medium">Create one!</a>
+    </p>
+  </div>
 
-            <div className="text-right w-full text-sm text-blue-600 cursor-pointer">
-              Forgot password?
-            </div>
+  {/* Email */}
+  <div className="flex flex-col pl-7 gap-1">
+    <label className="text-sm text-red-600 font-semibold">Email</label>
+    <input
+      type="email"
+      placeholder="Please type your email here"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className="w-7/8 px-4 py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+      required
+    />
+  </div>
 
-            <button
-              type="submit"
-              className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
-            >
-              CONTINUE
-            </button>
+  {/* Password */}
+  <div className="flex flex-col gap-1 pl-7 relative">
+    <label className="text-sm text-red-600 font-semibold">Password</label>
+    <div className="relative w-7/8">
+      <input
+        type={showPassword ? 'text' : 'password'}
+        placeholder="Enter your password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full px-4 py-2 border border-gray-400 rounded pr-10 focus:outline-none focus:ring-2 focus:ring-red-500"
+        required
+      />
+      <div
+        className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer"
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        {showPassword ? <Eye/> : <EyeOff/>}
+      </div>
+    </div>
+  </div>
 
-            {/* Optional Social Icons */}
-            <div className="flex justify-center gap-4 mt-6">
-              <div className="w-8 h-8 bg-gray-200 rounded-full" />
-              <div className="w-8 h-8 bg-gray-200 rounded-full" />
-              <div className="w-8 h-8 bg-gray-200 rounded-full" />
-            </div>
-          </form>
+  {/* Forgot password - aligned left */}
+  <div className="text-sm text-blue-600 cursor-pointer pl-7 text-left">
+    Forgot password?
+  </div>
+
+  {/* Submit Button */}
+  <div className="flex items-center justify-center">
+    <button
+      type="submit"
+      className="w-[100px] bg-red-600 text-white py-2 hover:bg-red-700 transition uppercase text-[10px] tracking-widest"
+    >
+      Continue &gt;
+    </button>
+  </div>
+
+  {/* Divider */}
+  <div className="flex items-center justify-between my-4 px-4">
+    <hr className="w-[40%] border-t border-gray-300" />
+    <span className="text-sm text-gray-500">OR</span>
+    <hr className="w-[40%] border-t border-gray-300" />
+  </div>
+
+  {/* Social Logins */}
+  <div className="flex justify-center p-4 mt-[-10] gap-3">
+    {[FaGoogle, FaFacebookF, FaApple].map((Icon, idx) => (
+      <div
+        key={idx}
+        className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded cursor-pointer hover:shadow"
+      >
+        <Icon className="text-xl" />
+      </div>
+    ))}
+  </div>
+</form>
+
+
+
         </div>
       </div>
     </div>
@@ -106,4 +147,3 @@ const Login = () => {
 };
 
 export default Login;
-

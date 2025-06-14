@@ -28,7 +28,7 @@ const CharacterCarousel = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  
   // next button click logic
   const nextSlide = () => {
     setSliding(true);
@@ -74,7 +74,7 @@ const CharacterCarousel = () => {
           {/* Left Arrow */}
           <button
             onClick={prevSlide}
-            className="absolute -left-4 md:-left-8 top-1/2 transform -translate-y-1/2 bg-white border p-2 z-20 shadow-md rounded-full"
+            className="absolute -left-4 md:-left-8 top-1/2 transform -translate-y-1/2 bg-white border p-2 z-20 shadow-md hover:cursor-pointer"
             disabled={sliding}
           >
             <ChevronLeft />
@@ -98,7 +98,7 @@ const CharacterCarousel = () => {
                   className="relative flex flex-col items-center justify-between h-[300px] md:h-[400px] w-full max-w-[280px] mx-auto transition-all duration-500 ease-in-out"
                 >
                   {/* Background shape */}
-                  <div className="absolute bottom-0 w-full h-[65%] bg-[#ffeaea] z-0 transform -skew-y-6"></div>
+                  <div className="absolute bottom-0 w-full h-[65%] bg-[#ffeaea] z-0 transform -skew-y-6 mb-3"></div>
 
                   {/* Image */}
                   <img
@@ -118,7 +118,7 @@ const CharacterCarousel = () => {
           {/* Right Arrow */}
           <button
             onClick={nextSlide}
-            className="absolute -right-4 md:-right-8 top-1/2 transform -translate-y-1/2 bg-white border p-2 z-20 shadow-md rounded-full"
+            className="absolute -right-4 md:-right-8 top-1/2 transform -translate-y-1/2 bg-white border p-2 z-20 shadow-md hover:cursor-pointer "
             disabled={sliding}
           >
             <ChevronRight />

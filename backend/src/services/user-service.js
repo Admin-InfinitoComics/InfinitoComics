@@ -17,7 +17,12 @@ class UserService {
 
     async signup(data) {
         try {
-            return await this.userrepository.create(data);
+            const user = await this.userrepository.findByEmail(data.email);
+            if(user) {
+                return new Error("User is already registered");
+            }
+            const newuser =  await this.userrepository.create(data);
+            return newuser;
         } catch (error) {
             console.log("Error in signup - UserService");
             throw error;

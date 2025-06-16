@@ -9,7 +9,22 @@ const UserSchema = new mongoose.Schema({
   password : {
     type: String,
     required: true
-  },                                      
+  },        
+  name: { 
+    type: String, 
+    required: true 
+   },                              
+  dob: { 
+    type: Date,
+    required: true
+  },                                                
+  username: {
+    type: String,
+    required: true,
+    minlength: 6,
+    maxlength: 30,
+    match: [/^[0-9a-zA-Z._]{6,30}$/, 'Username must be 6-30 characters long and contain only letters, underscores (_), and periods (.)']
+  }                                     
 }, {timestamps: true});
 
 UserSchema.pre('save', async function(next) {
@@ -31,5 +46,5 @@ UserSchema.methods.comparePassword = async function(candidatePassword) {
 };
 
 
-const User = mongoose.model('User', UserSchema);
-export default User;
+const Account = mongoose.model('Account', UserSchema);
+export default Account;

@@ -1,7 +1,7 @@
 // Home.jsx
 import React, { useState } from 'react';
-import slide1 from "../../../assets/images/landing .png"
-import belowImage from "../../../assets/images/Botton.png"
+import slide1 from "../../../assets/Images/landing .png"
+import belowImage from "../../../assets/Images/Botton.png"
 
 
 const images = [

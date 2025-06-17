@@ -3,38 +3,36 @@ import LoginBackground from '../../../assets/Images/LoginBackground.jpg';
 import Bullet from '../../../assets/Images/Bullet.png';
 import Riza from '../../../assets/Images/Riza Jose.png';
 import { FaGoogle, FaFacebookF, FaApple } from 'react-icons/fa';
-import { AiOutlineEye } from 'react-icons/ai';
+import { Eye, EyeOff } from 'lucide-react';
 import LoginLogo from '../../../assets/Images/LoginLogo.png';
-import { Axis3DIcon, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../../services/userServices'; // Adjust the import path as necessary
 import axios from 'axios';
-
-
-
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
-  
-
 
 const handleLogin = async (e) => {
-  e.preventDefault(); 
+  e.preventDefault();
   try {
-    const res = await axios.post('http://localhost:3000/api/login', {
-      email,
-      password,
-    });
-
-    console.log('Login successful:', res.data);
-    navigate('/'); // Redirect to home page after login
+    setError('');
+    const data = await loginUser(email, password);
+    localStorage.setItem('authtoken', data.token.token);
+    navigate('/');
   } catch (err) {
     console.error('Login failed:', err);
-    alert('Login failed. Please check your credentials and try again.');
+    if (err.response && err.response.status === 401) {
+      setError('Invalid email or password');
+    } else {
+      setError('Something went wrong. Please try again.');
+    }
   }
 };
+
 
   return (
     <div className="w-full h-screen relative overflow-hidden font-sans">
@@ -63,96 +61,92 @@ const handleLogin = async (e) => {
       {/* Central Card */}
       <div className="absolute inset-0 z-30 flex items-center justify-center">
         <div className="w-[540px] bg-white bg-opacity-95 px-8 py-10 rounded shadow-md">
-<form onSubmit={handleLogin} className="flex flex-col gap-5">
-  {/* Logo - centered */}
-  <div className="flex justify-center">
-    <img
-      src={LoginLogo}
-      alt="Login Logo"
-      className="w-[160px] object-contain m-5"
-    />
-  </div>
+          <form onSubmit={handleLogin} className="flex flex-col gap-5">
+            {/* Logo */}
+            <div className="flex justify-center">
+              <img src={LoginLogo} alt="Login Logo" className="w-[160px] object-contain m-5" />
+            </div>
 
-  {/* Heading and Link - aligned to left */}
-  <div className="flex pl-7 flex-col gap-1 text-left">
-    <h2 className="font-semibold text-2xl">Log-in to our universe</h2>
-    <p className="text-sm mt-2 text-gray-600">
-      Don’t have an account?{' '}
-      <a href="#" className="text-blue-600 font-medium">Create one!</a>
-    </p>
-  </div>
+            {/* Heading */}
+            <div className="flex pl-7 flex-col gap-1 text-left">
+              <h2 className="font-semibold text-2xl">Log-in to our universe</h2>
+              <p className="text-sm mt-2 text-gray-600">
+                Don’t have an account?{' '}
+                <a href="#" className="text-blue-600 font-medium">Create one!</a>
+              </p>
+            </div>
 
-  {/* Email */}
-  <div className="flex flex-col pl-7 gap-1">
-    <label className="text-sm text-red-600 font-semibold">Email</label>
-    <input
-      type="email"
-      placeholder="Please type your email here"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      className="w-7/8 px-4 py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
-      required
-    />
-  </div>
+            {/* Email */}
+            <div className="flex flex-col pl-7 gap-1">
+              <label className="text-sm text-red-600 font-semibold">Email</label>
+              <input
+                type="email"
+                placeholder="Please type your email here"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-7/8 px-4 py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                required
+              />
+            </div>
 
-  {/* Password */}
-  <div className="flex flex-col gap-1 pl-7 relative">
-    <label className="text-sm text-red-600 font-semibold">Password</label>
-    <div className="relative w-7/8">
-      <input
-        type={showPassword ? 'text' : 'password'}
-        placeholder="Enter your password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="w-full px-4 py-2 border border-gray-400 rounded pr-10 focus:outline-none focus:ring-2 focus:ring-red-500"
-        required
-      />
-      <div
-        className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer"
-        onClick={() => setShowPassword(!showPassword)}
-      >
-        {showPassword ? <Eye/> : <EyeOff/>}
-      </div>
-    </div>
-  </div>
+            {/* Password */}
+            <div className="flex flex-col gap-1 pl-7 relative">
+              <label className="text-sm text-red-600 font-semibold">Password</label>
+              <div className="relative w-7/8">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={`w-full px-4 py-2 border ${error ? 'border-red-500' : 'border-gray-400'} rounded pr-10 focus:outline-none focus:ring-2 focus:ring-red-500`}
+                  required
+                />
+                <div
+                  className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <Eye /> : <EyeOff />}
+                </div>
+              </div>
+              {error && (
+                <p className="text-sm text-red-600 mt-1 ml-1">{error}</p>
+              )}
+            </div>
 
-  {/* Forgot password - aligned left */}
-  <div className="text-sm text-blue-600 cursor-pointer pl-7 text-left">
-    Forgot password?
-  </div>
+            {/* Forgot Password */}
+            <div className="text-sm text-blue-600 cursor-pointer pl-7 text-left">
+              Forgot password?
+            </div>
 
-  {/* Submit Button */}
-  <div className="flex items-center justify-center">
-    <button
-      type="submit"
-      className="w-[100px] bg-red-600 text-white py-2 hover:bg-red-700 transition uppercase text-[10px] tracking-widest"
-    >
-      Continue &gt;
-    </button>
-  </div>
+            {/* Submit Button */}
+            <div className="flex items-center justify-center">
+              <button
+                type="submit"
+                className="w-[100px] bg-red-600 text-white py-2 hover:bg-red-700 transition uppercase text-[10px] tracking-widest"
+              >
+                Continue &gt;
+              </button>
+            </div>
 
-  {/* Divider */}
-  <div className="flex items-center justify-between my-4 px-4">
-    <hr className="w-[40%] border-t border-gray-300" />
-    <span className="text-sm text-gray-500">OR</span>
-    <hr className="w-[40%] border-t border-gray-300" />
-  </div>
+            {/* Divider */}
+            <div className="flex items-center justify-between my-4 px-4">
+              <hr className="w-[40%] border-t border-gray-300" />
+              <span className="text-sm text-gray-500">OR</span>
+              <hr className="w-[40%] border-t border-gray-300" />
+            </div>
 
-  {/* Social Logins */}
-  <div className="flex justify-center p-4 mt-[-10] gap-3">
-    {[FaGoogle, FaFacebookF, FaApple].map((Icon, idx) => (
-      <div
-        key={idx}
-        className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded cursor-pointer hover:shadow"
-      >
-        <Icon className="text-xl" />
-      </div>
-    ))}
-  </div>
-</form>
-
-
-
+            {/* Social Logins */}
+            <div className="flex justify-center p-4 mt-[-10] gap-3">
+              {[FaGoogle, FaFacebookF, FaApple].map((Icon, idx) => (
+                <div
+                  key={idx}
+                  className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded cursor-pointer hover:shadow"
+                >
+                  <Icon className="text-xl" />
+                </div>
+              ))}
+            </div>
+          </form>
         </div>
       </div>
     </div>

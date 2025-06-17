@@ -1,42 +1,9 @@
 import React, { useState } from 'react';
 import { Bookmark } from 'lucide-react';
-import image3 from '../../../assets/Images/spotlight/image (3).png';
-import image2 from '../../../assets/Images/spotlight/image (2).png';
-import image1 from '../../../assets/Images/spotlight/image.png';
-
-const comics = [
-  {
-    id: 1,
-    title: 'Superman: The Knight of Steel #107',
-    authors: 'Jerry Siegel and Joe Shuster',
-    year: '2025',
-    description:
-      'When a mysterious rift hurls Superman into a medieval realm, the Man of Steel must trade his cape for a sword to battle dragons, dark magic, and destiny itself.',
-    image: image1,
-    tag: 'NEW RELEASE',
-  },
-  {
-    id: 2,
-    title: 'Captain Marvel',
-    authors: 'Marvel Comics',
-    year: '1962',
-    description:
-      'Classic tales featuring the original Captain Marvel and other iconic heroes.',
-    image: image2,
-  },
-  {
-    id: 3,
-    title: 'Marvel Super Heroes',
-    authors: 'Marvel Comics',
-    year: '1970s',
-    description:
-      'An ensemble of Marvel legends in a vintage collection celebrating heroism and unity.',
-    image: image3,
-  },
-];
+import spotlightData from '../../constants/spotlight';
 
 const SpotlightRow = () => {
-  const [hoveredId, setHoveredId] = useState(1); // Always start with first one open
+  const [hoveredId, setHoveredId] = useState(1); // Start with the first one
 
   return (
     <div className="px-4 md:px-16 py-14 bg-white font-dmsans overflow-x-hidden">
@@ -46,7 +13,7 @@ const SpotlightRow = () => {
         </h2>
 
         <div className="flex gap-6 transition-all duration-500 ease-in-out overflow-hidden">
-          {comics.map((comic) => {
+          {spotlightData.map((comic) => {
             const isHovered = hoveredId === comic.id;
 
             return (
@@ -56,7 +23,7 @@ const SpotlightRow = () => {
                   ${isHovered ? 'w-[783px]' : 'w-[270px]'} h-[406px]`}
                 onMouseEnter={() => setHoveredId(comic.id)}
                 onMouseLeave={() => {
-                  if (comic.id !== 1) setHoveredId(1); // Only collapse non-first ones
+                  if (comic.id !== 1) setHoveredId(1);
                 }}
               >
                 {/* Left: Image */}
@@ -70,16 +37,16 @@ const SpotlightRow = () => {
 
                 {/* Right: Hover content */}
                 <div
-                  className={`transition-opacity duration-500 ease-in-out overflow-hidden ${isHovered ? 'opacity-100 w-[513px] px-8 py-6' : 'opacity-0 w-0 px-0 py-0'} flex flex-col justify-between`}
+                  className={`transition-opacity duration-500 ease-in-out overflow-hidden ${
+                    isHovered ? 'opacity-100 w-[513px] px-8 py-6' : 'opacity-0 w-0 px-0 py-0'
+                  } flex flex-col justify-between`}
                 >
                   {isHovered && (
                     <>
                       <div>
                         <h3 className="text-[36px] font-bold leading-snug mb-1">{comic.title}</h3>
                         <div className="flex flex-row justify-between">
-                          <p className="text-custom-gray uppercase text-[20px]">
-                            {comic.authors}
-                          </p>
+                          <p className="text-custom-gray uppercase text-[20px]">{comic.authors}</p>
                           <p className="text-gray-400 text-[20px] -mt-2 mb-4 font-normal">
                             {comic.year}
                           </p>

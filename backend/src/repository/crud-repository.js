@@ -8,7 +8,7 @@ class CrudRepository {
             const creation = await this.model.create(data);
             return creation;
         } catch (error) {
-            console.log(error);
+            console.error("Error in create:", error);
             throw error;
         }
     }
@@ -25,9 +25,7 @@ class CrudRepository {
 
     async getById(id){
         try {
-            console.log(id);
             const getparticularbyid = await this.model.findById(id);
-            console.log(getparticularbyid);
             return getparticularbyid;
         } catch (error) {
             console.log(error);

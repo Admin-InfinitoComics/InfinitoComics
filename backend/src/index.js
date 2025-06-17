@@ -6,8 +6,9 @@ import connect from "./config/database-config.js"
 import router from "./routes/index.js";
 import cors from "cors";
 
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Remove trailing slash
+  origin:config.FRONTEND_URL, 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,

@@ -5,8 +5,9 @@ import Riza from '../../../assets/Images/Riza Jose.png';
 import { FaGoogle, FaFacebookF, FaApple } from 'react-icons/fa';
 import { AiOutlineEye } from 'react-icons/ai';
 import LoginLogo from '../../../assets/Images/LoginLogo.png';
-import { Eye, EyeOff } from 'lucide-react';
-
+import { Axis3DIcon, Eye, EyeOff } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -15,16 +16,28 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   
 
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log({ email, password });
-  };
+const handleLogin = async (e) => {
+  e.preventDefault(); 
+  try {
+    const res = await axios.post('http://localhost:3000/api/login', {
+      email,
+      password,
+    });
+
+    console.log('Login successful:', res.data);
+    navigate('/'); // Redirect to home page after login
+  } catch (err) {
+    console.error('Login failed:', err);
+    alert('Login failed. Please check your credentials and try again.');
+  }
+};
 
   return (
-    <div className="w-screen h-screen relative overflow-hidden font-sans">
+    <div className="w-full h-screen relative overflow-hidden font-sans">
       {/* Background Section */}
       <div className="absolute inset-0 z-0 flex flex-col">
         <div className="h-[70%] w-full relative">
@@ -49,7 +62,7 @@ const Login = () => {
 
       {/* Central Card */}
       <div className="absolute inset-0 z-30 flex items-center justify-center">
-        <div className="w-[500px] bg-white bg-opacity-95 px-8 py-10 rounded shadow-md">
+        <div className="w-[540px] bg-white bg-opacity-95 px-8 py-10 rounded shadow-md">
 <form onSubmit={handleLogin} className="flex flex-col gap-5">
   {/* Logo - centered */}
   <div className="flex justify-center">

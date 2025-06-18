@@ -6,8 +6,9 @@ import CharacterCarousel from '../pages/Home/CharacterCarousel'
 import CharacterSpotlight from '../pages/Home/CharacterSpotlight'
 import NewsletterSection from '../pages/Footer/Newsletter'
 import DashboardPage from '../pages/Home/Dashboard'
-
-
+import Spotlight from '../pages/Home/Spotlight'
+import HeroSection from '../pages/Home/Merch'
+import LandingMerch from '../pages/Home/LandingMerch'
 const Body = () => {
   return (
     <div>
@@ -15,6 +16,9 @@ const Body = () => {
       <Outlet/>
       <CharacterCarousel/>
       <CharacterSpotlight/>
+      <Spotlight/>
+      <HeroSection/>
+      <LandingMerch/>
       {/* <DashboardPage/> */}
       <NewsletterSection/>
       <Footer/>

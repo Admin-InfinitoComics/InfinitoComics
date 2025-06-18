@@ -5,6 +5,7 @@ import Riza from '../../../assets/Images/Riza Jose.png';
 import { FaGoogle, FaFacebookF, FaApple } from 'react-icons/fa';
 import { Eye, EyeOff } from 'lucide-react';
 import LoginLogo from '../../../assets/Images/LoginLogo.png';
+import loginBg from '../../../assets/Images/login.png'// Adjust path as needed
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/userServices'; // Adjust the import path as necessary
 import axios from 'axios';

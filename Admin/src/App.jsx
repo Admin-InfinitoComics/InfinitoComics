@@ -4,6 +4,7 @@ function App() {
   return (
     <>
       Hello, this is the Admin App!
+      
     </>
   )
 }

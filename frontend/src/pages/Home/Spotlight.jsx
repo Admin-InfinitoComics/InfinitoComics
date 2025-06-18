@@ -1,78 +1,65 @@
-import React, { useState } from 'react';
-import { Bookmark } from 'lucide-react';
-import spotlightData from '../../constants/spotlight';
+import React from "react";
+import spotlightbg from "../../../assets/Images/spotlightbg.png";
+import rival from "../../../assets/Images/rival.png";
+import { PlayCircle } from "lucide-react"; // Play icon
 
-const SpotlightRow = () => {
-  const [hoveredId, setHoveredId] = useState(1); // Start with the first one
-
+const Spotlight = () => {
   return (
-    <div className="px-4 md:px-16 py-14 bg-white font-dmsans overflow-x-hidden">
-      <div className="max-w-screen-xl mx-auto">
-        <h2 className="text-[36px] font-black tracking-widest uppercase mb-10 text-center md:text-left">
-          Today's Spotlight
-        </h2>
+    <div
+      className="w-full bg-cover bg-center bg-no-repeat px-4 "
+      style={{
+        backgroundImage: `url(${spotlightbg})`, // Background image used here
+      }}
+    >
+      {/* Wrapper with responsive max-width and padding */}
+      <div className="max-w-7xl  mx-auto flex flex-col md:flex-row items-center justify-between gap-10 py-16 md:py-60 px-4 sm:px-6">
+        
+        {/* Left section for text content */}
+        <div className="text-white w-full md:max-w-md">
+          {/* Heading text styled as shown in design */}
+          <h2 className="text-white text-[40px] sm:text-[50px] md:text-[80px] font-black tracking-[0.1em] md:tracking-[0.2em] leading-none text-center md:text-left">
+            SPOTLIGHT
+          </h2>
 
-        <div className="flex gap-6 transition-all duration-500 ease-in-out overflow-hidden">
-          {spotlightData.map((comic) => {
-            const isHovered = hoveredId === comic.id;
+          {/* Divider line below heading */}
+          <div className="border-t-2 border-white w-20 sm:w-40 md:w-90 my-6 sm:my-8 md:my-12 mx-auto md:mx-0"></div>
 
-            return (
-              <div
-                key={comic.id}
-                className={`relative flex items-start transition-all duration-500 ease-in-out overflow-hidden rounded-md shadow-md bg-white group
-                  ${isHovered ? 'w-[783px]' : 'w-[270px]'} h-[406px]`}
-                onMouseEnter={() => setHoveredId(comic.id)}
-                onMouseLeave={() => {
-                  if (comic.id !== 1) setHoveredId(1);
-                }}
-              >
-                {/* Left: Image */}
-                <div className="relative shrink-0 h-[406.12px] w-[270px]">
-                  <img
-                    src={comic.image}
-                    alt={comic.title}
-                    className="w-[270px] h-full object-cover z-0"
-                  />
-                </div>
+          {/* Actor name text */}
+          <h3 className="text-white text-lg sm:text-xl md:text-2xl font-black tracking-[0.05em] md:tracking-[0.1em] leading-none text-center md:text-left">
+            RYAN GOSLING
+          </h3>
 
-                {/* Right: Hover content */}
-                <div
-                  className={`transition-opacity duration-500 ease-in-out overflow-hidden ${
-                    isHovered ? 'opacity-100 w-[513px] px-8 py-6' : 'opacity-0 w-0 px-0 py-0'
-                  } flex flex-col justify-between`}
-                >
-                  {isHovered && (
-                    <>
-                      <div>
-                        <h3 className="text-[36px] font-bold leading-snug mb-1">{comic.title}</h3>
-                        <div className="flex flex-row justify-between">
-                          <p className="text-custom-gray uppercase text-[20px]">{comic.authors}</p>
-                          <p className="text-gray-400 text-[20px] -mt-2 mb-4 font-normal">
-                            {comic.year}
-                          </p>
-                        </div>
-                        <p className="text-gray-700 text-[15px] leading-relaxed font-normal">
-                          {comic.description}
-                        </p>
-                      </div>
-                      <div className="mt-6 flex items-center gap-4">
-                        <button className="border border-black w-[42px] h-[42px] flex items-center justify-center hover:bg-black hover:text-white transition">
-                          <Bookmark size={20} />
-                        </button>
-                        <button className="bg-red-600 hover:bg-red-700 transition text-white px-6 py-2 text-[14px] font-semibold tracking-wide">
-                          READ NOW →
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+          {/* Description paragraph */}
+          <p className="text-sm text-gray-300 mt-2 leading-relaxed text-center md:text-left">
+            First of all, you're going to look so bad in that shot. Haha lol! <br />
+            Also I don't know who wrote this. So sorry. T_T I love you. <br />
+            Also I know, you know, that I know, that you know, that I know!
+          </p>
+
+          {/* Play button */}
+          <div className="flex justify-center md:justify-start">
+            <button className="mt-6 px-6 py-2 border border-white text-white text-lg hover:bg-white hover:text-black transition-all duration-300">
+              PLAY →
+            </button>
+          </div>
+        </div>
+
+        {/* Right section for image with play icon overlay */}
+        <div className="relative w-full sm:w-[80%] md:w-[600px]">
+          <img
+            src={rival}
+            alt="Spotlight"
+            className="w-full h-auto rounded-md object-cover"
+          />
+          {/* Centered play icon over image */}
+          <button className="absolute inset-0 flex items-center justify-center">
+            <PlayCircle className="w-16 h-16 text-white hover:scale-105 transition-transform duration-200" />
+          </button>
+
         </div>
       </div>
     </div>
   );
 };
 
-export default SpotlightRow;
+export default Spotlight;

@@ -28,7 +28,7 @@ const Navbar = () => {
         {/* Auth Button or User Greeting */}
         {user ? (
           <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
-            <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
+            <img src={UserIcon} alt="User Icon" className="w-5 h-5 " />
             <span className="tracking-wide">Hi, {user.name}!</span>
           </div>
         ) : (

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/userServices'; // Adjust the import path as necessary
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
-import { addUser } from '../../utils/userSlice';
+import {addUser} from '../../redux/userSlice';
 
 
 const Login = () => {

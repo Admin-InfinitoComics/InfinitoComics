@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import appStore from '../src/utils/appStore';
 import Body from './components/Body';
+import Loggedin from './components/Homepage-loggedin/Body';
+import Premium from './components/Homepage-premium/Body';
 import Home from '../src/pages/Home/Home'
 import Login from './pages/Login/Login';
 import SignupWrapper from './pages/Signup/SignupWrapper';
@@ -17,7 +19,9 @@ function App() {
         
         <Route path="/"  element={<Body/>} > 
            <Route path="/"  element={<Home/>} />
-           <Route path="/login"  element={<Login/>} />
+            <Route path="/login"  element={<Login/>} />
+             <Route path="/loggedin"  element={<Loggedin/>} />
+           <Route path="/Premium"  element={<Premium/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
         </Route>
       </Routes>

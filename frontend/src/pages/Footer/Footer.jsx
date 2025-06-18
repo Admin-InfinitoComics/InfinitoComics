@@ -8,7 +8,7 @@ import {
   FaPinterestP
 } from 'react-icons/fa';
 import logo from '../../../assets/Logo (1).png'; 
-import smallLogo from '../../../assets/Logo (1).png';
+import smallLogo from '../../../assets/Images/foot.png';
 
 
 const Footer = () => {

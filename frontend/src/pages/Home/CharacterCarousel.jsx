@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ironman from "../../../assets/Images/ironman.png";
 
+// Character list array
 const characters = [
   { id: 1, name: "Iron Man", img: ironman },
   { id: 2, name: "Iron Man", img: ironman },
@@ -19,7 +20,7 @@ const CharacterCarousel = () => {
   const [sliding, setSliding] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
-  // screen ke size ke according itemsPerPage set karna
+  // Adjust number of items shown per slide based on screen size
   useEffect(() => {
     const handleResize = () => {
       setItemsPerPage(window.innerWidth < 768 ? 1 : 4);
@@ -29,7 +30,7 @@ const CharacterCarousel = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   
-  // next button click logic
+  // Show next set of characters
   const nextSlide = () => {
     setSliding(true);
     setTimeout(() => {
@@ -42,7 +43,7 @@ const CharacterCarousel = () => {
     }, 300);
   };
 
-  // prev button click logic
+  // Show previous set of characters
   const prevSlide = () => {
     setSliding(true);
     setTimeout(() => {
@@ -60,7 +61,7 @@ const CharacterCarousel = () => {
   return (
     <div className="w-full px-4 py-12 bg-white">
       <div className="max-w-screen-2xl mx-auto">
-        {/* Heading */}
+        {/* Section title and link */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <h2 className="text-xl md:text-2xl font-bold tracking-widest uppercase text-center md:text-left">
             Know Our Characters
@@ -71,7 +72,7 @@ const CharacterCarousel = () => {
         </div>
 
         <div className="relative">
-          {/* Left Arrow */}
+          {/* Previous arrow button */}
           <button
             onClick={prevSlide}
             className="absolute -left-4 md:-left-8 top-1/2 transform -translate-y-1/2 bg-white border p-2 z-20 shadow-md hover:cursor-pointer"
@@ -80,7 +81,7 @@ const CharacterCarousel = () => {
             <ChevronLeft />
           </button>
 
-          {/* Cards Grid */}
+          {/* Character cards carousel */}
           <div
             className={`grid transition-all duration-500 ease-in-out ${
               itemsPerPage === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"
@@ -97,17 +98,17 @@ const CharacterCarousel = () => {
                   key={`${char.id}-${index}`}
                   className="relative flex flex-col items-center justify-between h-[300px] md:h-[400px] w-full max-w-[280px] mx-auto transition-all duration-500 ease-in-out"
                 >
-                  {/* Background shape */}
+                  {/* Decorative background shape */}
                   <div className="absolute bottom-0 w-full h-[65%] bg-[#ffeaea] z-0 transform -skew-y-6 mb-3"></div>
 
-                  {/* Image */}
+                  {/* Character image */}
                   <img
                     src={char.img}
                     alt={char.name}
                     className="h-[200px] md:h-[320px] object-contain relative z-10"
                   />
 
-                  {/* Name */}
+                  {/* Character name label */}
                   <div className="bg-black w-full text-center py-3  relative z-10">
                     <p className="text-white text-sm tracking-widest">{char.name}</p>
                   </div>
@@ -115,7 +116,7 @@ const CharacterCarousel = () => {
               ))}
           </div>
 
-          {/* Right Arrow */}
+          {/* Next arrow button */}
           <button
             onClick={nextSlide}
             className="absolute -right-4 md:-right-8 top-1/2 transform -translate-y-1/2 bg-white border p-2 z-20 shadow-md hover:cursor-pointer "
@@ -125,7 +126,7 @@ const CharacterCarousel = () => {
           </button>
         </div>
 
-        {/* Dots Indicator */}
+        {/* Pagination dots */}
         <div className="flex justify-center mt-6 gap-2">
           {Array.from({
             length: Math.ceil(characters.length / itemsPerPage),

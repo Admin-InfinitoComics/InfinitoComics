@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import loginBg from "../../../assets/Images/login.png"; // Adjust the path
+import loginBg from "../../../assets/images/login.png"; // Adjust the path
 
 export default function Signup() {
   const navigate = useNavigate();

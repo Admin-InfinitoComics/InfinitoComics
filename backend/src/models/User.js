@@ -9,50 +9,22 @@ const UserSchema = new mongoose.Schema({
   password : {
     type: String,
     required: true
-  },
-  memberId: { 
-    type: String, 
-    required: true, 
-    unique: true 
-  },         
+  },        
   name: { 
     type: String, 
     required: true 
    },                              
-  gender: { 
-    type: String, 
-    enum: ['Male', 'Female', 'Other'] 
-  },
-  maritalStatus: { 
-    type: String, 
-    enum: ['Single', 'Married', 'Other'] 
-  },
   dob: { 
-    type: Date 
+    type: Date,
+    required: true
   },                                                
-  nationality: { 
-    type: String, 
-    default: 'Indian' 
-  },
-  contactNumber: { 
-    type: String 
-  },                                
-  address: { 
-    type: String 
-  },                                           
-  category: { 
-    type: String, 
-    enum: ['Recurve', 'Compound', 'Barebow'] 
-  },
-  memberAssociation: { 
-    type: String 
-  },                                
-  photoUrl: { 
-    type: String 
-  },                                          
-  signatureUrl: { 
-    type: String 
-  },                                      
+  username: {
+    type: String,
+    required: true,
+    minlength: 6,
+    maxlength: 30,
+    match: [/^[0-9a-zA-Z._]{6,30}$/, 'Username must be 6-30 characters long and contain only letters, underscores (_), and periods (.)']
+  }                                     
 }, {timestamps: true});
 
 UserSchema.pre('save', async function(next) {
@@ -74,5 +46,5 @@ UserSchema.methods.comparePassword = async function(candidatePassword) {
 };
 
 
-const User = mongoose.model('User', UserSchema);
-export default User;
+const Account = mongoose.model('Account', UserSchema);
+export default Account;

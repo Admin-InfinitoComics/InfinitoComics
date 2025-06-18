@@ -8,6 +8,9 @@ import LoginLogo from '../../../assets/Images/LoginLogo.png';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/userServices'; // Adjust the import path as necessary
 import axios from 'axios';
+import {useDispatch} from 'react-redux';
+import { addUser } from '../../utils/userSlice';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +18,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 const handleLogin = async (e) => {
   e.preventDefault();
@@ -23,6 +27,7 @@ const handleLogin = async (e) => {
     const data = await loginUser(email, password);
     localStorage.setItem('authtoken', data.token.token);
     navigate('/');
+    dispatch(addUser(data.token.user));
   } catch (err) {
     console.error('Login failed:', err);
     if (err.response && err.response.status === 401) {

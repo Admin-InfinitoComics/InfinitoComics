@@ -1,3 +1,4 @@
+// tailwind.config.js
 export default {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -6,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
+        dmsans: ['"DM Sans"', 'sans-serif'], // ✅ CORRECT: quotes around "DM Sans"
       },
       colors: {
         'custom-dark': '#171717',
@@ -16,4 +17,4 @@ export default {
     },
   },
   plugins: [],
-}
+};

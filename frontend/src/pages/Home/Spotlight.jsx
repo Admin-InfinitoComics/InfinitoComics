@@ -3,7 +3,7 @@ import spotlightbg from "../../../assets/Images/spotlightbg.png";
 import rival from "../../../assets/Images/rival.png";
 import { PlayCircle } from "lucide-react"; // Play icon
 
-const SpotlightSection = () => {
+const Spotlight = () => {
   return (
     <div
       className="w-full bg-cover bg-center bg-no-repeat px-4 "
@@ -55,10 +55,11 @@ const SpotlightSection = () => {
           <button className="absolute inset-0 flex items-center justify-center">
             <PlayCircle className="w-16 h-16 text-white hover:scale-105 transition-transform duration-200" />
           </button>
+
         </div>
       </div>
     </div>
   );
 };
 
-export default SpotlightSection;
+export default Spotlight;

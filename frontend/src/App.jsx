@@ -3,9 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import appStore from '../src/utils/appStore';
 import Body from './components/Body';
-import SignupPage from './pages/login/Signup'
-import Login from './pages/login/login'
 import Home from '../src/pages/Home/Home'
+import Login from './pages/Login/Login';
+import SignupWrapper from './pages/Signup/SignupWrapper';
 
 function App() {
   
@@ -18,7 +18,7 @@ function App() {
         <Route path="/"  element={<Body/>} > 
            <Route path="/"  element={<Home/>} />
            <Route path="/login"  element={<Login/>} />
-           <Route path="/signup"  element={<SignupPage/>} />
+           <Route path="/signup"  element={<SignupWrapper/>} />
         </Route>
       </Routes>
       </BrowserRouter> 

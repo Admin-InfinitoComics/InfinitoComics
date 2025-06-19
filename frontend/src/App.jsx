@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import appStore from '../src/utils/appStore';
+import appStore from './redux/appStore';
 import Body from './components/Body';
 import Loggedin from './components/Homepage-loggedin/Body';
 import Premium from './components/Homepage-premium/Body';

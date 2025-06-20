@@ -41,7 +41,7 @@ const Body = () => {
                
       <ExclusiveContent/>
        <NewsletterSection/>
-      <Footer/>  
+      
 
  
 

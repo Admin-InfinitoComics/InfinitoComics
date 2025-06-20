@@ -23,7 +23,7 @@ import ExclusiveContent from '../../pages/Home/ExclusiveContent'
 const Body = () => {
   return (
     <div>
-        <Navbar/>
+        
         <Outlet/>
         <FanFavourites/>
         <CharacterSpotlight/>
@@ -41,8 +41,7 @@ const Body = () => {
                
       <ExclusiveContent/>
        <NewsletterSection/>
-      <Footer/>  
-/
+      
  
 
     

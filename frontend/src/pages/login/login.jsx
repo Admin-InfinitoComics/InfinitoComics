@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/userServices'; // Adjust the import path as necessary
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
+import { Link } from 'react-router-dom';
 import {addUser} from '../../redux/userSlice';
 
 
@@ -120,9 +121,14 @@ const handleLogin = async (e) => {
             </div>
 
             {/* Forgot Password */}
-            <div className="text-sm text-blue-600 cursor-pointer pl-7 text-left">
-              Forgot password?
-            </div>
+           
+            <Link
+  to="/forgot-password"
+  className="text-sm text-blue-600 cursor-pointer pl-7 text-left"
+>
+  Forgot password?
+</Link>
+
 
             {/* Submit Button */}
             <div className="flex items-center justify-center">

@@ -35,7 +35,7 @@ class CrudRepository {
 
     async findByIdandUpdate(id, data){
         try {
-            const idupdate = await this.model.findByIdAndUpdate(id, data);
+            const idupdate = await this.model.findByIdAndUpdate(id, data, {new: true});
             return idupdate;
         } catch (error) {
             console.log(error);

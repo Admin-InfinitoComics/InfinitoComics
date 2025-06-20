@@ -7,7 +7,6 @@ class BlogService {
 
   async create(data) {
     try {
-      console.log(data);
       const blogData = await this.blogRepository.create(data);
       return blogData;
     } catch (error) {

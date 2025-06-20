@@ -4,7 +4,6 @@ const blogservice = new BlogService();
 // Create a new blog
 const createBlog = async (req, res) => {
   try {
-    console.log(req.body);
     const blogData = await blogservice.create(req.body);
     return res.status(201).json({
       success: true,

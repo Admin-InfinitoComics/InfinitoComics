@@ -1,7 +1,6 @@
 import express from "express";
 const router = express.Router();
 import Usercontroller from "../controller/user-controller.js";
-import User from "../models/User.js";
 // Create (Register)
 router.post('/signup', Usercontroller.signup)
 // Read (All users)

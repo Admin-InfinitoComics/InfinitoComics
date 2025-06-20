@@ -11,6 +11,7 @@ import SignupWrapper from './pages/Signup/SignupWrapper';
 import ForgotPassword from './pages/login/ForgotPassword';
 import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
+import FeedbackForm from './pages/FeedbackForm/Feedback';
 
 function App() {
   
@@ -26,7 +27,7 @@ function App() {
              <Route path="/loggedin"  element={<Loggedin/>} />
            <Route path="/Premium"  element={<Premium/>} />
             <Route path="/forgot-password" element={<ForgotPassword/>} />    
-            
+            <Route path="/Feedback" element={<FeedbackForm/>} /> 
             <Route path="/Dashboard" element={<DashboardPage/>} /> 
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />

@@ -7,6 +7,7 @@ import Home from '../src/pages/Home/Home'
 import Login from './pages/Login/Login';
 import SignupWrapper from './pages/Signup/SignupWrapper';
 
+
 function App() {
   
   return (
@@ -19,6 +20,8 @@ function App() {
            <Route path="/"  element={<Home/>} />
            <Route path="/login"  element={<Login/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
+           
+
         </Route>
       </Routes>
       </BrowserRouter> 

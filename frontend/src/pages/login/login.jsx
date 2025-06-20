@@ -11,6 +11,7 @@ import { loginUser } from '../../services/userServices'; // Adjust the import pa
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {addUser} from '../../redux/userSlice';
+import { Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -78,7 +79,7 @@ const handleLogin = async (e) => {
               <h2 className="font-semibold text-2xl">Log-in to our universe</h2>
               <p className="text-sm mt-2 text-gray-600">
                 Don’t have an account?{' '}
-                <a href="#" className="text-blue-600 font-medium">Create one!</a>
+                <Link to="/signup" className="text-blue-600 font-medium">Create one!</Link>
               </p>
             </div>
 
@@ -135,11 +136,11 @@ const handleLogin = async (e) => {
             </div>
 
             {/* Divider */}
-            <div className="flex items-center justify-between my-4 px-4">
-              <hr className="w-[40%] border-t border-gray-300" />
-              <span className="text-sm text-gray-500">OR</span>
-              <hr className="w-[40%] border-t border-gray-300" />
-            </div>
+<div className="flex items-center justify-center w-full mt-1 ">
+  <hr className=" w-[80px] border-gray-300" />
+  <span className="mx-1 text-gray-400 text-xs font-semibold">OR</span>
+  <hr className="w-[80px] border-gray-300" />
+</div>
 
             {/* Social Logins */}
             <div className="flex justify-center p-4 mt-[-10] gap-3">

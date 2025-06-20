@@ -14,13 +14,17 @@ const PremiumPlans = () => {
     <div className="flex flex-col lg:flex-row justify-center items-center w-full mt-5 p-16 min-h-[600px] px-4 lg:px-32 gap-10">
 
       {/* 🟥 INFINITO ULTIMATE KIT PLAN */}
-      <div className="flex flex-col w-full lg:w-[35%] h-auto lg:h-[700px] gap-5">
+      <div className="flex flex-col w-full lg:w-[35%] h-auto lg:h-[700px] gap-2">
         {/* Card with product details */}
-        <div className="flex flex-col items-center w-full h-[90%] bg-slate-50 rounded-br-[15%] p-5 border border-black">
+        <div className="flex flex-col items-center w-full h-[90%] bg-slate-50 p-5 border border-black"
+        style={{
+          clipPath: "polygon(0 0, 100% 0, 100% 94%, 0 100%)",
+        }}
+        >
           <div><Gift size={80} color="currentColor" /></div>
           <div className="p-5">
-            <span className="m-2 text-2xl font-bold">$1900</span>
-            <span className="line-through text-sm text-gray-400">$2199</span>
+            <span className="m-2 text-2xl font-bold">₹1900</span>
+            <span className="line-through text-sm text-gray-400">₹2199</span>
           </div>
           <p className="text-2xl font-semibold border-b border-t">
             INFINITO ULTIMATE KIT
@@ -48,7 +52,10 @@ const PremiumPlans = () => {
           </p>
         </div>
         {/* Offer label */}
-        <div className="w-full h-[10%] text-white bg-red-500 rounded-tl-[20%] flex justify-center items-center text-center border border-black">
+        <div className="w-full h-[10%] text-white bg-red-500 flex justify-center items-center text-center border border-black"
+        style={{
+          clipPath: "polygon(0 30%, 100% 0, 100% 100%, 0 100%)",
+        }}>
           <strong>Special Offer</strong>
         </div>
       </div>
@@ -81,7 +88,7 @@ const PremiumPlans = () => {
           <div className="flex flex-col items-center w-full h-full bg-slate-50 p-5">
             <div><LeafyGreen size={80} color="currentColor" /></div>
             <div className="p-5">
-              <span className="m-2 text-2xl font-bold">$129</span>
+              <span className="m-2 text-2xl font-bold">₹129</span>
             </div>
             <p className="text-2xl font-semibold border-b border-t">MONTHLY</p>
             {/* Features */}
@@ -112,7 +119,7 @@ const PremiumPlans = () => {
           <div className="flex flex-col items-center w-full h-full bg-slate-50 p-5">
             <div><Flower size={80} color="currentColor" /></div>
             <div className="p-5">
-              <span className="m-2 text-2xl font-bold">$599</span>
+              <span className="m-2 text-2xl font-bold">₹599</span>
             </div>
             <p className="text-2xl font-semibold border-b border-t">HALF YEAR</p>
             {/* Features */}
@@ -138,12 +145,16 @@ const PremiumPlans = () => {
       </div>
 
       {/* 🟦 ANNUAL PLAN */}
-      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[700px] gap-5">
-        <div className="w-full h-[90%] bg-black rounded-br-[15%] border border-black">
+      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[700px] gap-2">
+        <div className="w-full h-[90%] bg-gray-900  border border-black"
+         style={{
+          clipPath: "polygon(0 0, 100% 0, 100% 97%, 0 100%)",
+        }}
+        >
           <div className="flex flex-col items-center w-full h-full text-white p-5">
             <div><TreeDeciduous size={80} color="white" /></div>
             <div className="p-5">
-              <span className="m-2 text-2xl font-bold">$999</span>
+              <span className="m-2 text-2xl font-bold">₹999</span>
             </div>
             <p className="text-2xl font-semibold border-b border-t">ANNUAL</p>
             {/* Features */}
@@ -173,7 +184,11 @@ const PremiumPlans = () => {
           </div>
         </div>
         {/* Offer label */}
-        <div className="w-full h-[10%] text-white bg-red-500 rounded-tl-[20%] flex justify-center items-center text-center border border-black">
+        <div className="w-full h-[10%] text-white bg-red-500 flex justify-center items-center text-center border border-black"
+          style={{
+          clipPath: "polygon(0 30%, 100% 0, 100% 100%, 0 100%)",
+        }}
+        >
           <strong>Best Offer</strong>
         </div>
       </div>

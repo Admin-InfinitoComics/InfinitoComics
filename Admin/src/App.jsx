@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import UserList from './Pages/UserList/UserList'
 function App() {
 
   return (
     <>
-      Hello, this is the Admin App!
+      <UserList/>
       
     </>
   )

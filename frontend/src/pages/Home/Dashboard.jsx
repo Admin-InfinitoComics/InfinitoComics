@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // Local images (adjust paths if needed)
 import profileImageDefault from '../../../assets/Images/spotlight/image (2).png';
@@ -7,6 +8,7 @@ import orderImage from '../../../assets/Images/spotlight/image (2).png';
 import interactionImage from '../../../assets/Images/spotlight/image (2).png';
 
 import leaf from '../../../assets/Images/leaf.png';
+import FeedbackForm from '../FeedbackForm/Feedback';
 
 
 export default function DashboardPage() {
@@ -200,7 +202,10 @@ export default function DashboardPage() {
         <div className="flex justify-between items-center w-full">
   {/* Left side: buttons */}
   <div className="flex space-x-4">
-    <button className="border border-black text-xs px-4 py-2 rounded">GIVE FEEDBACK</button>
+
+<Link to="/feedback">
+  <button className="border border-black text-xs px-4 py-2 rounded">GIVE FEEDBACK</button>
+</Link>
     <button className="border border-black text-xs px-4 py-2 rounded">SUPPORT US</button>
     <button className="border border-red-500 text-red-500 text-xs px-4 py-2 rounded">LOG OUT</button>
   </div>

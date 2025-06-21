@@ -5,7 +5,8 @@ import config from "./config/server-config.js"
 import connect from "./config/database-config.js"
 import router from "./routes/index.js";
 import cors from "cors";
-
+import blogroutes from './routes/blog-routes.js'
+import researchPaperRoutes from './routes/researchPaperRoutes.js';
 
 app.use(cors({
   origin:config.FRONTEND_URL, 
@@ -21,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // ✅ Then JSON parser and routes
 app.use(express.json());
 app.use('/api', router);
+app.use('/blog', blogroutes);
+app.use('/researchPaper',researchPaperRoutes);
 
 
 const setupandstartserver = async () => {

@@ -112,6 +112,27 @@ class UserService {
             throw error;
         }
     }
+    async generateResetToken(email) {
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) throw new Error('User not found');
+
+    const token = uuidv4(); // generate secure token
+    const expiry = Date.now() + 3600000; // 1 hour expiry
+    await this.userRepository.updateResetPasswordToken(user._id, token, expiry);
+
+    const resetLink = `http://localhost:3000/reset-password/${token}`;
+    return resetLink; // In production, send via email
+  }
+
+  async resetPassword(token, password, confirmPassword) {
+    const user = await this.userRepository.findByResetToken(token);
+    if (!user) throw new Error('Invalid or expired token');
+
+    if (password !== confirmPassword) throw new Error('Passwords do not match');
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await this.userRepository.updatePasswordByResetToken(token, hashedPassword);
+  }
 }
 
 export default UserService;

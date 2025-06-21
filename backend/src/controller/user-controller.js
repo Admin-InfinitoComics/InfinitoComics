@@ -125,6 +125,30 @@ const changePassword = async (req, res) => {
         });
     }
 };
+//forgetpassword
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const resetLink = await userservice.generateResetToken(email);
+    // In production, send email with resetLink
+    console.log('Password Reset Link:', resetLink);
+    res.status(200).json({ message: 'Password reset link sent (simulated)', success: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message, success: false });
+  }
+};
+
+// Handle "Reset Password" with token
+const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { password, confirmPassword } = req.body;
+  try {
+    await userservice.resetPassword(token, password, confirmPassword);
+    res.status(200).json({ message: 'Password has been reset successfully', success: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message, success: false });
+  }
+};
 
 const Usercontroller = {
     signup,
@@ -135,6 +159,8 @@ const Usercontroller = {
     updateUser,
     deleteUser,
     changePassword,
+      forgotPassword,
+  resetPassword,
 }
 
 export default Usercontroller;

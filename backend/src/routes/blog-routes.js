@@ -14,4 +14,7 @@ router.patch('/updateblog/:id', blogController.updateBlog);
 // Delete a blog by ID
 router.delete('/deleteblog/:id', blogController.deleteBlog);
 
+router.get('/latestblog', blogController.getLatestBlogs);
+
+
 export default router;

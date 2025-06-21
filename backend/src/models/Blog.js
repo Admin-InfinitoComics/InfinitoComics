@@ -13,7 +13,7 @@ const BlogSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-})
+}, {timestamps: true})
 
 const Blog = mongoose.model('Blog', BlogSchema);
 export default Blog;

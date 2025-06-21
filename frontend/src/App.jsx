@@ -6,7 +6,7 @@ import Body from './components/Body';
 import Home from '../src/pages/Home/Home'
 import Login from './pages/Login/Login';
 import SignupWrapper from './pages/Signup/SignupWrapper';
-
+import News from './pages/News_Blogs/News';
 function App() {
   
   return (
@@ -19,6 +19,7 @@ function App() {
            <Route path="/"  element={<Home/>} />
            <Route path="/login"  element={<Login/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
+           <Route path="/news" element = {<News/>} />
         </Route>
       </Routes>
       </BrowserRouter> 

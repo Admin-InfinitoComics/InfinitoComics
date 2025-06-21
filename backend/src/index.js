@@ -13,12 +13,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
-
-// ✅ Then body parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// ✅ Then JSON parser and routes
 app.use(express.json());
 app.use('/api', router);
 app.use('/blog', blogroutes);

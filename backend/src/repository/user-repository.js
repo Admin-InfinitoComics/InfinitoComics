@@ -14,5 +14,29 @@ class UserRepository extends CrudRepository{
             throw error;
         }
     }
+     async updateResetPasswordToken(userId, token, expiry) {
+    return await User.findByIdAndUpdate(userId, {
+      resetPasswordToken: token,
+      resetPasswordExpires: expiry,
+    });
+  }
+
+  async findByResetToken(token) {
+    return await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+  }
+
+  async updatePasswordByResetToken(token, hashedPassword) {
+    return await User.findOneAndUpdate(
+      { resetPasswordToken: token },
+      {
+        password: hashedPassword,
+        resetPasswordToken: undefined,
+        resetPasswordExpires: undefined,
+      }
+    );
+  }
 }
 export default UserRepository;

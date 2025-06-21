@@ -66,7 +66,7 @@ const SignupStep5 = () => {
 
       {/* Skip Button */}
       <button
-  onClick={() => navigate('/home')}
+  onClick={() => navigate('/')}
   className="absolute bottom-12 right-1/4 mr-16 text-xs tracking-widest text-black-100 hover:underline font-bold"
 >
   SKIP

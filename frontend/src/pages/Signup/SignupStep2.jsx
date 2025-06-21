@@ -2,6 +2,7 @@ import React from 'react';
 import { Calendar, Shuffle } from 'lucide-react';
 import LoginLogo from '../../../assets/Images/LoginLogo.png';
 
+
 const SignupStep2 = ({ onNext, onBack }) => {
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent page reload

@@ -13,6 +13,7 @@ import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 
+
 function App() {
   
   return (
@@ -32,6 +33,8 @@ function App() {
             <Route path="/Dashboard" element={<DashboardPage/>} /> 
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
+           
+
         </Route>
       </Routes>
       </BrowserRouter> 

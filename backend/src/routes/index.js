@@ -1,6 +1,12 @@
 import express from "express";
+
 const router = express.Router();
 import Usercontroller from "../controller/user-controller.js";
+
+import { submitErrorReport , getAllErrorReports} from "../controller/error-report-controller.js";
+import { submitFeedback, getAllFeedbacks } from "../controller/feedback-controller.js";
+import {authenticate} from "../middleware/auth.js";
+
 // Create (Register)
 router.post('/signup', Usercontroller.signup)
 // Read (All users)
@@ -23,5 +29,15 @@ router.post('/logout', Usercontroller.logout);
 
 // Optional: Change password
 router.post('/change-password', Usercontroller.changePassword);
+
+
+
+// Error report route
+router.post("/report", authenticate, submitErrorReport);
+router.get("/report", authenticate, getAllErrorReports); 
+
+
+router.post("/feedback", authenticate, submitFeedback);
+router.get("/feedback", authenticate, getAllFeedbacks); 
 
 export default router;

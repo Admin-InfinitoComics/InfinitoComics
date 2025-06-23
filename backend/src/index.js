@@ -9,10 +9,11 @@ import blogroutes from './routes/blog-routes.js'
 
 app.use(cors({
   origin:config.FRONTEND_URL, 
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
+
 
 // ✅ Then body parsers
 app.use(bodyParser.json());
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/api', router);
 app.use('/blog', blogroutes);
+// app.options('/blog/updateblog/:id', cors());
 
 
 const setupandstartserver = async () => {

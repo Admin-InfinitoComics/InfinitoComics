@@ -38,7 +38,6 @@ const BlogCreator = () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
     if (!confirmDelete) return;
 
-    console.log('Deleting blog with ID:', blogId);
   try {
     const response = await fetch(`http://localhost:3000/blog/deleteblog/${blogId}`, {
       method: 'DELETE',
@@ -51,7 +50,6 @@ const BlogCreator = () => {
       
       // Update state
       const updated = publishedBlogs.filter((b) => b._id !== blogId);
-      console.log('Updated blogs:', updated);
       setPublishedBlogs(updated);
 
       // Update localStorage
@@ -78,8 +76,6 @@ const handleUpdate = async () => {
 
   const confirmUpdate = window.confirm("Are you sure you want to save the changes or update this blog?");
   if (!confirmUpdate) return;
-
-  console.log( 'Updating blog:', editingBlog._id);
 
   const formData = new FormData();
   formData.append('title', title);
@@ -241,8 +237,6 @@ const handleUpdate = async () => {
       if (response.ok) {
         alert('Blog Published Successfully!');
         console.log('Success:', result);
-
-        console.log(result.data._id);
 
         // Add new card
         const newBlog = {

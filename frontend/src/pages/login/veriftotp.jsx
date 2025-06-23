@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function ForgotPassword() {
+export default function VerifyOtp() {
   const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleVerify = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/api/forgot-password', { email });
+      const res = await axios.post('http://localhost:3000/api/verify-otp', { email, otp });
       setMessage(res.data.message);
     } catch (err) {
       setMessage(err.response?.data?.message || 'Error');
@@ -17,8 +18,8 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h1 className="text-2xl mb-4 font-bold">Forgot Password</h1>
+      <form onSubmit={handleVerify} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h1 className="text-2xl mb-4 font-bold">Verify OTP</h1>
         <input
           type="email"
           placeholder="Your Email"
@@ -27,8 +28,16 @@ export default function ForgotPassword() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded w-full">
-          Send OTP
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          className="border p-2 w-full mb-4"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          required
+        />
+        <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded w-full">
+          Verify OTP
         </button>
         {message && <p className="mt-4 text-center">{message}</p>}
       </form>

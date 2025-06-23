@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // Local images (adjust paths if needed)
 import profileImageDefault from '../../../assets/Images/spotlight/image (2).png';
@@ -200,8 +201,9 @@ export default function DashboardPage() {
         <div className="flex justify-between items-center w-full">
   {/* Left side: buttons */}
   <div className="flex space-x-4">
-    <button className="border border-black text-xs px-4 py-2 rounded">GIVE FEEDBACK</button>
-    <button className="border border-black text-xs px-4 py-2 rounded">SUPPORT US</button>
+<Link to="/feedback" className="border border-black text-xs px-4 py-2 rounded">
+  GIVE FEEDBACK
+</Link>    <button className="border border-black text-xs px-4 py-2 rounded">SUPPORT US</button>
     <button className="border border-red-500 text-red-500 text-xs px-4 py-2 rounded">LOG OUT</button>
   </div>
   {/* Right side: delete account */}

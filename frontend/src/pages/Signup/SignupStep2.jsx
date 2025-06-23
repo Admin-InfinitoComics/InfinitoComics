@@ -108,7 +108,12 @@ const handleSignup = async (e) => {
                 onChange={(e) => handleChange("username", e.target.value.replace(/\s/g, ""))}
               />
               <div className="w-[50%] flex items-center gap-2 bg-[#DD1215] text-white px-3 py-2 cursor-pointer text-xs pl-6"
-              onClick={() => handleChange("username", `${formData.name}_${Math.random().toString(36).substring(2, 8)}`)}
+              onClick={() => {
+  const firstName = formData.name.trim().split(" ")[0];
+  const randomString = Math.random().toString(36).substring(2, 8);
+  handleChange("username", `${firstName}_${randomString}`);
+}}
+
 >
                 RANDOM
                 <Shuffle size={14} />

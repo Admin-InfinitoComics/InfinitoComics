@@ -1,13 +1,37 @@
 import React from 'react';
 import { Calendar, Shuffle } from 'lucide-react';
 import LoginLogo from '../../../assets/Images/LoginLogo.png';
+import { signUpUser } from '../../services/userServices';
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 
-const SignupStep2 = ({ onNext, onBack }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload
-    onNext();           // Move to Step 3
-  };
+
+const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
+const [error, setError] = useState('');
+const dispatch = useDispatch();
+const navigate = useNavigate();
+const dateInputRef = useRef();
+
+const handleSignup = async (e) => {
+  e.preventDefault();
+  try {
+    setError('');
+    const data = await signUpUser(formData);
+    // localStorage.setItem('authtoken', data.token.token);
+    navigate('/');
+    dispatch(addUser(data.data));
+  } catch (err) {
+    console.log(err)
+    console.error('Signup failed:', err);
+    if (err.response && err.response.status === 401) {
+      setError(err.message);
+    } else {
+      setError('Something went wrong. Please try again.');
+    }
+  }
+};
 
   return (
     <div className="w-[540px] h-[650px] bg-white bg-opacity-95 px-24 py-10 rounded shadow-md font-sans">
@@ -29,7 +53,7 @@ const SignupStep2 = ({ onNext, onBack }) => {
         </div>
 
         {/* Form */}
-        <form className="w-full flex flex-col gap-2" onSubmit={handleSubmit}>
+        <form className="w-full flex flex-col gap-2" onSubmit={handleSignup}>
           {/* Full Name */}
           <div>
             <label className="text-[#DD1215] text-[12px] font-semibold">Your Full Name</label>
@@ -37,23 +61,40 @@ const SignupStep2 = ({ onNext, onBack }) => {
               type="text"
               placeholder="Ashok Kumar"
               className="w-full border text-[12px] text-gray-500 border-gray-400 px-4 py-2 font-semibold pr-10"
+              value={formData.name}
+              onChange={(e) => handleChange("name", e.target.value)}
               required
             />
           </div>
 
           {/* Birthday */}
-          <div>
-            <label className="text-[#DD1215] text-[12px] font-semibold">Your Birthday</label>
-            <div className="relative mt-1">
-              <input
-                type="text"
-                placeholder="DD/MM/YYYY"
-                className="w-full border text-[12px] text-gray-500 border-gray-400 px-4 py-2 font-semibold pr-10"
-                required
-              />
-              <Calendar className="absolute top-2.5 right-3 text-gray-400" size={18} />
-            </div>
-          </div>
+
+<div>
+  <label className="text-[#DD1215] text-[12px] font-semibold">Your Birthday</label>
+  <div className="relative mt-1">
+    <input
+      ref={dateInputRef}
+      type="date"
+      className="w-full border text-[12px] text-gray-500 border-gray-400 px-4 py-2 font-semibold pr-10"
+      value={formData.dob}
+      onChange={(e) => handleChange("dob", e.target.value)}
+      required
+      style={{
+        appearance: 'none',
+        WebkitAppearance: 'none',
+        MozAppearance: 'textfield',
+        background: 'transparent',
+      }}
+    />
+    <Calendar
+      className="absolute top-2.5 right-3 text-gray-400 cursor-pointer"
+      size={18}
+      onClick={() => dateInputRef.current?.showPicker()}
+    />
+  </div>
+</div>
+
+
 
           {/* Username */}
           <div>
@@ -63,8 +104,17 @@ const SignupStep2 = ({ onNext, onBack }) => {
                 type="text"
                 placeholder="Pirana_Fish"
                 className="w-full border text-[12px] text-gray-500 border-gray-400 px-4 py-2 font-semibold pr-10"
+                value={formData.username}
+                onChange={(e) => handleChange("username", e.target.value.replace(/\s/g, ""))}
               />
-              <div className="w-[50%] flex items-center gap-2 bg-[#DD1215] text-white px-3 py-2 cursor-pointer text-xs pl-6">
+              <div className="w-[50%] flex items-center gap-2 bg-[#DD1215] text-white px-3 py-2 cursor-pointer text-xs pl-6"
+              onClick={() => {
+  const firstName = formData.name.trim().split(" ")[0];
+  const randomString = Math.random().toString(36).substring(2, 8);
+  handleChange("username", `${firstName}_${randomString}`);
+}}
+
+>
                 RANDOM
                 <Shuffle size={14} />
               </div>

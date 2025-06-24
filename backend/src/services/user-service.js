@@ -19,7 +19,7 @@ class UserService {
         try {
             const user = await this.userrepository.findByEmail(data.email);
             if(user) {
-                return new Error("User is already registered");
+                throw new Error("User is already registered");
             }
             const newuser =  await this.userrepository.create(data);
             return newuser;

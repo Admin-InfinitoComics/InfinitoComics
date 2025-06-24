@@ -13,10 +13,23 @@ const SignupWrapper = () => {
   const nextStep = () => setStep((prev) => Math.min(prev + 1, 5));
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
+  const [formData, setFormData] = useState({
+  email: "",
+  password: "",
+  name: "",
+  dob: "",  
+  username: ""
+  }); 
+
+  const handleChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+
   const renderStep = () => {
     switch (step) {
-      case 1: return <SignupStep1 onNext={nextStep} />;
-      case 2: return <SignupStep2 onNext={nextStep} onBack={prevStep} />;
+      case 1: return <SignupStep1 formData={formData} handleChange={handleChange} onNext={nextStep} />;
+      case 2: return <SignupStep2 formData={formData} handleChange={handleChange} onNext={nextStep} onBack={prevStep} />;
       case 3: return <SignupStep3 onNext={nextStep} onBack={prevStep} />;
       case 4: return <SignupStep4 onNext={nextStep} onBack={prevStep} />;
       case 5: return <SignupStep5 onBack={prevStep} />;

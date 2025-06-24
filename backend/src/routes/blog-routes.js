@@ -1,17 +1,22 @@
 import express from "express";
 const router = express.Router();
 import blogController from "../controller/blog-controller.js";
+import multer from "multer";
 
-router.post('/createBlog', blogController.createBlog);
+const storage = multer.memoryStorage(); 
+const upload = multer({ storage: storage });
 
-router.get('/getallblog', blogController.getAllBlogs)
+
+router.post("/createblog", upload.none(),blogController.createBlog); // done
+
+router.get('/getallblog', blogController.getAllBlogs) //done
 // Get a blog by Id
 router.get('/getById/:id', blogController.getBlogById);
 
 // Update a blog by ID
-router.patch('/updateblog/:id', blogController.updateBlog);
+router.put('/updateblog/:id', upload.none(), blogController.updateBlog); //done
 
 // Delete a blog by ID
-router.delete('/deleteblog/:id', blogController.deleteBlog);
+router.delete('/deleteblog/:id', blogController.deleteBlog); // done
 
 export default router;

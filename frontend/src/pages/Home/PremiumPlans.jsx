@@ -16,9 +16,9 @@ const PremiumPlans = () => {
       {/* 🟥 INFINITO ULTIMATE KIT PLAN */}
       <div className="flex flex-col w-full lg:w-[35%] h-auto lg:h-[700px] gap-2">
         {/* Card with product details */}
-        <div className="flex flex-col items-center w-full h-[90%] bg-slate-50 p-5 border border-black"
+        <div className="flex flex-col items-center w-full h-[90%] text-white bg-slate-900 p-5 border border-black"
         style={{
-          clipPath: "polygon(0 0, 100% 0, 100% 94%, 0 100%)",
+          clipPath: "polygon(0 0, 100% 0, 100% 96%, 0 100%)",
         }}
         >
           <div><Gift size={80} color="currentColor" /></div>

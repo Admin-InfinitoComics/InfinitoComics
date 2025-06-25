@@ -9,6 +9,10 @@ import loginBg from '../../../assets/Images/login.png'// Adjust path as needed
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../services/userServices'; // Adjust the import path as necessary
 import axios from 'axios';
+import {useDispatch} from 'react-redux';
+import { Link } from 'react-router-dom';
+import {addUser} from '../../redux/userSlice';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,6 +20,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 const handleLogin = async (e) => {
   e.preventDefault();
@@ -24,6 +29,7 @@ const handleLogin = async (e) => {
     const data = await loginUser(email, password);
     localStorage.setItem('authtoken', data.token.token);
     navigate('/');
+    dispatch(addUser(data.token.user));
   } catch (err) {
     console.error('Login failed:', err);
     if (err.response && err.response.status === 401) {
@@ -73,7 +79,7 @@ const handleLogin = async (e) => {
               <h2 className="font-semibold text-2xl">Log-in to our universe</h2>
               <p className="text-sm mt-2 text-gray-600">
                 Don’t have an account?{' '}
-                <a href="#" className="text-blue-600 font-medium">Create one!</a>
+                <Link to="/signup" className="text-blue-600 font-medium">Create one!</Link>
               </p>
             </div>
 
@@ -115,9 +121,14 @@ const handleLogin = async (e) => {
             </div>
 
             {/* Forgot Password */}
-            <div className="text-sm text-blue-600 cursor-pointer pl-7 text-left">
-              Forgot password?
-            </div>
+           
+            <Link
+  to="/forgot-password"
+  className="text-sm text-blue-600 cursor-pointer pl-7 text-left"
+>
+  Forgot password?
+</Link>
+
 
             {/* Submit Button */}
             <div className="flex items-center justify-center">
@@ -130,11 +141,11 @@ const handleLogin = async (e) => {
             </div>
 
             {/* Divider */}
-            <div className="flex items-center justify-between my-4 px-4">
-              <hr className="w-[40%] border-t border-gray-300" />
-              <span className="text-sm text-gray-500">OR</span>
-              <hr className="w-[40%] border-t border-gray-300" />
-            </div>
+<div className="flex items-center justify-center w-full mt-1 ">
+  <hr className=" w-[80px] border-gray-300" />
+  <span className="mx-1 text-gray-400 text-xs font-semibold">OR</span>
+  <hr className="w-[80px] border-gray-300" />
+</div>
 
             {/* Social Logins */}
             <div className="flex justify-center p-4 mt-[-10] gap-3">

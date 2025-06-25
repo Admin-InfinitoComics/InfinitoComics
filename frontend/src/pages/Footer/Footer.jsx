@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link } from 'react-router-dom'
 import {
   FaFacebookF,
   FaInstagram,
@@ -8,7 +9,7 @@ import {
   FaPinterestP
 } from 'react-icons/fa';
 import logo from '../../../assets/Logo (1).png'; 
-import smallLogo from '../../../assets/Logo (1).png';
+import smallLogo from '../../../assets/Images/foot.png';
 
 
 const Footer = () => {
@@ -39,7 +40,7 @@ const Footer = () => {
         <div className="flex flex-wrap gap-6 text-sm">
           <div className="flex flex-col space-y-4">
             <span className="font-bold">BLOGS & NEWS</span>
-            <span>CAREER</span>
+           <Link to="/careers"><span>CAREER</span></Link> 
             <span>INTERNSHIP</span>
           </div>
           <div className="flex flex-col space-y-4">

@@ -14,6 +14,7 @@ import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import ResearchPlans from './pages/Research/Research';
 
+
 function App() {
   
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
            <Route path="/researchPlans"  element={<ResearchPlans/>} />
+
         </Route>
       </Routes>
       </BrowserRouter> 

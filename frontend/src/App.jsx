@@ -29,11 +29,11 @@ function App() {
            <Route path="/Premium"  element={<Premium/>} />
             <Route path="/forgot-password" element={<ForgotPassword/>} />    
             <Route path="/Feedback" element={<FeedbackForm/>} /> 
-            
-            <Route path="/Dashboard" element={<DashboardPage/>} /> 
+
+            <Route path="/Dashboard" element={<DashboardPage/>} />    
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
-           
+   
 
         </Route>
       </Routes>

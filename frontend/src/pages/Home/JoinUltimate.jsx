@@ -6,7 +6,7 @@ const JoinUltimate = () => {
   return (
     // 🔸 Parent container with responsive layout and background image
     <div
-      className='w-full min-h-[500px] flex flex-col md:flex-row justify-between items-center bg-cover bg-center px-4 mt-20'
+      className='w-full min-h-[500px] flex flex-col md:flex-row justify-between items-center bg-cover bg-center px-4 mt-8'
       style={{ backgroundImage: `url(${bgImage})` }}
     >
       {/* 🔹 Left Section: Character Image (takes 40% width on md+ screens, 100% on mobile) */}

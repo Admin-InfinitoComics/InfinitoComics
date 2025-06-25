@@ -1,166 +1,125 @@
 import UserService from "../services/user-service.js";
 
 const userservice = new UserService();
-const getAll = async(req, res) => {
-    try {
-        const users = await userservice.getAll();
-        return res.status(200).json({
-            users,
-            success: true
-        })
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-}
 
-
-
-const signup = async(req, res) => {
-    try {
-        const user = await userservice.signup(req.body);
-        return res.status(200).json({
-            data: user,
-            success: true
-        })
-    } catch (error) {
-        return res.status(400).json({
-            message: error.message,
-            success: false
-        })
-    }
-}
-
-const login = async (req, res) => {
-    try {
-        const token = await userservice.login(req.body);
-        return res.status(200).json({
-            token,
-            success: true
-        });
-    } catch (error) {
-        return res.status(401).json({
-            message: error.message,
-            success: false
-        });
-    }
-};
-
-// Logout
-const logout = async (req, res) => {
-    try {
-        await userservice.logout(req.user);
-        return res.status(200).json({
-            message: "Logout successful",
-            success: true
-        });
-    } catch (error) {
-        return res.status(500).json({
-            message: error.message,
-            success: false
-        });
-    }
-};
-
-// Get user by ID
-const getById = async (req, res) => {
-    try {
-        const user = await userservice.getById(req.query.id);
-        return res.status(200).json({
-            data: user,
-            success: true
-        });
-    } catch (error) {
-        return res.status(404).json({
-            message: error.message,
-            success: false
-        });
-    }
-};
-
-// Update user
-const updateUser = async (req, res) => {
-    try {
-        const user = await userservice.updateUser(req.query.id, req.body);
-        return res.status(200).json({
-            data: user,
-            success: true
-        });
-    } catch (error) {
-        return res.status(400).json({
-            message: error.message,
-            success: false
-        });
-    }
-};
-
-// Delete user
-const deleteUser = async (req, res) => {
-    try {
-        await userservice.deleteUser(req.query.id);
-        return res.status(200).json({
-            message: "User deleted",
-            success: true
-        });
-    } catch (error) {
-        return res.status(400).json({
-            message: error.message,
-            success: false
-        });
-    }
-};
-
-// Change password
-const changePassword = async (req, res) => {
-    try {
-        await userservice.changePassword(req.query.id, req.body);
-        return res.status(200).json({
-            message: "Password updated",
-            success: true
-        });
-    } catch (error) {
-        return res.status(400).json({
-            message: error.message,
-            success: false
-        });
-    }
-};
-//forgetpassword
-const forgotPassword = async (req, res) => {
-  const { email } = req.body;
+const getAll = async (req, res) => {
   try {
-    const resetLink = await userservice.generateResetToken(email);
-    // In production, send email with resetLink
-    console.log('Password Reset Link:', resetLink);
-    res.status(200).json({ message: 'Password reset link sent (simulated)', success: true });
+    const users = await userservice.getAll();
+    res.status(200).json({ users, success: true });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+const signup = async (req, res) => {
+  try {
+    const user = await userservice.signup(req.body);
+    res.status(200).json({ data: user, success: true });
   } catch (error) {
     res.status(400).json({ message: error.message, success: false });
   }
 };
 
-// Handle "Reset Password" with token
-const resetPassword = async (req, res) => {
-  const { token } = req.params;
-  const { password, confirmPassword } = req.body;
+const login = async (req, res) => {
   try {
-    await userservice.resetPassword(token, password, confirmPassword);
-    res.status(200).json({ message: 'Password has been reset successfully', success: true });
+    const token = await userservice.login(req.body);
+    res.status(200).json({ token, success: true });
+  } catch (error) {
+    res.status(401).json({ message: error.message, success: false });
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    await userservice.logout(req.user);
+    res.status(200).json({ message: "Logout successful", success: true });
+  } catch (error) {
+    res.status(500).json({ message: error.message, success: false });
+  }
+};
+
+const getById = async (req, res) => {
+  try {
+    const user = await userservice.getById(req.query.id);
+    res.status(200).json({ data: user, success: true });
+  } catch (error) {
+    res.status(404).json({ message: error.message, success: false });
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const user = await userservice.updateUser(req.query.id, req.body);
+    res.status(200).json({ data: user, success: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message, success: false });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    await userservice.deleteUser(req.query.id);
+    res.status(200).json({ message: "User deleted", success: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message, success: false });
+  }
+};
+
+const changePassword = async (req, res) => {
+  try {
+    await userservice.changePassword(req.query.id, req.body);
+    res.status(200).json({ message: "Password updated", success: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message, success: false });
+  }
+};
+
+// ✅ OTP-based forgot password
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    await userservice.forgotPassword(email);
+    res.status(200).json({ message: "OTP sent to email", success: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message, success: false });
+  }
+};
+
+// ✅ OTP verify
+const verifyOtp = async (req, res) => {
+  const { email, otp } = req.body;
+  try {
+    await userservice.verifyOtp(email, otp);
+    res.status(200).json({ message: "OTP verified", success: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message, success: false });
+  }
+};
+
+// ✅ Reset password using verified OTP
+const resetPassword = async (req, res) => {
+  const { email, newPassword, confirmPassword } = req.body;
+  try {
+    await userservice.resetPasswordOtp(email, newPassword, confirmPassword);
+    res.status(200).json({ message: "Password has been reset successfully", success: true });
   } catch (error) {
     res.status(400).json({ message: error.message, success: false });
   }
 };
 
 const Usercontroller = {
-    signup,
-    login,
-    logout,
-    getAll,
-    getById,
-    updateUser,
-    deleteUser,
-    changePassword,
-      forgotPassword,
+  signup,
+  login,
+  logout,
+  getAll,
+  getById,
+  updateUser,
+  deleteUser,
+  changePassword,
+  forgotPassword,
+  verifyOtp,
   resetPassword,
-}
+};
 
 export default Usercontroller;

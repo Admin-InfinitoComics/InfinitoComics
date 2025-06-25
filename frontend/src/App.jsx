@@ -8,6 +8,8 @@ import Premium from './components/Homepage-premium/Body';
 import Home from '../src/pages/Home/Home';
 import Login from './pages/Login/Login';
 import SignupWrapper from './pages/Signup/SignupWrapper';
+import CareerInternship from './pages/Career&Internships/CareerMain'
+import Community from './pages/community/communities'
 import ForgotPassword from './pages/login/ForgotPassword';
 import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
@@ -33,6 +35,8 @@ function App() {
             <Route path="/Dashboard" element={<DashboardPage/>} /> 
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
+           <Route path="/careers" element={<CareerInternship/>} />
+           <Route path="/community" element={<Community/>} />
            
 
         </Route>

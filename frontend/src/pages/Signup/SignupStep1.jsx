@@ -6,7 +6,7 @@ import FSignup from '../../../assets/Images/Signup/FSignup.png';
 import GSignup from '../../../assets/Images/Signup/Gsignup.png';
 import { Link } from 'react-router-dom';
 
-const SignupStep1 = ({ onNext }) => {
+const SignupStep1 = ({ formData, handleChange, onNext }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e) => {
@@ -47,6 +47,8 @@ const SignupStep1 = ({ onNext }) => {
               type="email"
               placeholder="Please type your email here"
               className="w-full border text-[12px] text-gray-500 border-gray-400 px-4 py-2 font-semibold"
+              value={formData.email}
+              onChange={(e) => handleChange("email", e.target.value)}
               required
             />
           </div>
@@ -58,6 +60,8 @@ const SignupStep1 = ({ onNext }) => {
               type={showPassword ? 'text' : 'password'}
               placeholder="Enter your password"
               className="w-full border text-[12px] text-gray-500 border-gray-400 px-4 py-2 font-semibold pr-10"
+              value={formData.password}
+              onChange={(e) => handleChange("password", e.target.value)}
               required
             />
             <div

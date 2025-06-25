@@ -15,7 +15,7 @@ import ForgotPassword from './pages/login/ForgotPassword';
 import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
-import ResearchPlans from './pages/Research/Research';
+
 
 
 function App() {

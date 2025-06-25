@@ -53,8 +53,8 @@ const FanFavourites = () => {
     <div className="w-full px-4 md:px-12 py-16 my-8">
       {/* Top heading with title and link */}
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-xl md:text-3xl font-bold tracking-wide">FAN FAVOURITES</h2>
-        <a href="#" className="text-red-600 text-sm font-semibold">VIEW ALL &gt;</a>
+        <h2 className="text-xl md:text-3xl font-bold tracking-wide ml-40">FAN FAVOURITES</h2>
+        <a href="#" className="text-red-600 text-sm font-semibold mr-40">VIEW ALL &gt;</a>
       </div>
 
       {/* Horizontally scrollable comic cards section */}

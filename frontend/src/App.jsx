@@ -34,7 +34,6 @@ function App() {
             <Route path="/Dashboard" element={<DashboardPage/>} /> 
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
-           <Route path="/researchPlans"  element={<ResearchPlans/>} />
 
         </Route>
       </Routes>

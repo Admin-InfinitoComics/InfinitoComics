@@ -5,6 +5,8 @@ import { BrowserRouter, Routes } from 'react-router-dom';
 import Body from './components/Body';
 import Home from './pages/Home/Home';
 import ResearchPlans from './pages/Home/Research'
+import Paper from './pages/BrowsePapers/Paper';
+
 function App() {
 
   return (
@@ -13,6 +15,8 @@ function App() {
       <Route path="/" element={<Body/>} >
       <Route path="/" element={<Home/>} />
       <Route path="ResearchPlans" element={<ResearchPlans/>} />
+      <Route path="/browse" element={<Paper/>} />
+      
       </Route>
     </Routes>
    </BrowserRouter>

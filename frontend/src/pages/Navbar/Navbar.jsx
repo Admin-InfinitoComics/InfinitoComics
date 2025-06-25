@@ -18,7 +18,7 @@ const Navbar = () => {
         <div className="flex gap-20 pl-4">
           <Link to="/shop" className="hover:underline">Shop</Link>
           <Link to="/foundation" className="hover:underline">Foundation</Link>
-          <Link to="/research" className="hover:underline">Research</Link>
+          <Link to="/researchPlans" className="hover:underline">Research</Link>
           <Link to="/funding" className="hover:underline">Funding</Link>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import { BrowserRouter, Routes } from 'react-router-dom';
 import Body from './components/Body';
 import Home from './pages/Home/Home';
-import ResearchPlans from '../../frontend/src/pages/Research/Research';
+import ResearchPlans from './pages/Home/Research'
 function App() {
 
   return (

@@ -14,27 +14,32 @@ export default function ResearchPlans() {
   };
 
   useEffect(() => {
-    const localFaq = localStorage.getItem("faqData");
-    if (localFaq) {
-      setFaqData(JSON.parse(localFaq));
+  const fetchFAQs = async () => {
+    try {
+      console.log("🔥 useEffect started");
+
+      const res = await axios.get("http://localhost:3000/faq");
+      console.log("✅ API Response:", res);
+
+      const data = res.data.data;
+      if (!Array.isArray(data)) {
+        console.error("❌ Unexpected data format");
+        setErrorFaq("Invalid FAQ format");
+        return;
+      }
+
+      setFaqData(data);
+    } catch (err) {
+      console.error("❌ Error fetching FAQs", err);
+      setErrorFaq("Fetch failed");
+    } finally {
       setLoadingFaq(false);
-    } else {
-      axios
-        .get("http://localhost:3000/api/faq")
-        .then((response) => {
-          const data = response.data;
-          setFaqData(data);
-          localStorage.setItem("faqData", JSON.stringify(data));
-        })
-        .catch((error) => {
-          console.error("Error fetching FAQs:", error);
-          setErrorFaq("Failed to load FAQs.");
-        })
-        .finally(() => {
-          setLoadingFaq(false);
-        });
     }
-  }, []);
+  };
+
+  fetchFAQs();
+}, []);
+
 
   const cardImages = [
     "/img1.jpg",
@@ -87,65 +92,62 @@ export default function ResearchPlans() {
         </div>
       </div>
 
-      {/* Slanted Divider (Optional) */}
-      <div className="flex justify-center items-center min-h-[150px] bg-gray-100">
-        <div className="slanted-border">
-          <div className="slanted-content"></div>
-        </div>
-      </div>
-
+  
       {/* Main Content */}
-      <div className="min-h-screen bg-white py-10 px-4 md:px-10 text-center">
-        <h2 className="text-4xl font-semibold text-black">
-          Over <span className="text-red-600 font-bold">50+</span> Papers Across Major Fields
-        </h2>
-        <p className="text-md text-black mb-6">
-          Get a wide range of papers for your research.
-        </p>
+<div className="min-h-screen bg-white py-15 px-4 md:px-10 text-center">
+  <h2 className="text-4xl font-semibold text-black">
+    Over <span className="text-red-600 font-bold">50+</span> Papers Across Major Fields
+  </h2>
+  <p className="text-md text-black mb-10">
+    Get a wide range of papers for your research.
+  </p>
 
-        {/* Cards */}
-        <div className="flex flex-wrap justify-center gap-10 mb-12 mx-auto">
-          {cardImages.map((src, i) => (
-            <div key={i} className="w-50 h-60 bg-[#D9D9D9] overflow-hidden shadow-sm">
-              <img src={src} alt={`card-${i}`} className="w-full h-full object-cover" />
-            </div>
-          ))}
-        </div>
-
-        {/* FAQ Section */}
-        <div className="max-w-4xl mx-auto pt-20 text-left">
-          <h3 className="text-4xl font-bold mb-6 text-center">Frequently Asked Questions</h3>
-
-          {loadingFaq ? (
-            <p className="text-center text-gray-500">Loading FAQs...</p>
-          ) : errorFaq ? (
-            <p className="text-center text-red-500">{errorFaq}</p>
-          ) : faqData.length === 0 ? (
-            <p className="text-center">No FAQs available.</p>
-          ) : (
-            <div className="divide-y divide-gray-300">
-              {faqData.map((faq, index) => (
-                <div key={faq._id || index}>
-                  <button
-                    onClick={() => toggleFAQ(index)}
-                    className="w-full flex justify-between items-center py-4 text-2xl font-semibold text-black"
-                  >
-                    <span>{faq.question}</span>
-                    {openIndex === index ? (
-                      <ChevronUp size={24} />
-                    ) : (
-                      <ChevronDown size={24} />
-                    )}
-                  </button>
-                  {openIndex === index && (
-                    <div className="pb-4 text-lg text-gray-700">{faq.answer}</div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+  {/* Cards */}
+  <div className="flex flex-wrap justify-center gap-10 mb-15 mx-auto">
+    {cardImages.map((src, i) => (
+      <div key={i} className="w-50 h-60 bg-[#D9D9D9] overflow-hidden shadow-sm">
+        <img src={src} alt={`card-${i}`} className="w-full h-full object-cover" />
       </div>
+    ))}
+  </div>
+
+  {/* FAQ Section with updated styling */}
+  <div className="max-w-9/12 mx-auto pt-20 text-left">
+    <h3 className="flex justify-center text-4xl font-bold mb-4">
+      Frequently Asked Questions
+    </h3>
+    {loadingFaq ? (
+      <p className="text-center text-gray-500">Loading FAQs...</p>
+    ) : errorFaq ? (
+      <p className="text-center text-red-500">{errorFaq}</p>
+    ) : faqData.length === 0 ? (
+      <p className="text-center">No FAQs available.</p>
+    ) : (
+      <div className="divide-y-2 divide-[#7D7D7D]">
+        {faqData.map((faq, index) => (
+          <div key={faq._id || index}>
+            <button
+              onClick={() => toggleFAQ(index)}
+              className="w-full flex justify-between items-center py-4 text-2xl font-bold text-black"
+            >
+              <span>{faq.question}</span>
+              {openIndex === index ? (
+                <ChevronUp size={20} />
+              ) : (
+                <ChevronDown size={20} />
+              )}
+            </button>
+            {openIndex === index && (
+              <div className="pb-4 text-xl font-semibold text-gray-700">
+                {faq.answer}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
     </>
   );
 }

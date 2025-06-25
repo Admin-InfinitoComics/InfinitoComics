@@ -8,7 +8,7 @@ import orderImage from '../../../assets/Images/spotlight/image (2).png';
 import interactionImage from '../../../assets/Images/spotlight/image (2).png';
 
 import leaf from '../../../assets/Images/leaf.png';
-import FeedbackForm from '../FeedbackForm/Feedback';
+
 
 
 export default function DashboardPage() {

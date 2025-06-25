@@ -5,8 +5,9 @@ import appStore from './redux/appStore';
 import Body from './components/Body';
 import Loggedin from './components/Homepage-loggedin/Body';
 import Premium from './components/Homepage-premium/Body';
-import Home from '../src/pages/Home/Home'
-import Login from './pages/login/login';
+
+import Home from '../src/pages/Home/Home';
+import Login from './pages/Login/Login';
 import SignupWrapper from './pages/Signup/SignupWrapper';
 import ForgotPassword from './pages/login/ForgotPassword';
 import ResetPassword from './pages/login/ResetPassword';

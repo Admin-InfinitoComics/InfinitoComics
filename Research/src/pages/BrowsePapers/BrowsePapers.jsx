@@ -114,7 +114,7 @@ const BrowsePapers = () => {
         <div className="flex flex-1">
           {/* ⬅ Left Sidebar (Sticky) */}
           <div className="w-[30%]">
-            <div className="w-[270px] pt-8 sticky top-24">
+            <div className="w-[270px] pt-8 sticky pb-20 top-24">
               <FilterSideBar />
             </div>
           </div>

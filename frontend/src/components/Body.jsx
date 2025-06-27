@@ -5,7 +5,7 @@ import Footer from '../pages/Footer/Footer'
 
 const Body = () => {
   return (
-    <div>
+    <div>      
       <Navbar/>
       <Outlet/>
       <Footer/>

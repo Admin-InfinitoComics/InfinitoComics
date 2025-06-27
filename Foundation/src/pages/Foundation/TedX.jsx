@@ -19,18 +19,44 @@ const TedX = () => {
       </div>
 
     
-            <div className="max-w-5xl mx-auto p-4">
-              <p className="text-center text-lg my-2">At <strong className="text-red-600">Infinito</strong>, we believe in merging creativity with purpose by actively participating in world-class professional events like <strong className="text-red-600">TEDx</strong>.
+            <div className=" mx-80 p-4">
+              <p className="text-justify text-lg mx-5 my-2">At <strong className="text-red-600">Infinito</strong>, we believe in merging creativity with purpose by actively participating in world-class professional events like <strong className="text-red-600">TEDx</strong>.
               </p>
-              <p className="text-center text-lg m-5">As proud sponsors, we support platforms that inspire innovation, spark meaningful conversations, and empower communities.
+              <p className="text-justify text-lg m-5">As proud sponsors, we support platforms that inspire innovation, spark meaningful conversations, and empower communities.
               </p>
-              <p className="text-center text-lg m-5">Beyond sponsorship, we elevate these events by providing <strong className="text-red-600"> Cutting-Edge Photography and Videography Solutions</strong>, ensuring every impactful moment is beautifully captured and shared.
+              <p className="text-justify text-lg m-5">Beyond sponsorship, we elevate these events by providing <strong className="text-red-600"> Cutting-Edge Photography and Videography Solutions</strong>, ensuring every impactful moment is beautifully captured and shared.
               </p>
-              <p className="text-center text-lg m-5">From the captivating ideas on stage to the dynamic energy behind the scenes, Infinito is dedicated to creating unforgettable experiences that leave a mark on audiences worldwide.
+              <p className="text-justify text-lg m-5">From the captivating ideas on stage to the dynamic energy behind the scenes, Infinito is dedicated to creating unforgettable experiences that leave a mark on audiences worldwide.
               </p>
-              <p className="text-center text-lg m-5">Our presence was it <strong className="text-red-600">NIT Raipur, Dayal Singh College, Delhi University</strong>
+              <p className="text-justify text-lg m-5">Our presence was it <strong className="text-red-600">NIT Raipur, Dayal Singh College, Delhi University</strong>
               </p>
             </div>
+                     <div className="flex justify-center p-1 m-20">
+                            <div className="grid grid-cols-4 gap-6 max-w-7xl">
+                              <img
+                                src={TedXimg1}
+                                alt="Placeholder 1"
+                                className="w-[500px] h-48 object-cover   shadow-sm"
+                              />
+                              <img
+                                src={TedXimg2}
+                                alt="Placeholder 2"
+                                className="w-[500px] h-48 object-cover   shadow-sm"
+                              />
+                              <img
+                                src={TedXimg3}
+                                alt="Placeholder 3"
+                                className="w-[500px] h-48 object-cover   shadow-sm"
+                              />
+                              <img
+                                src={TedXimg4  }
+                                alt="Placeholder 4"
+                                className="w-[500px] h-48 object-cover   shadow-sm"
+                              />
+                    
+                              
+                            </div>
+                          </div>
 
 
 

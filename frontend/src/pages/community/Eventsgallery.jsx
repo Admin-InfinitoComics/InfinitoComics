@@ -1,13 +1,6 @@
 // 📁 src/components/EventsGallery.jsx
 import React from "react";
-import eventimg1 from '../../../assets/Images/Community/eventimg1.png';
-import eventimg2 from '../../../assets/Images/Community/eventimg2.png';
-import eventimg3 from '../../../assets/Images/Community/eventimg3.png';
-
-// Array of event image assets
-const eventImages = [
-  eventimg1, eventimg2, eventimg3, eventimg1, eventimg2, eventimg3
-];
+import {eventImages} from "../../constants/communities"
 
 const EventsGallery = () => {
   return (

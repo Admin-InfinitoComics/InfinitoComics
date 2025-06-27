@@ -1,4 +1,4 @@
-const mockData=[
+export const mockdata=[
   {
     "userID": "user_001",
     "avatar": "https://api.dicebear.com/7.x/thumbs/svg?seed=user_001",
@@ -127,7 +127,20 @@ const mockData=[
   }
 ]
 
+export  const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
 
-
-
-export default mockData;
+export const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3 }
+  }
+};
+export const ITEMS_PER_PAGE = 9;

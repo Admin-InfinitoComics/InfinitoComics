@@ -3,26 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Trash2, Search, Filter, X, User as UserIcon } from "lucide-react";
 import axios from "axios";
-import mockdata from "../../Utils/mockdata";
-
-const ITEMS_PER_PAGE = 9;
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.3 }
-  }
-};
+import {container,item ,mockdata, ITEMS_PER_PAGE} from '../../constants/mockdata'
 
 function UserList() {
   const [users, setUsers] = useState([]);

@@ -48,7 +48,7 @@ const Home = () => {
       <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Text Overlay (aligned to left) */}
-      <div className="absolute inset-0 flex flex-col items-start justify-center text-left px-8 md:px-16 z-20">
+      <div className="absolute inset-0 flex flex-col items-start justify-center text-left px-8 md:px-16 z-20 md:mx-30">
         <h2 className="text-5xl md:text-6xl font-bold uppercase py-10 leading-tight">
           Rise of the <br/> <span className="text-red-500">Eternal Storm</span>
         </h2>
@@ -82,7 +82,7 @@ const Home = () => {
     </div>
 
     {/* Below Image with Shadow */}
-    <div className="relative w-full">
+    <div className="relative w-full -mt-1">
       <div className="absolute -top-16 w-full h-16 bg-gradient-to-t from-black to-transparent z-10 pointer-events-none" />
       <img src={belowImage} alt="Below Carousel" className="w-full object-cover relative z-0" />
     </div>

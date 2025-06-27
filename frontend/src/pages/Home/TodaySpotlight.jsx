@@ -7,7 +7,7 @@ const TodaySpotlight = () => {
 
   return (
     <div className="px-4 md:px-16 py-14 bg-white font-dmsans overflow-x-hidden">
-      <div className="max-w-screen-xl mx-auto">
+      <div className="w-full md:mx-50 mx-auto">
         <h2 className="text-[36px] font-black tracking-widest uppercase mb-10 text-center md:text-left">
           Today's Spotlight
         </h2>

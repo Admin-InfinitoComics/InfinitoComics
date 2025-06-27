@@ -45,7 +45,7 @@ const WorkWhereImaginationLeads = () => {
       </div>
 
       {/* Core Values Section - made responsive with container width classes */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start max-w-7xl mx-auto my-20 px-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start max-w-6xl mx-auto my-20">
         <div className="space-y-6">
           {/* Text Content for Core Values */}
           <div className="mb-12">
@@ -97,12 +97,12 @@ const WorkWhereImaginationLeads = () => {
       </div>
 
       {/* Working and Thriving Section - responsive layout with adjusted margins */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-50 items-center max-w-7xl mx-auto px-4 mb-20 md:mt-40  ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-25 items-center max-w-6xl mx-auto  mb-20 md:mt-40  ">
         {/* Left side image */}
         <img
           src={imaginationImg2}
           alt="team working on computer"
-          className="rounded shadow-md object-cover w-full h-72 md:h-96 lg:h-[350px] max-w-lg mx-auto"
+          className="rounded shadow-md object-cover w-full h-72 md:h-96 lg:h-[350px] max-w-lg "
         />
 
         {/* Right side text content */}

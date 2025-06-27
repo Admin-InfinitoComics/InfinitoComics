@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import ironman from "../../../assets/Images/ironman.png";
+import {characters} from '../../constants/characterCarousel'
 
-// Character list array
-const characters = [
-  { id: 1, name: "Iron Man", img: ironman },
-  { id: 2, name: "Iron Man", img: ironman },
-  { id: 3, name: "Iron Man", img: ironman },
-  { id: 4, name: "Iron Man", img: ironman },
-  { id: 5, name: "Iron Man", img: ironman },
-  { id: 6, name: "Iron Man", img: ironman },
-  { id: 7, name: "Iron Man", img: ironman },
-  { id: 8, name: "Iron Man", img: ironman },
-];
 
 const CharacterCarousel = () => {
   const [startIndex, setStartIndex] = useState(0);
@@ -60,9 +49,9 @@ const CharacterCarousel = () => {
 
   return (
     <div className="w-full px-4 py-12 bg-white">
-      <div className="max-w-screen-2xl mx-auto">
+      <div className="max-w-full mx-5 md:mx-60">
         {/* Section title and link */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
           <h2 className="text-xl md:text-2xl font-bold tracking-widest uppercase text-center md:text-left">
             Know Our Characters
           </h2>

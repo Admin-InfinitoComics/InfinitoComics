@@ -6,8 +6,8 @@ const NewsletterSection = () => {
       className="w-full bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-12 md:px-76 py-12 md:py-20"
       style={{ backgroundImage: "url('/assets/Images/Newsletter.png')" }}
     >
-      <div className="text-white max-w-xl mt-14 md:mt-24">
-        <h2 className="text-3xl md:text-xl font-extrabold tracking-widest mb-4">
+      <div className="text-white  mt-14 md:mt-24 mx-40">
+        <h2 className="text-4xl md:text-xl font-extrabold mb-4 scale-y-180 tracking-widest">
           STAY UPDATED
         </h2>
         <p className="text-lg md:text-xl mb-6">

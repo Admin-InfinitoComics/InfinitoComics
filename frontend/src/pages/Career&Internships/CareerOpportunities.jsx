@@ -1,30 +1,11 @@
 // 📁 src/components/CareerOpportunities.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import {jobs,departments,jobTypes} from '../../constants/career'
 
-// Mock data: List of available job openings with basic information
-const jobs = [
-  { id: 1, title: "Visual Designer", department: "Creative & Design", jobType: "Full-time", positions: 2 },
-  { id: 2, title: "Digital Marketing Associate", department: "Marketing", jobType: "Part-time", positions: 2 },
-  { id: 3, title: "UI/UX Designer", department: "Creative & Design", jobType: "Contract", positions: 2 },
-  { id: 4, title: "Brand Designer", department: "Creative & Design", jobType: "Full-time", positions: 2 },
-  { id: 5, title: "Design Systems Engineer", department: "Engineering", jobType: "Part-time", positions: 2 },
-  { id: 6, title: "Motion Graphics Artist", department: "Creative & Design", jobType: "Contract", positions: 2 },
-  { id: 7, title: "Content Strategist", department: "Marketing", jobType: "Full-time", positions: 2 },
-  { id: 8, title: "Front-End Developer", department: "Engineering", jobType: "Full-time", positions: 2 },
-  { id: 9, title: "Product Designer", department: "Creative & Design", jobType: "Part-time", positions: 2 },
-  { id: 10, title: "Social Media Specialist", department: "Marketing", jobType: "Contract", positions: 2 },
-  { id: 11, title: "Web Designer", department: "Creative & Design", jobType: "Full-time", positions: 2 },
-  { id: 12, title: "Marketing Analyst", department: "Marketing", jobType: "Part-time", positions: 2 },
-  { id: 13, title: "Interaction Designer", department: "Creative & Design", jobType: "Contract", positions: 2 },
-  { id: 14, title: "QA Engineer", department: "Engineering", jobType: "Full-time", positions: 2 },
-  { id: 14, title: "QA Engineer", department: "Engineering", jobType: "Contract", positions: 2 },
-  { id: 15, title: "Email Marketing Executive", department: "Marketing", jobType: "Full-time", positions: 2 },
-];
 
-// Filter options for dropdowns
-const departments = ["All Departments", "Creative & Design", "Marketing", "Engineering"];
-const jobTypes = ["All Job Types", "Full-time", "Part-time", "Contract"];
+
+
 
 const CareerOpportunities = () => {
   const [selectedDept, setSelectedDept] = useState("All Departments"); // State for department filter

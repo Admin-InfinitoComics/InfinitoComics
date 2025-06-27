@@ -14,11 +14,11 @@ const Collaboration = () => {
         <div className='text-black text-center mt-12 font-semibold text-3xl'>
             Media & Documentary Partner with CG Government 
         </div>
-         <div  className="max-w-4xl mx-auto p-4 my-2">
-         <p className="text-center text-lg mb-8"><strong className='text-red-600'>Infinito</strong> proudly serves as the <strong className='text-red-600'>Official Media and Documentary Partner</strong> for the prestigious "Ram Path se Ram Van Yatra." This monumental journey retraces the sacred trail of Lord Ram's exile, connecting devotees with India's rich spiritual and cultural heritage.</p>
-         <p className="text-center text-lg mb-8">As the media and documentary partner, Infinito takes pride in capturing and preserving every significant moment of this extraordinary yatra. From the grandeur of its commencement to the serene devotion of the pilgrims, our team ensures that no detail is left unnoticed.</p>
-         <p className="text-center text-lg mb-8"><strong className='text-red-600'>Our Mission Is To Document The Spiritual Essence, Vibrant Traditions, And The Emotional Connection That Thousands Of Devotees Experience During The Yatra</strong></p>
-         <p className="text-center text-lg mb-8">Thank you to Chhattisgarh Government for the opportunity to capture the moments.</p>
+         <div  className=" mx-80 p-4 my-2">
+         <p className="text-justify text-lg mb-8"><strong className='text-red-600'>Infinito</strong> proudly serves as the <strong className='text-red-600'>Official Media and Documentary Partner</strong> for the prestigious "Ram Path se Ram Van Yatra." This monumental journey retraces the sacred trail of Lord Ram's exile, connecting devotees with India's rich spiritual and cultural heritage.</p>
+         <p className="text-justify text-lg mb-8">As the media and documentary partner, Infinito takes pride in capturing and preserving every significant moment of this extraordinary yatra. From the grandeur of its commencement to the serene devotion of the pilgrims, our team ensures that no detail is left unnoticed.</p>
+         <p className="text-justify text-lg mb-8"><strong className='text-red-600'>Our Mission Is To Document The Spiritual Essence, Vibrant Traditions, And The Emotional Connection That Thousands Of Devotees Experience During The Yatra</strong></p>
+         <p className="text-justify text-lg mb-8">Thank you to Chhattisgarh Government for the opportunity to capture the moments.</p>
          </div>
 
             <div className="flex justify-center p-1 m-8">

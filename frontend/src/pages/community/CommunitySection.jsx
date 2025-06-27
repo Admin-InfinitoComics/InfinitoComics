@@ -1,22 +1,22 @@
 // 📁 src/components/CommunitySection.jsx
 import React from "react";
-import gradient from '../../../assets/Images/Community/gradient.png';
+import {communities} from "../../constants/communities";
 
 // Dummy data for community cards
-const communities = [
-  {
-    name: "General",
-    imageUrl: gradient, // Replace with actual image
-  },
-  {
-    name: "Infinito Core",
-    imageUrl: gradient, // Replace with actual image
-  },
-  {
-    name: "Anti–Hero Group",
-    imageUrl: gradient, // Replace with actual image
-  },
-];
+// const communities = [
+//   {
+//     name: "General",
+//     imageUrl: gradient, // Replace with actual image
+//   },
+//   {
+//     name: "Infinito Core",
+//     imageUrl: gradient, // Replace with actual image
+//   },
+//   {
+//     name: "Anti–Hero Group",
+//     imageUrl: gradient, // Replace with actual image
+//   },
+// ];
 
 const CommunitySection = () => {
   return (

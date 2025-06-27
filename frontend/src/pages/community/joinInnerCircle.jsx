@@ -4,8 +4,7 @@ import top from "../../../assets/Images/Community/top.png";
 import bottom from "../../../assets/Images/Community/bottom2.png";
 import gradient from '../../../assets/Images/Community/gradient.png';
 
-// Placeholder QR image
-const qrImage = "https://i.imgur.com/6u2JSwK.png";
+
 
 const JoinInnerCircle = () => {
   return (

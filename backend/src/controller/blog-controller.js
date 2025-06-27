@@ -122,10 +122,28 @@ const deleteBlog = async (req, res) => {
   }
 };
 
+const getLatestBlogs = async (req, res) => {
+  try {
+    const latestBlogs = await blogservice.getLatest(req.body); // fetch latest 5
+    return res.status(200).json({
+      success: true,
+      message: "Fetched latest blogs",
+      blogs: latestBlogs,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
 export default {
   createBlog,
   getAllBlogs,
   getBlogById,
   updateBlog,
   deleteBlog,
+  getLatestBlogs
 };

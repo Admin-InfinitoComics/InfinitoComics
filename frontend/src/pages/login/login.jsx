@@ -122,12 +122,7 @@ const handleLogin = async (e) => {
 
             {/* Forgot Password */}
            
-            <Link
-  to="/forgot-password"
-  className="text-sm text-blue-600 cursor-pointer pl-7 text-left"
->
-  Forgot password?
-</Link>
+            <Link to="/forgot-password" className="text-sm text-blue-600 cursor-pointer pl-7 text-left">Forgot password?</Link>
 
 
             {/* Submit Button */}

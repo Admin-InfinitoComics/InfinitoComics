@@ -7,8 +7,8 @@ import libraryImage from '../../../assets/Images/spotlight/image (2).png';
 import orderImage from '../../../assets/Images/spotlight/image (2).png';
 import interactionImage from '../../../assets/Images/spotlight/image (2).png';
 
-import leaf from '../../../assets/Images/Leaf.png';
-import FeedbackForm from '../FeedbackForm/Feedback';
+import leaf from '../../../assets/Images/leaf.png';
+
 
 
 export default function DashboardPage() {

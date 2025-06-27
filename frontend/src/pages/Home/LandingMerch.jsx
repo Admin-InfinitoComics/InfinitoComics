@@ -28,10 +28,10 @@ const items = [
 
 const CollectorShowcase = () => {
   return (
-    <section className="bg-white py-20 px-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="bg-white py-20 px-6">
+      <div className="w-full">
         {/* Headings */}
-        <div className="mb-10 ">
+        <div className="mb-10 mx-auto md:mx-60">
           <p className="text-[20px] font-medium text-black tracking-wide">
             Exclusive Merch
           </p>
@@ -41,7 +41,7 @@ const CollectorShowcase = () => {
         </div>
 
         {/* Card Grid */}
-        <div className="flex justify-center gap-10">
+        <div className="flex justify-center gap-10 md:mx-60 mx-auto">
           {items.map((item) => (
             <div
               key={item.id}
@@ -75,7 +75,7 @@ const CollectorShowcase = () => {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

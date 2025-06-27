@@ -1,31 +1,5 @@
 import React from 'react';
-
-const steps = [
-  {
-    id: "01",
-    title: "Apply",
-    description:
-      "Explore open roles across our creative universe. Whether you're an artist, writer, techie, or dreamer—we’d love to hear from you. Fill out the form and send your story our way.",
-  },
-  {
-    id: "02",
-    title: "Review",
-    description:
-      "Our team reviews every application with care. If your profile fits the role, you'll hear from us. Sometimes, we may send over a quick creative challenge before the chat.",
-  },
-  {
-    id: "03",
-    title: "Interview",
-    description:
-      "First, you'll speak with the team lead about your role and vision. If it's a match, you'll meet a mentor who'll dive deeper into how you can grow with us.",
-  },
-  {
-    id: "04",
-    title: "Onboarding",
-    description:
-      "Welcome to the Infinito family! We’ll walk you through our world—processes, culture, and everything in between. You’ll even get a creative buddy to help you settle in.",
-  },
-];
+import {steps} from '../../constants/career'
 
 const InfinitoHiring = () => {
   return (

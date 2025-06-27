@@ -21,7 +21,7 @@ const Home = () => {
       <CharacterCarousel/>
       <CharacterSpotlight/>
       <TodaySpotlight/>
-      <HeroSection/>
+      {/* <HeroSection/> */}
       <LandingMerch/>
       <JoinUltimate/>
       <PremiumPlans/>

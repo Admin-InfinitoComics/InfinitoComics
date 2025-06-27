@@ -1,54 +1,78 @@
-import React from 'react'
+// 📁 src/components/UpcomingEvents.jsx
+import React, { useEffect, useState } from 'react';
+import image from "../../../assets/Images/upcomingEvent.png"
+const TARGET_DATE = new Date('2025-10-12T00:00:00');// <-- Set your target date here
 
+const getTimeLeft = () => {
+  const now = new Date();
+  const diff = TARGET_DATE - now;
+  if (diff <= 0) {
+    return { days: 0, hours: 0, mins: 0, secs: 0 };
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const mins = Math.floor((diff / (1000 * 60)) % 60);
+  const secs = Math.floor((diff / 1000) % 60);
+  return { days, hours, mins, secs };
+};
 
-const upcomingEvents = () => {
+const UpcomingEvents = () => {
+  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(getTimeLeft());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-      <div className="w-full flex justify-center pt-30 pb-15 bg-white">
-      <div className="relative w-[1210px] h-[492px] overflow-hidden">
+    <div className="w-full flex justify-center py-12 bg-white">
+      <div className="relative w-full mx-60 h-auto md:h-[492px] ">
         {/* Event Image */}
         <img
-          src="../../../assets/Images/upcomingEvent.png" // replace with your image
+          src={image}
           alt="Comic Con Event Banner"
-          className="w-full h-full object-center my-4 ml-15 mr-20"
+          className="w-full h-full object-cover rounded-lg"
         />
 
-        {/* Countdown Overlay - moved towards right */}
-        <div className="absolute bottom-6 right-20 flex gap-4">
-          {/* DAYS */}
-          <div className='flex flex-col'>
-            <div className="flex flex-col items-center justify-center bg-black/70 w-16 h-16 rounded-md text-white text-center">
-                <div className="text-3xl font-bold font-sans ">45</div>
-          </div>
-             <div className="text-sm uppercase text-white font-400 text-center">Days</div>
-          </div>
-
-          {/* HOURS */}
-           <div className='flex flex-col'>
-            <div className="flex flex-col items-center justify-center bg-black/70 w-16 h-16 rounded-md text-white text-center">
-                <div className="text-3xl font-bold font-sans">45</div>
-          </div>
-             <div className="text-sm uppercase text-white font-400 text-center">Hours</div>
+        {/* Countdown Overlay - Responsive and aligned bottom-right */}
+        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-20 flex gap-3 sm:gap-4">
+          {/* Days */}
+          <div className="flex flex-col items-center">
+            <div className="flex items-center justify-center bg-black/70 w-12 h-12 md:w-16 md:h-16 rounded-md text-white">
+              <div className="text-xl md:text-3xl font-bold font-sans">{timeLeft.days}</div>
+            </div>
+            <div className="text-xs md:text-sm uppercase text-white text-center">Days</div>
           </div>
 
-          {/* MINS */}
-           <div className='flex flex-col'>
-            <div className="flex flex-col items-center justify-center bg-black/70 w-16 h-16 rounded-md text-white text-center">
-                <div className="text-3xl font-bold font-sans">45</div>
-          </div>
-             <div className="text-sm uppercase text-white font-400 text-center">Mins</div>
+          {/* Hours */}
+          <div className="flex flex-col items-center">
+            <div className="flex items-center justify-center bg-black/70 w-12 h-12 md:w-16 md:h-16 rounded-md text-white">
+              <div className="text-xl md:text-3xl font-bold font-sans">{timeLeft.hours}</div>
+            </div>
+            <div className="text-xs md:text-sm uppercase text-white text-center">Hours</div>
           </div>
 
-          {/* SECS */}
-           <div className='flex flex-col'>
-            <div className="flex flex-col items-center justify-center bg-black/70 w-16 h-16 rounded-md text-white text-center">
-                <div className="text-3xl font-bold font-sans">45</div>
+          {/* Minutes */}
+          <div className="flex flex-col items-center">
+            <div className="flex items-center justify-center bg-black/70 w-12 h-12 md:w-16 md:h-16 rounded-md text-white">
+              <div className="text-xl md:text-3xl font-bold font-sans">{timeLeft.mins}</div>
+            </div>
+            <div className="text-xs md:text-sm uppercase text-white text-center">Mins</div>
           </div>
-             <div className="text-sm uppercase text-white font-400 text-center">Secs</div>
+
+          {/* Seconds */}
+          <div className="flex flex-col items-center">
+            <div className="flex items-center justify-center bg-black/70 w-12 h-12 md:w-16 md:h-16 rounded-md text-white">
+              <div className="text-xl md:text-3xl font-bold font-sans">{timeLeft.secs}</div>
+            </div>
+            <div className="text-xs md:text-sm uppercase text-white text-center">Secs</div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default upcomingEvents
+export default UpcomingEvents;

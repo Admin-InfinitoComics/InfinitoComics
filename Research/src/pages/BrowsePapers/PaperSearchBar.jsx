@@ -19,17 +19,17 @@ const PaperSearchBar = ({
   return (
     <div className="w-full bg-gray-100 flex justify-between">
       <div className="flex flex-col py-6">
-        <h2 className="text-2xl font-bold mb-6 tracking-wide uppercase">Search for Papers</h2>
+        <h2 className="text-3xl font-bold text-[#202020] mb-6 tracking-wide uppercase">Search for Papers</h2>
 
-        <div className="flex items-end gap-4 flex-wrap">
+        <div className="flex items-end gap-10 flex-wrap">
           {/* 🔍 Search Input */}
           <div className="flex flex-col w-[250px] relative">
-            <label className="text-sm mb-1 font-medium">Search by Domain, Topic, Article</label>
+            <label className="text-sm font-semibold text-[#202020] mb-1 ">Search by Domain, Topic, Article</label>
             <input
               type="text"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              className="border border-gray-300 px-3 py-2 text-sm rounded-sm focus:outline-none focus:ring-1 focus:ring-gray-400 pr-8"
+              className="border bg-white border-gray-300 px-3 py-2 text-sm rounded-sm focus:outline-none focus:ring-1 focus:ring-gray-400 pr-8"
             />
             {searchText && (
               <X
@@ -40,13 +40,13 @@ const PaperSearchBar = ({
           </div>
 
           {/* 📘 Journal Input */}
-          <div className="flex flex-col w-[200px] relative">
-            <label className="text-sm mb-1 font-medium">Journal / Book</label>
+          <div className="flex flex-col w-[250px] relative">
+            <label className="text-sm mb-1 font-semibold text-[#202020] ">Journal / Book</label>
             <input
               type="text"
               value={journalText}
               onChange={(e) => setJournalText(e.target.value)}
-              className="border border-gray-300 px-3 py-2 text-sm rounded-sm focus:outline-none focus:ring-1 focus:ring-gray-400 pr-8"
+              className="border bg-white border-gray-300 px-3 py-2 text-sm rounded-sm focus:outline-none focus:ring-1 focus:ring-gray-400 pr-8"
             />
             {journalText && (
               <X
@@ -57,13 +57,13 @@ const PaperSearchBar = ({
           </div>
 
           {/* 👩‍🏫 Authors Input */}
-          <div className="flex flex-col w-[200px] relative">
-            <label className="text-sm mb-1 font-medium">Authors</label>
+          <div className="flex flex-col w-[250px] relative">
+            <label className="text-sm font-semibold mb-1 text-[#202020] ">Authors</label>
             <input
               type="text"
               value={authorText}
               onChange={(e) => setAuthorText(e.target.value)}
-              className="border border-gray-300 px-3 py-2 text-sm rounded-sm focus:outline-none focus:ring-1 focus:ring-gray-400 pr-8"
+              className="border bg-white border-gray-300 px-3 py-2 text-sm rounded-sm focus:outline-none focus:ring-1 focus:ring-gray-400 pr-8"
             />
             {authorText && (
               <X
@@ -77,9 +77,9 @@ const PaperSearchBar = ({
           <div>
             <button
               onClick={onSearch}
-              className="bg-red-600 text-white px-5 py-[9px] text-sm rounded-sm flex items-center gap-2 hover:bg-red-700 transition"
+              className="bg-[#DD1215] text-white  px-9 py-[9px] text-[12px] h-[38px] w-[150px]  flex items-center gap-2 hover:bg-red-700 transition"
             >
-              <Search className="w-4 h-4" />
+              <Search className="w-3 h-3" />
               SEARCH
             </button>
           </div>

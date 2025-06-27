@@ -40,7 +40,6 @@ const BrowsePapers = () => {
     fetchPapers();
   }, []);
 
-  // 🔍 Whenever any search input or category changes, re-filter
   useEffect(() => {
     let filtered = papers.filter((paper) => {
       const matchTitle = searchText
@@ -92,16 +91,16 @@ const BrowsePapers = () => {
         />
 
         {/* 🔹 Top Section */}
-        <div className="w-full py-6 border-b border-[#B5B5B5] mt-2">
-          <h1 className="text-3xl font-bold mb-3">BROWSE OUR PAPERS</h1>
-          <div className="flex space-x-6 text-sm">
+        <div className="w-full border-b border-[#B5B5B5] mt-4">
+          <h1 className="text-3xl font-bold text-[#202020] mb-3">BROWSE OUR PAPERS</h1>
+          <div className="flex space-x-6 mt-10 gap-10 text-sm">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`border-b-2 pb-1 transition ${
+                className={`border-b-3 pb-2 transition ${
                   selectedCategory === cat
-                    ? 'border-red-600 text-red-600 font-semibold'
+                    ? 'border-[#DD1215] text-[#DD1215] font-semibold'
                     : 'border-transparent hover:border-black text-gray-700'
                 }`}
               >
@@ -112,54 +111,52 @@ const BrowsePapers = () => {
         </div>
 
         {/* 🔹 Bottom Section */}
-        <div className="flex flex-1 overflow-y-auto overflow-x-hidden">
-          {/* ⬅ Left Sidebar */}
-          <div className="w-[30%] mb-10">
-            <div className="w-[270px] pt-8">
+        <div className="flex flex-1">
+          {/* ⬅ Left Sidebar (Sticky) */}
+          <div className="w-[30%]">
+            <div className="w-[270px] pt-8 sticky top-24">
               <FilterSideBar />
             </div>
           </div>
 
-          {/* ➡ Right Content */}
-          <div className="w-[70%] mb-10">
-            <div className="flex-1 pt-8">
-              {loading ? (
-                <p className="text-center text-gray-500">Loading papers...</p>
-              ) : (
-                <>
-                  {filteredPapers.length === 0 ? (
-                    <p className="text-center text-gray-500 mt-4">No results found.</p>
-                  ) : (
-                    filteredPapers.slice(0, visibleCount).map((paper) => (
-                      <PaperCard key={paper._id} paper={paper} />
-                    ))
-                  )}
+          {/* ➡ Right Content (Scrollable) */}
+          <div className="w-[70%] h-[calc(100vh-150px)] overflow-y-auto pr-2 pt-8 pb-20">
+            {loading ? (
+              <p className="text-center text-gray-500">Loading papers...</p>
+            ) : (
+              <>
+                {filteredPapers.length === 0 ? (
+                  <p className="text-center text-gray-500 mt-4">No results found.</p>
+                ) : (
+                  filteredPapers.slice(0, visibleCount).map((paper) => (
+                    <PaperCard key={paper._id} paper={paper} />
+                  ))
+                )}
 
-                  {/* Show More / Show Less Button */}
-                  {filteredPapers.length > 0 && (
-                    <div className="mt-6 mb-6 text-center">
-                      {visibleCount < filteredPapers.length ? (
+                {/* Show More / Show Less Button */}
+                {filteredPapers.length > 0 && (
+                  <div className="mt-6 mb-6 text-center">
+                    {visibleCount < filteredPapers.length ? (
+                      <button
+                        className="px-6 py-2 border mb-6 border-black text-sm hover:bg-black hover:text-white transition"
+                        onClick={handleShowMore}
+                      >
+                        Show More
+                      </button>
+                    ) : (
+                      filteredPapers.length > 3 && (
                         <button
-                          className="px-6 py-2 border mb-6 border-black text-sm hover:bg-black hover:text-white transition"
-                          onClick={handleShowMore}
+                          className="px-6 py-2 mb-6 border border-black text-sm hover:bg-black hover:text-white transition"
+                          onClick={handleShowLess}
                         >
-                          Show More
+                          Show Less
                         </button>
-                      ) : (
-                        filteredPapers.length > 3 && (
-                          <button
-                            className="px-6 py-2 mb-6 border border-black text-sm hover:bg-black hover:text-white transition"
-                            onClick={handleShowLess}
-                          >
-                            Show Less
-                          </button>
-                        )
-                      )}
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
+                      )
+                    )}
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
       </div>

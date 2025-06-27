@@ -28,7 +28,7 @@ const SignupWrapper = () => {
 
   const renderStep = () => {
     switch (step) {
-      case 1: return <SignupStep1 formData={formData} handleChange={handleChange} onNext={nextStep} />;
+      case 1: return <SignupStep1 formData={formData} handleChange={handleChange} onNext={nextStep}  />;
       case 2: return <SignupStep2 formData={formData} handleChange={handleChange} onNext={nextStep} onBack={prevStep} />;
       case 3: return <SignupStep3 onNext={nextStep} onBack={prevStep} />;
       case 4: return <SignupStep4 onNext={nextStep} onBack={prevStep} />;

@@ -7,7 +7,7 @@ const ExclusiveContent = () => {
     <div className="flex flex-col w-full min-h-[500px] gap-5 px-4 md:px-8 lg:px-0">
 
       {/* Title heading section */}
-      <div className="mx-4 sm:mx-8 md:mx-20 lg:mx-40">
+      <div className=" mx-4 sm:mx-8 md:mx-40 lg:mx-60">
         <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold mt-5 text-center lg:text-left">
           CHECK OUT OUR APP FOR EXCLUSIVE CONTENT
         </h1>

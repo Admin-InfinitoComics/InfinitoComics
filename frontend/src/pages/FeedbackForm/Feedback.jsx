@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import chat from '../../../assets/Images/Chat.png';
-import { FaPaperclip } from 'react-icons/fa'; // Importing icon for file attachment
+import { FaPaperclip, FaArrowLeft } from 'react-icons/fa'; // Importing icon for file attachment and arrow
+import axios from 'axios'; 
 
 const FeedbackForm = () => {
   const [formData, setFormData] = useState({
@@ -40,152 +41,174 @@ const FeedbackForm = () => {
     setIsCustomSubject(selectedSubject === 'Custom');
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formDataToSend = new FormData();
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('subject', formData.subject === 'Custom' ? formData.customSubject : formData.subject);
+    formDataToSend.append('feedback', formData.feedback);
+    if (formData.file) {
+      formDataToSend.append('file', formData.file);
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/feedback', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      alert(response.data.message); // Handle success
+      setFormData({
+        email: '',
+        name: '',
+        subject: '',
+        customSubject: '',
+        feedback: '',
+        file: null,
+      }); // Reset form after submit
+    } catch (error) {
+      alert('Error submitting feedback');
+      console.error(error);
+    }
+  };
+
   return (
-    <div className="flex gap-16 p-10 rounded-lg px-32 mx-auto max-w-7xl py-40">
-      {/* Left Form Section */}
+    <div className="flex gap-16 p-10 px-32 mx-auto max-w-7xl py-24">
       <div className="w-full md:w-1/2 space-y-6">
-        <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium text-red-700">
-            Registered Mail*
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <p className="text-xs text-gray-500">*This is where we’ll contact you if needed.</p>
+       
+        <div className="flex items-center space-x-2 mb-4">
+          <FaArrowLeft className="text-black" />
+          <a href="/my-account" className="text-black text-xl text-bold">Back to My Account</a>
         </div>
 
-        <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-medium text-red-700">
-            Your Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-      <div className="space-y-2">
-  <label htmlFor="subject" className="text-sm font-medium text-red-700">
-    Subject (Dropdown)
-  </label>
-  <select
-    name="subject"
-    id="subject"
-    value={formData.subject}
-    onChange={handleSubjectChange}
-    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-  >
-    <option value="">Please select what type of feedback you have</option>
-    <option value="General">General</option>
-    <option value="Complaint">Complaint</option>
-    <option value="Suggestion">Suggestion</option>
-    <option value="Custom">Custom</option>
-  </select>
-</div>
-
-{/* New Section for Subject (Manual Input) */}
-<div className="space-y-2">
-  
-  <input
-    type="text"
-    id="customSubject"
-    name="customSubject"
-    value={formData.customSubject}
-    onChange={handleChange}
-    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-    placeholder="Enter your subject here..."
-  />
-</div>
-
-
-        {isCustomSubject && (
+        <form onSubmit={handleSubmit}>
+          {/* Registered Mail Section with Arrow above */}
           <div className="space-y-2">
-            <label htmlFor="customSubject" className="text-sm font-medium text-red-700">
-              Type a custom subject
+            <div className="flex justify-center mb-2">
+             
+            </div>
+            <label htmlFor="email" className="text-sm font-medium text-red-700">
+              Registered Mail*
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <p className="text-xs text-gray-500">*This is where we’ll contact you if needed.</p>
+          </div>
+
+          <div className="space-y-2">
+            <label htmlFor="name" className="text-sm font-medium text-red-700">
+              Your Name
             </label>
             <input
               type="text"
-              id="customSubject"
-              name="customSubject"
-              value={formData.customSubject}
+              id="name"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+              className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-        )}
 
-    <div className="space-y-2 relative">
-  <label htmlFor="feedback" className="text-sm font-medium text-red-700">
-    Your Feedback
-  </label>
-  <textarea
-    id="feedback"
-    name="feedback"
-    value={formData.feedback}
-    onChange={handleChange}
-    placeholder="Tell us how you feel..."
-    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-  ></textarea>
+          <div className="space-y-2">
+            <label htmlFor="subject" className="text-sm font-medium text-red-700">
+              Subject (Dropdown)
+            </label>
+            <select
+              name="subject"
+              id="subject"
+              value={formData.subject}
+              onChange={handleSubjectChange}
+              className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Please select what type of feedback you have</option>
+              <option value="General">General</option>
+              <option value="Complaint">Complaint</option>
+              <option value="Suggestion">Suggestion</option>
+              <option value="Custom">Custom</option>
+            </select>
+          </div>
 
-  {/* File Attachment Icon placed inside the top-right corner of textarea, slightly down */}
-  <div className="absolute top-10 right-2">
-    <input
-      type="file"
-      id="file"
-      name="file"
-      onChange={handleFileChange}
-      className="hidden"
-    />
-    <button
-      type="button"
-      onClick={() => document.getElementById('file').click()}
-      className="flex items-center gap-2 p-2 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-100"
-    >
-      <FaPaperclip />
-    </button>
-  </div>
-</div>
+          {isCustomSubject && (
+            <div className="space-y-2">
+              <input
+                type="text"
+                id="customSubject"
+                name="customSubject"
+                value={formData.customSubject}
+                onChange={handleChange}
+                className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your subject here..."
+              />
+            </div>
+          )}
 
+          <div className="space-y-2 relative">
+            <label htmlFor="feedback" className="text-sm font-medium text-red-700">
+              Your Feedback
+            </label>
+            <textarea
+              id="feedback"
+              name="feedback"
+              value={formData.feedback}
+              onChange={handleChange}
+              placeholder="Tell us how you feel..."
+              className="w-full p-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></textarea>
 
-        {/* File Attachment Section inside the feedback */}
-     
+            {/* File Attachment Icon */}
+            <div className="absolute top-10 right-2">
+              <input
+                type="file"
+                id="file"
+                name="file"
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              <button
+                type="button"
+                onClick={() => document.getElementById('file').click()}
+                className="flex items-center gap-2 p-2 border border-gray-300 text-gray-700 bg-white hover:bg-gray-100"
+              >
+                <FaPaperclip />
+              </button>
+            </div>
+          </div>
 
-        <div className="flex justify-between">
-          <button
-            type="reset"
-            className="bg-white text-red-500 p-3 rounded-lg border border-red-500 hover:bg-gray-100 focus:outline-none"
-          >
-            Clear Form
-          </button>
-          <button
-            type="submit"
-            className="bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-          >
-            Submit
-          </button>
-        </div>
+          <div className="flex space-x-4 justify-end">
+            <button
+              type="reset"
+              className=" text-red-500 p-5  font-extrabold; "
+            >
+              Clear Form
+            </button>
+            <button
+              type="submit"
+              className="bg-red-500 text-white p-3 border border-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 w-30 h-16"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
 
       {/* Right Preview Section */}
-      <div className="w-full md:w-1/2 bg-white p-8 rounded-lg shadow-md border border-gray-200 relative">
-    
+      <div className="w-full md:w-1/2 bg-white p-8 shadow-md border border-gray-200 relative">
         <img
           src={chat}
           alt="Preview Image"
-          className="absolute top-[-40px] right-[-40px] w-52 h-52  object-cover border-4 border-white shadow-"
+          className="absolute top-[-40px] right-[-40px] w-52 h-52 object-cover border-4 border-white shadow-"
         />
-        
         <div className="space-y-4">
           <h3 className="text-lg font-bold text-gray-800 mb-4">Your Feedback Preview</h3>
           <div className="text-sm text-gray-700">
@@ -198,7 +221,6 @@ const FeedbackForm = () => {
             <div className="mb-3">
               <strong>Subject:</strong> {formData.subject === 'Custom' ? formData.customSubject : formData.subject}
             </div>
-            
             <div className="mb-3">
               <strong>Your Feedback:</strong> {formData.feedback}
             </div>
@@ -212,7 +234,7 @@ const FeedbackForm = () => {
 
         {/* Text inside the image */}
         <div className="absolute inset-0 flex items-center justify-center text-white font-bold text-xl">
-          <p>Feel Free to Share Your Thoughts!</p>
+          <p></p>
         </div>
       </div>
     </div>

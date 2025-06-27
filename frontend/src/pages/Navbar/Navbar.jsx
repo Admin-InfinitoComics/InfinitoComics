@@ -17,6 +17,7 @@ const Header = () => {
         <div className="mb-2 md:mb-0 text-center">
           Use code <strong>INFINT10</strong> to get 10% off on our shop!
         </div>
+<<<<<<< HEAD
 
         {/* Navigation Links */}
         <div className="hidden md:flex gap-16 text-[1rem] text-gray-300">
@@ -35,6 +36,13 @@ const Header = () => {
           >
             <Heart className="mx-1" /> Support Us
           </Link>
+=======
+        <div className="flex gap-20 pl-4">
+          <Link to="/shop" className="hover:underline">Shop</Link>
+          <Link to="/foundation" className="hover:underline">Foundation</Link>
+          <Link to="/researchPlans" className="hover:underline">Research</Link>
+          <Link to="/funding" className="hover:underline">Funding</Link>
+>>>>>>> 5978535fbd6e4f121abbec39e0835a191f564074
         </div>
       </div>
 

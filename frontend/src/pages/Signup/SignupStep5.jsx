@@ -6,12 +6,19 @@ import ComicImg from '../../../assets/Images/Signup/ComicImg.png';
 import CharacterImg from '../../../assets/Images/Signup/CharacterImg.png';
 import CommunityImg from '../../../assets/Images/Signup/CommunityImg.png';
 import GamesImg from '../../../assets/Images/Signup/GamesImg.png';
+import { ArrowLeft } from 'lucide-react';
 
-const SignupStep5 = () => {
+const SignupStep5 = ({onBack}) => {
   const navigate = useNavigate();
 
   return (
     <div className=" w-[50%] bg-white px-24 py-10 flex flex-col items-center h-[78%]  font-sans relative">
+          <div
+            className="absolute top-5 left-5 p-2 rounded-full cursor-pointer bg-red-100 text-red-700 hover:text-red-600 hover:bg-red-200    transition-all duration-200"
+            onClick={() => onBack()}
+          >   
+            <ArrowLeft size={20} />
+         </div>
       {/* Logo */}
       <div className="absolute top-6 flex flex-col items-center">
         <img src={InfinitoLogo} alt="Infinito" className="w-[200px] m-4" />

@@ -3,7 +3,7 @@ import React from 'react';
 const NewsletterSection = () => {
   return (
     <div
-      className="w-full bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-12 md:px-20 py-12 md:py-20"
+      className="w-full bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-12 md:px-76 py-12 md:py-20"
       style={{ backgroundImage: "url('/assets/Images/Newsletter.png')" }}
     >
       <div className="text-white  mt-14 md:mt-24 mx-40">

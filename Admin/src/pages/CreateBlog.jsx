@@ -5,6 +5,7 @@ import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { PiFloppyDiskDuotone } from 'react-icons/pi';
 import { MdSend } from 'react-icons/md';
 import { MdFormatAlignLeft, MdFormatAlignCenter, MdFormatAlignRight } from 'react-icons/md';
+import Navbar from './Navbar/Navbar';
 
 const BlogCreator = () => {
   const [showPreview, setShowPreview] = useState(false);
@@ -357,7 +358,10 @@ const handleUpdate = async () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#f6f6ff] p-6 font-sans relative">
+    <div>
+<Navbar/>
+  
+    <div className="min-h-screen bg-[#f6f6ff] p-20 font-sans relative">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
         <div>
           <h1 className="text-4xl font-bold text-gray-900 mb-2 md:mb-0">
@@ -578,6 +582,7 @@ const handleUpdate = async () => {
       </div>
     )}
     </div>
+      </div>
   );
 };
 

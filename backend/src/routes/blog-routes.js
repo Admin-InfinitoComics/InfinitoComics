@@ -19,4 +19,7 @@ router.put('/updateblog/:id', upload.none(), blogController.updateBlog); //done
 // Delete a blog by ID
 router.delete('/deleteblog/:id', blogController.deleteBlog); // done
 
+router.get('/latestblog', blogController.getLatestBlogs);
+
+
 export default router;

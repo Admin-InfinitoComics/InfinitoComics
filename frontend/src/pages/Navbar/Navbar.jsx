@@ -17,32 +17,11 @@ const Header = () => {
         <div className="mb-2 md:mb-0 text-center">
           Use code <strong>INFINT10</strong> to get 10% off on our shop!
         </div>
-<<<<<<< HEAD
-
-        {/* Navigation Links */}
-        <div className="hidden md:flex gap-16 text-[1rem] text-gray-300">
-          <Link to="/blogs" className="hover:text-white font-bold">
-            Blogs & News
-          </Link>
-          <Link to="/foundation" className="hover:text-white font-bold">
-            Foundation
-          </Link>
-          <Link to="/research" className="hover:text-white font-bold">
-            Research
-          </Link>
-          <Link
-            to="/support"
-            className="hover:text-white font-bold flex items-center gap-1"
-          >
-            <Heart className="mx-1" /> Support Us
-          </Link>
-=======
         <div className="flex gap-20 pl-4">
           <Link to="/shop" className="hover:underline">Shop</Link>
           <Link to="/foundation" className="hover:underline">Foundation</Link>
           <Link to="/researchPlans" className="hover:underline">Research</Link>
           <Link to="/funding" className="hover:underline">Funding</Link>
->>>>>>> 5978535fbd6e4f121abbec39e0835a191f564074
         </div>
       </div>
 
@@ -185,7 +164,7 @@ const Header = () => {
           </Link>
           <Link
             to="/support"
-            className="block font-bold hover:text-white flex items-center gap-2"
+            className="font-bold hover:text-white flex items-center gap-2"
           >
             <Heart /> Support Us
           </Link>

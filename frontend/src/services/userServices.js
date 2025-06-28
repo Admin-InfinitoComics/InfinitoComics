@@ -3,10 +3,12 @@ import { BASE_URL } from '../utils/constants';
 
 
 export const loginUser = async (email, password) => {
+  console.log(email,password);
   const response = await axios.post( BASE_URL+'/api/login', {
     email: email.toLowerCase(),
     password,
   });
+  console.log(response.data);
   return response.data;
 };
 

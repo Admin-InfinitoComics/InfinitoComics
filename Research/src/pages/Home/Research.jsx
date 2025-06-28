@@ -112,7 +112,7 @@ export default function ResearchPlans() {
   </div>
 
   {/* FAQ Section with updated styling */}
-  <div className="max-w-9/12 mx-auto pt-20 text-left">
+  <div className="max-w-10/12 mx-auto pt-20 text-left">
     <h3 className="flex justify-center text-4xl font-bold mb-4">
       Frequently Asked Questions
     </h3>

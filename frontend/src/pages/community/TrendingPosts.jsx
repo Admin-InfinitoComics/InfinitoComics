@@ -1,31 +1,8 @@
 // 📁 src/components/TrendingPosts.jsx
 import React from "react";
-import post from '../../../assets/Images/Community/post.png';
 import { Heart, MessageCircle, Share2 } from 'lucide-react';
+import {posts} from '../../constants/communities'
 
-// Dummy post data
-const posts = [
-  {
-    username: "russian_loki",
-    time: "10 mins ago",
-    text: "A long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-    imageUrl: post, // Post image
-    avatarUrl: "",  // Avatar image
-    likes: "2.5K",
-    comments: "2.5K",
-    shares: "2.5K",
-  },
-  {
-    username: "russian_loki",
-    time: "10 mins ago",
-    text: "A long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-    imageUrl: post,
-    avatarUrl: "",
-    likes: "2.5K",
-    comments: "2.5K",
-    shares: "2.5K",
-  },
-];
 
 const TrendingPosts = () => {
   return (

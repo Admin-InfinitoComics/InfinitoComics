@@ -13,7 +13,7 @@ const Navbar = () => {
 
         <div className="bg-[#202020] text-white text-sm py-2 px-32 border-b border-gray-500 flex justify-between items-center">
         <div>
-          Use code <span className="font-bold">INFIN25</span> to get 25% off on our shop!
+          Use code <span className="font-bold">INFIN10</span> to get 10% off on our shop!
         </div>
         <div className="flex gap-20 pl-4">
           <Link to="/shop" className="hover:underline">Shop</Link>

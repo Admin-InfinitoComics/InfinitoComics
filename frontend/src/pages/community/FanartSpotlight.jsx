@@ -1,28 +1,8 @@
 // 📁 src/components/FanArtSpotlight.jsx
 import React from "react";
-import post from '../../../assets/Images/Community/post.png';
-import fanartimg1 from "../../../assets/Images/Community/fanartimg1.png";
-import fanartimg2 from "../../../assets/Images/Community/fanartimg2.png";
+import {artworks} from '../../constants/communities'
 import { Heart } from 'lucide-react';
 
-// Dummy fan art data
-const artworks = [
-  {
-    artist: "Artist Name",
-    image: post,        // Fan art image
-    likes: "2.5k",
-  },
-  {
-    artist: "Artist Name",
-    image: fanartimg1,  // Fan art image
-    likes: "2.5k",
-  },
-  {
-    artist: "Artist Name",
-    image: fanartimg2,  // Fan art image
-    likes: "2.5k",
-  },
-];
 
 const FanArtSpotlight = () => {
   return (

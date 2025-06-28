@@ -4,23 +4,15 @@ const blogservice = new BlogService();
 // Create a new blog
 const createBlog = async (req, res) => {
    try {
-    const { title, subject, description, status } = req.body;
+    const { title, subject, authorName , category, news, status } = req.body;
 
-    const titleStyle = req.body.titleStyle ? JSON.parse(req.body.titleStyle) : {};
-    const subjectStyle = req.body.subjectStyle ? JSON.parse(req.body.subjectStyle) : {};
-    const descriptionStyle = req.body.descriptionStyle ? JSON.parse(req.body.descriptionStyle) : {};
-
-    // const images = req.files.map(file => file.buffer.toString("base64")); // Example: save images in base64 (better to save to disk or cloud normally)
-
-    // Save to DB via service:
     const blogData = await blogservice.create({
       title,
       subject,
-      description,
-      status,
-      titleStyle,
-      subjectStyle,
-      descriptionStyle,
+      authorName,
+      category,
+      news ,
+      status
     });
 
     return res.status(201).json({
@@ -79,19 +71,15 @@ const getBlogById = async (req, res) => {
 // Update blog by ID
 const updateBlog = async (req, res) => {
   try {
-    const { title, subject, description, status } = req.body;
-    const titleStyle = req.body.titleStyle ? JSON.parse(req.body.titleStyle) : {};
-    const subjectStyle = req.body.subjectStyle ? JSON.parse(req.body.subjectStyle) : {};
-    const descriptionStyle = req.body.descriptionStyle ? JSON.parse(req.body.descriptionStyle) : {};
+    const { title, subject, authorName, category, news, status } = req.body;
 
     const updatedBlog = await blogservice.update(req.params.id,{
       title,
       subject,
-      description,
+      authorName,
+      category,
+      news,
       status,
-      titleStyle,
-      subjectStyle,
-      descriptionStyle,
     });
     return res.status(200).json({
       success: true,
@@ -122,10 +110,28 @@ const deleteBlog = async (req, res) => {
   }
 };
 
+const getLatestBlogs = async (req, res) => {
+  try {
+    const latestBlogs = await blogservice.getLatest(req.body); // fetch latest 5
+    return res.status(200).json({
+      success: true,
+      message: "Fetched latest blogs",
+      blogs: latestBlogs,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
 export default {
   createBlog,
   getAllBlogs,
   getBlogById,
   updateBlog,
   deleteBlog,
+  getLatestBlogs
 };

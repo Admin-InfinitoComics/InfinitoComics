@@ -17,11 +17,11 @@ const PressTrust = () => {
         </span>
       </div>
 
-        <div className="max-w-4xl mx-auto p-4 ">
-            <p className="text-center text-lg mb-8">INFINITO extends its heartfelt gratitude to the <strong className="text-red-600">Press Trust of India (PTI) </strong>for entrusting us with the opportunity to provide <strong className="text-red-600">Technical Support</strong>. It is an honor to collaborate with one of India's most prestigious and trusted news organizations. We are also proud to host Online connection to honorable Transport Minister <strong className="text-red-600">Sri Nitin Gadkari Ji.</strong></p>
+        <div className=" mx-80 p-4 ">
+            <p className="text-justify text-lg mb-8">INFINITO extends its heartfelt gratitude to the <strong className="text-red-600">Press Trust of India (PTI) </strong>for entrusting us with the opportunity to provide <strong className="text-red-600">Technical Support</strong>. It is an honor to collaborate with one of India's most prestigious and trusted news organizations. We are also proud to host Online connection to honorable Transport Minister <strong className="text-red-600">Sri Nitin Gadkari Ji.</strong></p>
 
 
-            <p className="text-center text-lg">We are committed to delivering top-notch support and ensuring seamless operations for PTI across the country. This partnership reflects our dedication to excellence and our vision of empowering India's media and entertainment industry with innovative solutions.</p>
+            <p className="text-justify text-lg">We are committed to delivering top-notch support and ensuring seamless operations for PTI across the country. This partnership reflects our dedication to excellence and our vision of empowering India's media and entertainment industry with innovative solutions.</p>
 
             
                     <span className="flex justify-center items-center w-full h-full my-18">

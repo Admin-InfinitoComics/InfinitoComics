@@ -16,6 +16,7 @@ function App() {
           <Route path="/users" element={<User/>}> </Route>
       </Routes>
     </BrowserRouter>
+    </>
   )
 }
 

@@ -12,10 +12,10 @@ const Esummit = () => {
           </h1>
         </div>
 
-        <div  className="max-w-4xl mx-auto p-4 ">
-         <p className="text-center text-lg mb-8"><strong className="text-red-600">INFINITO </strong>is thrilled to announce its partnership with <strong className="text-red-600">E-Summit '22, NIT Raipur </strong> , a premier platform celebrating innovation, entrepreneurship, and the spirit of creativity. This collaboration underscores our commitment to nurturing young talent and fostering the entrepreneurial ecosystem in India. We are equally proud to share that our founder, <strong className="text-red-600">Rajan Sharma </strong>, will serve as a jury member of the Business Model Competition at E-summit, NIT Raipur, bringing his expertise and insights to evaluate groundbreaking ideas and inspiring ventures.</p>
+        <div  className="mx-80 p-4 ">
+         <p className="text-justify text-lg mb-8"><strong className="text-red-600">INFINITO </strong>is thrilled to announce its partnership with <strong className="text-red-600">E-Summit '22, NIT Raipur </strong> , a premier platform celebrating innovation, entrepreneurship, and the spirit of creativity. This collaboration underscores our commitment to nurturing young talent and fostering the entrepreneurial ecosystem in India. We are equally proud to share that our founder, <strong className="text-red-600">Rajan Sharma </strong>, will serve as a jury member of the Business Model Competition at E-summit, NIT Raipur, bringing his expertise and insights to evaluate groundbreaking ideas and inspiring ventures.</p>
 
-          <p className="text-center text-lg">At <strong className="text-red-600">INFINITO </strong>, we believe in empowering visionaries who dare to dream big and innovate fearlessly. Together with E-Summit '22, we look forward to driving meaningful conversations and unlocking the potential of aspiring entrepreneurs.</p>
+          <p className="text-justify text-lg">At <strong className="text-red-600">INFINITO </strong>, we believe in empowering visionaries who dare to dream big and innovate fearlessly. Together with E-Summit '22, we look forward to driving meaningful conversations and unlocking the potential of aspiring entrepreneurs.</p>
 
         </div>
 

@@ -23,8 +23,8 @@ const ArcheryAssociation = () => {
           <img src={logo} alt="logo" className="max-w-full h-auto" />
         </span>
 
-        <div className="max-w-4xl mx-auto p-4">
-          <p className="text-center text-lg">
+        <div className=" mx-80 p-4">
+          <p className="text-justify text-lg">
             INFINITO is honored to collaborate with the{" "}
             <strong className="text-red-600"> Bihar Archery Association</strong>{" "}
             as the{" "}

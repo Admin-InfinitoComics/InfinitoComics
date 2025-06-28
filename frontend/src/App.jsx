@@ -5,9 +5,8 @@ import appStore from './redux/appStore';
 import Body from './components/Body';
 import Loggedin from './components/Homepage-loggedin/Body';
 import Premium from './components/Homepage-premium/Body';
-
 import Home from '../src/pages/Home/Home';
-import Login from './pages/Login/Login';
+import Login from './pages/login/login'
 import SignupWrapper from './pages/Signup/SignupWrapper';
 import News from './pages/News_Blogs/News';
 import CareerInternship from './pages/Career&Internships/CareerMain'
@@ -48,6 +47,7 @@ function App() {
            <Route path="/signup"  element={<SignupWrapper/>} />
            <Route path="/careers" element={<CareerInternship/>} />
            <Route path="/community" element={<Community/>} />
+
 
         </Route>
       </Routes>

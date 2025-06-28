@@ -10,6 +10,11 @@ const ResearchPaperSchema = new mongoose.Schema({
   abstract: { type: String, required: true },
   keywords: [{ type: String }],
   introduction: { type: String },
+  category: {
+  type: String,
+  enum: ['business', 'psychology', 'design', 'development'],
+  required: true
+},
   doi: { type: String }, // <-- DOI for the research paper itself
 
   references: [{

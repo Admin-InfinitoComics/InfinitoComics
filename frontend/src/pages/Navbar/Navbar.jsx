@@ -176,8 +176,8 @@ const Header = () => {
             Research
           </Link>
           <Link
-            to="/support" 
-            className="block font-bold hover:text-white flex items-center gap-2"
+            to="/support"
+            className="font-bold hover:text-white flex items-center gap-2"
           >
             <Heart /> Support Us
           </Link>

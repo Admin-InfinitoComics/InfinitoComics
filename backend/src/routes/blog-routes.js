@@ -1,11 +1,7 @@
 import express from "express";
 const router = express.Router();
 import blogController from "../controller/blog-controller.js";
-import multer from "multer";
-
-const storage = multer.memoryStorage(); 
-const upload = multer({ storage: storage });
-
+import upload from '../middleware/multer.js';
 
 router.post("/createblog", upload.any(),blogController.createBlog); // done
 

@@ -7,10 +7,11 @@ import User from './Pages/UserList/UserList';
 
 function App() {
   return (
+    <>
     <BrowserRouter basename="/">
       <Routes>
         {/* Main app structure */}
-        <Route path="/app" element={<Body/>} />
+        <Route path="/" element={<Body/>} />
         {/* Create blog at /createblog */}
         <Route path="/createblog" element={<CreateBlog />} />
           <Route path="/users" element={<User/>}> </Route>

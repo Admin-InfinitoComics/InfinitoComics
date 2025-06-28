@@ -23,10 +23,10 @@ const Header = () => {
           <Link to="/blogs" className="hover:text-white font-bold">
             Blogs & News
           </Link>
-          <Link to="/foundation" className="hover:text-white font-bold">
+          <Link to="http://localhost:3004/" className="hover:text-white font-bold">
             Foundation
           </Link>
-          <Link to="/research" className="hover:text-white font-bold">
+          <Link to="http://localhost:3003/" className="hover:text-white font-bold">
             Research
           </Link>
           <Link

@@ -1,13 +1,18 @@
 // 📁 src/components/Header.jsx
 import React, { useState } from "react";
-import { FiSearch, FiMenu, FiX } from "react-icons/fi";
+import { FiSearch, FiMenu, FiX, FiUser  } from "react-icons/fi";
 import logo from "../../../assets/logo.png";
 import { Heart, ShoppingBag } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
+import { useSelector } from "react-redux";
+import UserIcon from '../../../assets/Images/UserIcon.png';
 
 const Header = () => {
   // State to handle mobile menu toggle
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate=useNavigate();
+  const user = useSelector((store)=>store.user);
+  console.log(user);
 
   return (
     <div className="text-white font-sans">
@@ -48,11 +53,23 @@ const Header = () => {
         </div>
 
         {/* Login Button (only on desktop) */}
-        <Link to="/login">
-          <button className="hidden md:block border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider">
-            Log In | Sign Up &gt;
-          </button>
-        </Link>
+
+        
+<div className="hidden md:block">
+  {user ? (
+    <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
+      <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
+      <span className="tracking-wide">Hi, {user.name.split(" ")[0]}!</span>
+    </div>
+  ) : (
+    <button
+      className="border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider"
+      onClick={() => navigate("/login")}
+    >
+      Log In | Sign Up &gt;
+    </button>
+  )}
+</div>
 
         {/* Logo Centered */}
         <Link to='/'>
@@ -181,9 +198,19 @@ const Header = () => {
           >
             <Heart /> Support Us
           </Link>
-          <button className="w-full border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider">
-            Log In | Sign Up &gt;
-          </button>
+{user ? (
+  <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
+    <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
+    <span className="tracking-wide">Hi, {user.name.split(" ")[0]}!</span>
+  </div>
+) : (
+  <button
+    className="w-full border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider"
+    onClick={() => navigate("/login")}
+  >
+    Log In | Sign Up &gt;
+  </button>
+)}
         </div>
       )}
     </div>

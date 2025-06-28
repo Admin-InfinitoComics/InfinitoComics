@@ -3,6 +3,7 @@ import ResearchPaperRepository from "../repository/researchPaper-repository.js";
 class ResearchPaperService {
   constructor() {
     this.researchPaperRepository = new ResearchPaperRepository();
+    this.validCategories = ['business', 'psychology', 'design', 'development'];
   }
 
   async create(data) {
@@ -12,8 +13,14 @@ class ResearchPaperService {
         doi: ref.doi?.trim() || ""
       })) || [];
 
+      const category = data.category?.toLowerCase();
+      if (!this.validCategories.includes(category)) {
+        throw new Error("Invalid category");
+      }
+
       const paperData = {
         ...data,
+        category,
         references: formattedReferences
       };
 
@@ -49,8 +56,17 @@ class ResearchPaperService {
         doi: ref.doi?.trim() || ""
       })) || [];
 
+      let category = data.category;
+      if (category) {
+        category = category.toLowerCase();
+        if (!this.validCategories.includes(category)) {
+          throw new Error("Invalid category");
+        }
+      }
+
       const updateData = {
         ...data,
+        category,
         references: formattedReferences
       };
 

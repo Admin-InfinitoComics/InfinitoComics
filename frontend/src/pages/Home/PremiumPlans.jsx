@@ -14,7 +14,7 @@ const PremiumPlans = () => {
     <div className="flex flex-col lg:flex-row justify-center items-center w-full mt-5 p-16 min-h-[600px] px-4 lg:px-32 gap-10">
 
       {/* 🟥 INFINITO ULTIMATE KIT PLAN */}
-      <div className="flex flex-col w-full lg:w-[35%] h-auto lg:h-[700px] gap-2">
+      <div className="flex flex-col w-full lg:w-[35%] h-auto lg:h-[750px] md:ml-60 ">
         {/* Card with product details */}
         <div className="flex flex-col items-center w-full h-[90%] text-white bg-slate-900 p-5 border border-black"
         style={{
@@ -47,21 +47,22 @@ const PremiumPlans = () => {
               <CircleCheck size={24} color="red" /> Digital wall paintings
             </span>
           </div>
-          <p className="text-lg">
-            <strong>First 10,000 customers get exclusive gifts!!</strong>
-          </p>
+        <p className="text-lg whitespace-nowrap overflow-hidden text-ellipsis">
+  <strong>First 10,000 customers get exclusive gifts!!</strong>
+</p>
+
         </div>
         {/* Offer label */}
-        <div className="w-full h-[10%] text-white bg-red-500 flex justify-center items-center text-center border border-black"
+        <div className="w-full h-14 lg:h-[10%] text-white bg-red-500 flex justify-center items-center text-center border border-black"
         style={{
-          clipPath: "polygon(0 30%, 100% 0, 100% 100%, 0 100%)",
+          clipPath: "polygon(0 20%, 100% 0, 100% 100%, 0 100%)",
         }}>
           <strong>Special Offer</strong>
         </div>
       </div>
 
       {/* 🟩 FREE PLAN */}
-      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[700px]">
+      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[750px] ">
         <div className="w-full h-full bg-slate-50 border border-black">
           <div className="flex flex-col items-center w-full h-full bg-slate-50 p-5">
             <div><Leaf size={80} color="currentColor" /></div>
@@ -83,7 +84,7 @@ const PremiumPlans = () => {
       </div>
 
       {/* 🟨 MONTHLY PLAN */}
-      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[700px]">
+      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[750px]">
         <div className="w-full h-full bg-slate-50 border border-black">
           <div className="flex flex-col items-center w-full h-full bg-slate-50 p-5">
             <div><LeafyGreen size={80} color="currentColor" /></div>
@@ -114,7 +115,7 @@ const PremiumPlans = () => {
       </div>
 
       {/* 🟪 HALF YEAR PLAN */}
-      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[700px]">
+      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[750px]">
         <div className="w-full h-full bg-slate-50 border border-black">
           <div className="flex flex-col items-center w-full h-full bg-slate-50 p-5">
             <div><Flower size={80} color="currentColor" /></div>
@@ -145,7 +146,7 @@ const PremiumPlans = () => {
       </div>
 
       {/* 🟦 ANNUAL PLAN */}
-      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[700px] gap-2">
+      <div className="flex flex-col w-full lg:w-[20%] h-auto lg:h-[750px] md:mr-60 ">
         <div className="w-full h-[90%] bg-gray-900  border border-black"
          style={{
           clipPath: "polygon(0 0, 100% 0, 100% 97%, 0 100%)",
@@ -184,7 +185,7 @@ const PremiumPlans = () => {
           </div>
         </div>
         {/* Offer label */}
-        <div className="w-full h-[10%] text-white bg-red-500 flex justify-center items-center text-center border border-black"
+        <div className="w-full h-14 lg:h-[10%] text-white bg-red-500 flex justify-center items-center text-center border border-black"
           style={{
           clipPath: "polygon(0 30%, 100% 0, 100% 100%, 0 100%)",
         }}
@@ -192,6 +193,9 @@ const PremiumPlans = () => {
           <strong>Best Offer</strong>
         </div>
       </div>
+
+
+
     </div>
   );
 };

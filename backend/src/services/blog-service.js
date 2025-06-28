@@ -50,6 +50,12 @@ class BlogService {
       throw error;
     }
   }
+
+  async getLatest(limit) {
+    return await this.blogRepository.getLatest(limit);
+  }
+
+
 }
 
 export default BlogService;

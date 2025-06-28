@@ -8,7 +8,7 @@ import {
   FaTwitter,
   FaPinterestP
 } from 'react-icons/fa';
-import logo from '../../../assets/Logo (1).png'; 
+import logo from '../../../assets/Logo.png'; 
 import smallLogo from '../../../assets/Images/foot.png';
 
 

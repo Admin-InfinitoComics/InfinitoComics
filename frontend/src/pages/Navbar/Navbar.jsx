@@ -177,7 +177,7 @@ const Header = () => {
           </Link>
           <Link
             to="/support"
-            className="block font-bold hover:text-white flex items-center gap-2"
+            className="font-bold hover:text-white flex items-center gap-2"
           >
             <Heart /> Support Us
           </Link>

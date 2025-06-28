@@ -24,9 +24,8 @@ class UserService {
   async login(data) {
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) throw new Error("Invalid email");
-
-    // ⚠️ Direct string compare
-    if (data.password !== user.password) throw new Error("Invalid password");
+    const user1 = bcrypt.compare(data.password, user.password);
+    if (!user1) throw new Error("Invalid password");
 
     const payload = { id: user._id, email: user.email };
     const token = jwt.sign(payload, config.JWT_SECRET_KEY, {

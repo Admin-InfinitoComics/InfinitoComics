@@ -4,7 +4,7 @@ import config from "../config/server-config.js";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 import sendEmail from "../utils/sendEmail.js";
-
+import { uploadToS3 } from "../utils/aws.js";
 class UserService {
   constructor() {
     this.userRepository = new UserRepository();
@@ -114,6 +114,24 @@ class UserService {
 
     // ⚠️ No hashing — save plain text
     await this.userRepository.updatePasswordAndClearOtp(user._id, newPassword);
+  }
+
+  async upload(file) {
+    try {
+      if (!file) throw new Error("No file uploaded");
+
+      const { buffer, originalname, mimetype } = file;
+      const { Location, Key, Bucket } = await uploadToS3(buffer, originalname, mimetype);
+
+      return { 
+        url: Location, 
+        key: Key, 
+        bucket: Bucket 
+      };
+
+    } catch (error) {
+      throw new Error("File upload failed: " + error.message);
+    }
   }
 }
 

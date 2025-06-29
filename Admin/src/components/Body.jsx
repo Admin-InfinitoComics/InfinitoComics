@@ -5,9 +5,8 @@ import Home from '../pages/Home/home';
 const Body = () => {
   return (
     <div>
-        <Navbar></Navbar>
-      <Home/>
-          <Outlet />   
+      <Navbar/>
+      <Outlet />   
     </div>
   )
 }

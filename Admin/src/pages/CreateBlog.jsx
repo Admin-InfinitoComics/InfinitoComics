@@ -1,62 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import { FaBold, FaItalic } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
 import { MdVisibility } from 'react-icons/md';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { PiFloppyDiskDuotone } from 'react-icons/pi';
-import { MdSend } from 'react-icons/md';
-import { MdFormatAlignLeft, MdFormatAlignCenter, MdFormatAlignRight } from 'react-icons/md';
+import { PiFloppyDiskDuotone } from 'react-icons/pi'; 
+import { MdSend, MdAccountCircle } from 'react-icons/md';
+import { FaChevronUp, FaTrash } from 'react-icons/fa';
 import Navbar from './Navbar/Navbar';
-
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal);
+const showAlert = (type) => {
+  const config = {
+    icon: 'success',
+    title: '',
+    html: '',
+    showConfirmButton: true,
+    confirmButtonText: 'Awesome!',
+    confirmButtonColor: '#4CAF50', // default green
+    backdrop: `
+      rgba(0,0,123,0.4)
+      left top
+      no-repeat
+    `,
+  };
+  switch (type) {
+    case 'published':
+      config.title = '🎉 Blog Published!';
+      config.html = `<strong>Your blog has been <span style="color:#4CAF50;">successfully published</span>!</strong>`;
+      config.icon = 'success';
+      break;
+    case 'updated':
+      config.title = '✏️ Blog Updated!';
+      config.html = `<strong>Your blog changes have been <span style="color:#2196F3;">saved</span>!</strong>`;
+      config.icon = 'info';
+      config.confirmButtonColor = '#2196F3';
+      break;
+    case 'deleted':
+      config.title = '🗑️ Blog Deleted!';
+      config.html = `<strong>The blog has been <span style="color:#f44336;">permanently removed</span>.</strong>`;
+      config.icon = 'warning';
+      config.confirmButtonColor = '#f44336';
+      break;
+    default:
+      config.title = '✅ Success';
+      config.html = 'Operation completed successfully!';
+  }
+  MySwal.fire(config).then(() => {
+    window.location.reload(); // 🔄 Reload after "OK"
+  });
+};
 const BlogCreator = () => {
   const [showPreview, setShowPreview] = useState(false);
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
-  const [description, setDescription] = useState('');
-  const [images, setImages] = useState([]);
-
   const [showNotification, setShowNotification] = useState(false);
   const [showReset, setShowReset] = useState(false);
   const [publishedBlogs, setPublishedBlogs] = useState([]);
-
-  const defaultStyle = {
-    fontFamily: 'Arial',
-    fontSize: '16px',
-    color: '#000',
-    alignment: 'left',
-    bold: false,
-    italic: false
-  };
-
-  const [titleStyle, setTitleStyle] = useState(defaultStyle);
-  const [subjectStyle, setSubjectStyle] = useState(defaultStyle);
-  const [descriptionStyle, setDescriptionStyle] = useState(defaultStyle);
   const [editingBlog, setEditingBlog] = useState(null);
   const [allBlogs, setAllBlogs] = useState([]);
+  const [fullStoryBlocks, setFullStoryBlocks] = useState([
+  { image: null, description: ''}
+]);
+const [expandedImage, setExpandedImage] = useState(null);
 
-  const colors = ['#000', '#222', '#444', '#666', '#888', '#aaa', '#ccc', '#eee', '#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff', '#ffa500', '#800080', '#008000', '#800000'];
+const [currentPage, setCurrentPage] = useState(0);
+const blogsPerPage = 3;
+const startIndex = currentPage * blogsPerPage;
+const totalPages = Math.ceil(allBlogs.length / blogsPerPage);
+const currentBlogs = allBlogs.slice(startIndex, startIndex + blogsPerPage);
+const [showBlogs, setShowBlogs] = useState(false);
+const [authorName, setAuthorName] = useState('');
+const [category, setCategory] = useState('');
 
-  const handleDelete = async (blogId) => {
+const blogSectionRef = useRef(null);
+const formRef = useRef(null);
+
+  const handleDelete = async (blogId) => {  
     const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
     if (!confirmDelete) return;
-
   try {
     const response = await fetch(`http://localhost:3000/blog/deleteblog/${blogId}`, {
       method: 'DELETE',
     });
-
     const result = await response.json();
-
     if (response.ok) {
-      alert('Blog deleted successfully!');
-      
-      // Update state
+      showAlert('deleted');
+
       const updated = publishedBlogs.filter((b) => b._id !== blogId);
       setPublishedBlogs(updated);
 
-      // Update localStorage
       localStorage.setItem('publishedBlogs', JSON.stringify(updated));
 
-       // Update allBlogs too!
       const updatedAll = allBlogs.filter((b) => b._id !== blogId);
       setAllBlogs(updatedAll);
     } else {
@@ -68,64 +100,64 @@ const BlogCreator = () => {
     alert('Error deleting blog - check console for details');
   }
 };
-
+const handleAddBlock = () => {
+  setFullStoryBlocks([...fullStoryBlocks, { image: null, description: ''}]);
+};
 const handleUpdate = async () => {
   if (!editingBlog) {
     alert('No blog is being edited!');
     return;
   }
-
   const confirmUpdate = window.confirm("Are you sure you want to save the changes or update this blog?");
   if (!confirmUpdate) return;
 
-  const formData = new FormData();
-  formData.append('title', title);
-  formData.append('subject', subject);
-  formData.append('description', description);
-  formData.append('status', 'published');
-  formData.append('titleStyle', JSON.stringify(titleStyle));
-  formData.append('subjectStyle', JSON.stringify(subjectStyle));
-  formData.append('descriptionStyle', JSON.stringify(descriptionStyle));
+  const news = fullStoryBlocks.map(block => ({
+    imageUrl: block.image ? block.image : '', // base64 string
+    story: block.description
+  }));
 
+  const payload = {
+    title,
+    subject,
+    news,
+    status: 'published',
+    authorName,
+    category
+  };
 
   try {
     const response = await fetch(`http://localhost:3000/blog/updateblog/${editingBlog._id}`, {
       method: 'PUT',
-      body: formData, // ✅ just like handlePublish
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
     });
-
     const result = await response.json();
-
     if (response.ok) {
-      alert('Blog updated successfully!');
-      console.log('Updated:', result);
+     showAlert('updated');
 
-      // Update local state
       const updatedBlogs = publishedBlogs.map((b) =>
         b._id === editingBlog._id
-        ? { ...b, title, subject, description, status: 'published',  titleStyle,subjectStyle,
-              descriptionStyle,}
-        : b
+          ? { ...b, title, subject, fullStory: fullStoryBlocks, authorName, category }
+          : b
       );
       setPublishedBlogs(updatedBlogs);
       localStorage.setItem('publishedBlogs', JSON.stringify(updatedBlogs));
 
-      // Update allBlogs
       const updatedAllBlogs = allBlogs.map((b) =>
         b._id === editingBlog._id
-          ? { ...b, title, subject, description, status: 'published', titleStyle,subjectStyle,
-              descriptionStyle }
+          ? { ...b, title, subject, fullStory: fullStoryBlocks, authorName, category }
           : b
       );
       setAllBlogs(updatedAllBlogs);
-
-      // Clear form & editing state
       setEditingBlog(null);
       setTitle('');
       setSubject('');
-      setDescription('');
+      setFullStoryBlocks([{ image: null, description: '' }]);
+      setAuthorName('');
+      setCategory('');
       setShowPreview(false);
-
     } else {
       console.error('Error updating:', result);
       alert(`Error updating blog: ${result.message}`);
@@ -135,26 +167,21 @@ const handleUpdate = async () => {
     alert('Error updating blog - check console for details');
   }
 };
-
   const handleGetAllBlogs = async () => {
   try {
     const response = await fetch('http://localhost:3000/blog/getallblog');
     const result = await response.json();
 
     if (response.ok) {
-      console.log('Fetched all blogs:', result.data);
       setAllBlogs(result.data);
       localStorage.setItem('allBlogs', JSON.stringify(result.data));
     } else {
-      console.error('Error fetching blogs:', result);
       alert(`Error fetching blogs: ${result.message}`);
     }
   } catch (err) {
-    console.error('Network Error:', err);
     alert('Error fetching blogs - check console for details');
   }
 };
-
 
   useEffect(() => {
     const savedDraft = localStorage.getItem('blogDraft');
@@ -162,260 +189,349 @@ const handleUpdate = async () => {
       const draft = JSON.parse(savedDraft);
       setTitle(draft.title || '');
       setSubject(draft.subject || '');
-      setDescription(draft.description || '');
-      setTitleStyle(draft.titleStyle || defaultStyle);
-      setSubjectStyle(draft.subjectStyle || defaultStyle);
-      setDescriptionStyle(draft.descriptionStyle || defaultStyle);
+     setFullStoryBlocks(draft.fullStoryBlocks || []);
+     setAuthorName(draft.authorName||'');
+     setCategory(draft.category || '');
       setShowNotification(true);
       setShowReset(true);
     }
-
     const savedPublished = localStorage.getItem('publishedBlogs');
     if (savedPublished) {
       setPublishedBlogs(JSON.parse(savedPublished));
     }
   }, []);
 
-  const handleSaveDraft = () => {
-    const draftData = {
-      title,
-      subject,
-      description,
-      titleStyle,
-      subjectStyle,
-      descriptionStyle,
-    };
-    localStorage.setItem('blogDraft', JSON.stringify(draftData));
-    setShowNotification(true);
-    setShowReset(true);
-    alert('Draft saved locally!');
+  useEffect(() => {
+  if (showBlogs && allBlogs.length > 0 && blogSectionRef.current) {
+    setTimeout(() => {
+      blogSectionRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }, 100);
+  }
+}, [showBlogs, allBlogs.length]); 
+
+
+  const handleSaveDraft = async () => {
+      if (
+    !title.trim() &&
+    !subject.trim() &&
+    fullStoryBlocks.every(block => !block.description.trim() && !block.image) &&
+    !authorName.trim() &&
+    !category.trim()
+  ) {
+    alert("Cannot save an empty draft. Please add content before saving.");
+    return;
+  }
+  const prevDraft = JSON.parse(localStorage.getItem('blogDraft')) || {};
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const updatedBlocks = await Promise.all(
+    fullStoryBlocks.map(async (block, index) => {
+      const previousImage = prevDraft.fullStoryBlocks?.[index]?.image;
+      const base64Image =
+        block.image instanceof File
+          ? await convertToBase64(block.image)
+          : block.image || previousImage || null;
+
+      return {
+        description: block.description || prevDraft.fullStoryBlocks?.[index]?.description || '',
+        image: base64Image,
+      };
+    })
+  );
+
+  const draftData = {
+    title: title || prevDraft.title || '',
+    subject: subject || prevDraft.subject || '',
+    fullStoryBlocks: updatedBlocks.length > 0 ? updatedBlocks : prevDraft.fullStoryBlocks || [{ image: null, description: '' }],
+    authorName : authorName || prevDraft.authorName || '',
+    category: category || prevDraft.authorName || ''
+  };
+
+  localStorage.setItem('blogDraft', JSON.stringify(draftData));
+  setShowNotification(true);
+  setShowReset(true);
+  alert('Draft saved locally!');
   };
 
   const handleResetDraft = () => {
+    const confirmReset = window.confirm("Do you want to reset the changes made?");
+    if (!confirmReset) return;
+
     localStorage.removeItem('blogDraft');
     setTitle('');
     setSubject('');
-    setDescription('');
-    setTitleStyle(defaultStyle);
-    setSubjectStyle(defaultStyle);
-    setDescriptionStyle(defaultStyle);
-    setImages([]);
+    setFullStoryBlocks([{ image: null, description: '' }]);
+    setAuthorName('');
+    setCategory('');
     setShowNotification(false);
     setShowReset(false);
     alert('Draft reset!');
   };
 
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setImages(prev => [...prev, ...files]);
-  };
+const convertToBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+  });
 
-  const handleRemoveImage = (index) => {
-    setImages(prev => prev.filter((_, i) => i !== index));
-  };
+const handlePublish = async () => {
+  if (
+    !title.trim() &&
+    !subject.trim() &&
+    fullStoryBlocks.every(block => !block.description.trim() && !block.image) &&
+    !authorName.trim() &&
+    !category.trim()
+  ) {
+    alert("Cannot publish an empty draft. Please add content before publishing.");
+    return;
+  }
 
-  const handlePublish = async () => {
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('subject', subject);
-    formData.append('description', description);
-    formData.append('status', 'published');
-    // images.forEach((img) => {
-    //   formData.append('images', img);
-    // });
+  const newsArray = await Promise.all(
+    fullStoryBlocks.map(async block => {
+      const base64 = typeof block.image === 'string'
+        ? block.image
+        : block.image
+        ? await convertToBase64(block.image)
+        : '';
 
-    // Add style objects as string
-    formData.append('titleStyle', JSON.stringify(titleStyle));
-    formData.append('subjectStyle', JSON.stringify(subjectStyle));
-    formData.append('descriptionStyle', JSON.stringify(descriptionStyle));
-
-    try {
-      const response = await fetch('http://localhost:3000/blog/createblog', {
-        method: 'POST',
-        body: formData,
-      });
-      const result = await response.json();
-      if (response.ok) {
-        alert('Blog Published Successfully!');
-        console.log('Success:', result);
-
-        // Add new card
-        const newBlog = {
-          _id: result.data._id,  
-          title,
-          subject,
-          description,
-          titleStyle,
-          subjectStyle,
-          descriptionStyle,
-        };
-
-        const updatedBlogs = [...publishedBlogs, newBlog];
-        setPublishedBlogs(updatedBlogs);
-        localStorage.setItem('publishedBlogs', JSON.stringify(updatedBlogs));
-
-        setTitle('');
-        setSubject('');
-        setDescription('');
-        setImages([]);
-        localStorage.removeItem('blogDraft');
-        setShowNotification(false);
-        setShowReset(false);
-      } else {
-        console.error('Error:', result);
-        alert(`Error publishing blog: ${result.message}`);
-      }
-    } catch (err) {
-      console.error('Network Error:', err);
-      alert('Error publishing blog - check console for details');
-    }
-  };
-
-  const renderTextField = (label, value, onChange, styleObj, setStyle, placeholder) => (
-    <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
-      <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
-        <span className="text-xl">T</span> {label}
-      </h2>
-      <textarea
-        className="w-full border p-3 rounded mb-4"
-        style={{
-          height: '150px',
-          color: styleObj.color,
-          fontFamily: styleObj.fontFamily,
-          fontSize: styleObj.fontSize,
-          textAlign: styleObj.alignment,
-          fontWeight: styleObj.bold ? 'bold' : 'normal',
-          fontStyle: styleObj.italic ? 'italic' : 'normal'
-        }}
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      ></textarea>
-      <div className="flex flex-wrap items-center gap-3">
-        <select
-          className="border px-2 py-1 rounded"
-          value={styleObj.fontFamily}
-          onChange={(e) => setStyle({ ...styleObj, fontFamily: e.target.value })}
-        >
-          <option value="Arial">Arial</option>
-          <option value="Times New Roman">Times New Roman</option>
-          <option value="Georgia">Georgia</option>
-          <option value="Verdana">Verdana</option>
-          <option value="Tahoma">Tahoma</option>
-          <option value="Trebuchet MS">Trebuchet MS</option>
-          <option value="Courier New">Courier New</option>
-        </select>
-        <select
-          className="border px-2 py-1 rounded"
-          value={styleObj.fontSize}
-          onChange={(e) => setStyle({ ...styleObj, fontSize: e.target.value })}
-        >
-          <option>16px</option>
-          <option>20px</option>
-          <option>24px</option>
-          <option>32px</option>
-        </select>
-        <div className="flex gap-1">
-          {colors.map((c, i) => (
-            <button
-              key={i}
-              onClick={() => setStyle({ ...styleObj, color: c })}
-              className="w-5 h-5 rounded border"
-              style={{ backgroundColor: c }}
-            />
-          ))}
-        </div>
-        <div className="flex gap-1 ml-auto">
-          <button
-            onClick={() => setStyle({ ...styleObj, alignment: 'left' })}
-            className="px-2 py-1 border rounded"
-          > <MdFormatAlignLeft size={18} /></button>
-          <button
-            onClick={() => setStyle({ ...styleObj, alignment: 'center' })}
-            className="px-2 py-1 border rounded"
-          ><MdFormatAlignCenter size={18} /></button>
-          <button
-            onClick={() => setStyle({ ...styleObj, alignment: 'right' })}
-            className="px-2 py-1 border rounded"
-          ><MdFormatAlignRight size={18} /></button>
-        </div>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setStyle({ ...styleObj, bold: !styleObj.bold })}
-            className={`px-2 py-1 rounded ${styleObj.bold ? 'bg-gray-400' : 'bg-gray-200'}`}
-          >
-            <FaBold />
-          </button>
-          <button
-            onClick={() => setStyle({ ...styleObj, italic: !styleObj.italic })}
-            className={`px-2 py-1 rounded ${styleObj.italic ? 'bg-gray-400' : 'bg-gray-200'}`}
-          >
-            <FaItalic />
-          </button>
-        </div>
-      </div>
-    </div>
+      return {
+        imageUrl: base64,
+        story: block.description,
+      };
+    })
   );
 
+  const payload = {
+    title,
+    subject,
+    authorName,
+    category,
+    status: 'published',
+    news: newsArray,
+  };
+
+  try {
+    const response = await fetch('http://localhost:3000/blog/createblog', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json();
+    if (response.ok) {
+      showAlert('published');
+      setPublishedBlogs([...publishedBlogs, result.data]);
+      setTitle('');
+      setSubject('');
+      setFullStoryBlocks([{ image: null, description: '' }]);
+      setAuthorName('');
+      setCategory('');
+      localStorage.removeItem('blogDraft');
+      setShowNotification(false);
+      setShowReset(false);
+    } else {
+      console.error('Error:', result);
+      alert(`Error publishing blog: ${result.message}`);
+    }
+  } catch (err) {
+    console.error('Network Error:', err);
+    alert('Error publishing blog - check console for details');
+  }
+};
   return (
-    <div>
+    <div className='bg-[#f6f6ff]'>
 <Navbar/>
-  
-    <div className="min-h-screen bg-[#f6f6ff] p-20 font-sans relative">
+    <div  ref={formRef} className="p-20 font-sans relative mx-40">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
         <div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2 md:mb-0">
-            Infinito Comics - Blog Creator
-          </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-500 text-lg font-medium">
             Create and publish engaging blog content for your audience
           </p>
         </div>
 
         <button
-          onClick={handleGetAllBlogs}
-          className="mt-4 md:mt-0 px-6 py-3 rounded bg-purple-600 text-white font-semibold hover:bg-purple-700"
+          onClick={() => {
+              handleGetAllBlogs(); // fetch blogs
+              setShowBlogs((prev) => !prev);
+            }}
+            className="mt-4 md:mt-0 px-6 py-3 rounded bg-purple-600 text-white font-semibold hover:bg-purple-700" 
         >
-          All Blogs
+        <div className='flex'>
+            All Blogs
+          <FaChevronUp
+            className={`transition-transform duration-300  mt-1 ml-2 ${
+              showBlogs ? 'rotate-180' : 'rotate-0'
+            }`}
+          />
+        </div>
         </button>
       </div>
-
       {showNotification && (
         <div className="fixed top-4 right-4 bg-green-200 text-green-900 px-4 py-2 rounded shadow-lg z-50">
           Draft saved locally!
         </div>
       )}
-
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-2">
-          {renderTextField('Blog Title', title, setTitle, titleStyle, setTitleStyle, 'Enter your blog title...')}
-          {renderTextField('Subject', subject, setSubject, subjectStyle, setSubjectStyle, 'Enter blog subject...')}
-          {renderTextField('Full Story', description, setDescription, descriptionStyle, setDescriptionStyle, 'Write your full story here...')}
-
-          <div className="bg-white rounded-lg p-6 shadow-md mb-6">
+          <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
             <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
-              <AiOutlineCloudUpload /> Upload Images
+              <span className="text-xl">T</span> Title
             </h2>
-            <input
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="w-full border p-3 rounded text-black mb-4"
+            <textarea
+              className="w-full border p-3 rounded mb-4 placeholder-red-500"
+              placeholder="Enter title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215', height:'100px', fontSize:'1.5rem' }}
             />
-            <div className="flex flex-wrap gap-2">
-              {images.map((img, idx) => (
-                <div key={idx} className="relative w-24 h-24">
-                  <img src={URL.createObjectURL(img)} alt="preview" className="w-full h-full object-cover rounded" />
-                  <button
-                    onClick={() => handleRemoveImage(idx)}
-                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 text-xs"
-                  >X</button>
-                </div>
-              ))}
+          </div>
+           <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+              <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
+                <span className="text-xl">T</span> Subject
+              </h2>
+              <textarea
+                className="w-full border p-3 rounded mb-4 placeholder-gray-900"
+                placeholder="Enter subject"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#111111' , height:'100px'}}
+              />
+           </div>
+           <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+            <div className="flex flex-col md:flex-row md:items-center md:gap-6">
+              <div className="flex-1 mb-4 md:mb-0">
+                <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
+                  <span className="text-xl">T</span> Author Name
+                </h2>
+                <input
+                  type="text"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                  placeholder="Enter author name"
+                  className="w-full border p-3 rounded placeholder-gray-900"
+                  style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#111111' }}
+                />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
+                  <span className="text-xl">T</span> Category
+                </h2>
+                <input
+                  type="text"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder="Enter category"
+                  className="w-full border p-3 rounded placeholder-gray-900"
+                  style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#111111' }}
+                />
+              </div>
             </div>
           </div>
-
+         <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+           <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
+            <span className="text-xl">T</span> Full Story
+          </h2>
+          {fullStoryBlocks.map((block, index) => (
+            <div key={index} className="mb-6 border p-4 rounded shadow relative">
+             <button
+                onClick={() => {
+                  const updatedBlocks = fullStoryBlocks.filter((_, i) => i !== index);
+                  setFullStoryBlocks(updatedBlocks)
+                }}
+                className="absolute top-4 right-7 text-red-600 hover:text-red-800"
+                title="Delete this block"
+              >
+                <FaTrash size={19} />
+              </button>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (!file) return;
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    const newBlocks = [...fullStoryBlocks];
+                    newBlocks[index].image = reader.result; // base64 string
+                    setFullStoryBlocks(newBlocks);
+                  };
+                  reader.readAsDataURL(file);
+                }}
+                className="mb-2"
+                id={`fileInput-${index}`}
+              />
+              {block.image && (
+                <div className="relative mt-2 w-32 h-32 cursor-pointer group mb-3">
+                  <img
+                    src= {block.image}
+                    alt={`Preview ${index}`}
+                    className="w-full h-full object-cover rounded"
+                    onClick={() => setExpandedImage({ src: block.image, index })}
+                  />
+                  <button
+                    onClick={() => {
+                      const newBlocks = [...fullStoryBlocks];
+                      newBlocks[index].image = null;
+                      setFullStoryBlocks(newBlocks);
+                      const input = document.getElementById(`fileInput-${index}`);
+                      if (input) input.value = '';
+                    }}
+                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-700"
+                  >
+                    &times;
+                  </button>
+                </div>
+              )}
+              <textarea
+                className="w-full border p-2 rounded mb-2 placeholder-gray-500"
+                placeholder="Enter description..."
+                value={block.description}
+                onChange={(e) => {
+                  const newBlocks = [...fullStoryBlocks];
+                  newBlocks[index].description = e.target.value;
+                  setFullStoryBlocks(newBlocks);
+                }}
+                style={{ height: '150px' }}
+              ></textarea>
+            </div>
+          ))}
+          {expandedImage && (
+            <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+              <button
+                onClick={() => setExpandedImage(null)}
+                className="absolute top-6 right-6 text-white text-3xl font-bold"
+              >
+                &times;
+              </button>
+              <img
+                src={
+                  typeof expandedImage.src === 'string'
+                    ? expandedImage.src
+                    : URL.createObjectURL(expandedImage.src)
+                }
+                alt="Expanded"
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
+          )}
+          <button
+            onClick={handleAddBlock}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Add More Blocks
+          </button>
+        </div>
           <div className="flex justify-between gap-4">
             <button
               onClick={handleSaveDraft}
@@ -423,7 +539,6 @@ const handleUpdate = async () => {
             >
               <PiFloppyDiskDuotone className="text-xl" /> Save Draft
             </button>
-
             {showReset && (
               <button
                 onClick={handleResetDraft}
@@ -432,7 +547,6 @@ const handleUpdate = async () => {
                 Reset
               </button>
             )}
-
             <button
               onClick={handlePublish}
               className="flex items-center gap-2 px-6 py-3 rounded bg-black text-white font-semibold hover:bg-gray-800"
@@ -441,7 +555,6 @@ const handleUpdate = async () => {
             </button>
           </div>
         </div>
-
         <div className="bg-white rounded-lg p-6 shadow-md">
           <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
             <MdVisibility /> Preview
@@ -452,64 +565,36 @@ const handleUpdate = async () => {
           >
             {showPreview ? 'Hide' : 'Show'} Preview
           </button>
-
           {showPreview && (
             <div className="mt-4 prose max-w-none">
-              <h1
-                style={{
-                  color: titleStyle.color,
-                  fontFamily: titleStyle.fontFamily,
-                  fontSize: titleStyle.fontSize,
-                  textAlign: titleStyle.alignment,
-                  fontWeight: titleStyle.bold ? 'bold' : 'normal',
-                  fontStyle: titleStyle.italic ? 'italic' : 'normal',
-                }}
-              >
-                {title}
-              </h1>
-
-              <h2
-                style={{
-                  color: subjectStyle.color,
-                  fontFamily: subjectStyle.fontFamily,
-                  fontSize: subjectStyle.fontSize,
-                  textAlign: subjectStyle.alignment,
-                  fontWeight: subjectStyle.bold ? 'bold' : 'normal',
-                  fontStyle: subjectStyle.italic ? 'italic' : 'normal',
-                }}
-              >
-                {subject}
-              </h2>
-
-              <p
-                style={{
-                  color: descriptionStyle.color,
-                  fontFamily: descriptionStyle.fontFamily,
-                  fontSize: descriptionStyle.fontSize,
-                  textAlign: descriptionStyle.alignment,
-                  fontWeight: descriptionStyle.bold ? 'bold' : 'normal',
-                  fontStyle: descriptionStyle.italic ? 'italic' : 'normal',
-                }}
-              >
-                {description}
-              </p>
-
-              {images.length > 0 && (
-                <div className="mt-4">
-                  <h3>Images:</h3>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {images.map((img, idx) => (
-                      <img
-                        key={idx}
-                        src={URL.createObjectURL(img)}
-                        alt={`Preview ${idx + 1}`}
-                        className="w-20 h-20 object-cover rounded"
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-               {/* Only show "Update" button if editingBlog */}
+              <h1 style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215', fontSize:'1.5rem' }}>{title}</h1>
+              <h2 style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#111111' }}>{subject}</h2>
+                  {authorName && (
+                    <div className="flex items-center gap-2 mt-2 text-gray-700 mb-6">
+                      <MdAccountCircle className="w-5 h-5 text-gray-600" />
+                      <h1 style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#11111' }}>{authorName}</h1>
+                    </div>
+                  )}
+                {fullStoryBlocks.map((block, index) => (
+                    <div key={index} className="mb-4">
+                      {block.image && (
+                        <img
+                          src={
+                            typeof block.image === 'string'
+                              ? block.image
+                              : block.image instanceof File
+                              ? URL.createObjectURL(block.image)
+                              : ''
+                          }
+                          alt={`Story ${index}`}
+                          className="w-full max-w-full h-auto mx-auto mb-2"
+                        />
+                      )}
+                      <p style={{ fontFamily: 'DM Sans', fontWeight: '400', color: '#111111', marginBottom: '1.50rem'  }}>
+                        {block.description}
+                      </p>
+                    </div>
+                ))}
               {editingBlog && (
                 <button
                   onClick={handleUpdate}
@@ -522,68 +607,106 @@ const handleUpdate = async () => {
           )}
         </div>
       </div>
-
-    {/* All Blogs */}
-    {allBlogs.length > 0 && (
-      <div className="mt-10">
-        <h2 className="text-3xl font-bold mb-4">All Blogs</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {allBlogs.map((blog) => (
-            <div 
-              key={blog._id} 
-              className="relative group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 bg-white"
+      {showBlogs && allBlogs.length > 0 && (  
+  <div className="mt-10">
+    <h2 ref={blogSectionRef}  className="text-3xl font-bold mb-4">All Blogs</h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {currentBlogs.map((blog) => (
+        <div
+          key={blog._id}
+          className="relative group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 bg-white"
+        >
+          <div className="p-4">
+            <h3
+              className="text-lg font-bold mb-1"
+              style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215',  }}
             >
-              <div className="p-4">
-                <h3 className="text-lg font-bold mb-1">{blog.title}</h3>
-                <p className="text-gray-600 text-sm">{blog.subject}</p>
-              </div>
+              {blog.title}
+            </h3>
+            <p
+              className="text-gray-600 text-sm"
+              style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#111111' }}
+            >
+              {blog.subject}
+            </p>
+          </div>
 
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex justify-center items-center space-x-4 transition-opacity duration-300">
-                <button
-                  onClick={() => {
-                    setTitle(blog.title);
-                    setSubject(blog.subject);
-                    setDescription(blog.description);
-                    setTitleStyle(blog.titleStyle || defaultStyle);
-                    setSubjectStyle(blog.subjectStyle || defaultStyle);
-                    setDescriptionStyle(blog.descriptionStyle || defaultStyle);
-                    setShowPreview(true);
-                  }}
-                  className="bg-white text-black px-4 py-2 rounded font-semibold hover:bg-gray-200"
-                >
-                  Open
-                </button>
-                <button
-                  onClick={() => handleDelete(blog._id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded font-semibold hover:bg-red-600"
-                >
-                  Delete
-                </button>
-                <button
-                  onClick={() => {
-                    setTitle(blog.title);
-                    setSubject(blog.subject);
-                    setDescription(blog.description);
-                    setTitleStyle(blog.titleStyle || defaultStyle);
-                    setSubjectStyle(blog.subjectStyle || defaultStyle);
-                    setDescriptionStyle(blog.descriptionStyle || defaultStyle);
-                    setShowPreview(true);
-                    setEditingBlog(blog);
-                  }}
-                  className="bg-blue-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-600"
-                >
-                  Edit
-                </button>
-              </div>
-            </div>
-          ))}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex justify-center items-center space-x-4 transition-opacity duration-300">
+            <button
+              onClick={() => {
+                setTitle(blog.title);
+                setSubject(blog.subject);
+                const storyBlocks = (blog.news || []).map(newsItem => ({
+                  image: newsItem.imageUrl || null, // use the image URL directly
+                  description: newsItem.story || ''
+                }));
+                setFullStoryBlocks(storyBlocks.length > 0 ? storyBlocks : [{ image: null, description: '' }]);
+                setAuthorName(blog.authorName);
+                setCategory(blog.category);
+                setShowPreview(true);
+
+                setTimeout(() => {
+                  formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+              }}
+              className="bg-white text-black px-4 py-2 rounded font-semibold hover:bg-gray-200"
+            >
+              Open
+            </button>
+            <button
+              onClick={() => handleDelete(blog._id)}
+              className="bg-red-500 text-white px-4 py-2 rounded font-semibold hover:bg-red-600"
+            >
+              Delete
+            </button>
+            <button
+              onClick={() => {
+                setTitle(blog.title);
+                setSubject(blog.subject);
+                const storyBlocks = (blog.news || []).map(newsItem => ({
+                  image: newsItem.imageUrl || null, // use the image URL directly
+                  description: newsItem.story || ''
+                }));
+                setFullStoryBlocks(storyBlocks.length > 0 ? storyBlocks : [{ image: null, description: '' }]);
+                setAuthorName(blog.authorName);
+                setCategory(blog.category);
+                setShowPreview(true);
+                setEditingBlog(blog);
+
+                setTimeout(() => {
+                  formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+              }}
+              className="bg-blue-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-600"
+            >
+              Edit
+            </button>
+          </div>
         </div>
-      </div>
-    )}
+      ))}
     </div>
-      </div>
-  );
+    <div className="mt-6 flex justify-center items-center space-x-4">
+      <button
+        disabled={currentPage === 0}
+        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
+        className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+      >
+        &lt;&lt;
+      </button>
+      <span className="text-lg font-semibold">
+        {startIndex + 1} - {Math.min(startIndex + blogsPerPage, allBlogs.length)} of {allBlogs.length}
+      </span>
+      <button
+        disabled={currentPage >= totalPages - 1}
+        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))}
+        className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+      >
+        &gt;&gt;
+      </button>
+    </div>
+  </div>
+)}
+   </div>
+  </div>)
 };
-
 export default BlogCreator;

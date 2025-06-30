@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 
 const newsSchema = new mongoose.Schema({
-    story:{
-        required: true,
-        type: String
-    },
     imageUrl:{
-        type: [String],
+        type: String,
+    },
+    story:{
+        type: String
     }
 });
 
@@ -19,21 +18,20 @@ const BlogSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    description: {
-        required: true,
-        type: String
+    authorName:{
+        required : true,
+        type:String
     },
+    category:{
+        required : true,
+        type:String
+    },
+    news: [newsSchema],
     status: { 
         type: String, 
         enum: ['draft', 'published'], 
         default: 'draft' 
     },
-    titleStyle: { type: Object, default: {} },
-    subjectStyle: { type: Object, default: {} },
-    descriptionStyle: { type: Object, default: {} },
-            // image: {
-    //     type: [String],
-    // },
 }, {
     timestamps: true  // Adds createdAt and updatedAt
 });

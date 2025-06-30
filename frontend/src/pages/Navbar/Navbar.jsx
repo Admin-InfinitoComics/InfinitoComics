@@ -1,9 +1,19 @@
-import React from 'react';
-import { FiSearch } from 'react-icons/fi';
-import logo from '../../../assets/logo.png'; 
-import {Heart,ShoppingBag} from 'lucide-react'
+// 📁 src/components/Header.jsx
+import React, { useState } from "react";
+import { FiSearch, FiMenu, FiX, FiUser  } from "react-icons/fi";
+import logo from "../../../assets/logo.png";
+import { Heart, ShoppingBag } from "lucide-react";
+import { Link, useNavigate} from "react-router-dom";
+import { useSelector } from "react-redux";
+import UserIcon from '../../../assets/Images/UserIcon.png';
 
 const Header = () => {
+  // State to handle mobile menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate=useNavigate();
+  const user = useSelector((store)=>store.user);
+  console.log(user);
+
   return (
     <div className=" text-white font-sans">
       {/* Top promo and links */}
@@ -13,16 +23,45 @@ const Header = () => {
           Use code <strong>INFINT10</strong> to get 10% off on our shop!
         </div>
 
-        {/* Navigation links */}
-        <div className="flex gap-16 text-[1rem] text-gray-300">
-          <a href="#" className="hover:text-white"><b>Blogs & News</b></a>
-          <a href="#" className="hover:text-white"><b>Foundation</b></a>
-          <a href="#" className="hover:text-white"><b>Research</b></a>
-          <a href="#" className="hover:text-white flex items-center gap-1"><Heart className='mx-1' /><b> Support Us</b></a>
+        {/* Navigation Links */}
+        <div className="hidden md:flex gap-16 text-[1rem] text-gray-300">
+          <Link to="/blogs" className="hover:text-white font-bold">
+            Blogs & News
+          </Link>
+          <Link to="http://localhost:3004/" className="hover:text-white font-bold">
+            Foundation
+          </Link>
+          <Link to="http://localhost:3003/" className="hover:text-white font-bold">
+            Research
+          </Link>
+          <Link
+            to="/support"
+            className="hover:text-white font-bold flex items-center gap-1"
+          >
+            <Heart className="mx-1" /> Support Us
+          </Link>
         </div>
       </div>
 
 
+        {/* Login Button (only on desktop) */}
+
+        
+<div className="hidden md:block">
+  {user ? (
+    <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
+      <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
+      <span className="tracking-wide">Hi, {user.name.split(" ")[0]}!</span>
+    </div>
+  ) : (
+    <button
+      className="border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider"
+      onClick={() => navigate("/login")}
+    >
+      Log In | Sign Up &gt;
+    </button>
+  )}
+</div>
 
       {/* Middle section with login, logo and buttons */}
       <div className="bg-[#202020] px-4 sm:px-8 py-4 flex flex-col md:flex-row items-center justify-around gap-4 h-20">
@@ -48,40 +87,63 @@ const Header = () => {
       </div>
 
 
-
-
-      {/* Bottom nav menu */}
-      <div className="bg-[#171717] text-sm  text-gray-300 px-4 sm:px-8 py-3">
-  <ul className="flex flex-wrap justify-center gap-10 items-center ">
-    {/* Individual static menu links */}
-
-    <li className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer first:border-none first:pl-0">
-      Characters
-    </li>
-    <li className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5">
-      Comics
-    </li>
-    <li className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5">
-      Animation
-    </li>
-    <li className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5">
-      Games
-    </li>
-    <li className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5">
-      Community
-    </li>
-    <li className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5">
-      About Us
-    </li>
-    <li className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5">
-       <span className="flex items-center gap-2">
-    <ShoppingBag  />
-    Shop
-  </span>
-    </li>
-  </ul>
-</div>
-
+      {/* Mobile Dropdown Menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-[#171717] text-sm text-gray-300 px-4 py-6 space-y-4">
+          <Link to="/characters" className="block font-bold hover:text-white">
+            Characters
+          </Link>
+          <Link to="/comics" className="block font-bold hover:text-white">
+            Comics
+          </Link>
+          <Link to="/animation" className="block font-bold hover:text-white">
+            Animation
+          </Link>
+          <Link to="/games" className="block font-bold hover:text-white">
+            Games
+          </Link>
+          <Link to="/community" className="block font-bold hover:text-white">
+            Community
+          </Link>
+          <Link to="/about" className="block font-bold hover:text-white">
+            About Us
+          </Link>
+          <Link
+            to="/shop"
+            className="block font-bold hover:text-white flex items-center gap-2"
+          >
+            <ShoppingBag /> Shop
+          </Link>
+          <Link to="/blogs" className="block font-bold hover:text-white">
+            Blogs & News
+          </Link>
+          <Link to="/foundation" className="block font-bold hover:text-white">
+            Foundation
+          </Link>
+          <Link to="/research" className="block font-bold hover:text-white">
+            Research
+          </Link>
+          <Link
+            to="/support"
+            className="font-bold hover:text-white flex items-center gap-2"
+          >
+            <Heart /> Support Us
+          </Link>
+{user ? (
+  <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
+    <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
+    <span className="tracking-wide">Hi, {user.name.split(" ")[0]}!</span>
+  </div>
+) : (
+  <button
+    className="w-full border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider"
+    onClick={() => navigate("/login")}
+  >
+    Log In | Sign Up &gt;
+  </button>
+)}
+        </div>
+      )}
     </div>
   );
 };

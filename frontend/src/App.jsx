@@ -16,8 +16,6 @@ import ForgotPassword from './pages/login/ForgotPassword';
 import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
-import News_Display from './pages/News_Blogs/News_Display';
-import ResearchPlans from './pages/Research/Research';
 
 
 function App() {
@@ -39,7 +37,7 @@ function App() {
           <Route path="/Reset-password" element={<ResetPassword/>} />
           <Route path="/signup"  element={<SignupWrapper/>} />
           <Route path="/news" element = {<News/>} />
-          <Route path="/news/:id" element = {<News_Display/>} />
+          {/* <Route path="/news/:id" element = {<News_Display/>} /> */}
            <Route path="/"  element={<Home/>} />
             <Route path="/login"  element={<Login/>} />
              <Route path="/loggedin"  element={<Loggedin/>} />

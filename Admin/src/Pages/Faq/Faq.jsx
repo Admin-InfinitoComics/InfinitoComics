@@ -30,7 +30,10 @@ const FAQManager = () => {
         throw new Error("Invalid response format");
       }
     } catch (err) {
-      toast.error("Failed to fetch FAQs. Please check your connection.");
+      toast.error(
+        "Oops! Something went wrong while loading FAQs. Please check your connection or refresh the page.",
+        { toastId: "faq-fetch-failed" }
+      );
     } finally {
       setLoading(false);
     }
@@ -77,7 +80,9 @@ const FAQManager = () => {
       resetForm();
       fetchFaqs();
     } catch (err) {
-      toast.error("Failed to save FAQ. Please try again.");
+      toast.error("Failed to save FAQ. Please try again.", {
+        toastId: "faq-save-failed"
+      });
     } finally {
       setLoading(false);
     }
@@ -102,7 +107,7 @@ const FAQManager = () => {
     setError("");
 
     setTimeout(() => {
-       window.scrollTo({ top: 100, behavior: 'smooth' });
+      window.scrollTo({ top: 100, behavior: 'smooth' });
     }, 100);
   };
 
@@ -115,7 +120,9 @@ const FAQManager = () => {
         toast.info("FAQ deleted successfully.");
         fetchFaqs();
       } catch (err) {
-        toast.error("Failed to delete FAQ. Please try again.");
+        toast.error("Failed to delete FAQ. Please try again.", {
+          toastId: "faq-delete-failed"
+        });
       } finally {
         setLoading(false);
       }
@@ -125,7 +132,7 @@ const FAQManager = () => {
   const sortedFaqs = [...faqs].sort((a, b) => a.order - b.order);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 ">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="max-w-4xl mx-auto px-6 py-28">
         {/* Header */}
         <div className="text-center mb-12">
@@ -152,7 +159,7 @@ const FAQManager = () => {
         {/* Form */}
         {showForm && (
           <div ref={formRef} className="bg-white rounded-2xl shadow-xl border border-gray-100 mb-8 overflow-hidden">
-            <div className=" px-6 py-6">
+            <div className="px-6 py-6">
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold text-black flex items-center">
                   {isEditing ? <Edit3 className="w-5 h-5 mr-2" /> : <Plus className="w-5 h-5 mr-2" />}

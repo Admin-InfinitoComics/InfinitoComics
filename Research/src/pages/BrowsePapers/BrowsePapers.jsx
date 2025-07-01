@@ -3,6 +3,8 @@ import FilterSideBar from './FilterSideBar';
 import PaperCard from './PaperCard';
 import { researchBrowse } from '../../services/browseService';
 import PaperSearchBar from './PaperSearchBar';
+import PaperCardShimmer from './PaperCardShimmer';
+
 
 const BrowsePapers = () => {
   const [visibleCount, setVisibleCount] = useState(3);
@@ -113,51 +115,57 @@ const BrowsePapers = () => {
         {/* 🔹 Bottom Section */}
         <div className="flex flex-1">
           {/* ⬅ Left Sidebar (Sticky) */}
-          <div className="w-[30%]">
+          {/* <div className="w-[30%]">
             <div className="w-[270px] pt-8 sticky pb-20 top-24">
               <FilterSideBar />
             </div>
-          </div>
+          </div> */}
 
           {/* ➡ Right Content (Scrollable) */}
-          <div className="w-[70%] h-[calc(100vh-150px)] overflow-y-auto pr-2 pt-8 pb-20">
-            {loading ? (
-              <p className="text-center text-gray-500">Loading papers...</p>
-            ) : (
-              <>
-                {filteredPapers.length === 0 ? (
-                  <p className="text-center text-gray-500 mt-4">No results found.</p>
-                ) : (
-                  filteredPapers.slice(0, visibleCount).map((paper) => (
-                    <PaperCard key={paper._id} paper={paper} />
-                  ))
-                )}
+{/* ➡ Right Content (Scrollable) */}
+<div className="w-[100%] h-[calc(100vh-150px)] overflow-y-auto pr-2 pt-8 pb-20">
+  {loading ? (
+    <>
+      {[...Array(3)].map((_, index) => (
+        <PaperCardShimmer key={index} />
+      ))}
+    </>
+  ) : (
+    <>
+      {filteredPapers.length === 0 ? (
+        <p className="text-center text-gray-500 mt-4">No results found.</p>
+      ) : (
+        filteredPapers.slice(0, visibleCount).map((paper) => (
+          <PaperCard key={paper._id} paper={paper} />
+        ))
+      )}
 
-                {/* Show More / Show Less Button */}
-                {filteredPapers.length > 0 && (
-                  <div className="mt-6 mb-6 text-center">
-                    {visibleCount < filteredPapers.length ? (
-                      <button
-                        className="px-6 py-2 border mb-6 border-black text-sm hover:bg-black hover:text-white transition"
-                        onClick={handleShowMore}
-                      >
-                        Show More
-                      </button>
-                    ) : (
-                      filteredPapers.length > 3 && (
-                        <button
-                          className="px-6 py-2 mb-6 border border-black text-sm hover:bg-black hover:text-white transition"
-                          onClick={handleShowLess}
-                        >
-                          Show Less
-                        </button>
-                      )
-                    )}
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+      {/* Show More / Show Less Button */}
+      {filteredPapers.length > 0 && (
+        <div className="mt-6 mb-6 text-center">
+          {visibleCount < filteredPapers.length ? (
+            <button
+              className="px-6 py-2 border mb-6 border-black text-sm hover:bg-black hover:text-white transition"
+              onClick={handleShowMore}
+            >
+              Show More
+            </button>
+          ) : (
+            filteredPapers.length > 3 && (
+              <button
+                className="px-6 py-2 mb-6 border border-black text-sm hover:bg-black hover:text-white transition"
+                onClick={handleShowLess}
+              >
+                Show Less
+              </button>
+            )
+          )}
+        </div>
+      )}
+    </>
+  )}
+</div>
+
         </div>
       </div>
     </div>

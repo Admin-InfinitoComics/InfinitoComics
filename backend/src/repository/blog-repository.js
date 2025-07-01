@@ -14,6 +14,21 @@ class BlogRepository extends CrudRepository {
         }
     }
 
+    async getByCategory(category, limit) {
+    return await this.model.find({ category })
+        .sort({ createdAt: 1 })
+        .limit(limit);
+    }
+
+    async getBlogsByCategory(category, limit) {
+    return await Blog.find({ category })
+        .sort({ createdAt: 1 }) 
+        .limit(limit);
+    }
+
+    async getBlogById(id) {
+        return await Blog.findById(id);
+    }
 }
 
 export default BlogRepository

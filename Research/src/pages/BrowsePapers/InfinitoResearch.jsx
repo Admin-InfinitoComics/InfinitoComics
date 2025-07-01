@@ -2,35 +2,35 @@ import React, { useState, useEffect } from "react";
 import research from "../../../assets/Images/ResearchPaper/ResearchImg.png";
 import infinito from "../../../assets/Images/ResearchPaper/InfinitoImg.png";
 import { researchBrowse } from "../../services/browseService";
+import CarouselShimmer from "./CarouselShimmer";
 
 const InfinitoCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [researchPaper, setResearchPaper] = useState([]);
+  const [loading, setLoading] = useState(true); // <-- added loading state
 
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const res = await researchBrowse();
-
-      // If your data is in res.data (adjust if it's elsewhere)
-      if (Array.isArray(res.data)) {
-        const sortedPapers = res.data
-          .sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished))
-          .slice(0, 5); // only the latest 4
-
-        setResearchPaper(sortedPapers);
-      } else {
-        console.error("Expected array but got:", res.data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await researchBrowse();
+        if (Array.isArray(res.data)) {
+          const sortedPapers = res.data
+            .sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished))
+            .slice(0, 5);
+          setResearchPaper(sortedPapers);
+        } else {
+          console.error("Expected array but got:", res.data);
+          setResearchPaper([]);
+        }
+      } catch (error) {
+        console.error("Error fetching research papers:", error);
         setResearchPaper([]);
+      } finally {
+        setLoading(false); // <-- stop shimmer
       }
-    } catch (error) {
-      console.error("Error fetching research papers:", error);
-      setResearchPaper([]);
-    }
-  };
-  fetchData();
-}, []);
-
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (researchPaper.length === 0) return;
@@ -39,6 +39,9 @@ useEffect(() => {
     }, 4000);
     return () => clearInterval(interval);
   }, [researchPaper]);
+
+
+  if (loading) return <CarouselShimmer />;
 
   if (researchPaper.length === 0) return null;
 
@@ -70,7 +73,7 @@ useEffect(() => {
 
         {/* Right carousel card */}
         <div className="absolute right-70 w-[450px] h-[452px] z-50 mb-6 bg-white text-black shadow-xl py-12 px-10">
-          <h2 className="text-[30px] font-bold my-2 mb-1 line-clamp-2 ">
+          <h2 className="text-[30px] font-bold my-2 mb-1 line-clamp-2">
             {researchPaper[currentIndex].title}
           </h2>
           <p className="text-[#515151] text-[22px] mb-3 my-2">

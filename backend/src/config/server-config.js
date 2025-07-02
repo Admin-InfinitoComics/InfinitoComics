@@ -14,4 +14,8 @@ export default {
     SECRET_ACCESS_KEY: process.env.SECRET_ACCESS_KEY,
     S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
     AWS_REGION: process.env.AWS_REGION,
+    EMAIL_ID: process.env.EMAIL_ID,
+    EMAIL_PASS: process.env.EMAIL_PASS,
+    SMTP_PORT: process.env.SMTP_PORT,
+    SMTP_SERVER: process.env.SMTP_SERVER
 }

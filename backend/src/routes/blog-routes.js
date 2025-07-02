@@ -2,8 +2,8 @@ import express from "express";
 const router = express.Router();
 import blogController from "../controller/blog-controller.js";
 import upload from '../middleware/multer.js';
-
-router.post("/createblog", upload.any(),blogController.createBlog); 
+import { checkRole } from "../middleware/roleCheck.js";
+router.post("/createblog", checkRole('News and blog'), upload.any(),blogController.createBlog); // done
 
 router.get('/getallblog', blogController.getAllBlogs) 
 // Get a blog by Id

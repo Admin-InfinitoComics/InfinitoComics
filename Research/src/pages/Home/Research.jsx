@@ -119,7 +119,7 @@ export default function ResearchPlans() {
     {loadingFaq ? (
       <p className="text-center text-gray-500">Loading FAQs...</p>
     ) : errorFaq ? (
-      <p className="text-center text-red-500">{errorFaq}</p>
+      <p className="text-center text-red-500">Oops! We couldn’t load the FAQs right now. Please refresh or try again later.</p>
     ) : faqData.length === 0 ? (
       <p className="text-center">No FAQs available.</p>
     ) : (

@@ -5,7 +5,7 @@ import Home from '../pages/Home/home';
 const Body = () => {
   return (
     <div>
-        <Navbar></Navbar>
+        <Navbar/>
       <Home/>
           <Outlet />   
     </div>

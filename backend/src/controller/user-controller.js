@@ -58,6 +58,7 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  console.log("hii")
   try {
     await userservice.deleteUser(req.query.id);
     res.status(200).json({ message: "User deleted", success: true });

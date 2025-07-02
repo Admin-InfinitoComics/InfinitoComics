@@ -124,6 +124,29 @@ const uploadimage = async (req, res) => {
   }
 }
 
+const verifyemail = async(req, res) => {
+    try {
+        const response = await userservice.verify(req.body);
+        if(!response){
+            return res.status(401).json({
+                success: false,
+                message: "Email verification failed",
+            })
+        }
+        return res.status(201).json({
+            success: true,
+            message: "Email verified successfully",
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(401).json({
+            message: "Error verifying email",
+            success: false,
+            err: error
+        })
+    }
+}
+
 const Usercontroller = {
   signup,
   login,
@@ -137,6 +160,7 @@ const Usercontroller = {
   verifyOtp,
   resetPassword,
   uploadimage,
+  verifyemail
 };
 
 export default Usercontroller;

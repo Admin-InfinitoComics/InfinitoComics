@@ -1,7 +1,7 @@
 // 📁 src/components/Header.jsx
 import React, { useState } from "react";
 import { FiSearch, FiMenu, FiX, FiUser  } from "react-icons/fi";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/Logo.png";
 import { Heart, ShoppingBag } from "lucide-react";
 import { Link, useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";

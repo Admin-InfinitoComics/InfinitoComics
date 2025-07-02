@@ -1,5 +1,5 @@
 import React from 'react'
-import IronMan from '../../../assets/Images/IronMan.png' // Adjust the path as necessary
+import IronMan from '../../../assets/Images/ironman.png' // Adjust the path as necessary
 const Spotlight = () => {
   return (
     <>

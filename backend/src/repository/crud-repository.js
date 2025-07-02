@@ -26,6 +26,9 @@ class CrudRepository {
     async getById(id){
         try {
             const getparticularbyid = await this.model.findById(id);
+            if (!getparticularbyid) {
+                throw new Error(`No record found with id: ${id}`);
+            }
             return getparticularbyid;
         } catch (error) {
             console.log(error);

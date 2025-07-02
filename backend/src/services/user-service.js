@@ -4,7 +4,7 @@ import config from "../config/server-config.js";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 import sendEmail from "../utils/sendEmail.js";
-
+import { uploadToS3 } from "../utils/aws.js";
 class UserService {
   constructor() {
     this.userRepository = new UserRepository();
@@ -24,9 +24,8 @@ class UserService {
   async login(data) {
     const user = await this.userRepository.findByEmail(data.email);
     if (!user) throw new Error("Invalid email");
-
-    // ⚠️ Direct string compare
-    if (data.password !== user.password) throw new Error("Invalid password");
+    const user1 = bcrypt.compare(data.password, user.password);
+    if (!user1) throw new Error("Invalid password");
 
     const payload = { id: user._id, email: user.email };
     const token = jwt.sign(payload, config.JWT_SECRET_KEY, {
@@ -115,6 +114,24 @@ class UserService {
 
     // ⚠️ No hashing — save plain text
     await this.userRepository.updatePasswordAndClearOtp(user._id, newPassword);
+  }
+
+  async upload(file) {
+    try {
+      if (!file) throw new Error("No file uploaded");
+
+      const { buffer, originalname, mimetype } = file;
+      const { Location, Key, Bucket } = await uploadToS3(buffer, originalname, mimetype);
+
+      return { 
+        url: Location, 
+        key: Key, 
+        bucket: Bucket 
+      };
+
+    } catch (error) {
+      throw new Error("File upload failed: " + error.message);
+    }
   }
 }
 

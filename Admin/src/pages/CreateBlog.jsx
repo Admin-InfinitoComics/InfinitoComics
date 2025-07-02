@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MdVisibility } from 'react-icons/md';
 import { PiFloppyDiskDuotone } from 'react-icons/pi'; 
 import { MdSend, MdAccountCircle } from 'react-icons/md';
@@ -43,7 +43,9 @@ const showAlert = (type) => {
       config.title = '✅ Success';
       config.html = 'Operation completed successfully!';
   }
-  MySwal.fire(config);
+  MySwal.fire(config).then(() => {
+    window.location.reload(); // 🔄 Reload after "OK"
+  });
 };
 const BlogCreator = () => {
   const [showPreview, setShowPreview] = useState(false);
@@ -67,6 +69,9 @@ const currentBlogs = allBlogs.slice(startIndex, startIndex + blogsPerPage);
 const [showBlogs, setShowBlogs] = useState(false);
 const [authorName, setAuthorName] = useState('');
 const [category, setCategory] = useState('');
+
+const blogSectionRef = useRef(null);
+const formRef = useRef(null);
 
   const handleDelete = async (blogId) => {  
     const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
@@ -195,6 +200,18 @@ const handleUpdate = async () => {
       setPublishedBlogs(JSON.parse(savedPublished));
     }
   }, []);
+
+  useEffect(() => {
+  if (showBlogs && allBlogs.length > 0 && blogSectionRef.current) {
+    setTimeout(() => {
+      blogSectionRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }, 100);
+  }
+}, [showBlogs, allBlogs.length]); 
+
 
   const handleSaveDraft = async () => {
       if (
@@ -335,7 +352,7 @@ const handlePublish = async () => {
   return (
     <div className='bg-[#f6f6ff]'>
 <Navbar/>
-    <div className="p-20 font-sans relative mx-40">
+    <div  ref={formRef} className="p-20 font-sans relative mx-40">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
         <div>
           <p className="text-gray-500 text-lg font-medium">
@@ -344,11 +361,11 @@ const handlePublish = async () => {
         </div>
 
         <button
-            onClick={() => {
-            handleGetAllBlogs();       // fetch blogs
-            setShowBlogs((prev) => !prev); // toggle visibility
-          }}
-          className="mt-4 md:mt-0 px-6 py-3 rounded bg-purple-600 text-white font-semibold hover:bg-purple-700"
+          onClick={() => {
+              handleGetAllBlogs(); // fetch blogs
+              setShowBlogs((prev) => !prev);
+            }}
+            className="mt-4 md:mt-0 px-6 py-3 rounded bg-purple-600 text-white font-semibold hover:bg-purple-700" 
         >
         <div className='flex'>
             All Blogs
@@ -376,7 +393,7 @@ const handlePublish = async () => {
               placeholder="Enter title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215', height:'100px' }}
+              style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215', height:'100px', fontSize:'1.5rem' }}
             />
           </div>
            <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
@@ -550,10 +567,10 @@ const handlePublish = async () => {
           </button>
           {showPreview && (
             <div className="mt-4 prose max-w-none">
-              <h1 style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215' }}>{title}</h1>
+              <h1 style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215', fontSize:'1.5rem' }}>{title}</h1>
               <h2 style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#111111' }}>{subject}</h2>
                   {authorName && (
-                    <div className="flex items-center gap-2 mt-2 text-gray-700">
+                    <div className="flex items-center gap-2 mt-2 text-gray-700 mb-6">
                       <MdAccountCircle className="w-5 h-5 text-gray-600" />
                       <h1 style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#11111' }}>{authorName}</h1>
                     </div>
@@ -573,7 +590,7 @@ const handlePublish = async () => {
                           className="w-full max-w-full h-auto mx-auto mb-2"
                         />
                       )}
-                      <p style={{ fontFamily: 'DM Sans', fontWeight: '400', color: '#111111' }}>
+                      <p style={{ fontFamily: 'DM Sans', fontWeight: '400', color: '#111111', marginBottom: '1.50rem'  }}>
                         {block.description}
                       </p>
                     </div>
@@ -590,9 +607,9 @@ const handlePublish = async () => {
           )}
         </div>
       </div>
-      {showBlogs && allBlogs.length > 0 && (
+      {showBlogs && allBlogs.length > 0 && (  
   <div className="mt-10">
-    <h2 className="text-3xl font-bold mb-4">All Blogs</h2>
+    <h2 ref={blogSectionRef}  className="text-3xl font-bold mb-4">All Blogs</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {currentBlogs.map((blog) => (
         <div
@@ -602,7 +619,7 @@ const handlePublish = async () => {
           <div className="p-4">
             <h3
               className="text-lg font-bold mb-1"
-              style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215' }}
+              style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215',  }}
             >
               {blog.title}
             </h3>
@@ -627,6 +644,10 @@ const handlePublish = async () => {
                 setAuthorName(blog.authorName);
                 setCategory(blog.category);
                 setShowPreview(true);
+
+                setTimeout(() => {
+                  formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
               }}
               className="bg-white text-black px-4 py-2 rounded font-semibold hover:bg-gray-200"
             >
@@ -651,6 +672,10 @@ const handlePublish = async () => {
                 setCategory(blog.category);
                 setShowPreview(true);
                 setEditingBlog(blog);
+
+                setTimeout(() => {
+                  formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
               }}
               className="bg-blue-500 text-white px-4 py-2 rounded font-semibold hover:bg-blue-600"
             >

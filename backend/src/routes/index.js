@@ -39,4 +39,6 @@ router.get("/feedback", authenticate, getAllFeedbacks);
 
 router.post("/upload", upload.single('image'), Usercontroller.uploadimage);
 
+// verify (email) by sending otp
+router.post('/verifyemail', Usercontroller.verifyemail);
 export default router;

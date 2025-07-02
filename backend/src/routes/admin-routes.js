@@ -1,6 +1,7 @@
 import express from 'express';
 import AdminController from '../controller/admin-controller.js';
-
+import { checkRole } from '../middleware/roleCheck.js';
+import { adminauthenticate } from '../middleware/adminauth.js'; 
 const router = express.Router();
 
 // Route to create a new admin

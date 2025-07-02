@@ -133,7 +133,7 @@ const LoginPage = () => {
                   <p className="mt-1 text-red-500 text-sm">{errors.password.message}</p>
                 )}
               </div>
-              
+{/*               
               <div className="mb-6 flex items-center">
                 <input
                   id="remember"
@@ -144,7 +144,7 @@ const LoginPage = () => {
                 <label htmlFor="remember" className="ml-2 block text-sm text-gray-700">
                   Remember me
                 </label>
-              </div>
+              </div> */}
               
               <button
                 type="submit"

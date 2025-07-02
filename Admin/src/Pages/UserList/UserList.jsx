@@ -2,31 +2,34 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Trash2, Search, Filter, X, User as UserIcon } from "lucide-react";
-import axios from "axios";
-import {container,item ,mockdata, ITEMS_PER_PAGE} from '../../constants/mockdata'
+import toast, { Toaster } from "react-hot-toast";
+import {
+  container,
+  item,
+  mockdata,
+  ITEMS_PER_PAGE,
+} from "../../constants/mockdata";
+import { fetchUser, handleDeleteUser } from "../../services/adminServices";
 
 function UserList() {
+  console.log("hiiii");
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [confirmDelete, setConfirmDelete] = useState(null);
 
-
- useEffect(() => {
-    const fetchUsers = async () => {
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/getall");
-        console.log(response.data)
-
-        setUsers(response.data.users);
+        const response = await fetchUser();
+        setUsers(response?.users || []);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
-    fetchUsers();
+    fetchData();
   }, []);
-
 
   // Filter + Search
   const filtered = users.filter((u) => {
@@ -42,21 +45,18 @@ function UserList() {
     currentPage * ITEMS_PER_PAGE
   );
 
-const handleDelete = (userID) => {
- const handleDeleteUser = async (userID) => {
-  try {
-    // DELETE request with query param
-    const response = await axios.delete(`http://localhost:3000/api/delete?id=${userID}`)
+  const handleDelete = async (userID) => {
+    console.log("userid", userID);
+    const res = await handleDeleteUser(userID);
+    if (res) {
+      console.log("idhr hu")
+      toast.success("User Deleted Sucessfully");
+    }
 
-    console.log(response.data.message); // User deleted
-  } catch (error) {
-    console.error("Delete failed:", error.response.data.message);
-  }
-};
-  setUsers(prevUsers => prevUsers.filter(user => user._id !== userID));
-  handleDeleteUser(userID);
+    setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userID));
+    handleDeleteUser(userID);
     setConfirmDelete(null);
-};
+  };
 
   // Helper to clear all filters
   const clearAllFilters = () => {
@@ -67,10 +67,14 @@ const handleDelete = (userID) => {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
+        <Toaster position="top-center" /> 
       {/* Search & Filter */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
         <div className="relative w-full md:w-1/2">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            size={18}
+          />
           <input
             type="text"
             placeholder="Search by username or email"
@@ -83,7 +87,10 @@ const handleDelete = (userID) => {
           />
         </div>
         <div className="relative w-full md:w-1/4">
-          <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+          <Filter
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            size={18}
+          />
           <select
             className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
             value={filter}
@@ -104,8 +111,7 @@ const handleDelete = (userID) => {
         <div className="flex items-center gap-2 mb-6 flex-wrap">
           {search && (
             <span className="flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium shadow hover:cursor-pointer">
-              <Search size={14} className="mr-1" />
-              "{search}"
+              <Search size={14} className="mr-1" />"{search}"
               <button
                 className="ml-2 text-blue-500 hover:text-blue-700"
                 onClick={() => {
@@ -159,7 +165,11 @@ const handleDelete = (userID) => {
             <motion.div
               key={user.userID}
               variants={item}
-              whileHover={{ y: -3, scale: 1.02, boxShadow: "0 6px 24px 0 rgba(0,0,0,0.10)" }}
+              whileHover={{
+                y: -3,
+                scale: 1.02,
+                boxShadow: "0 6px 24px 0 rgba(0,0,0,0.10)",
+              }}
               className="flex items-center justify-between p-5 bg-white border border-gray-100 rounded-xl shadow-sm transition hover:shadow-lg"
             >
               <div className="flex items-center gap-4">
@@ -199,7 +209,9 @@ const handleDelete = (userID) => {
                         })()
                       : user.username}
                   </div>
-                  <div className="text-xs text-gray-500 font-mono">{user.email}</div>
+                  <div className="text-xs text-gray-500 font-mono">
+                    {user.email}
+                  </div>
                 </div>
               </div>
 
@@ -237,7 +249,8 @@ const handleDelete = (userID) => {
             Previous
           </button>
           <span className="text-gray-600 font-medium">
-            Page <span className="font-bold">{currentPage}</span> of <span className="font-bold">{totalPages}</span>
+            Page <span className="font-bold">{currentPage}</span> of{" "}
+            <span className="font-bold">{totalPages}</span>
           </span>
           <button
             onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}

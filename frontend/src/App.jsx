@@ -16,6 +16,7 @@ import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
+import Jobs from './pages/Career&Internships/jobs'
 function App() {
   
   return (
@@ -46,6 +47,8 @@ function App() {
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
            <Route path="/careers" element={<CareerInternship/>} />
+           <Route path="/careers/apply" element={<Jobs/>} />
+           
            <Route path="/community" element={<Community/>} />
 
 

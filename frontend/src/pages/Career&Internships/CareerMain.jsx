@@ -12,7 +12,7 @@ const CareerMain = () => {
       <Hiring/>
       <InfinitoHiring />
       <ImaginationsLeads />
-
+      
     </>
   )
 }

@@ -6,6 +6,7 @@ import { Heart, ShoppingBag } from "lucide-react";
 import { Link, useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserIcon from '../../../assets/Images/UserIcon.png';
+import { RESEARCH_BASE_URL,FOUNDATION_BASE_URL } from "../../utils/constants";
 
 const Header = () => {
   // State to handle mobile menu toggle
@@ -15,10 +16,10 @@ const Header = () => {
   console.log(user);
 
   return (
-    <div className=" text-white font-sans">
-      {/* Top promo and links */}
-      <div className="border-b bg-[#202020] border-gray-600 text-sm px-4 sm:px-8 py-4 flex flex-col md:flex-row justify-around items-center">
-        {/* Promo text */}
+    <div className="text-white font-sans">
+      {/* Top Promo & Links Section */}
+      <div className="border-b bg-[#202020] border-gray-600 text-sm px-4 sm:px-8 py-4 flex flex-col md:flex-row justify-around items-center gap-40">
+        {/* Promo Text */}
         <div className="mb-2 md:mb-0 text-center">
           Use code <strong>INFINT10</strong> to get 10% off on our shop!
         </div>
@@ -28,10 +29,10 @@ const Header = () => {
           <Link to="/blogs" className="hover:text-white font-bold">
             Blogs & News
           </Link>
-          <Link to="http://localhost:3004/" className="hover:text-white font-bold">
+          <Link to={FOUNDATION_BASE_URL} className="hover:text-white font-bold">
             Foundation
           </Link>
-          <Link to="http://localhost:3003/" className="hover:text-white font-bold">
+          <Link to={RESEARCH_BASE_URL} className="hover:text-white font-bold">
             Research
           </Link>
           <Link
@@ -43,6 +44,14 @@ const Header = () => {
         </div>
       </div>
 
+      {/* Middle Section: Logo, Buttons, Mobile Menu */}
+      <div className="bg-[#202020] px-4 sm:px-8 py-1 flex items-center justify-between md:justify-around gap-4">
+        {/* Mobile Hamburger Icon */}
+        <div className="md:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
+          </button>
+        </div>
 
         {/* Login Button (only on desktop) */}
 
@@ -63,29 +72,90 @@ const Header = () => {
   )}
 </div>
 
-      {/* Middle section with login, logo and buttons */}
-      <div className="bg-[#202020] px-4 sm:px-8 py-4 flex flex-col md:flex-row items-center justify-around gap-4 h-20">
-        {/* Login button */}
-        <button className="border border-white px-6 py-3 uppercase text-md  hover:bg-white hover:text-black transition mx-20 tracking-wider">
-          Log In | Sign Up &gt;
-        </button>
-
-        {/* Logo */}
+        {/* Logo Centered */}
+        <Link to='/'>
         <div className="text-center ">
-          <img src={logo} alt="infinto" />
+          <img src={logo} alt="infinto" className=" w-auto" />
         </div>
+        </Link>
+        {/* Right Side Buttons */}
+        <div className="flex items-center gap-4">
+          {/* Premium Button (hidden on mobile) */}
+          {/* Search input visible from md and up */}
+          <input
+            type="search"
+            placeholder="Infinito Ultimate >"
+            className="hidden md:block bg-white text-black px-6 py-4 text-xs sm:text-sm uppercase font-semibold placeholder-gray-500 hover:bg-gray-200 transition tracking-widest w-full max-w-xs rounded"
+          />
 
-        {/* Right side buttons */}
-        <div className="flex gap-5 items-center mx-20 ">
-          <button className="bg-white text-black px-6 py-4 text-xs sm:text-sm uppercase font-semibold hover:bg-gray-200 transition tracking-widest">
-            Infinito Ultimate &gt;
-          </button>
-          <button className="border border-white py-2.5 px-2 hover:bg-white hover:text-black transition">
-            <FiSearch size={28} />
+          {/* Search Button */}
+          <button className="border border-white p-2.5 hover:bg-white hover:text-black transition">
+            <FiSearch size={24} />
           </button>
         </div>
       </div>
 
+      {/* Bottom Nav (hidden on mobile) */}
+      <div className="hidden md:block bg-[#171717] text-sm text-gray-300 px-4 sm:px-8 py-3">
+        <ul className="flex flex-wrap justify-center gap-10 items-center">
+          <li>
+            <Link
+              to="/characters"
+              className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer"
+            >
+              Characters
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/comics"
+              className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5"
+            >
+              Comics
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/animation"
+              className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5"
+            >
+              Animation
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/games"
+              className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5"
+            >
+              Games
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/community"
+              className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5"
+            >
+              Community
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5"
+            >
+              About Us
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/shop"
+              className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5 flex items-center gap-2"
+            >
+              <ShoppingBag /> Shop
+            </Link>
+          </li>
+        </ul>
+      </div>
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (

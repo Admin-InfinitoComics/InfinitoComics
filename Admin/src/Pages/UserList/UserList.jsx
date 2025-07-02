@@ -12,10 +12,21 @@ function UserList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [confirmDelete, setConfirmDelete] = useState(null);
 
-  // Load mock data on mount
-  useEffect(() => {
-    setUsers(mockdata);
+
+ useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/getall");
+        console.log(response.data)
+
+        setUsers(response.data.users);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
   }, []);
+
 
   // Filter + Search
   const filtered = users.filter((u) => {
@@ -31,8 +42,19 @@ function UserList() {
     currentPage * ITEMS_PER_PAGE
   );
 
-const handleDelete = async (userID) => {
-    setUsers(prevUsers => prevUsers.filter(user => user.userID !== userID));
+const handleDelete = (userID) => {
+ const handleDeleteUser = async (userID) => {
+  try {
+    // DELETE request with query param
+    const response = await axios.delete(`http://localhost:3000/api/delete?id=${userID}`)
+
+    console.log(response.data.message); // User deleted
+  } catch (error) {
+    console.error("Delete failed:", error.response.data.message);
+  }
+};
+  setUsers(prevUsers => prevUsers.filter(user => user._id !== userID));
+  handleDeleteUser(userID);
     setConfirmDelete(null);
 };
 
@@ -247,7 +269,7 @@ const handleDelete = async (userID) => {
               </button>
               <button
                 className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition"
-                onClick={() => handleDelete(confirmDelete.userID)}
+                onClick={() => handleDelete(confirmDelete._id)}
               >
                 Delete
               </button>

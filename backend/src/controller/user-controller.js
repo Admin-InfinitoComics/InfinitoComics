@@ -108,6 +108,22 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const uploadimage = async (req, res) => {
+  try {
+    const imageurl = await userservice.upload(req.file);
+    return res.status(200).json({
+      message: "Image uploaded successfully",
+      success: true,
+      data: imageurl,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: error.message,
+      success: false,
+    })
+  }
+}
+
 const Usercontroller = {
   signup,
   login,
@@ -120,6 +136,7 @@ const Usercontroller = {
   forgotPassword,
   verifyOtp,
   resetPassword,
+  uploadimage,
 };
 
 export default Usercontroller;

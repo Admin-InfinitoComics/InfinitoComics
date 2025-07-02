@@ -1,53 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import news from '../../../assets/Images/news.png';
 import botton from '../../../assets/Images/Botton.png';
+import slides from '../../constants/Carousel_data'
 
 const ComicConHero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const slides = [
-    {
-      id: 1,
-      image: news, 
-      title: 'INDIANS GO TO COMIC CON ?',
-      subtitle: 'ANUJ GOES TO COMIC CON DRESS AS',
-      description: 'Anuj goes to comic con dressed as Pablo Picasso!!\nYou thought he was a great designer ? Well he is,\nand more! He showcased his unique blah blah!'
-    },
-    {
-      id: 2,
-      image: news, 
-      title: 'INDIANS GO TO COMIC CON ?',
-      subtitle: 'ANUJ GOES TO COMIC CON DRESS AS',
-      description: 'Anuj goes to comic con dressed as Pablo Picasso!!\nYou thought he was a great designer ? Well he is,\nand more! He showcased his unique blah blah!'
-      
-      
-    },
-    {
-      id: 3,
-      image: news,
-      title: 'INDIANS GO TO COMIC CON ?',
-      subtitle: 'ANUJ GOES TO COMIC CON DRESS AS',
-      description: 'Anuj goes to comic con dressed as Pablo Picasso!!\nYou thought he was a great designer ? Well he is,\nand more! He showcased his unique blah blah!'
-      
-      
-    },
-    {
-      id: 4,
-      image: news, 
-      title: 'INDIANS GO TO COMIC CON ?',
-      subtitle: 'ANUJ GOES TO COMIC CON DRESS AS',
-      description: 'Anuj goes to comic con dressed as Pablo Picasso!!\nYou thought he was a great designer ? Well he is,\nand more! He showcased his unique blah blah!'
-      
-    },
-    {
-      id: 5,
-      image: news, 
-      title: 'INDIANS GO TO COMIC CON ?',
-      subtitle: 'ANUJ GOES TO COMIC CON DRESS AS',
-      description: 'Anuj goes to comic con dressed as Pablo Picasso!!\nYou thought he was a great designer ? Well he is,\nand more! He showcased his unique blah blah!'
-      
-    }
-  ];
+ 
 
   useEffect(() => {
     if (!isAutoPlaying) return;

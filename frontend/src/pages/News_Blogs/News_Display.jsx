@@ -15,10 +15,7 @@ const NewsDetails = () => {
     const fetchBlog = async () => {
       try {
         const blog = await getBlogsById(id);
-        console.log("blog",blog);
         setSelectedNews(blog.data);
-        console.log("seelcted",setSelectedNews);
-        console.log("selected News", selectedNews);
       } catch (error) {
         console.error("Failed to fetch blog:", error.message);
       }

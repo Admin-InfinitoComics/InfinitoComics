@@ -37,7 +37,7 @@ function App() {
           <Route path="/Reset-password" element={<ResetPassword/>} />
           <Route path="/signup"  element={<SignupWrapper/>} />
           <Route path="/news" element = {<News/>} />
-          {/* <Route path="/news/:id" element = {<News_Display/>} /> */}
+           <Route path="/news/:id" element = {<News_Display/>} /> 
            <Route path="/"  element={<Home/>} />
             <Route path="/login"  element={<Login/>} />
              <Route path="/loggedin"  element={<Loggedin/>} />

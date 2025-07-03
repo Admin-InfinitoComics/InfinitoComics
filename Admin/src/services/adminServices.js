@@ -20,6 +20,4 @@ export const handleDeleteUser = async (userID) => {
       } catch (error) {
         console.error("Delete failed:", error.response.data.message);
       }
-    
-
 }

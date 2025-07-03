@@ -9,7 +9,7 @@ import Carousel from '../News_Blogs/Carousel'
 const News = () => {
   return (
     <div>
-       <Carousel></Carousel>
+        <Carousel></Carousel>
         <ArcheryNews/>
         <ArcherySlider/>
         <Spotlight/>

@@ -1,36 +1,10 @@
 import React, { useState, useEffect } from "react";
 import research from "../../../assets/Images/ResearchPaper/ResearchImg.png";
 import infinito from "../../../assets/Images/ResearchPaper/InfinitoImg.png";
-import { researchBrowse } from "../../services/browseService";
-import CarouselShimmer from "./CarouselShimmer";
+import CarouselShimmer from "./Shimmer/CarouselShimmer";
 
-const InfinitoCarousel = () => {
+const InfinitoCarousel = ({ researchPaper, isLoading }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [researchPaper, setResearchPaper] = useState([]);
-  const [loading, setLoading] = useState(true); // <-- added loading state
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await researchBrowse();
-        if (Array.isArray(res.data)) {
-          const sortedPapers = res.data
-            .sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished))
-            .slice(0, 5);
-          setResearchPaper(sortedPapers);
-        } else {
-          console.error("Expected array but got:", res.data);
-          setResearchPaper([]);
-        }
-      } catch (error) {
-        console.error("Error fetching research papers:", error);
-        setResearchPaper([]);
-      } finally {
-        setLoading(false); // <-- stop shimmer
-      }
-    };
-    fetchData();
-  }, []);
 
   useEffect(() => {
     if (researchPaper.length === 0) return;
@@ -40,9 +14,7 @@ const InfinitoCarousel = () => {
     return () => clearInterval(interval);
   }, [researchPaper]);
 
-
-  if (loading) return <CarouselShimmer />;
-
+  if (isLoading) return <CarouselShimmer />;
   if (researchPaper.length === 0) return null;
 
   return (

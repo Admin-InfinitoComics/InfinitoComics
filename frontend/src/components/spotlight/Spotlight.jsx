@@ -10,7 +10,7 @@ const Spotlight = () => {
       <div
         className="w-full pt-20 -mb-1"
         style={{
-          backgroundImage: `url(${bgtop})`, // 👈 template literal used here
+          backgroundImage: `url(${bgtop})`, // template literal used here
           backgroundSize: "cover", // Make it responsive
         }}
       ></div>

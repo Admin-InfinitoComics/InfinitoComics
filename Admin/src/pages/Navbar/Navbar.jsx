@@ -51,6 +51,12 @@ const Navbar = () => {
           >
             BLOGS & NEWS
           </Link>
+          <Link
+            to="/login"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+           Login
+          </Link>
         </div>
 
         {/* Mobile Hamburger Icon */}

@@ -17,7 +17,7 @@ import Footer from '../../pages/Footer/Footer'
 
 import LandingMerch from '../../pages/Home/LandingMerch'
 import PremiumPlans from '../../pages/Home/PremiumPlans'
-import Spotlight from '../../pages/Home/Spotlight'
+import Spotlight from '../../components/spotlight/Spotlight'
 
 import ExclusiveContent from '../../pages/Home/ExclusiveContent'
 const Body = () => {

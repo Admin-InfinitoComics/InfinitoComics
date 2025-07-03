@@ -6,6 +6,7 @@ import { Heart, ShoppingBag } from "lucide-react";
 import { Link, useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserIcon from '../../../assets/Images/UserIcon.png';
+import { RESEARCH_BASE_URL,FOUNDATION_BASE_URL } from "../../utils/constants";
 
 const Header = () => {
   // State to handle mobile menu toggle
@@ -28,10 +29,10 @@ const Header = () => {
           <Link to="/blogs" className="hover:text-white font-bold">
             Blogs & News
           </Link>
-          <Link to="http://localhost:3004/" className="hover:text-white font-bold">
+          <Link to={FOUNDATION_BASE_URL} className="hover:text-white font-bold">
             Foundation
           </Link>
-          <Link to="http://localhost:3003/" className="hover:text-white font-bold">
+          <Link to={RESEARCH_BASE_URL} className="hover:text-white font-bold">
             Research
           </Link>
           <Link

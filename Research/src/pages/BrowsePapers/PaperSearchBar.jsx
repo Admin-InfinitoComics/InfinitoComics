@@ -21,9 +21,9 @@ const PaperSearchBar = ({
       <div className="flex flex-col py-6">
         <h2 className="text-3xl font-bold text-[#202020] mb-6 tracking-wide uppercase">Search for Papers</h2>
 
-        <div className="flex items-end gap-10 flex-wrap">
+        <div className="flex items-end gap-20 flex-wrap">
           {/* 🔍 Search Input */}
-          <div className="flex flex-col w-[250px] relative">
+          <div className="flex flex-col w-[320px] relative">
             <label className="text-sm font-semibold text-[#202020] mb-1 ">Search by Domain, Topic, Article</label>
             <input
               type="text"
@@ -40,7 +40,7 @@ const PaperSearchBar = ({
           </div>
 
           {/* 📘 Journal Input */}
-          <div className="flex flex-col w-[250px] relative">
+          <div className="flex flex-col w-[320px] relative">
             <label className="text-sm mb-1 font-semibold text-[#202020] ">Journal / Book</label>
             <input
               type="text"
@@ -57,7 +57,7 @@ const PaperSearchBar = ({
           </div>
 
           {/* 👩‍🏫 Authors Input */}
-          <div className="flex flex-col w-[250px] relative">
+          <div className="flex flex-col w-[320px] relative">
             <label className="text-sm font-semibold mb-1 text-[#202020] ">Authors</label>
             <input
               type="text"
@@ -74,7 +74,7 @@ const PaperSearchBar = ({
           </div>
 
           {/* 🔴 Search Button */}
-          <div>
+          {/* <div>
             <button
               onClick={onSearch}
               className="bg-[#DD1215] text-white  px-9 py-[9px] text-[12px] h-[38px] w-[150px]  flex items-center gap-2 hover:bg-red-700 transition"
@@ -82,7 +82,7 @@ const PaperSearchBar = ({
               <Search className="w-3 h-3" />
               SEARCH
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -5,13 +5,11 @@ import { researchBrowse } from '../../services/browseService';
 import PaperSearchBar from './PaperSearchBar';
 import PaperCardShimmer from './PaperCardShimmer';
 
-
 const BrowsePapers = () => {
   const [visibleCount, setVisibleCount] = useState(3);
   const [papers, setPapers] = useState([]);
   const [filteredPapers, setFilteredPapers] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [searchText, setSearchText] = useState('');
   const [journalText, setJournalText] = useState('');
   const [authorText, setAuthorText] = useState('');

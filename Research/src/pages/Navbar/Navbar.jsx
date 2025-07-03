@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import UserIcon from '../../../assets/Images/UserIcon.png';
+import { useSelector } from 'react-redux'; // ✅ Redux hook
+import { useEffect } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const user = null;
+  const user = useSelector((state) => state.user); // ✅ Get user from Redux
   const [menuOpen, setMenuOpen] = useState(false);
-
+  useEffect(() => {
+  }, [user]);
   return (
     <div className="text-white font-sans">
       {/* Top Banner */}
@@ -27,22 +30,16 @@ const Navbar = () => {
       <div className="bg-[#202020] py-4 px-4 lg:px-32 flex items-center justify-between">
         {/* ----------- Mobile Navbar ----------- */}
         <div className="flex items-center justify-between w-full lg:hidden">
-          {/* Hamburger Menu */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 border border-white"
-          >
+          <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 border border-white">
             {menuOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
           </button>
 
-          {/* Logo */}
           <img
             src="/assets/Images/research/researchLOGO.png"
             alt="Infinito Logo"
             className="h-8"
           />
 
-          {/* Search Icon */}
           <div className="p-2 border border-white">
             <FiSearch className="text-xl" />
           </div>
@@ -53,8 +50,8 @@ const Navbar = () => {
           {/* Auth Button or User Greeting */}
           {user ? (
             <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
-              <img src={UserIcon} alt="User Icon" className="w-5 h-5 " />
-              <span className="tracking-wide">Hi, {user.name}!</span>
+              <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
+              <span className="tracking-wide">Hi, {user?.name?.split(" ")[0] || "Guest"}!</span>
             </div>
           ) : (
             <button
@@ -88,7 +85,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Optional: Mobile Dropdown Menu (optional if you want to toggle links) */}
+      {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div className="bg-[#202020] px-4 pb-4 lg:hidden space-y-2">
           <Link to="/shop" className="block text-sm hover:underline" onClick={() => setMenuOpen(false)}>Shop</Link>

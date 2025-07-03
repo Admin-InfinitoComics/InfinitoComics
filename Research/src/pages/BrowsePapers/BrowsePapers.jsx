@@ -73,7 +73,7 @@ const BrowsePapers = () => {
   return (
     <div className="w-full min-h-screen bg-gray-100 flex justify-center px-4 sm:px-6 lg:px-0">
       <div className="flex flex-col w-full lg:w-2/3 min-h-screen">
-        <PaperSearchBar
+        <PaperSearchBar 
           searchText={searchText}
           setSearchText={setSearchText}
           journalText={journalText}

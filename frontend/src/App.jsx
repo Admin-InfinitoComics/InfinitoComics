@@ -16,8 +16,32 @@ import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
+import { useEffect } from 'react';
+
+
 function App() {
-  
+useEffect(() => {
+  const listener = (event) => {
+    const allowedOrigins = ["http://localhost:3003", "http://localhost:3004"];
+    if (!allowedOrigins.includes(event.origin)) return;
+
+    if (event.data === "request-user") {
+      const user = localStorage.getItem("user");
+      if (user) {
+        event.source.postMessage(
+          { type: "user-data", payload: user },
+          event.origin
+        );
+        console.log(" Sent user to:", event.origin, user);
+      }
+    }
+  };
+
+  window.addEventListener("message", listener);
+  return () => window.removeEventListener("message", listener);
+}, []);
+
+
   return (
     <>
       <Provider store={appStore}>

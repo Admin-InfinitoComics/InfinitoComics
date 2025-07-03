@@ -28,12 +28,30 @@ const Header = () => {
           <Link to="/blogs" className="hover:text-white font-bold">
             Blogs & News
           </Link>
-          <Link to="http://localhost:3004/" className="hover:text-white font-bold">
+            
+            <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open("http://localhost:3004/?from=main", "_blank");
+            }}
+            className="hover:underline"
+          >
             Foundation
-          </Link>
-          <Link to="http://localhost:3003/" className="hover:text-white font-bold">
+          </a>
+
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open("http://localhost:3003/?from=main", "_blank");
+            }}
+            className="hover:underline"
+          >
             Research
-          </Link>
+          </a>
+
+          
           <Link
             to="/support"
             className="hover:text-white font-bold flex items-center gap-1"
@@ -59,7 +77,10 @@ const Header = () => {
   {user ? (
     <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
       <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
-      <span className="tracking-wide">Hi, {user.name.split(" ")[0]}!</span>
+      <span className="tracking-wide">
+        Hi, {user?.name?.split(" ")[0] || "Guest"}!
+      </span>
+
     </div>
   ) : (
     <button
@@ -186,12 +207,31 @@ const Header = () => {
           <Link to="/blogs" className="block font-bold hover:text-white">
             Blogs & News
           </Link>
-          <Link to="/foundation" className="block font-bold hover:text-white">
+
+
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open("http://localhost:3004/?from=main", "_blank");
+            }}
+            className="hover:underline"
+          >
             Foundation
-          </Link>
-          <Link to="/research" className="block font-bold hover:text-white">
+          </a>
+
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open("http://localhost:3003/?from=main", "_blank");
+            }}
+            className="hover:underline"
+          >
             Research
-          </Link>
+          </a>
+
+
           <Link
             to="/support"
             className="font-bold hover:text-white flex items-center gap-2"

@@ -1,6 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Body from './Components/Body';
+import Body from './components/Body';
 import CreateBlog from './pages/CreateBlog';
 import User from './Pages/UserList/UserList';
 

@@ -48,6 +48,7 @@ const showAlert = (type) => {
   });
 };
 const BlogCreator = () => {
+  const token = localStorage.getItem("authToken");
   const [showPreview, setShowPreview] = useState(false);
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
@@ -77,8 +78,12 @@ const formRef = useRef(null);
     const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
     if (!confirmDelete) return;
   try {
-    const response = await fetch(`http://localhost:3000/blog/deleteblog/${blogId}`, {
+   const response = await fetch(`http://localhost:3000/blog/deleteblog/${blogId}`, {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
     });
     const result = await response.json();
     if (response.ok) {
@@ -318,13 +323,17 @@ const handlePublish = async () => {
     status: 'published',
     news: newsArray,
   };
+ 
 
   try {
-    const response = await fetch('http://localhost:3000/blog/createblog', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+const response = await fetch("http://localhost:3000/blog/createblog", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}` 
+  },
+  body: JSON.stringify(payload)
+});
     const result = await response.json();
     if (response.ok) {
       showAlert('published');

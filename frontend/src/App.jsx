@@ -17,7 +17,7 @@ import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
 import { useEffect } from 'react';
-
+import Jobs from './pages/Career&Internships/jobs'
 
 function App() {
 useEffect(() => {
@@ -59,7 +59,7 @@ useEffect(() => {
           <Route path="/Reset-password" element={<ResetPassword/>} />
           <Route path="/signup"  element={<SignupWrapper/>} />
           <Route path="/news" element = {<News/>} />
-          <Route path="/news/:id" element = {<News_Display/>} />
+          {/* <Route path="/news/:id" element = {<News_Display/>} /> */}
            <Route path="/"  element={<Home/>} />
             <Route path="/login"  element={<Login/>} />
              <Route path="/loggedin"  element={<Loggedin/>} />
@@ -70,6 +70,8 @@ useEffect(() => {
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
            <Route path="/careers" element={<CareerInternship/>} />
+           <Route path="/careers/apply" element={<Jobs/>} />
+           
            <Route path="/community" element={<Community/>} />
 
 

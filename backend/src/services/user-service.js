@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import config from "../config/server-config.js";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
-import sendEmail from "../utils/sendEmail.js";
 import { uploadToS3 } from "../utils/aws.js";
 class UserService {
   constructor() {
@@ -18,7 +17,7 @@ class UserService {
     const user = await this.userRepository.findByEmail(data.email);
     if (user) throw new Error("User is already registered");
     // ⚠️ Password is stored as-is (plain text)
-    return await this.userRepository.create(data);
+    return await this.userRepository.createuser(data);
   }
 
   async login(data) {
@@ -61,61 +60,6 @@ class UserService {
     return await this.userRepository.getProfile(id);
   }
 
-  async generateResetToken(email) {
-    const user = await this.userRepository.findByEmail(email);
-    if (!user) throw new Error("User not found");
-
-    const token = uuidv4();
-    const expiry = Date.now() + 3600000;
-    await this.userRepository.updateResetPasswordToken(user._id, token, expiry);
-
-    const resetLink = `http://localhost:3000/reset-password/${token}`;
-    return resetLink;
-  }
-
-  async resetPassword(token, password, confirmPassword) {
-    const user = await this.userRepository.findByResetToken(token);
-    if (!user) throw new Error("Invalid or expired token");
-    if (password !== confirmPassword) throw new Error("Passwords do not match");
-
-    // ⚠️ No hashing — save plain text
-    await this.userRepository.updatePasswordByResetToken(token, password);
-  }
-
-  async forgotPassword(email) {
-    const user = await this.userRepository.findByEmail(email);
-    if (!user) throw new Error("User not found");
-
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiry = Date.now() + 10 * 60 * 1000;
-
-    await this.userRepository.updateOtp(user._id, otp, expiry);
-    await sendEmail(email, "Your OTP", `Your OTP is: ${otp}`);
-  }
-
-  async verifyOtp(email, otp) {
-    const user = await this.userRepository.findByEmail(email);
-    if (!user || !user.otp || !user.otpExpiry) throw new Error("No OTP. Request again.");
-
-    if (user.otp !== otp) throw new Error("Invalid OTP");
-    if (user.otpExpiry < Date.now()) {
-      await this.userRepository.clearOtp(user._id);
-      throw new Error("OTP expired");
-    }
-
-    await this.userRepository.setOtpVerified(user._id);
-  }
-
-  async resetPasswordOtp(email, newPassword, confirmPassword) {
-    const user = await this.userRepository.findByEmail(email);
-    if (!user) throw new Error("User not found");
-    if (!user.isOtpVerified) throw new Error("OTP not verified");
-    if (newPassword !== confirmPassword) throw new Error("Passwords do not match");
-
-    // ⚠️ No hashing — save plain text
-    await this.userRepository.updatePasswordAndClearOtp(user._id, newPassword);
-  }
-
   async upload(file) {
     try {
       if (!file) throw new Error("No file uploaded");
@@ -133,6 +77,16 @@ class UserService {
       throw new Error("File upload failed: " + error.message);
     }
   }
+
+  async verify(data) {
+      try {
+          const response = await this.userRepository.verify(data);
+          return response;
+      } catch (error) {
+          console.log('Something wrong at service level');
+          throw error;
+      }
+    }
 }
 
 export default UserService;

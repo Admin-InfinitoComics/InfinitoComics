@@ -6,6 +6,7 @@ import { Heart, ShoppingBag } from "lucide-react";
 import { Link, useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserIcon from '../../../assets/Images/UserIcon.png';
+import { RESEARCH_BASE_URL,FOUNDATION_BASE_URL } from "../../utils/constants";
 
 const Header = () => {
   // State to handle mobile menu toggle

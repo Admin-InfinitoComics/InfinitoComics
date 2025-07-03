@@ -16,6 +16,27 @@ export const latestBlog = async () => {
   });
   return response?.data?.blogs[0];
 }
+
+export const getFoundationBlogs = async () => {
+  const res = await axios.get(BASE_URL+'/blog/foundation-blogs'); 
+  return res.data;
+};
+
+export const getICBlogs = async () => {
+  const res = await axios.get(BASE_URL + '/blog/ic-blogs');
+  return res.data;
+};
+
+export const getBlogsById = async (id) => {
+  const res = await axios.get(`${BASE_URL}/blog/getById/${id}`);
+  return res.data;
+};
+
+export const getAllBlogs = async () => {
+  const res = await axios.get(`${BASE_URL}/blog/getallblog`);
+  return res.data.data; 
+};
+
 export const signUpUser=async(formData)=>{
   const response=await axios.post(BASE_URL + '/api/signup',{
     email: formData.email.toLowerCase(),

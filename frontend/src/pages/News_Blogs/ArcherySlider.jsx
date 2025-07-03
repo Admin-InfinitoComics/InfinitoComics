@@ -1,12 +1,26 @@
-// ArcherySlider.jsx
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import newsblog from "../../constants/newsblog";
+import { getFoundationBlogs } from "../../services/userServices.js"; 
+import { Link } from "react-router-dom";
 
 const ArcherySlider = () => {
+  const [blogs, setBlogs] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [sliding, setSliding] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(4);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const data = await getFoundationBlogs();
+        setBlogs(data);
+      } catch (error) {
+        console.error("Error fetching blogs:", error.message);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -20,7 +34,7 @@ const ArcherySlider = () => {
   const nextSlide = () => {
     setSliding(true);
     setTimeout(() => {
-      if (startIndex + itemsPerPage < newsblog.length) {
+      if (startIndex + itemsPerPage < blogs.length) {
         setStartIndex(startIndex + itemsPerPage);
       } else {
         setStartIndex(0);
@@ -36,7 +50,7 @@ const ArcherySlider = () => {
         setStartIndex(startIndex - itemsPerPage);
       } else {
         const lastPageIndex =
-          Math.floor((newsblog.length - 1) / itemsPerPage) * itemsPerPage;
+          Math.floor((blogs.length - 1) / itemsPerPage) * itemsPerPage;
         setStartIndex(lastPageIndex);
       }
       setSliding(false);
@@ -66,16 +80,16 @@ const ArcherySlider = () => {
                 : "opacity-100 transform translate-x-0"
             }`}
           >
-            {newsblog.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
-              <div key={index} className="text-center">
+            {blogs.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
+              <Link to={`/news/${item._id}`} key={index} className="text-center ">
                 <img
-                    src={item.imgurl}
-                    alt={item.title}
-                    className="w-full h-[160px] object-cover rounded-lg mb-4"
+                  src={item.news?.[0]?.imageUrl}
+                  alt={item.title}
+                  className="w-full h-[160px] object-cover rounded-lg mb-4"
                 />
                 <h3 className="text-red-600 font-bold uppercase text-sm">{item.title}</h3>
-                <p className="text-xs text-gray-600">{item.description}</p>
-              </div>
+                <p className="text-xs text-gray-600">{item.subject}</p>
+              </Link>
             ))}
           </div>
 
@@ -90,12 +104,12 @@ const ArcherySlider = () => {
 
         <div className="flex justify-center mt-6 gap-2">
           {Array.from({
-            length: Math.ceil(newsblog.length / itemsPerPage),
+            length: Math.ceil(blogs.length / itemsPerPage),
           }).map((_, index) => (
             <div
               key={index}
               className={`w-5 h-2 rounded-full transition-all duration-300 ${
-                index === startIndex / itemsPerPage
+                index === Math.floor(startIndex / itemsPerPage)
                   ? "bg-red-600"
                   : "bg-gray-300 border border-black"
               }`}

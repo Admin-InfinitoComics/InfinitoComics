@@ -55,7 +55,17 @@ class BlogService {
     return await this.blogRepository.getLatest(limit);
   }
 
+async getByCategory(category, limit) {
+  return await this.blogRepository.getByCategory(category, limit);
+}
 
+async getTopBlogsByCategory(category, limit) {
+  return await this.blogRepository.getBlogsByCategory(category, limit);
+}
+
+async getBlogsById(id) {
+  return await this.blogRepository.getBlogById(id);
+}
 }
 
 export default BlogService;

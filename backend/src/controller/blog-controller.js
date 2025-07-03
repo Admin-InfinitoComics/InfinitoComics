@@ -126,6 +126,34 @@ const getLatestBlogs = async (req, res) => {
   }
 };
 
+const getFoundationBlogs = async (req, res) => {
+  try {
+    const blogs = await blogservice.getByCategory("Foundation", 4);
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching Foundation blogs" });
+  }
+};
+
+const getICBlogs = async (req, res) => {
+  try {
+    const blogs = await blogservice.getTopBlogsByCategory("IC", 4); // sorted by createdAt ascending
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching IC blogs" });
+  }
+}
+
+const getBlogsById = async (req, res) => {
+  try {
+    const blog = await blogservice.findById(req.params.id);
+    if (!blog) return res.status(404).json({ message: "Blog not found" });
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch blog" });
+  }
+};
+
 
 export default {
   createBlog,
@@ -133,5 +161,8 @@ export default {
   getBlogById,
   updateBlog,
   deleteBlog,
-  getLatestBlogs
+  getLatestBlogs,
+  getFoundationBlogs,
+  getICBlogs,
+  getBlogsById
 };

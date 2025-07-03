@@ -18,7 +18,7 @@ import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
 import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
-
+import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 function App() {
 useEffect(() => {
   const listener = (event) => {
@@ -59,7 +59,7 @@ useEffect(() => {
           <Route path="/Reset-password" element={<ResetPassword/>} />
           <Route path="/signup"  element={<SignupWrapper/>} />
           <Route path="/news" element = {<News/>} />
-          {/* <Route path="/news/:id" element = {<News_Display/>} /> */}
+           <Route path="/news/:id" element = {<News_Display/>} /> 
            <Route path="/"  element={<Home/>} />
             <Route path="/login"  element={<Login/>} />
              <Route path="/loggedin"  element={<Loggedin/>} />
@@ -73,7 +73,7 @@ useEffect(() => {
            <Route path="/careers/apply" element={<Jobs/>} />
            
            <Route path="/community" element={<Community/>} />
-
+            <Route path="/all-news" element={<AllNewsPage />} />
 
         </Route>
       </Routes>

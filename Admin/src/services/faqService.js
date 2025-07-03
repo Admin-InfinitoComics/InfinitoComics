@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API_URL = "http://localhost:3000/faq";
+import { API_URL } from "../utils/constants"; 
 
 export const getAllFaqs = async () => {
   return await axios.get(API_URL);

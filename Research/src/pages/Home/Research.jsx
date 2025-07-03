@@ -1,46 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import axios from "axios";
+// ResearchPlans.jsx
+import React from "react";
+import FAQSection from "./FAQSection"; // Adjust the path if needed
 import "./Research.css";
 
-export default function ResearchPlans() {
-  const [faqData, setFaqData] = useState([]);
-  const [openIndex, setOpenIndex] = useState(null);
-  const [loadingFaq, setLoadingFaq] = useState(true);
-  const [errorFaq, setErrorFaq] = useState(null);
-
-  const toggleFAQ = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
-  useEffect(() => {
-  const fetchFAQs = async () => {
-    try {
-      console.log("🔥 useEffect started");
-
-      const res = await axios.get("http://localhost:3000/faq");
-      console.log("✅ API Response:", res);
-
-      const data = res.data.data;
-      if (!Array.isArray(data)) {
-        console.error("❌ Unexpected data format");
-        setErrorFaq("Invalid FAQ format");
-        return;
-      }
-
-      setFaqData(data);
-    } catch (err) {
-      console.error("❌ Error fetching FAQs", err);
-      setErrorFaq("Fetch failed");
-    } finally {
-      setLoadingFaq(false);
-    }
-  };
-
-  fetchFAQs();
-}, []);
-
-
+const ResearchPlans = () => {
   const cardImages = [
     "/img1.jpg",
     "/img2.jpg",
@@ -92,62 +55,29 @@ export default function ResearchPlans() {
         </div>
       </div>
 
-  
       {/* Main Content */}
-<div className="min-h-screen bg-white py-15 px-4 md:px-10 text-center">
-  <h2 className="text-4xl font-semibold text-black">
-    Over <span className="text-red-600 font-bold">50+</span> Papers Across Major Fields
-  </h2>
-  <p className="text-md text-black mb-10">
-    Get a wide range of papers for your research.
-  </p>
+      <div className="min-h-screen bg-white py-15 px-4 md:px-10 text-center">
+        <h2 className="text-4xl font-semibold text-black">
+          Over <span className="text-red-600 font-bold">50+</span> Papers Across Major Fields
+        </h2>
+        <p className="text-md text-black mb-10">
+          Get a wide range of papers for your research.
+        </p>
 
-  {/* Cards */}
-  <div className="flex flex-wrap justify-center gap-10 mb-15 mx-auto">
-    {cardImages.map((src, i) => (
-      <div key={i} className="w-50 h-60 bg-[#D9D9D9] overflow-hidden shadow-sm">
-        <img src={src} alt={`card-${i}`} className="w-full h-full object-cover" />
-      </div>
-    ))}
-  </div>
+        {/* Cards */}
+        <div className="flex flex-wrap justify-center gap-10 mb-15 mx-auto">
+          {cardImages.map((src, i) => (
+            <div key={i} className="w-50 h-60 bg-[#D9D9D9] overflow-hidden shadow-sm">
+              <img src={src} alt={`card-${i}`} className="w-full h-full object-cover" />
+            </div>
+          ))}
+        </div>
 
-  {/* FAQ Section with updated styling */}
-  <div className="max-w-10/12 mx-auto pt-20 text-left">
-    <h3 className="flex justify-center text-4xl font-bold mb-4">
-      Frequently Asked Questions
-    </h3>
-    {loadingFaq ? (
-      <p className="text-center text-gray-500">Loading FAQs...</p>
-    ) : errorFaq ? (
-      <p className="text-center text-red-500">Oops! We couldn’t load the FAQs right now. Please refresh or try again later.</p>
-    ) : faqData.length === 0 ? (
-      <p className="text-center">No FAQs available.</p>
-    ) : (
-      <div className="divide-y-2 divide-[#7D7D7D]">
-        {faqData.map((faq, index) => (
-          <div key={faq._id || index}>
-            <button
-              onClick={() => toggleFAQ(index)}
-              className="w-full flex justify-between items-center py-4 text-2xl font-bold text-black"
-            >
-              <span>{faq.question}</span>
-              {openIndex === index ? (
-                <ChevronUp size={20} />
-              ) : (
-                <ChevronDown size={20} />
-              )}
-            </button>
-            {openIndex === index && (
-              <div className="pb-4 text-xl font-semibold text-gray-700">
-                {faq.answer}
-              </div>
-            )}
-          </div>
-        ))}
+        {/* FAQ Section (UI intact) */}
+        <FAQSection category="research" />
       </div>
-    )}
-  </div>
-</div>
     </>
   );
-}
+};
+
+export default ResearchPlans;

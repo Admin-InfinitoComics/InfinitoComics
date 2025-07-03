@@ -32,7 +32,7 @@ const Home = () => {
         <img
           src={overlayImage}
           alt="Overlay"
-          className="absolute inset-0 w-full h-full z-10 pointer-events-none object-cover"
+          className="absolute inset-0 w-full h-full z-10 pointer-events-none object-cover -mt-0.5 "
         />
 
         {/* Left Overlay Image */}

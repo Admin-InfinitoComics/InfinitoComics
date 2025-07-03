@@ -5,7 +5,7 @@ import membershipKitRight from '../../../assets/Images/Ultimate/MembershipKitRig
 const MembershipKitCard = () => {
   return (
     <div className='flex justify-center mt-28 px-4'>
-      <div className="flex flex-col md:flex-row w-[90%] max-w-[1200px] justify-between items-center gap-6 bg-white px-10 py-12 shadow-md border">
+      <div className="flex flex-col md:flex-row w-[90%] max-w-[80.625rem] justify-between items-center gap-6 bg-white px-10 py-12 shadow-md border">
         
         {/* Left Image */}
         <div className="md:w-[55%] w-full h-[25rem] flex items-center">

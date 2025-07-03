@@ -6,16 +6,17 @@ import NewComicsWeekly from './newComicsWeekly'
 import JoinUltimate from '../Home/JoinUltimate'
 import CreatorAccess from './CreatorAccess'
 import MembershipKitCard from './MembershipKitCard'
-import faq from '../../../../Research/src/pages/ReadResearch/ReadResearch'
+import Faqs from './Faqs'
 
 const Ultimate = () => {
   return (
     <div>
       <Carousel/>
-      <PremiumPlans/>
+      {/* <PremiumPlans/> */}
       <NewComicsWeekly/>
       <CreatorAccess/>
       <MembershipKitCard/>
+      <Faqs/>
       <JoinUltimate/>
 
     </div>

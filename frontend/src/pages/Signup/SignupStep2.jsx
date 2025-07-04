@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Calendar, Shuffle, AlertCircle, CheckCircle } from 'lucide-react';
+import { Calendar, Shuffle, AlertCircle, CheckCircle, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginLogo from '../../../assets/Images/LoginLogo.png';
 import { signUpUser } from '../../services/userServices';
 import { addUser } from '../../redux/userSlice';
-import { ArrowLeft } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -109,12 +110,14 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
       setIsSubmitting(true);
       const data = await signUpUser(formData);
       dispatch(addUser(data.data));
-      alert('Successfully signed up!');
-      onNext();
+      toast.success('Successfully signed up!');
+      setTimeout(() => {
+        onNext(); // delay to allow toast to show
+      }, 2000);
     } catch (err) {
       const backendMessage =
         err?.response?.data?.message || err?.response?.data?.error || err?.message || 'Something went wrong.';
-      alert(backendMessage);
+      toast.error(backendMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -166,13 +169,9 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
 
   return (
     <div className="w-[540px] h-[670px] bg-white bg-opacity-95 px-24 py-10 rounded shadow-md font-sans relative">
-      {/* Back Button */}
-    <div
-      className="absolute top-5 left-5 p-2 rounded-full cursor-pointer bg-red-100 text-red-700 hover:text-red-600 hover:bg-red-200    transition-all duration-200"
-      onClick={() => onBack()}
-    >   
-      <ArrowLeft size={20} />
-   </div>
+      <div className="absolute top-5 left-5 p-2 rounded-full cursor-pointer bg-red-100 text-red-700 hover:text-red-600 hover:bg-red-200 transition-all duration-200" onClick={() => onBack()}>
+        <ArrowLeft size={20} />
+      </div>
 
       <div className="flex flex-col items-center gap-4">
         <img src={LoginLogo} alt="Logo" className="w-[200px] m-4" />
@@ -184,7 +183,6 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
           </p>
         </div>
 
-        {/* Step Indicator */}
         <div className="flex items-center justify-center gap-2">
           <div className="w-34 h-1 bg-red-600" />
           <div className="w-6 h-6 flex items-center justify-center border-2 border-red-600 text-red-600 text-sm font-bold">1</div>
@@ -193,7 +191,7 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
         </div>
 
         <form className="w-full flex flex-col gap-1" onSubmit={handleSignup}>
-          {/* Full Name */}
+          {/* Name Input */}
           <div>
             <label className="text-[#DD1215] text-[12px] font-semibold">Your Full Name</label>
             <div className="relative">
@@ -214,50 +212,37 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
           </div>
 
           {/* DOB */}
-<div>
-  <label className="text-[#DD1215] text-[12px] font-semibold">Your Birthday</label>
-  <div className="relative">
-    <input
-      ref={dateInputRef}
-      type="date"
-      className={`custom-date-input w-full border text-[12px] text-gray-500 px-4 py-2 pr-10 font-semibold transition-all duration-200 ${getInputBorderClass('dob')}`}
-      value={formData.dob}
-      onChange={(e) => handleInputChange('dob', e.target.value)}
-      onBlur={() => handleBlur('dob')}
-      required
-      style={{
-        appearance: 'none',
-        WebkitAppearance: 'none',
-        MozAppearance: 'textfield',
-        background: 'transparent',
-      }}
-    />
-    <div className="absolute top-1/2 right-3 transform -translate-y-1/2 flex items-center gap-2">
-      {getValidationIcon('dob')}
-      <Calendar className="text-gray-400 cursor-pointer" size={18} onClick={() => dateInputRef.current?.showPicker()} />
-    </div>
-  </div>
-  <p className="text-red-500 text-xs mt-1 h-4">{errors.dob}</p>
-
-  {/* Add this style block somewhere in your component or global CSS */}
-  <style>{`
-    .custom-date-input::-webkit-calendar-picker-indicator {
-      opacity: 0;
-      display: none;
-      -webkit-appearance: none;
-    }
-    .custom-date-input::-webkit-inner-spin-button,
-    .custom-date-input::-webkit-clear-button {
-      display: none;
-    }
-    .custom-date-input {
-      -moz-appearance: textfield;
-    }
-    .custom-date-input::-ms-expand {
-      display: none;
-    }
-  `}</style>
-</div>
+          <div>
+            <label className="text-[#DD1215] text-[12px] font-semibold">Your Birthday</label>
+            <div className="relative">
+              <input
+                ref={dateInputRef}
+                type="date"
+                className={`custom-date-input w-full border text-[12px] text-gray-500 px-4 py-2 pr-10 font-semibold transition-all duration-200 ${getInputBorderClass('dob')}`}
+                value={formData.dob}
+                onChange={(e) => handleInputChange('dob', e.target.value)}
+                onBlur={() => handleBlur('dob')}
+                required
+                style={{
+                  appearance: 'none',
+                  WebkitAppearance: 'none',
+                  MozAppearance: 'textfield',
+                  background: 'transparent',
+                }}
+              />
+              <div className="absolute top-1/2 right-3 transform -translate-y-1/2 flex items-center gap-2">
+                {getValidationIcon('dob')}
+                <Calendar className="text-gray-400 cursor-pointer" size={18} onClick={() => dateInputRef.current?.showPicker()} />
+              </div>
+            </div>
+            <p className="text-red-500 text-xs mt-1 h-4">{errors.dob}</p>
+            <style>{`
+              .custom-date-input::-webkit-calendar-picker-indicator { opacity: 0; display: none; }
+              .custom-date-input::-webkit-inner-spin-button, .custom-date-input::-webkit-clear-button { display: none; }
+              .custom-date-input { -moz-appearance: textfield; }
+              .custom-date-input::-ms-expand { display: none; }
+            `}</style>
+          </div>
 
           {/* Username */}
           <div>
@@ -302,7 +287,7 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
             </ul>
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <div className="flex items-center justify-center mt-7">
             <button
               type="submit"
@@ -318,6 +303,9 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
           </div>
         </form>
       </div>
+
+      {/* Toast container */}
+      <ToastContainer position="top-right" autoClose={3000} pauseOnHover theme="colored" />
     </div>
   );
 };

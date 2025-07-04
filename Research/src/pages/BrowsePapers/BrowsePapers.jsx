@@ -15,7 +15,7 @@ const BrowsePapers = ({ allPapers, isLoading }) => {
 
   useEffect(() => {
     if (!Array.isArray(allPapers)) return;
-    let filtered = allPapers.filter((paper) => {
+    const filtered = allPapers.filter((paper) => {
       const matchTitle = searchText
         ? paper.title?.toLowerCase().includes(searchText.toLowerCase())
         : true;
@@ -44,8 +44,9 @@ const BrowsePapers = ({ allPapers, isLoading }) => {
   const categories = ['all', 'business', 'psychology', 'design', 'development'];
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 flex justify-center">
+    <div className="w-full min-h-screen bg-gray-100 flex justify-center overflow-hidden">
       <div className="flex flex-col min-h-screen w-2/3">
+
         {/* Search Bar */}
         {isLoading ? (
           <PaperSearchBarShimmer />
@@ -84,38 +85,44 @@ const BrowsePapers = ({ allPapers, isLoading }) => {
           </div>
         )}
 
-        {/* Paper Cards */}
-        <div className="w-[100%] h-[calc(100vh-150px)] overflow-y-auto pr-2 pt-8 pb-20">
-          {isLoading ? (
-            [...Array(3)].map((_, i) => <PaperCardShimmer key={i} />)
-          ) : filteredPapers.length === 0 ? (
-            <p className="text-center text-gray-500 mt-4">No results found.</p>
-          ) : (
-            <>
-              {filteredPapers.slice(0, visibleCount).map((paper) => (
-                <PaperCard key={paper._id} paper={paper} />
-              ))}
-              {filteredPapers.length > 3 && (
-                <div className="mt-6 mb-6 text-center">
-                  {visibleCount < filteredPapers.length ? (
-                    <button
-                      className="px-6 py-2 border mb-6 border-black text-sm hover:bg-black hover:text-white transition"
-                      onClick={handleShowMore}
-                    >
-                      Show More
-                    </button>
-                  ) : (
-                    <button
-                      className="px-6 py-2 mb-6 border border-black text-sm hover:bg-black hover:text-white transition"
-                      onClick={handleShowLess}
-                    >
-                      Show Less
-                    </button>
-                  )}
-                </div>
-              )}
-            </>
-          )}
+        {/* Paper Cards Section */}
+        <div
+          className={`w-full h-[calc(100vh-150px)] ${
+            isLoading ? 'overflow-hidden' : 'overflow-y-auto'
+          } pr-2 pt-8 pb-20`}
+        >
+          <div className="flex flex-col">
+            {isLoading ? (
+              [...Array(6)].map((_, i) => <PaperCardShimmer key={i} />)
+            ) : filteredPapers.length === 0 ? (
+              <p className="text-center text-gray-500 mt-4">No results found.</p>
+            ) : (
+              <>
+                {filteredPapers.slice(0, visibleCount).map((paper) => (
+                  <PaperCard key={paper._id} paper={paper} />
+                ))}
+                {filteredPapers.length > 3 && (
+                  <div className="mt-6 mb-6 text-center">
+                    {visibleCount < filteredPapers.length ? (
+                      <button
+                        className="px-6 py-2 border mb-6 border-black text-sm hover:bg-black hover:text-white transition"
+                        onClick={handleShowMore}
+                      >
+                        Show More
+                      </button>
+                    ) : (
+                      <button
+                        className="px-6 py-2 mb-6 border border-black text-sm hover:bg-black hover:text-white transition"
+                        onClick={handleShowLess}
+                      >
+                        Show Less
+                      </button>
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

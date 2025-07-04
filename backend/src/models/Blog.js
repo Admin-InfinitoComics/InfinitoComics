@@ -33,7 +33,7 @@ const BlogSchema = new mongoose.Schema({
         default: 'draft' 
     },
 }, {
-    timestamps: true  // Adds createdAt and updatedAt
+    timestamps: true  
 });
 
 const Blog = mongoose.model('Blog', BlogSchema);

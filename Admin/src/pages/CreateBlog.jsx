@@ -14,7 +14,7 @@ const showAlert = (type) => {
     html: '',
     showConfirmButton: true,
     confirmButtonText: 'Awesome!',
-    confirmButtonColor: '#4CAF50', // default green
+    confirmButtonColor: '#4CAF50',
     backdrop: `
       rgba(0,0,123,0.4)
       left top
@@ -44,10 +44,11 @@ const showAlert = (type) => {
       config.html = 'Operation completed successfully!';
   }
   MySwal.fire(config).then(() => {
-    window.location.reload(); // 🔄 Reload after "OK"
+    window.location.reload(); 
   });
 };
 const BlogCreator = () => {
+  const token = localStorage.getItem("authToken");
   const [showPreview, setShowPreview] = useState(false);
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
@@ -77,8 +78,12 @@ const formRef = useRef(null);
     const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
     if (!confirmDelete) return;
   try {
-    const response = await fetch(`http://localhost:3000/blog/deleteblog/${blogId}`, {
+   const response = await fetch(`http://localhost:3000/blog/deleteblog/${blogId}`, {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
     });
     const result = await response.json();
     if (response.ok) {
@@ -92,11 +97,9 @@ const formRef = useRef(null);
       const updatedAll = allBlogs.filter((b) => b._id !== blogId);
       setAllBlogs(updatedAll);
     } else {
-      console.error('Error:', result);
       alert(`Error deleting blog: ${result.message}`);
     }
   } catch (err) {
-    console.error('Network Error:', err);
     alert('Error deleting blog - check console for details');
   }
 };
@@ -112,7 +115,7 @@ const handleUpdate = async () => {
   if (!confirmUpdate) return;
 
   const news = fullStoryBlocks.map(block => ({
-    imageUrl: block.image ? block.image : '', // base64 string
+    imageUrl: block.image ? block.image : '', 
     story: block.description
   }));
 
@@ -163,7 +166,6 @@ const handleUpdate = async () => {
       alert(`Error updating blog: ${result.message}`);
     }
   } catch (err) {
-    console.error('Network Error:', err);
     alert('Error updating blog - check console for details');
   }
 };
@@ -321,13 +323,17 @@ const handlePublish = async () => {
     status: 'published',
     news: newsArray,
   };
+ 
 
   try {
-    const response = await fetch('http://localhost:3000/blog/createblog', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+const response = await fetch("http://localhost:3000/blog/createblog", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}` 
+  },
+  body: JSON.stringify(payload)
+});
     const result = await response.json();
     if (response.ok) {
       showAlert('published');
@@ -361,7 +367,7 @@ const handlePublish = async () => {
 
         <button
           onClick={() => {
-              handleGetAllBlogs(); // fetch blogs
+              handleGetAllBlogs(); 
               setShowBlogs((prev) => !prev);
             }}
             className="mt-4 md:mt-0 px-6 py-3 rounded bg-purple-600 text-white font-semibold hover:bg-purple-700" 
@@ -426,14 +432,16 @@ const handlePublish = async () => {
                 <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
                   <span className="text-xl">T</span> Category
                 </h2>
-                <input
-                  type="text"
+                <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  placeholder="Enter category"
                   className="w-full border p-3 rounded placeholder-gray-900"
                   style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#111111' }}
-                />
+                >
+                  <option value="">Select category</option>
+                  <option value="IC">IC</option>
+                  <option value="Foundation">Foundation</option>
+              </select>
               </div>
             </div>
           </div>
@@ -462,7 +470,7 @@ const handlePublish = async () => {
                   const reader = new FileReader();
                   reader.onloadend = () => {
                     const newBlocks = [...fullStoryBlocks];
-                    newBlocks[index].image = reader.result; // base64 string
+                    newBlocks[index].image = reader.result; 
                     setFullStoryBlocks(newBlocks);
                   };
                   reader.readAsDataURL(file);
@@ -636,7 +644,7 @@ const handlePublish = async () => {
                 setTitle(blog.title);
                 setSubject(blog.subject);
                 const storyBlocks = (blog.news || []).map(newsItem => ({
-                  image: newsItem.imageUrl || null, // use the image URL directly
+                  image: newsItem.imageUrl || null, 
                   description: newsItem.story || ''
                 }));
                 setFullStoryBlocks(storyBlocks.length > 0 ? storyBlocks : [{ image: null, description: '' }]);
@@ -663,7 +671,7 @@ const handlePublish = async () => {
                 setTitle(blog.title);
                 setSubject(blog.subject);
                 const storyBlocks = (blog.news || []).map(newsItem => ({
-                  image: newsItem.imageUrl || null, // use the image URL directly
+                  image: newsItem.imageUrl || null, 
                   description: newsItem.story || ''
                 }));
                 setFullStoryBlocks(storyBlocks.length > 0 ? storyBlocks : [{ image: null, description: '' }]);

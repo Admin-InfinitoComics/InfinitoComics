@@ -5,6 +5,7 @@ import PaperCardShimmer from './Shimmer/PaperCardShimmer';
 import PaperSearchBarShimmer from './Shimmer/PaperSearchBarShimmer';
 import BrowseSectionShimmer from './Shimmer/BrowseSectionShimmer';
 
+
 const BrowsePapers = ({ allPapers, isLoading }) => {
   const [visibleCount, setVisibleCount] = useState(3);
   const [searchText, setSearchText] = useState('');
@@ -102,6 +103,8 @@ const BrowsePapers = ({ allPapers, isLoading }) => {
                   <PaperCard key={paper._id} paper={paper} />
                 ))}
                 {filteredPapers.length > 3 && (
+
+
                   <div className="mt-6 mb-6 text-center">
                     {visibleCount < filteredPapers.length ? (
                       <button

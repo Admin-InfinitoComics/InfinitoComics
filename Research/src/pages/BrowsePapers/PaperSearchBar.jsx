@@ -8,23 +8,26 @@ const PaperSearchBar = ({
   setJournalText,
   authorText,
   setAuthorText,
-  onSearch
+  onSearch,
 }) => {
-
   const handleClear = (fieldSetter) => {
-    fieldSetter(''); // clear the input
-    setTimeout(() => onSearch(), 0); // wait for state to update before searching
+    fieldSetter('');
+    setTimeout(() => onSearch(), 0);
   };
 
   return (
-    <div className="w-full bg-gray-100 flex justify-between">
-      <div className="flex flex-col py-6">
-        <h2 className="text-3xl font-bold text-[#202020] mb-6 tracking-wide uppercase">Search for Papers</h2>
+    <div className="w-full bg-gray-100  py-6 ">
+      <div className="flex flex-col">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#202020] mb-6 tracking-wide uppercase">
+          Search for Papers
+        </h2>
+
 
         <div className="flex items-end gap-20 flex-wrap">
           {/* 🔍 Search Input */}
           <div className="flex flex-col w-[320px] relative">
             <label className="text-sm font-semibold text-[#202020] mb-1 ">Search by Domain, Topic, Article</label>
+
             <input
               type="text"
               value={searchText}
@@ -39,9 +42,11 @@ const PaperSearchBar = ({
             )}
           </div>
 
+
           {/* 📘 Journal Input */}
           <div className="flex flex-col w-[320px] relative">
             <label className="text-sm mb-1 font-semibold text-[#202020] ">Journal / Book</label>
+
             <input
               type="text"
               value={journalText}
@@ -56,9 +61,11 @@ const PaperSearchBar = ({
             )}
           </div>
 
+
           {/* 👩‍🏫 Authors Input */}
           <div className="flex flex-col w-[320px] relative">
             <label className="text-sm font-semibold mb-1 text-[#202020] ">Authors</label>
+
             <input
               type="text"
               value={authorText}
@@ -73,6 +80,7 @@ const PaperSearchBar = ({
             )}
           </div>
 
+
           {/* 🔴 Search Button */}
           {/* <div>
             <button
@@ -83,6 +91,7 @@ const PaperSearchBar = ({
               SEARCH
             </button>
           </div> */}
+
         </div>
       </div>
     </div>

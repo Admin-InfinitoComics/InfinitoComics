@@ -2,19 +2,33 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Trash2, Search, Filter, X, User as UserIcon } from "lucide-react";
-import axios from "axios";
-import {container,item ,mockdata, ITEMS_PER_PAGE} from '../../constants/mockdata'
+import toast, { Toaster } from "react-hot-toast";
+import {
+  container,
+  item,
+  mockdata,
+  ITEMS_PER_PAGE,
+} from "../../constants/mockdata";
+import { fetchUser, handleDeleteUser } from "../../services/adminServices";
 
 function UserList() {
+  console.log("hiiii");
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [confirmDelete, setConfirmDelete] = useState(null);
 
-  // Load mock data on mount
   useEffect(() => {
-    setUsers(mockdata);
+    const fetchData = async () => {
+      try {
+        const response = await fetchUser();
+        setUsers(response?.users || []);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchData();
   }, []);
 
   // Filter + Search
@@ -31,10 +45,18 @@ function UserList() {
     currentPage * ITEMS_PER_PAGE
   );
 
-const handleDelete = async (userID) => {
-    setUsers(prevUsers => prevUsers.filter(user => user.userID !== userID));
+  const handleDelete = async (userID) => {
+    console.log("userid", userID);
+    const res = await handleDeleteUser(userID);
+    if (res) {
+      console.log("idhr hu")
+      toast.success("User Deleted Sucessfully");
+    }
+
+    setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userID));
+    handleDeleteUser(userID);
     setConfirmDelete(null);
-};
+  };
 
   // Helper to clear all filters
   const clearAllFilters = () => {
@@ -45,10 +67,14 @@ const handleDelete = async (userID) => {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
+        <Toaster position="top-center" /> 
       {/* Search & Filter */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
         <div className="relative w-full md:w-1/2">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            size={18}
+          />
           <input
             type="text"
             placeholder="Search by username or email"
@@ -61,7 +87,10 @@ const handleDelete = async (userID) => {
           />
         </div>
         <div className="relative w-full md:w-1/4">
-          <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+          <Filter
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            size={18}
+          />
           <select
             className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
             value={filter}
@@ -82,8 +111,7 @@ const handleDelete = async (userID) => {
         <div className="flex items-center gap-2 mb-6 flex-wrap">
           {search && (
             <span className="flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium shadow hover:cursor-pointer">
-              <Search size={14} className="mr-1" />
-              "{search}"
+              <Search size={14} className="mr-1" />"{search}"
               <button
                 className="ml-2 text-blue-500 hover:text-blue-700"
                 onClick={() => {
@@ -137,7 +165,11 @@ const handleDelete = async (userID) => {
             <motion.div
               key={user.userID}
               variants={item}
-              whileHover={{ y: -3, scale: 1.02, boxShadow: "0 6px 24px 0 rgba(0,0,0,0.10)" }}
+              whileHover={{
+                y: -3,
+                scale: 1.02,
+                boxShadow: "0 6px 24px 0 rgba(0,0,0,0.10)",
+              }}
               className="flex items-center justify-between p-5 bg-white border border-gray-100 rounded-xl shadow-sm transition hover:shadow-lg"
             >
               <div className="flex items-center gap-4">
@@ -177,7 +209,9 @@ const handleDelete = async (userID) => {
                         })()
                       : user.username}
                   </div>
-                  <div className="text-xs text-gray-500 font-mono">{user.email}</div>
+                  <div className="text-xs text-gray-500 font-mono">
+                    {user.email}
+                  </div>
                 </div>
               </div>
 
@@ -215,7 +249,8 @@ const handleDelete = async (userID) => {
             Previous
           </button>
           <span className="text-gray-600 font-medium">
-            Page <span className="font-bold">{currentPage}</span> of <span className="font-bold">{totalPages}</span>
+            Page <span className="font-bold">{currentPage}</span> of{" "}
+            <span className="font-bold">{totalPages}</span>
           </span>
           <button
             onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
@@ -247,7 +282,7 @@ const handleDelete = async (userID) => {
               </button>
               <button
                 className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition"
-                onClick={() => handleDelete(confirmDelete.userID)}
+                onClick={() => handleDelete(confirmDelete._id)}
               >
                 Delete
               </button>

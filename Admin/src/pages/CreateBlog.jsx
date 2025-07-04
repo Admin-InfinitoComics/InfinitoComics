@@ -357,7 +357,6 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
 };
   return (
     <div className='bg-[#f6f6ff]'>
-<Navbar/>
     <div  ref={formRef} className="p-20 font-sans relative mx-40">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
         <div>

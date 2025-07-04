@@ -7,6 +7,7 @@ const Body = () => {
     <div>
       <Navbar/>
       <Outlet />   
+
     </div>
   )
 }

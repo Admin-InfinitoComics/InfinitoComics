@@ -3,6 +3,7 @@ import FilterSideBar from './FilterSideBar';
 import PaperCard from './PaperCard';
 import { researchBrowse } from '../../services/browseService';
 import PaperSearchBar from './PaperSearchBar';
+import PaperCardShimmer from './PaperCardShimmer';
 
 const BrowsePapers = () => {
   const [visibleCount, setVisibleCount] = useState(3);
@@ -13,7 +14,6 @@ const BrowsePapers = () => {
   const [searchText, setSearchText] = useState('');
   const [journalText, setJournalText] = useState('');
   const [authorText, setAuthorText] = useState('');
-
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
@@ -45,17 +45,14 @@ const BrowsePapers = () => {
       const matchTitle = searchText
         ? paper.title?.toLowerCase().includes(searchText.toLowerCase())
         : true;
-
       const matchJournal = journalText
         ? paper.journalName?.toLowerCase().includes(journalText.toLowerCase())
         : true;
-
       const matchAuthors = authorText
         ? paper.authors?.some(author =>
             author.toLowerCase().includes(authorText.toLowerCase())
           )
         : true;
-
       const matchCategory =
         selectedCategory === 'all'
           ? true
@@ -68,20 +65,15 @@ const BrowsePapers = () => {
     setVisibleCount(3);
   }, [searchText, journalText, authorText, papers, selectedCategory]);
 
-  const handleShowMore = () => {
-    setVisibleCount(filteredPapers.length);
-  };
-
-  const handleShowLess = () => {
-    setVisibleCount(3);
-  };
+  const handleShowMore = () => setVisibleCount(filteredPapers.length);
+  const handleShowLess = () => setVisibleCount(3);
 
   const categories = ['all', 'business', 'psychology', 'design', 'development'];
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 flex justify-center">
-      <div className="flex flex-col min-h-screen w-2/3">
-        <PaperSearchBar
+    <div className="w-full min-h-screen bg-gray-100 flex justify-center px-4 sm:px-6 lg:px-0">
+      <div className="flex flex-col w-full lg:w-2/3 min-h-screen">
+        <PaperSearchBar 
           searchText={searchText}
           setSearchText={setSearchText}
           journalText={journalText}
@@ -92,13 +84,13 @@ const BrowsePapers = () => {
 
         {/* 🔹 Top Section */}
         <div className="w-full border-b border-[#B5B5B5] mt-4">
-          <h1 className="text-3xl font-bold text-[#202020] mb-3">BROWSE OUR PAPERS</h1>
-          <div className="flex space-x-6 mt-10 gap-10 text-sm">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#202020] mb-3">BROWSE OUR PAPERS</h1>
+          <div className="flex flex-wrap sm:space-x-6 gap-4 mt-6 text-sm">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`border-b-3 pb-2 transition ${
+                className={`border-b-2 pb-1 transition ${
                   selectedCategory === cat
                     ? 'border-[#DD1215] text-[#DD1215] font-semibold'
                     : 'border-transparent hover:border-black text-gray-700'
@@ -112,17 +104,21 @@ const BrowsePapers = () => {
 
         {/* 🔹 Bottom Section */}
         <div className="flex flex-1">
-          {/* ⬅ Left Sidebar (Sticky) */}
-          <div className="w-[30%]">
+          {/* ⬅ Sidebar disabled for now */}
+          {/* <div className="w-[30%]">
             <div className="w-[270px] pt-8 sticky pb-20 top-24">
               <FilterSideBar />
             </div>
-          </div>
+          </div> */}
 
-          {/* ➡ Right Content (Scrollable) */}
-          <div className="w-[70%] h-[calc(100vh-150px)] overflow-y-auto pr-2 pt-8 pb-20">
+          {/* ➡ Right Content */}
+          <div className="w-full h-[calc(100vh-150px)] overflow-y-auto pr-1 sm:pr-2 pt-8 pb-20">
             {loading ? (
-              <p className="text-center text-gray-500">Loading papers...</p>
+              <>
+                {[...Array(3)].map((_, index) => (
+                  <PaperCardShimmer key={index} />
+                ))}
+              </>
             ) : (
               <>
                 {filteredPapers.length === 0 ? (
@@ -133,7 +129,7 @@ const BrowsePapers = () => {
                   ))
                 )}
 
-                {/* Show More / Show Less Button */}
+                {/* Show More / Less */}
                 {filteredPapers.length > 0 && (
                   <div className="mt-6 mb-6 text-center">
                     {visibleCount < filteredPapers.length ? (

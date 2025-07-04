@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { LogOut } from "lucide-react";
+import { Button, message, Popconfirm } from "antd";
 
 const Navbar = () => {
+  const token = localStorage.getItem("authToken");
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const confirm = (e) => {
+    localStorage.clear();
+    message.success("LogOut successfully");
+    window.location.href = "/";
+  };
+  const cancel = (e) => {
+    console.log(e);
   };
 
   return (
@@ -58,6 +70,29 @@ const Navbar = () => {
           >
             BLOGS & NEWS
           </Link>
+          {token ? (
+            <Popconfirm
+              title="Log Out"
+              description="Are you sure want to log out?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <LogOut
+                size={28}
+                color="white"
+                className="hover:cursor-pointer"
+              />
+            </Popconfirm>
+          ) : (
+            <Link
+              to="/login"
+              className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+            >
+              Login
+            </Link>
+          )}{" "}
         </div>
 
         {/* Mobile Hamburger Icon */}
@@ -123,6 +158,30 @@ const Navbar = () => {
             >
               BLOGS & NEWS
             </Link>
+
+            {token ? (
+              <Popconfirm
+                title="Log Out"
+                description="Are you sure want to log out?"
+                onConfirm={confirm}
+                onCancel={cancel}
+                okText="Yes"
+                cancelText="No"
+              >
+                <LogOut
+                  size={28}
+                  color="white"
+                  className="hover:cursor-pointer"
+                />
+              </Popconfirm>
+            ) : (
+              <Link
+                to="/login"
+                className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       )}

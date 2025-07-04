@@ -9,7 +9,7 @@ import blogroutes from './routes/blog-routes.js'
 import researchPaperRoutes from './routes/researchPaperRoutes.js';
 import faqRoutes from './routes/faqRoutes.js';
 import multer from 'multer';
-
+import adminroutes from './routes/admin-routes.js';
 const allowedOrigins = [
   config.FRONTEND_URL,
   config.ADMIN_URL,
@@ -37,6 +37,7 @@ app.use('/api', router);
 app.use('/blog', blogroutes);
 app.use('/researchPaper',researchPaperRoutes);
 app.use('/faq',faqRoutes);
+app.use('/admin', adminroutes);
 
 const storage = multer.memoryStorage();
 export const upload = multer({

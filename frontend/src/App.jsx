@@ -16,8 +16,32 @@ import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
+import { useEffect } from 'react';
+import Jobs from './pages/Career&Internships/jobs'
+import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 function App() {
-  
+useEffect(() => {
+  const listener = (event) => {
+    const allowedOrigins = ["http://localhost:3003", "http://localhost:3004"];
+    if (!allowedOrigins.includes(event.origin)) return;
+
+    if (event.data === "request-user") {
+      const user = localStorage.getItem("user");
+      if (user) {
+        event.source.postMessage(
+          { type: "user-data", payload: user },
+          event.origin
+        );
+        console.log(" Sent user to:", event.origin, user);
+      }
+    }
+  };
+
+  window.addEventListener("message", listener);
+  return () => window.removeEventListener("message", listener);
+}, []);
+
+
   return (
     <>
       <Provider store={appStore}>
@@ -35,7 +59,7 @@ function App() {
           <Route path="/Reset-password" element={<ResetPassword/>} />
           <Route path="/signup"  element={<SignupWrapper/>} />
           <Route path="/news" element = {<News/>} />
-          <Route path="/news/:id" element = {<News_Display/>} />
+           <Route path="/news/:id" element = {<News_Display/>} /> 
            <Route path="/"  element={<Home/>} />
             <Route path="/login"  element={<Login/>} />
              <Route path="/loggedin"  element={<Loggedin/>} />
@@ -46,8 +70,10 @@ function App() {
             <Route path="/Reset-password" element={<ResetPassword/>} />
            <Route path="/signup"  element={<SignupWrapper/>} />
            <Route path="/careers" element={<CareerInternship/>} />
+           <Route path="/careers/apply" element={<Jobs/>} />
+           
            <Route path="/community" element={<Community/>} />
-
+            <Route path="/all-news" element={<AllNewsPage />} />
 
         </Route>
       </Routes>

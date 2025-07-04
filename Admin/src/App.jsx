@@ -5,10 +5,13 @@ import CreateBlog from './pages/CreateBlog';
 import User from './Pages/UserList/UserList';
 import Faq from './Pages/Faq/Faq';
 import Home from './pages/Home/home';
+import Login from "./Auth/login"
+
 
 function App() {
   return (
     <>
+
     <BrowserRouter basename="/">
       <Routes>
         {/* Main app structure */}
@@ -17,11 +20,13 @@ function App() {
           <Route path="/createfaq" element={<Faq/>} />
           <Route path="/createblog" element={<CreateBlog />} />
           <Route path="/users" element={<User/>}> </Route>
+          <Route path="/login" element={<Login />} />        
          </Route>  
       </Routes>
     </BrowserRouter>
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;

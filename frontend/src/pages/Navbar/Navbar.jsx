@@ -35,33 +35,7 @@ const Header = () => {
           </Link>
           <Link to={RESEARCH_BASE_URL} className="hover:text-white font-bold">
             Research
-          </Link>
-
-            
-//             <a
-//             href="#"
-//             onClick={(e) => {
-//               e.preventDefault();
-//               window.open("http://localhost:3004/?from=main", "_blank");
-//             }}
-//             className="hover:underline"
-//           >
-//             Foundation
-//           </a>
-
-//           <a
-//             href="#"
-//             onClick={(e) => {
-//               e.preventDefault();
-//               window.open("http://localhost:3003/?from=main", "_blank");
-//             }}
-//             className="hover:underline"
-//           >
-
-//             Research
-//           </a>
-
-          
+          </Link>          
           <Link
             to="/support"
             className="hover:text-white font-bold flex items-center gap-1"

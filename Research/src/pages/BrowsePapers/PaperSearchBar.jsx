@@ -22,13 +22,12 @@ const PaperSearchBar = ({
           Search for Papers
         </h2>
 
-        {/* Inputs Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* 🔍 Domain/Topic/Article */}
-          <div className="flex flex-col relative">
-            <label className="text-sm font-semibold text-[#202020] mb-1">
-              Search by Domain, Topic, Article
-            </label>
+
+        <div className="flex items-end gap-20 flex-wrap">
+          {/* 🔍 Search Input */}
+          <div className="flex flex-col w-[320px] relative">
+            <label className="text-sm font-semibold text-[#202020] mb-1 ">Search by Domain, Topic, Article</label>
+
             <input
               type="text"
               value={searchText}
@@ -43,11 +42,11 @@ const PaperSearchBar = ({
             )}
           </div>
 
-          {/* 📘 Journal/Book */}
-          <div className="flex flex-col relative">
-            <label className="text-sm font-semibold text-[#202020] mb-1">
-              Journal / Book
-            </label>
+
+          {/* 📘 Journal Input */}
+          <div className="flex flex-col w-[320px] relative">
+            <label className="text-sm mb-1 font-semibold text-[#202020] ">Journal / Book</label>
+
             <input
               type="text"
               value={journalText}
@@ -62,11 +61,11 @@ const PaperSearchBar = ({
             )}
           </div>
 
-          {/* 👩‍🏫 Authors */}
-          <div className="flex flex-col relative">
-            <label className="text-sm font-semibold text-[#202020] mb-1">
-              Authors
-            </label>
+
+          {/* 👩‍🏫 Authors Input */}
+          <div className="flex flex-col w-[320px] relative">
+            <label className="text-sm font-semibold mb-1 text-[#202020] ">Authors</label>
+
             <input
               type="text"
               value={authorText}
@@ -80,6 +79,19 @@ const PaperSearchBar = ({
               />
             )}
           </div>
+
+
+          {/* 🔴 Search Button */}
+          {/* <div>
+            <button
+              onClick={onSearch}
+              className="bg-[#DD1215] text-white  px-9 py-[9px] text-[12px] h-[38px] w-[150px]  flex items-center gap-2 hover:bg-red-700 transition"
+            >
+              <Search className="w-3 h-3" />
+              SEARCH
+            </button>
+          </div> */}
+
         </div>
       </div>
     </div>

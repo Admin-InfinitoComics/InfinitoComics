@@ -29,28 +29,37 @@ const Header = () => {
           <Link to="/blogs" className="hover:text-white font-bold">
             Blogs & News
           </Link>
-            
-            <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.open("http://localhost:3004/?from=main", "_blank");
-            }}
-            className="hover:underline"
-          >
-            Foundation
-          </a>
 
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.open("http://localhost:3003/?from=main", "_blank");
-            }}
-            className="hover:underline"
-          >
+          <Link to={FOUNDATION_BASE_URL} className="hover:text-white font-bold">
+            Foundation
+          </Link>
+          <Link to={RESEARCH_BASE_URL} className="hover:text-white font-bold">
             Research
-          </a>
+          </Link>
+
+            
+//             <a
+//             href="#"
+//             onClick={(e) => {
+//               e.preventDefault();
+//               window.open("http://localhost:3004/?from=main", "_blank");
+//             }}
+//             className="hover:underline"
+//           >
+//             Foundation
+//           </a>
+
+//           <a
+//             href="#"
+//             onClick={(e) => {
+//               e.preventDefault();
+//               window.open("http://localhost:3003/?from=main", "_blank");
+//             }}
+//             className="hover:underline"
+//           >
+
+//             Research
+//           </a>
 
           
           <Link

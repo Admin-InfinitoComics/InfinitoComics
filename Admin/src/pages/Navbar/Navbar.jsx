@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import infinitoLogo from '../../../../frontend/assets/Logo.png';
 import { LogOut } from "lucide-react";
 import { Button, message, Popconfirm } from "antd";
+
 
 const Navbar = () => {
   const token = localStorage.getItem("authToken");
@@ -24,12 +27,16 @@ const Navbar = () => {
     <nav className="fixed top-0 w-full z-50 bg-gray-900 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
         {/* Logo / Brand */}
-        <Link
-          to="/"
-          className="bg-red-600 text-white uppercase font-bold px-4 py-2 rounded-lg text-xl tracking-wider"
+       <Link
+         to="/"
+         className="inline-block px-2 py-1 rounded-lg"
         >
-          INFINITO
-        </Link>
+      <img
+       src={infinitoLogo}
+       alt="Infinito Logo"
+      className="h-12 w-auto object-contain"
+       />
+      </Link>
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex space-x-8 uppercase font-semibold text-sm">

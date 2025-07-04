@@ -6,11 +6,11 @@ class FAQService {
     this.faqRepository = new FAQRepository();
   }
 
-  async getAll() {
+  async getAll(category) {
     try {
-      return await FAQ.find().sort({ order: 1 });
+      const filter = category ? { category } : {};
+      return await FAQ.find(filter).sort({ order: 1 });
     } catch (error) {
-      console.log(error);
       console.log("Error in getAll - FAQService");
       throw error;
     }

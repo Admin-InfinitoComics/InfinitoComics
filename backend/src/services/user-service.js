@@ -4,6 +4,7 @@ import config from "../config/server-config.js";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 import { uploadToS3 } from "../utils/aws.js";
+import { sendForgotPasswordEmail } from "../utils/sendEmail.js";
 class UserService {
   constructor() {
     this.userRepository = new UserRepository();
@@ -87,6 +88,40 @@ class UserService {
           throw error;
       }
     }
+
+    async forgetPassword(email) {
+      try {
+        const user = await this.userRepository.findByEmail(email);
+        if(!user){
+          throw new Error("Could not find email");
+        }
+        const payload = {
+          id: user._id,
+          email: user.email,
+        };
+        const resetToken = jwt.sign(payload, config.JWT_SECRET_KEY, {
+          expiresIn: config.FORGET_PASSWORD_EXPIRY // expires in 5 minutes
+        });
+        const resetLink = `${config.FRONTEND_URL}/reset-password/${user._id}/${resetToken}`   
+        sendForgotPasswordEmail(user.email, resetLink, user.name);         
+      } catch (error) {
+        console.log("Something wrong at service layer");
+        throw  error;
+      }
+    }
+
+    async resetPassword(userId, newPassword) {
+      try {
+        const user = await this.userRepository.getById(userId);
+        if (!user) throw new Error("User not found");
+        const hashedPassword = await bcrypt.hash(newPassword, 5);
+        await this.userRepository.findByIdandUpdate(userId, {password: hashedPassword});
+        return { message: "Password reset successful" };
+      } catch (error) {
+        console.log("Something wrong at service level", error);
+        throw error;
+      }
+  }
 }
 
 export default UserService;

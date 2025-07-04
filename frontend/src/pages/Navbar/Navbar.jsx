@@ -26,7 +26,7 @@ const Header = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex gap-16 text-[1rem] text-gray-300">
-          <Link to="/blogs" className="hover:text-white font-bold">
+          <Link to="/news" className="hover:text-white font-bold">
             Blogs & News
           </Link>
             

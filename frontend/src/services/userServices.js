@@ -37,13 +37,18 @@ export const getAllBlogs = async () => {
   return res.data.data; 
 };
 
-export const signUpUser=async(formData)=>{
-  const response=await axios.post(BASE_URL + '/api/signup',{
-    email: formData.email.toLowerCase(),
-    password: formData.password,
-    name: formData.name,
-    dob: formData.dob,
-    username: formData.username.trim().replace(/\s/g, "")
-  });
-  return response.data;
-}
+export const signUpUser = async (formData) => {
+  try {
+    const response = await axios.post(BASE_URL + '/api/signup', {
+      email: formData.email.toLowerCase(),
+      password: formData.password,
+      name: formData.name,
+      dob: formData.dob,
+      username: formData.username.trim().replace(/\s/g, "")
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: "Signup failed" };
+  }
+};
+

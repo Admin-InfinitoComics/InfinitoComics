@@ -3,6 +3,9 @@ import LoginBackground from '../../../assets/Images/LoginBackground.jpg';
 import Bullet from '../../../assets/Images/Bullet.png';
 import Riza from '../../../assets/Images/Riza Jose.png';
 import { FaGoogle, FaFacebookF, FaApple } from 'react-icons/fa';
+import ASignup from '../../../assets/Images/Signup/ASignup.png';
+import FSignup from '../../../assets/Images/Signup/FSignup.png';
+import GSignup from '../../../assets/Images/Signup/Gsignup.png';
 import { Eye, EyeOff } from 'lucide-react';
 import LoginLogo from '../../../assets/Images/LoginLogo.png';
 import loginBg from '../../../assets/Images/login.png'// Adjust path as needed
@@ -143,16 +146,20 @@ const handleLogin = async (e) => {
 </div>
 
             {/* Social Logins */}
-            <div className="flex justify-center p-4 mt-[-10] gap-3">
-              {[FaGoogle, FaFacebookF, FaApple].map((Icon, idx) => (
-                <div
-                  key={idx}
-                  className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded cursor-pointer hover:shadow"
-                >
-                  <Icon className="text-xl" />
-                </div>
-              ))}
-            </div>
+<div className="flex justify-center p-4 mt-[-10px] gap-3">
+  {[GSignup, FSignup, ASignup].map((iconSrc, idx) => (
+    <div
+      key={idx}
+      className="w-10 h-10 flex items-center justify-center  cursor-pointer hover:shadow"
+    >
+      <img
+        src={iconSrc}
+        alt={`social-icon-${idx}`}
+        className="w-full h-full object-contain"
+      />
+    </div>
+  ))}
+</div>
           </form>
         </div>
       </div>

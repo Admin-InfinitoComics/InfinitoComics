@@ -9,7 +9,6 @@ import Home from './pages/Home/Home';
 import ResearchPlans from './pages/Home/Research';
 import ReadResearch from './pages/ReadResearch/ReadResearch';
 import Paper from './pages/BrowsePapers/Paper';
-
 function App() {
    const dispatch = useDispatch();
 
@@ -45,18 +44,20 @@ useEffect(() => {
 
   
   return (
-    
-    <BrowserRouter basename="/">
-      <Routes>
-        <Route path="/" element={<Body />}>
-          <Route index element={<Home />} />
-          <Route path="ResearchPlans" element={<ResearchPlans />} />
-          <Route path="ReadResearch" element={<ReadResearch />} />
-          <Route path="browseResearch" element={<Paper />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+
+   <BrowserRouter basename="/" >
+    <Routes>
+      <Route path="/" element={<Body/>} >
+      <Route path="/" element={<Home/>} />
+      <Route path="ResearchPlans" element={<ResearchPlans/>} />
+      <Route path="ReadResearch" element={<ReadResearch/>} />\
+      <Route path="/browseResearch" element={<Paper/>} />
+      
+      </Route>
+    </Routes>
+   </BrowserRouter>
   );
+
 }
 
 export default App;

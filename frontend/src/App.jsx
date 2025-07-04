@@ -16,9 +16,11 @@ import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
+import Ultimate from './pages/Infinito Ultimate/Ultimate';
 import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
+
 function App() {
 useEffect(() => {
   const listener = (event) => {
@@ -71,9 +73,10 @@ useEffect(() => {
            <Route path="/signup"  element={<SignupWrapper/>} />
            <Route path="/careers" element={<CareerInternship/>} />
            <Route path="/careers/apply" element={<Jobs/>} />
-           
            <Route path="/community" element={<Community/>} />
+           <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
+
 
         </Route>
       </Routes>

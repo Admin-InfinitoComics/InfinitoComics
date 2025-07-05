@@ -10,11 +10,7 @@ class TimelineService {
     this.timelineRepository = new TimelineRepository();
   }
 
-  /**
-   * Create a new timeline event.
-   * @param {Object} data - Event data
-   * @returns {Promise<Object>} Created event
-   */
+  
   async createEvent(data) {
     try {
       // Accepts: { title, eventDate, description, imageUrl }
@@ -30,10 +26,7 @@ class TimelineService {
     }
   }
 
-  /**
-   * Get all timeline events.
-   * @returns {Promise<Array>} List of events
-   */
+
   async getAllEvents() {
     try {
       return await this.timelineRepository.getAll();
@@ -43,11 +36,7 @@ class TimelineService {
     }
   }
 
-  /**
-   * Get a single event by ID.
-   * @param {string} id - Event ID
-   * @returns {Promise<Object>} Event object
-   */
+
   async getEventById(id) {
     try {
       return await this.timelineRepository.getById(id);
@@ -57,12 +46,7 @@ class TimelineService {
     }
   }
 
-  /**
-   * Update an event by ID.
-   * @param {string} id - Event ID
-   * @param {Object} data - Updated event data
-   * @returns {Promise<Object>} Updated event
-   */
+
   async updateEvent(id, data) {
     try {
       // Accepts: { title, eventDate, description, imageUrl }
@@ -78,11 +62,6 @@ class TimelineService {
     }
   }
 
-  /**
-   * Delete an event by ID.
-   * @param {string} id - Event ID
-   * @returns {Promise<Object>} Deleted event
-   */
   async deleteEvent(id) {
     try {
       return await this.timelineRepository.findByIdandDelete(id);

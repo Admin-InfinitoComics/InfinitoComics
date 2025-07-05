@@ -9,13 +9,23 @@ import {
   deleteEvent
 } from "../controller/timeline-controller.js";
 
+import { adminauthenticate } from "../middleware/adminauth.js";
+
 const router = express.Router();
 
-// Only admins can use these endpoints (now the endpoints are open to all)
-router.post("/create", upload.single("image"), createEvent);
+// Public endpoints
 router.get("/getAll",  getAllEvents);
 router.get("/:id",  getEventById);
-router.put("/update/:id", upload.single("image"), updateEvent);
-router.delete("/delete/:id",  deleteEvent);
+
+// Only admins can use these endpoints
+
+// Create Events 
+router.post("/create", adminauthenticate, upload.single("image"), createEvent);
+
+// Update Events
+router.put("/update/:id", adminauthenticate,  upload.single("image"), updateEvent);
+
+// Delete Events
+router.delete("/delete/:id", adminauthenticate, deleteEvent);
 
 export default router;

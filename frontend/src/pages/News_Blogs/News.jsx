@@ -4,7 +4,6 @@ import ArcheryNews from './Archery_News'
 import All_news from './All_news'
 import FoundationSection from './Foundation_Section'
 import ArcherySlider from './ArcherySlider'
-import Spotlight from './Spotlight'
 import Carousel from '../News_Blogs/Carousel'
 const News = () => {
   return (
@@ -12,7 +11,6 @@ const News = () => {
         <Carousel></Carousel>
         <ArcheryNews/>
         <ArcherySlider/>
-        <Spotlight/>
         <All_news/>
         <FoundationSection/>
         <ArcherySlider/>

@@ -16,6 +16,7 @@ import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
+import SupportUs from './pages/SupportUs/Index.jsx'
 function App() {
   
   return (
@@ -47,6 +48,7 @@ function App() {
            <Route path="/signup"  element={<SignupWrapper/>} />
            <Route path="/careers" element={<CareerInternship/>} />
            <Route path="/community" element={<Community/>} />
+           <Route path="/support-us" element={<SupportUs/>} />
 
 
         </Route>

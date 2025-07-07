@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -21,6 +22,32 @@ import Ultimate from "./pages/Infinito Ultimate/Ultimate";
 import { useEffect } from "react";
 import Jobs from "./pages/Career&Internships/jobs";
 import AllNewsPage from "./pages/News_Blogs/AllNewsDisplayPage";
+=======
+import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import appStore from './redux/appStore';
+import Body from './components/Body';
+import Loggedin from './components/Homepage-loggedin/Body';
+import Premium from './components/Homepage-premium/Body';
+import Home from '../src/pages/Home/Home';
+import Login from './pages/login/login'
+import SignupWrapper from './pages/Signup/SignupWrapper';
+import News from './pages/News_Blogs/News';
+import CareerInternship from './pages/Career&Internships/CareerMain'
+import Community from './pages/community/communities'
+import ForgotPassword from './pages/login/ForgotPassword';
+import ResetPassword from './pages/login/ResetPassword';
+import DashboardPage from './pages/Home/Dashboard';
+import FeedbackForm from './pages/FeedbackForm/Feedback';
+import News_Display from './pages/News_Blogs/News_Display';
+import SupportUs from './pages/SupportUs/Index.jsx'
+import Ultimate from './pages/Infinito Ultimate/Ultimate';
+import { useEffect } from 'react';
+import Jobs from './pages/Career&Internships/jobs'
+import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
+import OTPVerification from './pages/resentOtp/resendOtp';
+>>>>>>> 645384883837c2e528e17c7a3ee3d1d4956b1079
 
 function App() {
   useEffect(() => {
@@ -47,6 +74,7 @@ function App() {
   return (
     <>
       <Provider store={appStore}>
+<<<<<<< HEAD
         <BrowserRouter basename="/">
           <Routes>
             <Route path="/" element={<Body />}>
@@ -80,6 +108,47 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
+=======
+      <BrowserRouter basename="/">
+      <Routes>
+        
+        <Route path="/"  element={<Body/>} > 
+          <Route path="/"  element={<Home/>} />
+          <Route path="/login"  element={<Login/>} />
+          <Route path="/loggedin"  element={<Loggedin/>} />
+          <Route path="/Premium"  element={<Premium/>} />
+          <Route path="/forgot-password" element={<ForgotPassword/>} />    
+          <Route path="/Feedback" element={<FeedbackForm/>} /> 
+          <Route path="/Dashboard" element={<DashboardPage/>} /> 
+          <Route path="/Reset-password" element={<ResetPassword/>} />
+          <Route path="/signup"  element={<SignupWrapper/>} />
+          <Route path="/news" element = {<News/>} />
+           <Route path="/news/:id" element = {<News_Display/>} /> 
+           <Route path="/"  element={<Home/>} />
+            <Route path="/login"  element={<Login/>} />
+             <Route path="/loggedin"  element={<Loggedin/>} />
+           <Route path="/Premium"  element={<Premium/>} />
+            <Route path="/forgot-password" element={<ForgotPassword/>} />    
+            <Route path="/Feedback" element={<FeedbackForm/>} /> 
+            <Route path="/Dashboard" element={<DashboardPage/>} /> 
+            <Route path="/Reset-password" element={<ResetPassword/>} />
+           <Route path="/signup"  element={<SignupWrapper/>} />
+           <Route path="/careers" element={<CareerInternship/>} />
+           <Route path="/careers/apply" element={<Jobs/>} />
+           <Route path="/community" element={<Community/>} />
+           <Route path="/support-us" element={<SupportUs/>} />
+           <Route path="/ultimate" element={<Ultimate/>} />
+            <Route path="/all-news" element={<AllNewsPage />} />
+            <Route path="/verifyEmail" element={<OTPVerification/>}/>
+            
+
+
+
+
+        </Route>
+      </Routes>
+      </BrowserRouter> 
+>>>>>>> 645384883837c2e528e17c7a3ee3d1d4956b1079
       </Provider>
     </>
   );

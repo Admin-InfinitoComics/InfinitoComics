@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import {
   FaFacebookF,
   FaInstagram,
@@ -72,6 +73,7 @@ const Footer = () => {
         </div>
       </div>
 
+
       {/* =================== MOBILE VIEW =================== */}
       <div className="block md:hidden">
         <div className="text-center px-6">
@@ -82,6 +84,7 @@ const Footer = () => {
           <p className="mt-3  text-[12px] text-left px-8  text-[#B4B4B4] leading-snug">
             India’s Most Prominent Character Based Entertainment Company With Library Of More Than 2500+ Superheroes
           </p>
+
 
           <div className="mt-8 grid grid-cols-2 gap-y-4 px-5 pr-2 gap-x-12 text-sm font-medium text-left">
             <span>BLOGS & NEWS</span>
@@ -95,9 +98,11 @@ const Footer = () => {
 <div className="mt-8 w-full flex rounded overflow-hidden gap-1  px-1 py-1 h-28">
   {/* Left: Logo Box */}
 
+
   <div className=" flex items-center justify-center">
     <img src={smallLogo} alt="logo" className="w-48 h-48 object-contain" />
   </div>
+
 
   {/* Right: Text and Button */}
   <div className="flex flex-col justify-evenly px-1   flex-grow">
@@ -109,6 +114,7 @@ const Footer = () => {
     </button>
   </div>
 </div>
+
 
 
           <div className="mt-10 flex flex-wrap justify-center  gap-2">

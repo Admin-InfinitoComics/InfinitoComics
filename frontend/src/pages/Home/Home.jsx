@@ -8,11 +8,12 @@ import LandingMerch from './LandingMerch';
 import JoinUltimate from './JoinUltimate';
 import PremiumPlans from './PremiumPlans';
 import FanFavourite from './FanFavourite';
-import Spotlight from './Spotlight';
+import Spotlight from '../../components/spotlight/Spotlight';
 import UpcomingEvents from './UpcomingEvents';
 import FoundationSection from './FoundationSection';
 import ExclusiveContent from './ExclusiveContent';
 import NewsletterSection from '../Footer/Newsletter';
+import Otp from '../resentOtp/resendOtp'
 
 const Home = () => {
     //scroll to top feature
@@ -37,6 +38,7 @@ const Home = () => {
       <ExclusiveContent/>
       {/* <DashboardPage/> */}
       <NewsletterSection/>
+      {/* <Otp/> */}
     </div>
   )
 }

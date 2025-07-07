@@ -58,6 +58,7 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  console.log("hii")
   try {
     await userservice.deleteUser(req.query.id);
     res.status(200).json({ message: "User deleted", success: true });
@@ -124,6 +125,64 @@ const uploadimage = async (req, res) => {
   }
 }
 
+const verifyemail = async(req, res) => {
+    try {
+        const response = await userservice.verify(req.body);
+        if(!response){
+            return res.status(401).json({
+                success: false,
+                message: "Email verification failed",
+            })
+        }
+        return res.status(201).json({
+            success: true,
+            message: "Email verified successfully",
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(401).json({
+            message: "Error verifying email",
+            success: false,
+            err: error
+        })
+    }
+}
+
+const forgetPassword = async(req, res) => {
+    try {
+        const {email} = req.body;
+        if(email) {
+            const user = await userservice.forgetPassword(email);
+            return res.status(200).json({
+                data: user,
+                sucess: true
+            })
+        }
+        else{
+            return res.status(400).json({
+                message: "email is required"
+            })
+        }
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message,
+        })
+    }
+}
+
+const forgetPasswordEmail = async (req, res) =>  {
+  try {
+    const userId = req.userFromToken.id; // comes from middleware
+    const newPassword = req.body.newPassword;
+
+    const result = await userservice.resetPassword(userId, newPassword);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
 const Usercontroller = {
   signup,
   login,
@@ -137,6 +196,9 @@ const Usercontroller = {
   verifyOtp,
   resetPassword,
   uploadimage,
+  verifyemail,
+  forgetPassword,
+  forgetPasswordEmail
 };
 
 export default Usercontroller;

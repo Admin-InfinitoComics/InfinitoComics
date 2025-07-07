@@ -26,33 +26,16 @@ const Header = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex gap-16 text-[1rem] text-gray-300">
-          <Link to="/blogs" className="hover:text-white font-bold">
+          <Link to="/news" className="hover:text-white font-bold">
             Blogs & News
           </Link>
-            
-            <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.open("http://localhost:3004/?from=main", "_blank");
-            }}
-            className="hover:underline"
-          >
+
+          <Link to={FOUNDATION_BASE_URL} className="hover:text-white font-bold">
             Foundation
-          </a>
-
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.open("http://localhost:3003/?from=main", "_blank");
-            }}
-            className="hover:underline"
-          >
+          </Link>
+          <Link to={RESEARCH_BASE_URL} className="hover:text-white font-bold">
             Research
-          </a>
-
-          
+          </Link>          
           <Link
             to="/support"
             className="hover:text-white font-bold flex items-center gap-1"

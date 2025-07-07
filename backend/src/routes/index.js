@@ -5,6 +5,7 @@ import { submitErrorReport , getAllErrorReports} from "../controller/error-repor
 import { submitFeedback, getAllFeedbacks } from "../controller/feedback-controller.js";
 import {authenticate} from "../middleware/auth.js";
 import upload from "../middleware/multer.js";
+import { verifyResetToken } from "../middleware/verifyResettoken.js";
 // Create (Register)
 router.post('/signup', Usercontroller.signup)
 // Read (All users)
@@ -41,4 +42,8 @@ router.post("/upload", upload.single('image'), Usercontroller.uploadimage);
 
 // verify (email) by sending otp
 router.post('/verifyemail', Usercontroller.verifyemail);
+
+router.post("/forget-password", Usercontroller.forgetPassword);
+router.post("/forget-password/:id/:token", verifyResetToken, Usercontroller.forgetPasswordEmail);
+
 export default router;

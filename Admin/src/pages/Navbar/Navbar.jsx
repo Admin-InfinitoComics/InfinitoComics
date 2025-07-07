@@ -52,6 +52,12 @@ const Navbar = () => {
             CHARACTERS
           </Link>
           <Link
+            to="/research"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+            RESEARCH
+          </Link>
+          <Link
             to="/community"
             className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
           >
@@ -123,6 +129,12 @@ const Navbar = () => {
             >
               COMICS
             </Link>
+            <Link
+            to="/research"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+            RESEARCH
+          </Link>
             <Link
               to="/characters"
               onClick={toggleMenu}

@@ -86,7 +86,7 @@ const location = useLocation();
               </ul>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mt-6">What you will be doing:</h3>
+              <h3 className="text-lg font-semibold mt-6">What you should have</h3>
               <ul className="list-disc list-outside text-lg mt-2 text-gray-800 space-y-1 mx-4">
                 <li>Lorem ipsum dolor sit amet consectetur adipiscing elit.</li>
                 <li>

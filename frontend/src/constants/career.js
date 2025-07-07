@@ -19,7 +19,7 @@ export const jobs = [
 
 // Filter options for dropdowns
 export const departments = ["All Departments", "Creative & Design", "Marketing", "Engineering"];
-export const jobTypes = ["All Job Types", "Full-time", "Part-time", "Contract"];
+export const jobTypes = ["All Job Types", " Full-time", "Part-time", "Contract"];
 
 export const steps = [
   {

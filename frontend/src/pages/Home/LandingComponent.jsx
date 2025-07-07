@@ -1,7 +1,8 @@
 // Home.jsx
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import slide1 from "../../../assets/Images/landing .png"
 import belowImage from "../../../assets/Images/Botton.png"
+import LandingShimmer from '../../shimmer/landingPageShimmer/landingShimmer'
 
 
 const images = [
@@ -28,13 +29,19 @@ const images = [
 ];
 
 const Home = () => {
+    const [loading, setLoading] = useState(true);
+
   const [current, setCurrent] = useState(0);
 
   const handleSelect = (index) => {
     setCurrent(index);
   };
+  useEffect(() => {
+    // fetch data / preload hero image ...
+    setTimeout(() => setLoading(false), 2400); // demo
+  }, []);
 
-  return (
+  return loading ? <LandingShimmer /> :(
   <div className="w-full text-white">
     <div className="relative w-full h-[80vh] overflow-hidden">
       {/* Background Image with Dimming */}

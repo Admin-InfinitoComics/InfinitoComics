@@ -1,16 +1,37 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Navbar from '../pages/Navbar/Navbar'
-import Footer from '../pages/Footer/Footer'
+import React, { useState, useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import Navbar from '../pages/Navbar/Navbar';
+import Footer from '../pages/Footer/Footer';
+import LogoLoader from '../components/loader/logoLoader';
 
 const Body = () => {
-  return (
-    <div>      
-      <Navbar/>
-      <Outlet/>
-      <Footer/>
-    </div>
-  )
-}
+  const [loading, setLoading] = useState(false);
+  const location = useLocation();
 
-export default Body
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setLoading(true);
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    } else {
+      setLoading(false);
+    }
+  }, [location.pathname]);
+
+  if (loading && location.pathname === '/') {
+    return <LogoLoader />;
+  }
+
+  return (
+    <div>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </div>
+  );
+};
+
+export default Body;

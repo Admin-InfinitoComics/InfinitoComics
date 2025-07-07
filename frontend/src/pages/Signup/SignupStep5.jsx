@@ -7,8 +7,10 @@ import CharacterImg from '../../../assets/Images/Signup/CharacterImg.png';
 import CommunityImg from '../../../assets/Images/Signup/CommunityImg.png';
 import GamesImg from '../../../assets/Images/Signup/GamesImg.png';
 import { ArrowLeft } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 const SignupStep5 = ({onBack}) => {
+  const user = useSelector((store)=>store.user)
   const navigate = useNavigate();
 
   return (
@@ -31,7 +33,7 @@ const SignupStep5 = ({onBack}) => {
         <div className="flex flex-col items-center mt-4 ml-[-20px] gap-2">
           <img src={Avatar} alt="Character" className="h-[300px] object-contain" />
           <p className="text-[10px] text-[#666666] font-semibold tracking-widest mt-2">USER NAME</p>
-          <p className="text-sm font-semibold tracking-wide lowercase mt-[-5px] ">russian_loki</p>
+          <p className="text-sm font-semibold tracking-wide lowercase mt-[-5px] ">{user.username}</p>
         </div>
 
         {/* Right: Interactive Tiles */}

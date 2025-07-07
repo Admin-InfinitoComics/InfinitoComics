@@ -1,19 +1,30 @@
-.slanted-border {
-  --p: 70px;
+.card-shine {
   position: relative;
-  width: 250px;
-  height: 180px;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--p)), 0 100%);
-  background: black; /* Border color */
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
 }
 
-.slanted-content {
-  --p: 70px;
+
+
+.card-shine::before {
+  content: "";
   position: absolute;
-  top: 4px; /* Border thickness */
-  left: 4px;
-  right: 4px;
-  bottom: 4px;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--p)), 0 100%);
-  background: #C44D58; /* Inner content color */
+  top: -100%;
+  left: -45%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  transition: all 0.6s ease-in-out;
+  z-index: 10;
+}
+
+.card-shine:hover::before {
+  top: 100%;
+  left: 100%;
 }

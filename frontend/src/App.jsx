@@ -76,8 +76,15 @@ useEffect(() => {
            <Route path="/careers/apply" element={<Jobs/>} />
            <Route path="/community" element={<Community/>} />
            <Route path="/support-us" element={<SupportUs/>} />
+<<<<<<< HEAD
            <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
+=======
+
+           <Route path="/ultimate" element={<Ultimate/>} />
+            <Route path="/all-news" element={<AllNewsPage />} />
+
+>>>>>>> f4ee27f5a0e25bed22b5e18debf717c9bd0638e1
 
 
         </Route>

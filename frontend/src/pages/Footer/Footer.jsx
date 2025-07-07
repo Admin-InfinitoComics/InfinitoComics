@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 import {
   FaFacebookF,
@@ -10,10 +10,15 @@ import {
 } from 'react-icons/fa';
 import logo from '../../../assets/Logo.png';
 import smallLogo from '../../../assets/Images/foot.png';
-
+import FooterShimmer from '../../shimmer/landingPageShimmer/FooterShimmer'
 
 const Footer = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  return loading?<FooterShimmer/>: (
     <footer className="bg-[#121212] text-white px-6 py-10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
 

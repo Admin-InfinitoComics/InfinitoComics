@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import image from "../../../assets/Images/upcomingEvent.png"
 const TARGET_DATE = new Date('2025-10-12T00:00:00');// <-- Set your target date here
-
+import UpcomingEventsShimmer from   "../../shimmer/landingPageShimmer/UpcomingEventsShimmer";
 const getTimeLeft = () => {
   const now = new Date();
   const diff = TARGET_DATE - now;
@@ -17,6 +17,11 @@ const getTimeLeft = () => {
 };
 
 const UpcomingEvents = () => {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
 
   useEffect(() => {
@@ -26,7 +31,7 @@ const UpcomingEvents = () => {
     return () => clearInterval(timer);
   }, []);
 
-  return (
+  return loading?<UpcomingEventsShimmer />:(
     <div className="w-full flex justify-center py-8 md:py-12 bg-white">
       <div className="relative w-full max-w-7xl mx-2 sm:mx-6 md:mx-20 lg:mx-40 xl:mx-60 h-56 sm:h-72 md:h-[492px]">
         {/* Event Image */}

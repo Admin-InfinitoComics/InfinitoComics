@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import bgImage from '../../../assets/Images/bgImage.png'; // 🔹 Background image for full section
 import character from '../../../assets/Images/character.png'; // 🔹 Character image (left side)
-
+import JoinUltimateShimmer from "../../shimmer/landingPageShimmer/JoinUltimateShimmer";
 const JoinUltimate = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  return loading?<JoinUltimateShimmer/>: (
     // 🔸 Parent container with responsive layout and background image
     <div
       className='w-full min-h-[500px] flex flex-col md:flex-row justify-between items-center bg-cover bg-center px-4 mt-8'

@@ -88,21 +88,17 @@ const JobManagement = () => {
   };
 
   // Format job data for API
-const formatJobForAPI = (job) => {
-  return {
-    jobtitle: job.title,
-    department: job.department,
-    jobtypes: job.jobType,
-    position: job.positions,
-    description: job.description,
-    tasks: job.tasks
-      .filter(task => task.point.trim() !== '')
-      .map(task => task.point),
-    skills: job.skills
-      .filter(skill => skill.point.trim() !== '')
-      .map(skill => skill.point)
+  const formatJobForAPI = (job) => {
+    return {
+      jobTitle: job.title,
+      Department: job.department,
+      jobTypes: job.jobType,
+      positions: job.positions,
+      description: job.description,
+      tasks: job.tasks.filter(task => task.point.trim() !== ''),
+      skill: job.skills.filter(skill => skill.point.trim() !== '')
+    };
   };
-};
 
   // API call to save a new job
   const saveJobToBackend = async (jobData) => {

@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Bookmark } from 'lucide-react';
 import spotlightData from '../../constants/spotlight';
+import TodaySpotLightShimmer from "../../shimmer/landingPageShimmer/TodaySpotLightShimmer";
+
 
 const TodaySpotlight = () => {
+    const [loading, setLoading] = useState(true);
   const [hoveredId, setHoveredId] = useState(1); // Start with the first one
-
-  return (
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  return loading? <TodaySpotLightShimmer/>: (
     <div className="px-4 md:px-16 py-14 bg-white font-dmsans overflow-x-hidden">
       <div className="w-full md:mx-50 mx-auto">
         <h2 className="text-[36px] font-black tracking-widest uppercase mb-10 text-center md:text-left">

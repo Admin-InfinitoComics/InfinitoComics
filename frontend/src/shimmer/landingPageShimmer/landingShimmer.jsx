@@ -1,74 +1,44 @@
-/**
- * ShimmerHomePage.jsx
- * Skeleton / shimmer UI for the Infinito landing page
- * ---------------------------------------------------
- * - Fully responsive across mobile, tablet and desktop.
- * - Uses only Tailwind utility classes (+ 1 tiny inline <style> tag).
- * - Replace this component with the real page content once data/images load.
- */
-
+// 📁 src/components/LandingShimmer.jsx
 import React from "react";
 
-const landingPageShimmer = () => {
+const LandingShimmer = () => {
   return (
-    /* The whole skeleton pulses gently to signal loading */
-    <div className="w-full min-h-screen animate-pulse bg-gray-900 text-white">
-      {/* ----------  Top promo strip  ---------- */}
-     
-      {/* ----------  Hero section skeleton  ---------- */}
-      <section className="relative w-full h-[60vh] md:h-[75vh] lg:h-screen overflow-hidden">
-        {/* Dark backing for the missing background image */}
-        <div className="absolute inset-0 bg-gray-700 shimmer" />
+    <div className="w-full animate-pulse text-white">
+      {/* Hero Section */}
+      <div className="relative w-full h-[80vh] overflow-hidden">
+        {/* Dimmed Background */}
+        <div className="absolute inset-0 bg-gray-200"></div>
 
-        {/* Semi‑transparent overlay for text readability */}
-        <div className="absolute inset-0 bg-black opacity-60" />
+        {/* Text Overlay */}
+        <div className="absolute inset-0 flex flex-col items-start justify-center text-left px-8 md:px-16 z-20 md:mx-30">
+          <div className="h-[60px] w-[80%] md:w-[65%] bg-gray-300 rounded mb-4"></div>
+          <div className="h-[60px] w-[65%] md:w-[50%] bg-gray-300 rounded mb-4"></div>
+          <div className="h-[60px] w-[50%] md:w-[40%] bg-gray-300 rounded mb-10"></div>
 
-        {/* Text placeholders */}
-        <div className="relative z-10 max-w-7xl h-full mx-auto flex flex-col justify-center px-4 sm:px-6 lg:px-12">
-          {/* Main title line */}
-          <div className="h-12 w-5/6 sm:w-1/2 lg:w-1/3 bg-gray-600 rounded shimmer mb-4" />
+          <div className="h-[24px] w-[90%] md:w-[65%] bg-gray-300 rounded mb-2"></div>
+          <div className="h-[24px] w-[60%] md:w-[45%] bg-gray-300 rounded mb-12"></div>
 
-          {/* Subtitle line */}
-          <div className="h-12 w-4/6 sm:w-1/2 lg:w-1/3 bg-gray-600 rounded shimmer mb-6" />
-
-          {/* Description block (3 lines tall) */}
-          <div className="space-y-2 mb-8">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="h-4 w-full sm:w-5/6 lg:w-1/2 bg-gray-600 rounded shimmer"
-              />
-            ))}
-          </div>
-
-          {/* CTA button placeholder */}
-          <div className="h-10 w-32 bg-gray-600 rounded shimmer" />
+          <div className="w-[140px] h-[42px] bg-gray-300 rounded"></div>
         </div>
-      </section>
 
-      {/* ----------  Global keyframes & shimmer helper  ---------- */}
-      <style>
-        {`
-          /* Shimmer sweep animation (no external stylesheet needed) */
-          @keyframes shimmer {
-            0%   { background-position: -700px 0; }
-            100% { background-position: 700px 0; }
-          }
-          /* Apply the moving gradient to any element with the "shimmer" class */
-          .shimmer {
-            background: linear-gradient(
-              90deg,
-              rgba(55, 65, 81, 0.9) 25%,
-              rgba(75, 85, 99, 0.9) 37%,
-              rgba(55, 65, 81, 0.9) 63%
-            );
-            background-size: 400% 100%;
-            animation: shimmer 1.5s ease-in-out infinite;
-          }
-        `}
-      </style>
+        {/* Bottom Navigation Buttons */}
+        <div className="absolute bottom-5 left-0 right-0 flex justify-center space-x-40 z-30">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="w-[160px] h-[18px] bg-gray-300 rounded"
+            ></div>
+          ))}
+        </div>
+      </div>
+
+      {/* Below Image Shadow Placeholder */}
+      <div className="relative w-full -mt-1">
+        <div className="absolute -top-16 w-full h-16 bg-gradient-to-t from-gray-200 to-transparent z-10" />
+        <div className="w-full h-[120px] bg-gray-200" />
+      </div>
     </div>
   );
 };
 
-export default landingPageShimmer;
+export default LandingShimmer;

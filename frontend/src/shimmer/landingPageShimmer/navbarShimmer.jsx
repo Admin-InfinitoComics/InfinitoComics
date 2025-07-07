@@ -1,68 +1,64 @@
-// 📁 src/components/ShimmerHeader.jsx
+// 📁 src/components/HeaderShimmer.jsx
 import React from "react";
+import { FiSearch, FiMenu } from "react-icons/fi";
 
-const ShimmerHeader = () => {
+const HeaderShimmer = () => {
   return (
-    <div className="w-full text-gray-800 bg-white animate-pulse">
-      {/* Top Promo Strip */}
-      <div className="h-7 sm:h-9 bg-gray-100 shimmer" />
+    <div className="text-white font-sans animate-pulse">
+      {/* Top Promo & Links Section */}
+      <div className="border-b bg-[#f1f1f1] border-gray-300 text-sm px-4 sm:px-8 py-4 flex flex-col md:flex-row justify-around items-center gap-40">
+        <div className="mb-2 md:mb-0 text-center w-[290px] h-[20px] bg-gray-300 rounded"></div>
 
-      {/* Header Main */}
-      <div className="w-full border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-          {/* Left: Login Button */}
-          <div className="h-8 w-28 sm:w-32 bg-gray-200 rounded shimmer" />
-
-          {/* Center: Logo */}
-          <div className="h-10 w-36 sm:w-44 bg-gray-200 rounded shimmer" />
-
-          {/* Right: Button + Search Icon */}
-          <div className="flex gap-2 items-center">
-            <div className="h-9 w-36 sm:w-44 bg-gray-200 rounded shimmer" />
-            <div className="h-9 w-9 bg-gray-200 rounded shimmer" />
-          </div>
+        <div className="hidden md:flex gap-16 text-[1rem]">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="w-[100px] h-[18px] bg-gray-300 rounded"></div>
+          ))}
         </div>
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="w-full border-b border-gray-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex gap-3 sm:gap-6 justify-center">
-          {Array(7)
-            .fill(0)
-            .map((_, i) => (
-              <div
-                key={i}
-                className="h-4 w-16 sm:w-20 lg:w-24 bg-gray-200 rounded shimmer"
-              />
-            ))}
+      {/* Middle Section: Logo, Buttons, Mobile Menu */}
+      <div className="bg-[#f1f1f1] px-4 sm:px-8 py-2 flex items-center justify-between md:justify-around gap-4">
+        {/* Mobile Hamburger Icon */}
+        <div className="md:hidden">
+          <div className="w-[28px] h-[28px] bg-gray-300 rounded"></div>
+        </div>
+
+        {/* Login Button (Desktop) */}
+        <div className="hidden md:block">
+          <div className="w-[160px] h-[40px] bg-gray-300 rounded"></div>
+        </div>
+
+        {/* Logo */}
+        <div className="text-center">
+          <div className="w-[140px] h-[50px] bg-gray-300 rounded"></div>
+        </div>
+
+        {/* Right Side Buttons */}
+        <div className="flex items-center gap-4">
+          <div className="hidden md:block w-[260px] h-[42px] bg-gray-300 rounded"></div>
+          <div className="w-[42px] h-[42px] bg-gray-300 rounded-full"></div>
         </div>
       </div>
 
-      {/* Shimmer Keyframes */}
-      <style>
-        {`
-          @keyframes shimmer {
-            0% {
-              background-position: -500px 0;
-            }
-            100% {
-              background-position: 500px 0;
-            }
-          }
-          .shimmer {
-            background: linear-gradient(
-              90deg,
-              rgba(243, 244, 246, 0.4) 25%,
-              rgba(229, 231, 235, 0.6) 50%,
-              rgba(243, 244, 246, 0.4) 75%
-            );
-            background-size: 1000px 100%;
-            animation: shimmer 1.3s ease-in-out infinite;
-          }
-        `}
-      </style>
+      {/* Bottom Nav (Desktop only) */}
+      <div className="hidden md:block bg-[#ececec] text-sm px-4 sm:px-8 py-3">
+        <ul className="flex flex-wrap justify-center gap-10 items-center">
+          {[...Array(7)].map((_, i) => (
+            <li key={i} className="w-[80px] h-[18px] bg-gray-300 rounded"></li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Mobile Menu Placeholder */}
+      <div className="md:hidden bg-[#ececec] text-sm px-4 py-6 space-y-4">
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className="w-full h-[18px] bg-gray-300 rounded"></div>
+        ))}
+
+        <div className="w-full h-[42px] bg-gray-300 rounded"></div>
+      </div>
     </div>
   );
 };
 
-export default ShimmerHeader;
+export default HeaderShimmer;

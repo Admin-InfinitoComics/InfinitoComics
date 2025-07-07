@@ -52,3 +52,10 @@ export const signUpUser = async (formData) => {
   }
 };
 
+export const verifyEmail = async (code) => {
+  const response = await axios.post(BASE_URL + "/api/verifyemail", {
+    code 
+  });
+  return response;
+};
+

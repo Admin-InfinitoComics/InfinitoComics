@@ -112,8 +112,10 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
       dispatch(addUser(data.data));
       toast.success('Successfully signed up!');
       setTimeout(() => {
-        onNext(); // delay to allow toast to show
+        onNext();
+        navigate('/verifyEmail'); // delay to allow toast to show
       }, 2000);
+      
     } catch (err) {
       const backendMessage =
         err?.response?.data?.message || err?.response?.data?.error || err?.message || 'Something went wrong.';

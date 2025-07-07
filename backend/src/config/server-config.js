@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 dotenv.config();
-console.log(process.env.FORGET_PASSWORD_EXPIRY)
 export default {
     PORT: process.env.PORT,
     MONGODB_URL: process.env.MONGODB_URL,

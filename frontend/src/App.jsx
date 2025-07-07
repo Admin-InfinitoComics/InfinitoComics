@@ -16,6 +16,7 @@ import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
+import SupportUs from './pages/SupportUs/Index.jsx'
 import Ultimate from './pages/Infinito Ultimate/Ultimate';
 import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
@@ -74,8 +75,16 @@ useEffect(() => {
            <Route path="/careers" element={<CareerInternship/>} />
            <Route path="/careers/apply" element={<Jobs/>} />
            <Route path="/community" element={<Community/>} />
+           <Route path="/support-us" element={<SupportUs/>} />
+<<<<<<< HEAD
            <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
+=======
+
+           <Route path="/ultimate" element={<Ultimate/>} />
+            <Route path="/all-news" element={<AllNewsPage />} />
+
+>>>>>>> f4ee27f5a0e25bed22b5e18debf717c9bd0638e1
 
 
         </Route>

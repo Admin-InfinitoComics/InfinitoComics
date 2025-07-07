@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import LandingComponent from './LandingComponent';
 import CharacterCarousel from './CharacterCarousel';
 import CharacterSpotlight from './CharacterSpotlight';
@@ -16,6 +16,11 @@ import NewsletterSection from '../Footer/Newsletter';
 import Otp from '../resentOtp/resendOtp'
 
 const Home = () => {
+    //scroll to top feature
+      useEffect(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, []);
+
   return (
     <div>
       <LandingComponent/>

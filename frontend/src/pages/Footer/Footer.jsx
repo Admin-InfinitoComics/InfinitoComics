@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   FaFacebookF,
   FaInstagram,
@@ -8,7 +8,7 @@ import {
   FaTwitter,
   FaPinterestP
 } from 'react-icons/fa';
-import logo from '../../../assets/Logo.png'; 
+import logo from '../../../assets/Logo.png';
 import smallLogo from '../../../assets/Images/foot.png';
 
 
@@ -16,67 +16,64 @@ const Footer = () => {
   return (
     <footer className="bg-[#121212] text-white px-6 py-10">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-      
-<div className="px-4">
-  <div className="w-44 mx-auto">
-    <img
-      src={logo}
-      alt="Infinito Logo"
-      className="w-full h-auto"
-    />
-    <p className="text-[8px] pt-1 leading-tight text-white text-center">
-      WHERE IMAGINATIONS BREAKS BOUNDARIES
-    </p>
-    <p className="mt-4 text-[11px] leading-relaxed text-gray-300 text-left">
-      India’s Most Prominent Character Based Entertainment Company With Library Of
-      More Than 2500+ Superheroes
-    </p>
-  </div>
-</div>
 
-
-
+        <div className="px-4">
+          <div className="w-44 mx-auto">
+            <img
+              src={logo}
+              alt="Infinito Logo"
+              className="w-full h-auto"
+            />
+            <p className="text-[8px] pt-1 leading-tight text-white text-center">
+              WHERE IMAGINATIONS BREAKS BOUNDARIES
+            </p>
+            <p className="mt-4 text-[11px] leading-relaxed text-gray-300 text-left">
+              India’s Most Prominent Character Based Entertainment Company With Library Of
+              More Than 2500+ Superheroes
+            </p>
+          </div>
+        </div>
 
         <div className="flex flex-wrap gap-6 text-sm">
           <div className="flex flex-col space-y-4">
             <span className="font-bold">BLOGS & NEWS</span>
-           <Link to="/careers"><span>CAREER</span></Link> 
+            <Link to="/careers"><span>CAREER</span></Link>
             <span>INTERNSHIP</span>
           </div>
           <div className="flex flex-col space-y-4">
             <span className="font-bold">FOUNDATION</span>
             <span>RESEARCH</span>
-            <span>SUPPORT US</span>
+            <Link to="/support-us"><span>SUPPORT US</span></Link>
           </div>
         </div>
-<div className="px-4">
-  <div className="flex flex-col items-start gap-4 w-full max-w-[240px]">
-   
-    <div className="flex flex-wrap gap-1">
-      {[FaPinterestP, FaTwitter, FaYoutube, FaFacebookF, FaInstagram, FaLinkedinIn].map((Icon, idx) => (
-        <div
-          key={idx}
-          className="border border-white p-2 rounded hover:text-[#FF2D2D] cursor-pointer"
-        >
-          <Icon className="text-lg" />
+        <div className="px-4">
+          <div className="flex flex-col items-start gap-4 w-full max-w-[240px]">
+
+            <div className="flex flex-wrap gap-1">
+              {[FaPinterestP, FaTwitter, FaYoutube, FaFacebookF, FaInstagram, FaLinkedinIn].map((Icon, idx) => (
+                <div
+                  key={idx}
+                  className="border border-white p-2 rounded hover:text-[#FF2D2D] cursor-pointer"
+                >
+                  <Icon className="text-lg" />
+                </div>
+              ))}
+            </div>
+
+
+            <div className="flex items-center gap-2  px-3 py-2 text-xs text-left w-full">
+              <img src={smallLogo} alt="logo" className="w-6 h-6 object-contain" />
+              <p className="text-white leading-snug">
+                Unlocks Exclusive Comics, Early Access To New Releases & Member-Only Merch!
+              </p>
+            </div>
+
+
+            <button className="w-full bg-white text-black px-5 py-3 text-sm font-bold tracking-wide">
+              JOIN INFINITO ULTIMATE ›
+            </button>
+          </div>
         </div>
-      ))}
-    </div>
-
-
-    <div className="flex items-center gap-2  px-3 py-2 text-xs text-left w-full">
-      <img src={smallLogo} alt="logo" className="w-6 h-6 object-contain" />
-      <p className="text-white leading-snug">
-        Unlocks Exclusive Comics, Early Access To New Releases & Member-Only Merch!
-      </p>
-    </div>
-
-
-    <button className="w-full bg-white text-black px-5 py-3 text-sm font-bold tracking-wide">
-      JOIN INFINITO ULTIMATE ›
-    </button>
-  </div>
-</div>
 
 
       </div>

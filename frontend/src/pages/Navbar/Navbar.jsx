@@ -1,7 +1,7 @@
 // 📁 src/components/Header.jsx
 import React, { useState,useEffect } from "react";
 import { FiSearch, FiMenu, FiX, FiUser  } from "react-icons/fi";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/Logo.png";
 import { Heart, ShoppingBag } from "lucide-react";
 import { Link, useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -32,15 +32,16 @@ const Header = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex gap-16 text-[1rem] text-gray-300">
-          <Link to="/blogs" className="hover:text-white font-bold">
+          <Link to="/news" className="hover:text-white font-bold">
             Blogs & News
           </Link>
+
           <Link to={FOUNDATION_BASE_URL} className="hover:text-white font-bold">
             Foundation
           </Link>
           <Link to={RESEARCH_BASE_URL} className="hover:text-white font-bold">
             Research
-          </Link>
+          </Link>          
           <Link
             to="/support"
             className="hover:text-white font-bold flex items-center gap-1"
@@ -66,7 +67,10 @@ const Header = () => {
   {user ? (
     <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
       <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
-      <span className="tracking-wide">Hi, {user.name.split(" ")[0]}!</span>
+      <span className="tracking-wide">
+        Hi, {user?.name?.split(" ")[0] || "Guest"}!
+      </span>
+
     </div>
   ) : (
     <button
@@ -193,12 +197,31 @@ const Header = () => {
           <Link to="/blogs" className="block font-bold hover:text-white">
             Blogs & News
           </Link>
-          <Link to="/foundation" className="block font-bold hover:text-white">
+
+
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open("http://localhost:3004/?from=main", "_blank");
+            }}
+            className="hover:underline"
+          >
             Foundation
-          </Link>
-          <Link to="/research" className="block font-bold hover:text-white">
+          </a>
+
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open("http://localhost:3003/?from=main", "_blank");
+            }}
+            className="hover:underline"
+          >
             Research
-          </Link>
+          </a>
+
+
           <Link
             to="/support"
             className="font-bold hover:text-white flex items-center gap-2"

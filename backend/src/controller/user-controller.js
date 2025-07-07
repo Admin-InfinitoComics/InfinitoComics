@@ -148,6 +148,41 @@ const verifyemail = async(req, res) => {
     }
 }
 
+const forgetPassword = async(req, res) => {
+    try {
+        const {email} = req.body;
+        if(email) {
+            const user = await userservice.forgetPassword(email);
+            return res.status(200).json({
+                data: user,
+                sucess: true
+            })
+        }
+        else{
+            return res.status(400).json({
+                message: "email is required"
+            })
+        }
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message,
+        })
+    }
+}
+
+const forgetPasswordEmail = async (req, res) =>  {
+  try {
+    const userId = req.userFromToken.id; // comes from middleware
+    const newPassword = req.body.newPassword;
+
+    const result = await userservice.resetPassword(userId, newPassword);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
 const Usercontroller = {
   signup,
   login,
@@ -161,7 +196,9 @@ const Usercontroller = {
   verifyOtp,
   resetPassword,
   uploadimage,
-  verifyemail
+  verifyemail,
+  forgetPassword,
+  forgetPasswordEmail
 };
 
 export default Usercontroller;

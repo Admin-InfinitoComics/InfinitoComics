@@ -1,7 +1,10 @@
 import React from 'react';
+import Slider from 'react-slick';
 import { Share2 } from 'lucide-react';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import tshirtImage from '../../../assets/Images/tShirts&Collectibles/tshirt.jpg';
-
+import shareIcon from '../../../assets/Images/shareIcon.png';
 const items = [
   {
     id: 1,
@@ -27,51 +30,106 @@ const items = [
 ];
 
 const CollectorShowcase = () => {
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
+const renderCard = (item) => (
+  <div
+    key={item.id}
+    className="w-full relative shadow-md  overflow-hidden flex flex-col justify-between"
+    style={{ height: "33.5rem" }} // 500px
+  >
+    {/* Top Section (Image & Info with skew) */}
+    <div
+      className="flex flex-col flex-grow bg-[#E0E0E0] p-[1.5rem] relative"
+      style={{
+        clipPath: "polygon(0 0, 100% 0, 100% 97%, 0 100%)",
+      }}
+    >
+      {/* Share icon */}
+      <button
+        className="absolute top-4 right-4 bg-transparent z-10"
+        style={{ padding: "0.375rem" }}
+      >
+        <img
+          src={shareIcon}
+          alt="Share"F
+          className="object-contain"
+          style={{ width: "3rem", height: "3rem" }}
+        />
+      </button>
+
+      {/* Text overlay */}
+      <div
+        className="absolute z-10 text-black"
+        style={{ top: "1rem", left: "1rem" }}
+      >
+        <p className="text-[1rem] md:text-[1.125rem] font-semibold">
+          {item.title}
+        </p>
+        <p className="text-[1.375rem] md:text-[1.375rem] font-extrabold">
+          {item.price}
+        </p>
+      </div>
+
+      {/* Centered Image */}
+      <div className="flex-1 flex items-end justify-center z-0 mt-auto">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="object-contain"
+          style={{ height: "27rem" }}
+        />
+      </div>
+    </div>
+
+    {/* Bottom Tag with skew and rounded bottom */}
+    <div
+      className="w-full h-[2.5rem] text-white bg-[#202020] flex justify-center items-center text-center font-bold "
+      style={{
+        clipPath: "polygon(0 30%, 100% 0, 100% 100%, 0 100%)",
+        marginTop: "0.5rem",
+      }}
+    >
+      {item.tag}
+    </div>
+  </div>
+);
+
+
+
   return (
-    <div className="bg-white py-20 px-6">
+    <div className="bg-white py-16 px-4 md:px-10 lg:px-20">
       <div className="w-full">
         {/* Headings */}
-        <div className="mb-10 mx-auto md:mx-60">
-          <p className="text-[20px] font-medium text-black tracking-wide">
+        <div className="mb-10 ">
+          <p className="text-[18px] md:text-[20px] font-medium text-black tracking-wide">
             Exclusive Merch
           </p>
-          <h2 className="text-[36px] font-bold tracking-widest uppercase">
+          <h2 className="text-[28px] md:text-[36px] font-bold tracking-widest uppercase">
             Collector’s Paradise
           </h2>
         </div>
 
-        {/* Card Grid */}
-        <div className="flex justify-center gap-10 md:mx-60 mx-auto">
+        {/* Mobile View Slider */}
+        <div className="md:hidden">
+          <Slider {...settings}>
+            {items.map((item) => (
+              <div key={item.id} className="px-2">{renderCard(item)}</div>
+            ))}
+          </Slider>
+        </div>
+
+        {/* Desktop View Grid */}
+        <div className="hidden md:flex justify-center gap-35 flex-wrap">
           {items.map((item) => (
-            <div
-              key={item.id}
-              className="w-[425px] h-[514px] relative bg-gray-200 overflow-hidden shadow-md"
-            >
-              {/* Background image */}
-              <img
-                src={item.image}
-                alt={item.title}
-                className="absolute inset-0 w-full h-full object-cover z-0"
-              />
-
-              {/* Overlay content */}
-              <div className="absolute top-4 left-4 z-10 text-black">
-                <p className="text-sm">{item.title}</p>
-                <p className="text-lg font-bold">{item.price}</p>
-              </div>
-
-              {/* Share icon */}
-              <button className="absolute top-4 right-4 p-[6px] border border-black bg-white z-10">
-                <Share2 className="w-5 h-5 text-black" />
-              </button>
-
-              {/* Bottom tag */}
-              <div className="absolute bottom-0 w-full z-10">
-                <div className="bg-black text-white text-sm py-2 text-center tracking-widest italic -skew-x-[8deg]">
-                  <div className="skew-x-[8deg]">{item.tag}</div>
-                </div>
-              </div>
-            </div>
+            <div key={item.id} className="w-[350px]">{renderCard(item)}</div>
           ))}
         </div>
       </div>

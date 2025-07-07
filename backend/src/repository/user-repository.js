@@ -1,7 +1,6 @@
 import CrudRepository from "./crud-repository.js";
 import User from "../models/User.js";
 import { sendEmail } from "../utils/sendEmail.js";
-import Account from "../models/User.js";
 class UserRepository extends CrudRepository {
   constructor() {
     super(User);

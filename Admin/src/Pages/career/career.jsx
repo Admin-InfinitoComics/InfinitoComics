@@ -88,17 +88,21 @@ const JobManagement = () => {
   };
 
   // Format job data for API
-  const formatJobForAPI = (job) => {
-    return {
-      jobTitle: job.title,
-      Department: job.department,
-      jobTypes: job.jobType,
-      positions: job.positions,
-      description: job.description,
-      tasks: job.tasks.filter(task => task.point.trim() !== ''),
-      skill: job.skills.filter(skill => skill.point.trim() !== '')
-    };
+const formatJobForAPI = (job) => {
+  return {
+    jobtitle: job.title,
+    department: job.department,
+    jobtypes: job.jobType,
+    position: job.positions,
+    description: job.description,
+    tasks: job.tasks
+      .filter(task => task.point.trim() !== '')
+      .map(task => task.point),
+    skills: job.skills
+      .filter(skill => skill.point.trim() !== '')
+      .map(skill => skill.point)
   };
+};
 
   // API call to save a new job
   const saveJobToBackend = async (jobData) => {
@@ -326,7 +330,7 @@ const JobManagement = () => {
   }, [apiStatus.isSuccess, apiStatus.isError]);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8 mt-16">
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

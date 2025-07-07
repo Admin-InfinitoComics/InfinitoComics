@@ -6,7 +6,7 @@ import {adminauthenticate} from '../middleware/adminauth.js'
 import { checkRole } from "../middleware/roleCheck.js";
 router.post("/createblog",adminauthenticate, checkRole(['News and blog','Super Admin']), upload.any(),blogController.createBlog); // done
 
-router.get('/getallblog', blogController.getAllBlogs) //done
+router.get('/getallblog', blogController.getAllBlogs) 
 // Get a blog by Id
 router.get('/getById/:id', blogController.getBlogById);
 
@@ -18,5 +18,10 @@ router.delete('/deleteblog/:id',adminauthenticate, checkRole(['News and blog','S
 
 router.get('/latestblog', blogController.getLatestBlogs);
 
+router.get('/foundation-blogs', blogController.getFoundationBlogs);
+
+router.get('/ic-blogs', blogController.getICBlogs);
+
+router.get('/getById/:id', blogController.getBlogsById);
 
 export default router;

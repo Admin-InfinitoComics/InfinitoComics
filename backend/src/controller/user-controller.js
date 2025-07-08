@@ -148,14 +148,14 @@ const verifyemail = async(req, res) => {
     }
 }
 
-const forgetPassword = async(req, res) => {
+const forgetPasswordFunc = async(req, res) => {
     try {
         const {email} = req.body;
         if(email) {
             const user = await userservice.forgetPassword(email);
             return res.status(200).json({
                 data: user,
-                sucess: true
+                success: true
             })
         }
         else{
@@ -197,7 +197,7 @@ const Usercontroller = {
   resetPassword,
   uploadimage,
   verifyemail,
-  forgetPassword,
+  forgetPasswordFunc,
   forgetPasswordEmail
 };
 

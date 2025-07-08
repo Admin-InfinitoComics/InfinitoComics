@@ -103,7 +103,8 @@ class UserService {
           expiresIn: config.FORGET_PASSWORD_EXPIRY // expires in 5 minutes
         });
         const resetLink = `${config.FRONTEND_URL}/reset-password/${user._id}/${resetToken}`   
-        sendForgotPasswordEmail(user.email, resetLink, user.name);         
+        sendForgotPasswordEmail(user.email, resetLink, user.name);     
+        return user;    
       } catch (error) {
         console.log("Something wrong at service layer");
         throw  error;

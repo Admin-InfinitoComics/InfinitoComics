@@ -7,7 +7,6 @@ const getAll = async (req, res) => {
     const users = await userservice.getAll();
     res.status(200).json({ users, success: true });
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -58,7 +57,6 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  console.log("hii")
   try {
     await userservice.deleteUser(req.query.id);
     res.status(200).json({ message: "User deleted", success: true });
@@ -139,7 +137,6 @@ const verifyemail = async(req, res) => {
             message: "Email verified successfully",
         })
     } catch (error) {
-        console.log(error);
         return res.status(401).json({
             message: "Error verifying email",
             success: false,
@@ -172,11 +169,9 @@ const forgetPasswordFunc = async(req, res) => {
 
 const forgetPasswordEmail = async (req, res) =>  {
   try {
-    const userId = req.userFromToken.id; // comes from middleware
+    const userId = req.userFromToken.id; 
     const newPassword = req.body.newPassword;
-
     const result = await userservice.resetPassword(userId, newPassword);
-
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ message: error.message });

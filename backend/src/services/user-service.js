@@ -117,7 +117,7 @@ class UserService {
         if (!user) throw new Error("User not found");
         const hashedPassword = await bcrypt.hash(newPassword, 5);
         await this.userRepository.findByIdandUpdate(userId, {password: hashedPassword});
-        return { message: "Password reset successful" };
+        return user;
       } catch (error) {
         console.log("Something wrong at service level", error);
         throw error;

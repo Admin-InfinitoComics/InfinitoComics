@@ -20,7 +20,6 @@ import Ultimate from './pages/Infinito Ultimate/Ultimate';
 import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
-
 function App() {
 useEffect(() => {
   const listener = (event) => {
@@ -76,7 +75,7 @@ useEffect(() => {
            <Route path="/community" element={<Community/>} />
            <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
-
+           <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
 
         </Route>
       </Routes>

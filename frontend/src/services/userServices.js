@@ -46,6 +46,18 @@ export const forgetPasswordFunc = async (email) => {
   }
 };
 
+export const resetPasswordFunc = async (id, token, newPassword) => {
+  try {
+    const res = await axios.post(
+      `${BASE_URL}/api/forget-password/${id}/${token}`,
+      { newPassword }
+    );
+    return res.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Reset password failed');
+  }
+};
+
 export const signUpUser=async(formData)=>{
   const response=await axios.post(BASE_URL + '/api/signup',{
     email: formData.email.toLowerCase(),

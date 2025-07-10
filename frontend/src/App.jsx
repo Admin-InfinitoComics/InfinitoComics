@@ -16,10 +16,13 @@ import ResetPassword from './pages/login/ResetPassword';
 import DashboardPage from './pages/Home/Dashboard';
 import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
+import SupportUs from './pages/SupportUs/Index.jsx'
 import Ultimate from './pages/Infinito Ultimate/Ultimate';
 import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
+import OTPVerification from './pages/resentOtp/resendOtp';
+
 function App() {
 useEffect(() => {
   const listener = (event) => {
@@ -73,9 +76,14 @@ useEffect(() => {
            <Route path="/careers" element={<CareerInternship/>} />
            <Route path="/careers/apply" element={<Jobs/>} />
            <Route path="/community" element={<Community/>} />
+           <Route path="/support-us" element={<SupportUs/>} />
            <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
-           <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+            <Route path="/verifyEmail" element={<OTPVerification/>}/>
+            
+
+
+
 
         </Route>
       </Routes>

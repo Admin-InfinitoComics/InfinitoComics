@@ -12,6 +12,8 @@ import multer from 'multer';
 import adminroutes from './routes/admin-routes.js';
 import timelineRoutes from './routes/timelineRoutes.js';
 import CareerRoutes from './routes/career-routes.js';
+import supportRoutes from './routes/support-routes.js';
+
 const allowedOrigins = [
   config.FRONTEND_URL,
   config.ADMIN_URL,
@@ -42,6 +44,7 @@ app.use('/faq',faqRoutes);
 app.use('/admin', adminroutes);
 app.use('/timeline', timelineRoutes);
 app.use('/career', CareerRoutes);
+app.use('/support', supportRoutes);
 
 const storage = multer.memoryStorage();
 export const upload = multer({

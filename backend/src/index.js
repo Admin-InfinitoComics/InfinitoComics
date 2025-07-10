@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 const app = express();
 import config from "./config/server-config.js"
 import connect from "./config/database-config.js"
-import router from "./routes/index.js";
+import userroutes from "./routes/user-routes.js";
 import cors from "cors";
 import blogroutes from './routes/blog-routes.js'
 import researchPaperRoutes from './routes/researchPaperRoutes.js';
@@ -11,6 +11,9 @@ import faqRoutes from './routes/faqRoutes.js';
 import multer from 'multer';
 import adminroutes from './routes/admin-routes.js';
 import timelineRoutes from './routes/timelineRoutes.js';
+import CareerRoutes from './routes/career-routes.js';
+import supportRoutes from './routes/support-routes.js';
+
 const allowedOrigins = [
   config.FRONTEND_URL,
   config.ADMIN_URL,
@@ -34,12 +37,14 @@ app.use(cors({
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json());
-app.use('/api', router);
+app.use('/api', userroutes);
 app.use('/blog', blogroutes);
 app.use('/researchPaper',researchPaperRoutes);
 app.use('/faq',faqRoutes);
 app.use('/admin', adminroutes);
 app.use('/timeline', timelineRoutes);
+app.use('/career', CareerRoutes);
+app.use('/support', supportRoutes);
 
 const storage = multer.memoryStorage();
 export const upload = multer({

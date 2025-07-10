@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { verifyEmail } from "../../services/userServices";
 
 const OTPVerification = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -8,6 +11,7 @@ const OTPVerification = () => {
   const [timeLeft, setTimeLeft] = useState(30);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRefs = useRef([]);
+  const navigate = useNavigate();
 
   // Focus management
   useEffect(() => {
@@ -70,17 +74,36 @@ const OTPVerification = () => {
     return true;
   };
 
-  const handleSubmit = () => {
-    if (!validateOTP()) return;
+const handleSubmit = async () => {
+  if (!validateOTP()) return;
 
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success(`OTP verified successfully: ${otp.join("")}`); // Use toast instead of alert
-      // Here you would typically handle the verification logic
-    }, 1500);
-  };
+  setIsSubmitting(true);
+
+  try {
+    const code = otp.join(""); // Join OTP digits into string
+    const response = await verifyEmail(code); // ✅ await added
+
+    if (response.data.success) {
+      toast.success("OTP verified successfully!");
+      setTimeout(() => {
+        navigate("/signup?step=3");
+      }, 1000);
+    } else {
+      toast.error(response.data.message || "OTP verification failed.");
+    }
+  } catch (error) {
+    console.error("OTP verification error:", error);
+    toast.error(
+      error.response?.data?.message ||
+        "Something went wrong while verifying the OTP."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+
 
   const handleResend = () => {
     setTimeLeft(30);

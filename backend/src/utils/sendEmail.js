@@ -1,8 +1,8 @@
 import nodemailer from "nodemailer"
 import config from "../config/server-config.js"
 const transporter = nodemailer.createTransport({
-  host: config.SMTP_SERVER,  // use your actual SMTP server
-  port: config.SMTP_PORT,                    // or 587 for TLS
+  host: config.SMTP_SERVER,  
+  port: config.SMTP_PORT, 
   secure: true, 
   auth: {
     user: config.EMAIL_ID,

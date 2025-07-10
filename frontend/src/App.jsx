@@ -48,39 +48,45 @@ function App() {
   return (
     <>
       <Provider store={appStore}>
-        <BrowserRouter basename="/">
-          <Routes>
-            <Route path="/" element={<Body />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/loggedin" element={<Loggedin />} />
-              <Route path="/Premium" element={<Premium />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/Feedback" element={<FeedbackForm />} />
-              <Route path="/Dashboard" element={<DashboardPage />} />
-              <Route path="/Reset-password" element={<ResetPassword />} />
-              <Route path="/signup" element={<SignupWrapper />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/news/:id" element={<News_Display />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/loggedin" element={<Loggedin />} />
-              <Route path="/Premium" element={<Premium />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/Feedback" element={<FeedbackForm />} />
-              <Route path="/Dashboard" element={<DashboardPage />} />
-              <Route path="/Reset-password" element={<ResetPassword />} />
-              <Route path="/signup" element={<SignupWrapper />} />
-              <Route path="/careers" element={<CareerInternship />} />
-              <Route path="/careers/apply" element={<Jobs />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/support-us" element={<SupportUs />} />
+      <BrowserRouter basename="/">
+      <Routes>
+        
+        <Route path="/"  element={<Body/>} > 
+          <Route path="/"  element={<Home/>} />
+          <Route path="/login"  element={<Login/>} />
+          <Route path="/loggedin"  element={<Loggedin/>} />
+          <Route path="/Premium"  element={<Premium/>} />
+          <Route path="/forgot-password" element={<ForgotPassword/>} />    
+          <Route path="/Feedback" element={<FeedbackForm/>} /> 
+          <Route path="/Dashboard" element={<DashboardPage/>} /> 
+          <Route path="/Reset-password" element={<ResetPassword/>} />
+          <Route path="/signup"  element={<SignupWrapper/>} />
+          <Route path="/news" element = {<News/>} />
+           <Route path="/news/:id" element = {<News_Display/>} /> 
+           <Route path="/"  element={<Home/>} />
+            <Route path="/login"  element={<Login/>} />
+             <Route path="/loggedin"  element={<Loggedin/>} />
+           <Route path="/Premium"  element={<Premium/>} />
+            <Route path="/forgot-password" element={<ForgotPassword/>} />    
+            <Route path="/Feedback" element={<FeedbackForm/>} /> 
+            <Route path="/Dashboard" element={<DashboardPage/>} /> 
+            <Route path="/Reset-password" element={<ResetPassword/>} />
+           <Route path="/signup"  element={<SignupWrapper/>} />
+           <Route path="/careers" element={<CareerInternship/>} />
+           <Route path="/careers/apply" element={<Jobs/>} />
+           <Route path="/community" element={<Community/>} />
+           <Route path="/support-us" element={<SupportUs/>} />
+           <Route path="/ultimate" element={<Ultimate/>} />
+            <Route path="/all-news" element={<AllNewsPage />} />
+            <Route path="/verifyEmail" element={<OTPVerification/>}/>
+            
 
-              <Route path="/ultimate" element={<Ultimate />} />
-              <Route path="/all-news" element={<AllNewsPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+
+
+
+        </Route>
+      </Routes>
+      </BrowserRouter> 
       </Provider>
     </>
   );

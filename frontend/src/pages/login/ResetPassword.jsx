@@ -4,12 +4,16 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { resetPasswordFunc } from '../../services/userServices';
 import bgImage from '../../../assets/Images/backgroundImg.jpg';
+import { FiEye, FiEyeOff } from 'react-icons/fi'; // 👈 Eye icons
 
 const ResetPassword = () => {
   const { id, token } = useParams();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleReset = async (e) => {
@@ -33,44 +37,22 @@ const ResetPassword = () => {
     }
   };
 
-  const showLogin = () => {
-    navigate('/login');
-  };
-
   return (
     <>
       <ToastContainer position="top-right" autoClose={3000} />
 
-      <link
-        href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
-        rel="stylesheet"
-      />
-
       <div className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat relative overflow-hidden" style={{ backgroundImage: `url(${bgImage})` }}>
         <div className="absolute inset-0 opacity-20">
-           <div className="w-full h-full bg-repeat" style={{ backgroundSize: '50px 50px' }}></div>
+          <div className="w-full h-full bg-repeat" style={{ backgroundSize: '50px 50px' }}></div>
         </div>
 
         <div className="relative z-10 w-full max-w-md mx-4">
           <div className="bg-white border-4 border-black rounded-3xl shadow-[8px_8px_0px_#000,16px_16px_0px_rgba(0,0,0,0.1)] p-8 relative overflow-hidden text-center">
-            <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] pointer-events-none">
-              <div className="w-full h-full bg-gradient-to-r from-red-100/10 via-teal-100/10 to-blue-100/10 rounded-full blur-3xl animate-pulse"></div>
-            </div>
-
-          <div className="w-50 h-20 mx-auto flex items-center justify-center bg-transparent pb-4">
-              <img
-                src="../../../assets/Logo.png"
-                alt="Company Logo"
-                className="h-full object-contain "
-              />
+            <div className="w-50 h-20 mx-auto flex items-center justify-center bg-transparent pb-4">
+              <img src="../../../assets/Logo.png" alt="Company Logo" className="h-full object-contain" />
             </div>
 
             <div className="bg-white border-4 border-black rounded-3xl p-6 mb-8 relative shadow-[4px_4px_0px_rgba(0,0,0,0.1)] text-center">
-              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
-                <div className="w-0 h-0 border-l-[15px] border-r-[15px] border-t-[15px] border-l-transparent border-r-transparent border-t-black"></div>
-                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[13px] border-r-[13px] border-t-[13px] border-l-transparent border-r-transparent border-t-white"></div>
-              </div>
-
               <h2 className="text-2xl font-bold text-red-600 mb-3 tracking-wide" style={{ fontFamily: 'Comic Neue, cursive', textShadow: '1px 1px 0px #222222' }}>
                 Create New PASSWORD
               </h2>
@@ -80,36 +62,50 @@ const ResetPassword = () => {
             </div>
 
             <form onSubmit={handleReset} className="space-y-6 relative z-10">
-              <div className="text-left">
+              {/* New Password */}
+              <div className="text-left relative">
                 <label htmlFor="newPassword" className="block font-bold text-gray-700 mb-2 text-lg uppercase tracking-wide" style={{ fontFamily: 'Comic Neue, cursive' }}>
                   New Password
                 </label>
                 <input
-                  type="password"
+                  type={showNewPassword ? 'text' : 'password'}
                   id="newPassword"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
                   placeholder="Superhero@123"
-                  className="w-full p-4 border-4 border-black rounded-xl text-base text-center bg-white transition-all duration-300 shadow-[inset_2px_2px_0px_rgba(0,0,0,0.1)] focus:outline-none focus:scale-105"
+                  className="w-full p-4 border-4 border-black rounded-xl text-base text-center bg-white pr-12 focus:outline-none"
                   style={{ fontFamily: 'Comic Neue, cursive' }}
                 />
+                <div
+                  className="absolute right-6 top-[67%] transform -translate-y-1/2 text-gray-600 cursor-pointer"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                >
+                  {showNewPassword ? <FiEyeOff size={22} /> : <FiEye size={22} />}
+                </div>
               </div>
 
-              <div className="text-left">
+              {/* Confirm Password */}
+              <div className="text-left relative">
                 <label htmlFor="confirmPassword" className="block font-bold text-gray-700 mb-2 text-lg uppercase tracking-wide" style={{ fontFamily: 'Comic Neue, cursive' }}>
                   Confirm Password
                 </label>
                 <input
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   id="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   placeholder="Enter Password to Confirm"
-                  className="w-full p-4 border-4 border-black rounded-xl text-base text-center bg-white transition-all duration-300 shadow-[inset_2px_2px_0px_rgba(0,0,0,0.1)] focus:outline-none focus:scale-105"
+                  className="w-full p-4 border-4 border-black rounded-xl text-base text-center bg-white pr-12 focus:outline-none"
                   style={{ fontFamily: 'Comic Neue, cursive' }}
                 />
+                <div
+                  className="absolute right-6 top-[69%] transform -translate-y-1/2 text-gray-600 cursor-pointer"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <FiEyeOff size={22} /> : <FiEye size={22} />}
+                </div>
               </div>
 
               <button

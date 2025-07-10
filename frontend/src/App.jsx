@@ -21,6 +21,7 @@ import Ultimate from './pages/Infinito Ultimate/Ultimate';
 import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
+import OTPVerification from './pages/resentOtp/resendOtp';
 
 function App() {
 useEffect(() => {
@@ -76,17 +77,10 @@ useEffect(() => {
            <Route path="/careers/apply" element={<Jobs/>} />
            <Route path="/community" element={<Community/>} />
            <Route path="/support-us" element={<SupportUs/>} />
-<<<<<<< HEAD
            <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
-=======
-
-           <Route path="/ultimate" element={<Ultimate/>} />
-            <Route path="/all-news" element={<AllNewsPage />} />
-
->>>>>>> f4ee27f5a0e25bed22b5e18debf717c9bd0638e1
-
-
+            <Route path="/verifyEmail" element={<OTPVerification/>}/>
+            <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
         </Route>
       </Routes>
       </BrowserRouter> 

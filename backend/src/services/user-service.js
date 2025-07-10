@@ -103,7 +103,8 @@ class UserService {
           expiresIn: config.FORGET_PASSWORD_EXPIRY // expires in 5 minutes
         });
         const resetLink = `${config.FRONTEND_URL}/reset-password/${user._id}/${resetToken}`   
-        sendForgotPasswordEmail(user.email, resetLink, user.name);         
+        sendForgotPasswordEmail(user.email, resetLink, user.name);     
+        return user;    
       } catch (error) {
         console.log("Something wrong at service layer");
         throw  error;
@@ -116,7 +117,7 @@ class UserService {
         if (!user) throw new Error("User not found");
         const hashedPassword = await bcrypt.hash(newPassword, 5);
         await this.userRepository.findByIdandUpdate(userId, {password: hashedPassword});
-        return { message: "Password reset successful" };
+        return user;
       } catch (error) {
         console.log("Something wrong at service level", error);
         throw error;

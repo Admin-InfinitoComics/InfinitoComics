@@ -65,6 +65,7 @@ export const createSupport = async (req, res) => {
 export const getUserSupports = async (req, res) => {
     try {
         const userId = req.user.id;
+        // console.log('User Id :-', userId);
         const supports = await supportService.getSupportsByUser(userId);
         
         res.status(200).json({

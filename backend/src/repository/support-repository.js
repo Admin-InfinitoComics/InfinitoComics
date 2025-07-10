@@ -8,7 +8,8 @@ class SupportRepository extends CrudRepository {
 
     async findByUserId(userId) {
         try {
-            const supports = await Support.find({ userId }).populate('userId', 'name email username');
+            console.log(userId);
+            const supports = await Support.find({ userId });
             return supports;
         } catch (error) {
             throw error;

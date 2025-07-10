@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const SupportSchema = new mongoose.Schema({
     userId: { // Reference to the user who is supporting
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'Account',
         required: true
     },
     supportType: { // "one-time" or "monthly"
@@ -42,4 +42,5 @@ SupportSchema.pre('save', function(next) {
     next();
 });
 
-export default mongoose.model('Support', SupportSchema);
+const Support = mongoose.model('Support', SupportSchema);
+export default Support;

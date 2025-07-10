@@ -24,7 +24,7 @@ router.get('/my-supports', authenticate, getUserSupports);
 // router.delete('/cancel/:supportId', authenticate, cancelMonthlySupport);
 
 // Admin routes (you might want to add admin middleware here)
-router.get('/all', authenticate, getAllSupports);
+router.get('/all', getAllSupports);
 router.get('/gold-members', authenticate, getGoldMembers);
 
 export default router;

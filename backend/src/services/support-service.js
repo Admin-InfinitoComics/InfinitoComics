@@ -71,6 +71,7 @@ class SupportService {
 
     async getSupportsByUser(userId) {
         try {
+            
             const supports = await this.supportRepository.findByUserId(userId);
             return supports;
         } catch (error) {

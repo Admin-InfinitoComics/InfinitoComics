@@ -1,37 +1,5 @@
 import React from 'react';
-
-const contributorNames = [
-  'Rajiv Mehra',
-  'Emma Thompson',
-  'Ananya Desai',
-  'John Miller',
-  'Aarav Kapoor',
-  'Priya Sharma',
-  'Carlos Hernandez',
-  'Mei Lin',
-  'Arjun Reddy',
-  'Liam Smith',
-  'Isha Verma',
-  'Sophia Williams',
-  'Devansh Joshi',
-  'Lucas Brown',
-  'Neha Kulkarni',
-  'Olivia Davis',
-  'Rohan Patil',
-  'Chloe Martin',
-  'Kabir Sharma',
-  'Zara Wilson',
-  'Ayaan Gupta',
-  'Emily Johnson',
-  'Tanishq Bansal',
-  'Noah Thompson',
-  'Ritika Pandey',
-  'Elijah Lee',
-  'Sanya Singh',
-  'Benjamin Harris',
-  'Aditi Nair',
-  'Jacob Moore',
-];
+import contributorNames from '../../constants/contributorNames.js';
 
 function Contributors() {
   return (

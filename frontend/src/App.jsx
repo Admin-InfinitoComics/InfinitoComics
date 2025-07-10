@@ -80,11 +80,6 @@ useEffect(() => {
            <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
             <Route path="/verifyEmail" element={<OTPVerification/>}/>
-            
-
-
-
-
         </Route>
       </Routes>
       </BrowserRouter> 

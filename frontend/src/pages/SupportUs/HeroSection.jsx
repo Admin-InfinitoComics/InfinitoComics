@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import bgImage from '../../../assets/Images/SupportUs/bg.jpg';
-import DonateBoxImg from '../../../assets/Images/SupportUs/DonateBoxImg.jpg';
 import { FaRegCheckCircle, FaRegHeart } from "react-icons/fa";
+
+import {
+  summaryStats,
+  donationAmounts,
+  supporterPerks,
+  donateBoxImg, 
+  bgImage
+} from '../../constants/heroSectionData.js';
 
 function HeroSection() {
   const [selectedTab, setSelectedTab] = useState("one-time");
@@ -14,7 +20,7 @@ function HeroSection() {
           style={{ backgroundImage: `url(${bgImage})` }}
         >
           <div className="flex flex-col lg:flex-row justify-between items-center gap-10 w-full max-w-7xl mx-auto">
-            
+
             {/* Left Section */}
             <div className="w-full lg:w-1/2 font-bebas text-start">
               <h2 className="text-2xl sm:text-3xl md:text-[1.9rem] font-bold mb-2">SUPPORT INFINITO’S JOURNEY.</h2>
@@ -22,15 +28,15 @@ function HeroSection() {
 
               <div className="flex flex-wrap items-center justify-between flex-col sm:flex-row gap-1 my-8 ">
                 <div className='flex flex-col justify-center pr-5 '>
-                  <p className="text-2xl sm:text-3xl font-bold text-center">₹3,25,700</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-center">{summaryStats.totalContribution}</p>
                   <p className="text-sm sm:text-md">Monthly Contributions!</p>
                 </div>
                 <div className='flex flex-col items-center justify-center px-5'>
-                  <p className="text-2xl sm:text-3xl font-bold">345</p>
+                  <p className="text-2xl sm:text-3xl font-bold">{summaryStats.individuals}</p>
                   <p className="text-sm sm:text-md">Individuals</p>
                 </div>
                 <div className='flex flex-col justify-center items-center px-5 '>
-                  <p className="text-2xl sm:text-3xl font-bold">7</p>
+                  <p className="text-2xl sm:text-3xl font-bold">{summaryStats.corporates}</p>
                   <p className="text-sm sm:text-md">Corporates</p>
                 </div>
               </div>
@@ -51,9 +57,8 @@ function HeroSection() {
                   {["one-time", "monthly"].map((tab) => (
                     <button
                       key={tab}
-                      className={`flex-1 py-2 text-center font-semibold transition cursor-pointer ${
-                        selectedTab === tab ? "bg-red-600 text-white" : "text-[#DE1215] bg-white"
-                      }`}
+                      className={`flex-1 py-2 text-center font-semibold transition cursor-pointer ${selectedTab === tab ? "bg-red-600 text-white" : "text-[#DE1215] bg-white"
+                        }`}
                       onClick={() => setSelectedTab(tab)}
                     >
                       {tab.toUpperCase()}
@@ -75,12 +80,11 @@ function HeroSection() {
                     </p>
 
                     <div className="grid grid-cols-3 gap-3 mb-4 text-[#DE1215]">
-                      {["₹ 500", "₹ 1000", "₹ 1500", "₹ 2000", "₹ 2500", "₹ 3000"].map((amount, idx) => (
+                      {donationAmounts.map((amount, idx) => (
                         <button
                           key={idx}
-                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white ${
-                            amount === "₹ 1500" ? "bg-red-600 text-white" : "border-[#DE1215]"
-                          }`}
+                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white ${amount === "₹ 1500" ? "bg-red-600 text-white" : "border-[#DE1215]"
+                            }`}
                         >
                           {amount}
                         </button>
@@ -127,9 +131,8 @@ function HeroSection() {
                       {["₹ 500", "₹ 1000", "₹ 1500", "₹ 2000", "₹ 2500", "₹ 3000"].map((amount, index) => (
                         <button
                           key={index}
-                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white ${
-                            amount === "₹ 1500" ? "bg-red-600 text-white" : "border-[#DE1215]"
-                          }`}
+                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white ${amount === "₹ 1500" ? "bg-red-600 text-white" : "border-[#DE1215]"
+                            }`}
                         >
                           {amount}
                         </button>
@@ -142,16 +145,14 @@ function HeroSection() {
                         <span className="font-semibold text-[#DE1215]">₹1500 / month.</span>
                       </p>
                       <div className="flex items-center mt-3">
-                        <img src={DonateBoxImg} className='h-[6rem]' alt="" />
+                        <img src={donateBoxImg} className='h-[6rem]' alt="" />
                         <ul className="list-none ml-2 mt-2 text-base">
-                          <li className='flex items-center mb-1'>
-                            <FaRegCheckCircle className='text-2xl text-[#DE1215] mr-1' />
-                            Your name on our page
-                          </li>
-                          <li className='flex items-center'>
-                            <FaRegCheckCircle className='text-2xl text-[#DE1215] mr-1' />
-                            Free Ultimate subscription
-                          </li>
+                          {supporterPerks.map((perk, idx) => (
+                            <li key={idx} className='flex items-center mb-1'>
+                              <FaRegCheckCircle className='text-2xl text-[#DE1215] mr-1' />
+                              {perk}
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     </div>

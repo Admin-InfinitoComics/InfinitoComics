@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/Logo.png";
 import infinitoBanner from "../../../assets/Images/career/infinitoBanner.png"
 import { useLocation } from "react-router-dom";
 import { MapPin, Clock, Briefcase, Globe } from "lucide-react";

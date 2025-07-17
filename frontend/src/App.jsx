@@ -22,6 +22,7 @@ import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
 import SignupStep3 from './pages/Signup/SignupStep3';
+import Cart from './pages/Cart/Cart';
 
 function App() {
 useEffect(() => {
@@ -80,6 +81,8 @@ useEffect(() => {
             <Route path="/all-news" element={<AllNewsPage />} />
             <Route path="/verifyEmail" element={<OTPVerification/>}/>
             <Route path="/createAvatar" element={<SignupStep3/>}/>
+            <Route path="/cart" element={<Cart/>}/>
+            
 
 
 

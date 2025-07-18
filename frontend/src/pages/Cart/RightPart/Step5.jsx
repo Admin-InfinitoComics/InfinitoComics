@@ -7,7 +7,7 @@ const page5 = ({ onBack, onNext }) => {
   const [isDefault, setIsDefault] = useState(false);
 
   return (
-    <div className="p-8 max-w-3xl mt-[8rem] mx-auto font-sans w-full">
+    <div className=" mt- p-8 max-w-3xl mt-[14rem] mx-auto font-sans w-full">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold">Add New Address</h2>

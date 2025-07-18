@@ -30,8 +30,7 @@ const images = [
 const Home = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    // fetch data / preload hero image ...
-    setTimeout(() => setLoading(false), 2400); // demo
+    setTimeout(() => setLoading(false), 2400); 
   }, []);
 
   const [current, setCurrent] = useState(0);

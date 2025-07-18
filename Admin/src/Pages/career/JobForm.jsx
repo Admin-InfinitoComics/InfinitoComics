@@ -245,7 +245,6 @@ const JobForm = ({ onSubmit, onSuccess, onCancel, initialData, isEditing = false
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">Select Job Type</option>
                 {jobTypeOptions.map((type) => (
                   <option key={type} value={type}>
                     {type}

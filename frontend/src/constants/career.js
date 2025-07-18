@@ -1,25 +1,160 @@
 export const jobs = [
-  { id: 1, title: "Visual Designer", department: "Creative & Design", jobType: "Full-time", positions: 2 },
-  { id: 2, title: "Digital Marketing Associate", department: "Marketing", jobType: "Part-time", positions: 2 },
-  { id: 3, title: "UI/UX Designer", department: "Creative & Design", jobType: "Contract", positions: 2 },
-  { id: 4, title: "Brand Designer", department: "Creative & Design", jobType: "Full-time", positions: 2 },
-  { id: 5, title: "Design Systems Engineer", department: "Engineering", jobType: "Part-time", positions: 2 },
-  { id: 6, title: "Motion Graphics Artist", department: "Creative & Design", jobType: "Contract", positions: 2 },
-  { id: 7, title: "Content Strategist", department: "Marketing", jobType: "Full-time", positions: 2 },
-  { id: 8, title: "Front-End Developer", department: "Engineering", jobType: "Full-time", positions: 2 },
-  { id: 9, title: "Product Designer", department: "Creative & Design", jobType: "Part-time", positions: 2 },
-  { id: 10, title: "Social Media Specialist", department: "Marketing", jobType: "Contract", positions: 2 },
-  { id: 11, title: "Web Designer", department: "Creative & Design", jobType: "Full-time", positions: 2 },
-  { id: 12, title: "Marketing Analyst", department: "Marketing", jobType: "Part-time", positions: 2 },
-  { id: 13, title: "Interaction Designer", department: "Creative & Design", jobType: "Contract", positions: 2 },
-  { id: 14, title: "QA Engineer", department: "Engineering", jobType: "Full-time", positions: 2 },
-  { id: 15, title: "QA Engineer", department: "Engineering", jobType: "Contract", positions: 2 },
-  { id: 15, title: "Email Marketing Executive", department: "Marketing", jobType: "Full-time", positions: 2 },
+  {
+    id: 1,
+    title: "2D Animator",
+    department: "2D Animators",
+    jobType: "Internship",
+    positions: 2,
+  },
+  {
+    id: 2,
+    title: "Senior 2D Animator",
+    department: "2D Animators",
+    jobType: "Freelancer",
+    positions: 2,
+  },
+
+  {
+    id: 3,
+    title: "UI Designer",
+    department: "UI/UX",
+    jobType: "Full-time",
+    positions: 2,
+  },
+  {
+    id: 4,
+    title: "UX Research Intern",
+    department: "UI/UX",
+    jobType: "Internship",
+    positions: 2,
+  },
+
+  {
+    id: 5,
+    title: "HR Executive",
+    department: "Human Resource",
+    jobType: "Full-time",
+    positions: 2,
+  },
+  {
+    id: 6,
+    title: "Talent Acquisition Intern",
+    department: "Human Resource",
+    jobType: "Internship",
+    positions: 2,
+  },
+
+  {
+    id: 7,
+    title: "Marketing Analyst",
+    department: "Marketing",
+    jobType: "Internship",
+    positions: 2,
+  },
+  {
+    id: 8,
+    title: "Social Media Strategist",
+    department: "Marketing",
+    jobType: "Freelancer",
+    positions: 2,
+  },
+
+  {
+    id: 9,
+    title: "Legal Advisor",
+    department: "Legal",
+    jobType: "Full-time",
+    positions: 2,
+  },
+  {
+    id: 10,
+    title: "Contract Review Intern",
+    department: "Legal",
+    jobType: "Internship",
+    positions: 2,
+  },
+
+  {
+    id: 11,
+    title: "Finance Analyst",
+    department: "Finance",
+    jobType: "Full-time",
+    positions: 2,
+  },
+  {
+    id: 12,
+    title: "Accounts Intern",
+    department: "Finance",
+    jobType: "Internship",
+    positions: 2,
+  },
+
+  {
+    id: 13,
+    title: "Graphic Designer",
+    department: "Graphic Designer",
+    jobType: "Freelancer",
+    positions: 2,
+  },
+  {
+    id: 14,
+    title: "Graphic Design Intern",
+    department: "Graphic Designer",
+    jobType: "Internship",
+    positions: 2,
+  },
+
+  {
+    id: 15,
+    title: "Management Trainee - Strategy",
+    department: "Management Trainees",
+    jobType: "Internship",
+    positions: 2,
+  },
+  {
+    id: 16,
+    title: "Management Trainee - Operations",
+    department: "Management Trainees",
+    jobType: "Full-time",
+    positions: 2,
+  },
+
+  {
+    id: 17,
+    title: "React Developer",
+    department: "Web Developer",
+    jobType: "Freelancer",
+    positions: 2,
+  },
+  {
+    id: 18,
+    title: "Web Development Intern",
+    department: "Web Developer",
+    jobType: "Internship",
+    positions: 2,
+  },
 ];
 
 // Filter options for dropdowns
-export const departments = ["All Departments", "Creative & Design", "Marketing", "Engineering"];
-export const jobTypes = ["All Job Types", " Full-time", "Part-time", "Contract"];
+export const departments = [
+  "All Departments",
+  "2D Animators",
+  "UI/UX",
+  "Human Resource",
+  "Marketing",
+  "Legal",
+  "Finance",
+  "Graphic Designer",
+  "Management Trainees",
+  "Web Developer",
+];
+
+export const jobTypes = [
+  "All Job Types",
+  "Internship",
+  "Full-time",
+  "Freelancer",
+];
 
 export const steps = [
   {

@@ -129,7 +129,7 @@ const ComicConHero = () => {
 
       {/* Decorative bottom image - Fixed */}
       <div
-        className="w-full  mt- h-[60px] sm:h-[80px] "
+        className="w-full h-[60px] sm:h-[80px] "
         style={{
           backgroundImage: `url(${botton})`,
           backgroundSize: 'cover',

@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { getICBlogs } from '../../services/userServices';
 import Trending from '../../constants/Trending';
 import { Link } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const All_news = () => {
   const [blogs, setBlogs] = useState([]);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const visibleSlides = 1;
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -18,46 +21,111 @@ const All_news = () => {
     fetchBlogs();
   }, []);
 
+  const nextSlide = () => {
+    if (slideIndex < Trending.length - visibleSlides) {
+      setSlideIndex((prev) => prev + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (slideIndex > 0) {
+      setSlideIndex((prev) => prev - 1);
+    }
+  };
+
   return (
-    
-    <div className='flex flex-col lg:flex-row p-4 max-h-[1200px] w-full my-8'>
-      <div className='flex flex-col lg:flex-row mx-20'>
-        <div className='ml-30 h-full w-[80%]'>
+    <div className="flex justify-center items-start text-gray-800 my-16">
+      <div className="w-11/12 lg:w-2/3 flex flex-col lg:flex-row gap-6">
+        {/* Main News Section */}
+        <div className="w-full lg:w-2/3">
           {blogs.map((item, index) => (
-            <div key={index} className="flex flex-col lg:flex-row mb-6 pb-4 gap-8">
+            <div key={index} className="flex flex-col lg:flex-row gap-3 mb-6">
               <img
                 src={item.news?.[0]?.imageUrl}
                 alt="img news"
-                className='w-full md:w-[500px] h-[250px] object-fill'
+                className="w-full lg:w-[45%] h-[20rem]  lg:h-[210px] object-cover"
               />
-              <div className='flex-1'>
-                <h3 className="text-xl font-bold text-[#DD1215] mb-5">{item.title}</h3>
-                <p className="text-gray-700 mb-4">{item.subject}</p>
-                <Link to={`/news/${item._id}`} className="text-red-600 font-semibold text-sm mt-10 cursor-pointer">
-                READ MORE &gt;
+              <div className="flex-1 flex items-start justify-between flex-col">
+                <h3 className="text-lg font-bold text-[#DD1215] uppercase">
+                  {item.title}
+                </h3>
+                <p className="text-gray-700 mb-4 text-md">{item.subject}</p>
+                <Link
+                  to={`/news/${item._id}`}
+                  className="text-red-600 font-semibold text-sm tracking-widest mt-4 cursor-pointer"
+                >
+                  READ MORE &gt;
                 </Link>
               </div>
             </div>
           ))}
         </div>
 
-        <div className='bg-[#3C3C3C] mb-6 w-[40%] max-h-[1500px] overflow-y-auto scrollbar-hide mx-20'>
-          <h1 className='text-center lg:rounded-3xl mb-4 text-[#FFFFFF] font-black text-2xl'>
+        {/* Desktop Trending */}
+        <div className="hidden lg:block w-full lg:w-[350px] max-h-[57rem] overflow-y-auto bg-[#3C3C3C] border-t-6 border-red-600 px-4 py-3">
+          <h1 className="text-white font-bold text-xl tracking-wider mb-5">
             TRENDING NEWS
           </h1>
-          <div className='space-y-4 px-10'>
+          <div className="space-y-4">
             {Trending.map((item, index) => (
-              <div key={index} className='flex flex-col h-40 mb-8'>
+              <div key={index}>
                 <img
                   src={item.image}
-                  alt="Trending news"
-                  className='w-full rounded-lg object-cover'
+                  alt="Trending"
+                  className="w-full h-[8.5rem] object-cover"
                 />
-                <p className='text-[#C6C6C6] uppercase whitespace-pre-wrap break-words'>
+                <p className="text-[#C6C6C6] uppercase text-xs mt-1">
                   {item.title}
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Mobile Trending - Slider */}
+        <div className="lg:hidden mt-6 w-full">
+          <div className="bg-[#3C3C3C] border-t-4 border-red-600 px-4 py-4 relative">
+            <h1 className="text-white font-bold text-2xl lg:text-2xl tracking-wider mb-3 flex justify-between items-center">
+              <p>TRENDING NEWS</p>
+              <p className='text-red-500 text-sm md:text-md tracking-widest'>VIEW MORE &gt;</p> 
+            </h1>
+
+            {/* Slider Buttons */}
+            <div className="flex justify-between items-center mb-3">
+              <button onClick={prevSlide} disabled={slideIndex === 0}>
+                <ChevronLeft className="text-white" />
+              </button>
+              <button
+                onClick={nextSlide}
+                disabled={slideIndex >= Trending.length - visibleSlides}
+              >
+                <ChevronRight className="text-white" />
+              </button>
+            </div>
+
+            {/* Slider Content */}
+            <div className="overflow-hidden">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{
+                  transform: `translateX(-${slideIndex * 100}%)`,
+                  width: `${Trending.length * 100}%`,
+                }}
+              >
+                {Trending.map((item, index) => (
+                  <div key={index} className="w-full flex-shrink-0 pr-3">
+                    <img
+                      src={item.image}
+                      alt="Trending"
+                      className="w-full h-[18rem] lg:h-[10rem] object-cover"
+                    />
+                    <p className="text-[#C6C6C6] uppercase text-xs mt-2">
+                      {item.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

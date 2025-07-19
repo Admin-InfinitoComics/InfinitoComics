@@ -4,6 +4,7 @@ import {
     getUserSupports, 
     getAllSupports, 
     getGoldMembers, 
+    getSupportStatistics,
     // getUserTotalSupport, 
     // cancelMonthlySupport 
 } from '../controller/support-controller.js';
@@ -20,11 +21,14 @@ router.get('/my-supports', authenticate, getUserSupports);
 // Get current user's total support amount
 // router.get('/my-total', authenticate, getUserTotalSupport);
 
-// Cancel monthly support
-// router.delete('/cancel/:supportId', authenticate, cancelMonthlySupport);
+// Cancel monthly support for current user
+// router.post('/cancel-monthly', authenticate, cancelMonthlySupport);
 
 // Admin routes (you might want to add admin middleware here)
 router.get('/all', getAllSupports);
 router.get('/gold-members', authenticate, getGoldMembers);
+
+// Statistics for Support Us page
+router.get('/statistics', getSupportStatistics);
 
 export default router;

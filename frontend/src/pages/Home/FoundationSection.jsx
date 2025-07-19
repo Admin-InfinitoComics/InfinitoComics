@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import FoundationSectionShimmer from "../../shimmer/landingPageShimmer/FoundationSectionShimmer";
 
 const FoundationSection = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  
+  return loading? <FoundationSectionShimmer/>: (
       <div>
       <section className="w-full bg-white py-16">
         {/* Header */}

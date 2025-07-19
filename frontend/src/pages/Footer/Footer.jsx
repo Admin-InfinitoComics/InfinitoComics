@@ -1,6 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
 import {
   FaFacebookF,
   FaInstagram,
@@ -11,9 +10,15 @@ import {
 } from 'react-icons/fa';
 import logo from '../../../assets/Logo.png';
 import smallLogo from '../../../assets/Images/foot.png';
+import FooterShimmer from '../../shimmer/landingPageShimmer/FooterShimmer'
 
 const Footer = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  return loading?<FooterShimmer/>:(
     <footer className="bg-[#121212] text-white px-4 py-10">
 
       {/* =================== DESKTOP VIEW =================== */}

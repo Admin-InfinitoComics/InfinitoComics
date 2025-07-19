@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import uploadedImage from "../../../assets/Images/ExclusiveContent.jpg";
+import ExclusiveContentShimmer from "../../shimmer/landingPageShimmer/ExclusiveContentShimmer";
 
 const ExclusiveContent = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  return loading? <ExclusiveContentShimmer/>: (
     // Outer container with responsive padding and vertical spacing
     <div className="flex flex-col w-full min-h-[500px] gap-5 px-4 md:px-8 lg:px-0">
 

@@ -24,70 +24,66 @@ import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
 
 function App() {
-useEffect(() => {
-  const listener = (event) => {
-    const allowedOrigins = ["http://localhost:3003", "http://localhost:3004"];
-    if (!allowedOrigins.includes(event.origin)) return;
+  useEffect(() => {
+    const listener = (event) => {
+      const allowedOrigins = ["http://localhost:3003", "http://localhost:3004"];
+      if (!allowedOrigins.includes(event.origin)) return;
 
-    if (event.data === "request-user") {
-      const user = localStorage.getItem("user");
-      if (user) {
-        event.source.postMessage(
-          { type: "user-data", payload: user },
-          event.origin
-        );
-        console.log(" Sent user to:", event.origin, user);
+      if (event.data === "request-user") {
+        const user = localStorage.getItem("user");
+        if (user) {
+          event.source.postMessage(
+            { type: "user-data", payload: user },
+            event.origin
+          );
+          console.log(" Sent user to:", event.origin, user);
+        }
       }
-    }
-  };
+    };
 
-  window.addEventListener("message", listener);
-  return () => window.removeEventListener("message", listener);
-}, []);
-
+    window.addEventListener("message", listener);
+    return () => window.removeEventListener("message", listener);
+  }, []);
 
   return (
     <>
       <Provider store={appStore}>
-      <BrowserRouter basename="/">
-      <Routes>
-        
-        <Route path="/"  element={<Body/>} > 
-          <Route path="/"  element={<Home/>} />
-          <Route path="/login"  element={<Login/>} />
-          <Route path="/loggedin"  element={<Loggedin/>} />
-          <Route path="/Premium"  element={<Premium/>} />
-          <Route path="/forgot-password" element={<ForgotPassword/>} />    
-          <Route path="/Feedback" element={<FeedbackForm/>} /> 
-          <Route path="/Dashboard" element={<DashboardPage/>} /> 
-          <Route path="/Reset-password" element={<ResetPassword/>} />
-          <Route path="/signup"  element={<SignupWrapper/>} />
-          <Route path="/news" element = {<News/>} />
-           <Route path="/news/:id" element = {<News_Display/>} /> 
-           <Route path="/"  element={<Home/>} />
-            <Route path="/login"  element={<Login/>} />
-             <Route path="/loggedin"  element={<Loggedin/>} />
-           <Route path="/Premium"  element={<Premium/>} />
-            <Route path="/forgot-password" element={<ForgotPassword/>} />    
-            <Route path="/Feedback" element={<FeedbackForm/>} /> 
-            <Route path="/Dashboard" element={<DashboardPage/>} /> 
-            <Route path="/Reset-password" element={<ResetPassword/>} />
-           <Route path="/signup"  element={<SignupWrapper/>} />
-           <Route path="/careers" element={<CareerInternship/>} />
-           <Route path="/careers/apply" element={<Jobs/>} />
-           <Route path="/community" element={<Community/>} />
-           <Route path="/support-us" element={<SupportUs/>} />
-           <Route path="/ultimate" element={<Ultimate/>} />
-            <Route path="/all-news" element={<AllNewsPage />} />
-            <Route path="/verifyEmail" element={<OTPVerification/>}/>
-            <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
-        </Route>
-      </Routes>
-      </BrowserRouter> 
+        <BrowserRouter basename="/">
+          <Routes>
+            <Route path="/" element={<Body />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/loggedin" element={<Loggedin />} />
+              <Route path="/Premium" element={<Premium />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/Feedback" element={<FeedbackForm />} />
+              <Route path="/Dashboard" element={<DashboardPage />} />
+              <Route path="/Reset-password" element={<ResetPassword />} />
+              <Route path="/signup" element={<SignupWrapper />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/news/:id" element={<News_Display />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/loggedin" element={<Loggedin />} />
+              <Route path="/Premium" element={<Premium />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/Feedback" element={<FeedbackForm />} />
+              <Route path="/Dashboard" element={<DashboardPage />} />
+              <Route path="/Reset-password" element={<ResetPassword />} />
+              <Route path="/signup" element={<SignupWrapper />} />
+              <Route path="/careers" element={<CareerInternship />} />
+              <Route path="/careers/apply" element={<Jobs />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/support-us" element={<SupportUs />} />
+
+              <Route path="/ultimate" element={<Ultimate />} />
+              <Route path="/all-news" element={<AllNewsPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </Provider>
-  
     </>
-  )
+  );
 }
 
 export default App;

@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import {characters} from '../../constants/characterCarousel'
+import CharacterCarouselShimmer from '../../shimmer/landingPageShimmer/characterCarouselShimmer'
 
 
 const CharacterCarousel = () => {
+  const [loading, setLoading] = useState(true);
   const [startIndex, setStartIndex] = useState(0);
   const [sliding, setSliding] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
   // Adjust number of items shown per slide based on screen size
   useEffect(() => {
+     setTimeout(() => setLoading(false), 2400); // demo
     const handleResize = () => {
       setItemsPerPage(window.innerWidth < 768 ? 1 : 4);
     };
@@ -19,6 +22,8 @@ const CharacterCarousel = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   
+  
+
   // Show next set of characters
   const nextSlide = () => {
     setSliding(true);
@@ -47,7 +52,7 @@ const CharacterCarousel = () => {
     }, 300);
   };
 
-  return (
+  return loading? <CharacterCarouselShimmer/>: (
     <div className="w-full px-4 py-12 bg-white">
       <div className="max-w-full mx-5 md:mx-60">
         {/* Section title and link */}

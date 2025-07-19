@@ -81,7 +81,7 @@ const Navbar = () => {
             to="/createblog"
             className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
           >
-            BLOGS & NEWS
+            BLOGS
           </Link>
           {token ? (
             <Popconfirm
@@ -175,7 +175,7 @@ const Navbar = () => {
               onClick={toggleMenu}
               className="text-white hover:text-red-500 transition"
             >
-              BLOGS & NEWS
+              BLOGS
             </Link>
 
             {token ? (

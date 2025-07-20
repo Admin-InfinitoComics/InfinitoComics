@@ -143,7 +143,6 @@ const LoginPage = () => {
                     {...register("password", {
                       required: "Password is required",
                       pattern: {
-                        value: passwordRegex,
                         message:
                           "Password must have 8+ chars with uppercase, lowercase, number & special char",
                       },

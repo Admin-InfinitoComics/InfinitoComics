@@ -37,6 +37,27 @@ export const getAllBlogs = async () => {
   return res.data.data; 
 };
 
+export const forgetPasswordFunc = async (email) => {
+  try {
+    const res = await axios.post(`${BASE_URL}/api/forget-password`, {email});
+    return res.data.data;  
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Forgot password request failed');
+  }
+};
+
+export const resetPasswordFunc = async (id, token, newPassword) => {
+  try {
+    const res = await axios.post(
+      `${BASE_URL}/api/forget-password/${id}/${token}`,
+      { newPassword }
+    );
+    return res.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || 'Reset password failed');
+  }
+};
+
 export const signUpUser = async (formData) => {
   try {
     const response = await axios.post(BASE_URL + '/api/signup', {

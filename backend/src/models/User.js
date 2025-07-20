@@ -36,7 +36,16 @@ const UserSchema = new mongoose.Schema({
   verificationcode: String,
   verificationCodeExpiresAt: {
     type: Date
-  }                                 
+  },
+  // Subscription and membership fields
+  hasInfinitoUltimate: {
+    type: Boolean,
+    default: false
+  },
+  infinitoUltimateTo: {
+    type: Date,
+    default: null
+  }
 }, {timestamps: true});
 
 UserSchema.pre('save', async function(next) {

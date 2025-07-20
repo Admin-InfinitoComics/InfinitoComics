@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import rival from "../../../assets/Images/rival.png";
 import { PlayCircle } from "lucide-react";
 import bgtop from "../../../assets/Images/spotlighttopbg.png";
 import bgbottom from "../../../assets/Images/spotlightbottombg.png";
+import SpotlightShimmer from "../../shimmer/landingPageShimmer/SpotlightShimmer";
 
 const Spotlight = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  return loading?<SpotlightShimmer/>: (
     <>
       <div
         className="w-full pt-20 -mb-1"

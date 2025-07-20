@@ -43,7 +43,7 @@ router.post("/upload", upload.single('image'), Usercontroller.uploadimage);
 // verify (email) by sending otp
 router.post('/verifyemail', Usercontroller.verifyemail);
 
-router.post("/forget-password", Usercontroller.forgetPassword);
-router.post("/forget-password/:id/:token", verifyResetToken, Usercontroller.forgetPasswordEmail);
+router.post("/forget-password", Usercontroller.forgetPasswordFunc); 
+router.post("/forget-password/:id/:token", verifyResetToken, Usercontroller.forgetPasswordEmail); 
 
 export default router;

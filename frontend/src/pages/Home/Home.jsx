@@ -13,29 +13,33 @@ import UpcomingEvents from './UpcomingEvents';
 import FoundationSection from './FoundationSection';
 import ExclusiveContent from './ExclusiveContent';
 import NewsletterSection from '../Footer/Newsletter';
-import Otp from '../resentOtp/resendOtp'
+import Otp from '../resentOtp/resendOtp';
 
 const Home = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <div>
-      <LandingComponent/>
-      <CharacterCarousel/>
-      <CharacterSpotlight/>
-      <TodaySpotlight/>
+      <LandingComponent />
+      <CharacterCarousel />
+      <CharacterSpotlight />
+      <TodaySpotlight />
       {/* <HeroSection/> */}
-      <LandingMerch/>
-      <JoinUltimate/>
-      <PremiumPlans/>
-      <FanFavourite/>
-      <Spotlight/>
-      <UpcomingEvents/>
-      <FoundationSection/>
-      <ExclusiveContent/>
+      <LandingMerch />
+      <JoinUltimate />
+      <PremiumPlans />
+      <FanFavourite />
+      <Spotlight />
+      <UpcomingEvents />
+      <FoundationSection />
+      <ExclusiveContent />
       {/* <DashboardPage/> */}
-      <NewsletterSection/>
+      
+      {user && !user.newsLetter && <NewsletterSection />}
+
       {/* <Otp/> */}
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

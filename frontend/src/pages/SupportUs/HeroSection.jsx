@@ -1,16 +1,75 @@
 import React, { useState } from 'react';
 import { FaRegCheckCircle, FaRegHeart } from "react-icons/fa";
+import { useSelector } from 'react-redux';
+import { createSupport } from '../../services/supportUs.js'
+import { useParams } from 'react-router-dom';
 
 import {
   summaryStats,
   donationAmounts,
   supporterPerks,
-  donateBoxImg, 
+  donateBoxImg,
   bgImage
 } from '../../constants/heroSectionData.js';
 
 function HeroSection() {
   const [selectedTab, setSelectedTab] = useState("one-time");
+  const { token } = useParams()
+  // const token = useSelector((state) => state.user?.token);
+  console.log("Token: ",token);
+
+
+  const userName = useSelector((state) => state.user.name);
+
+  //donation details
+  const [selectedAmount, setSelectedAmount] = useState(null);
+  const [customAmount, setCustomAmount] = useState('');
+  const [displayName, setDisplayName] = useState(userName);
+  const [selectedMonthlyAmount, setSelectedMonthlyAmount] = useState(null);
+
+
+
+  const handleSupportSubmit = async () => {
+  // Step 1: Determine selected amount
+  const amount = selectedTab === "one-time"
+    ? parseInt(customAmount || selectedAmount?.replace(/[₹,\s]/g, ""))
+    : parseInt(selectedMonthlyAmount?.replace(/[₹,\s]/g, ""));
+
+  // Step 2: Validate amount
+  if (!amount || isNaN(amount)) {
+    alert("Please select or enter a valid amount.");
+    return;
+  }
+
+  // Step 3: Construct payload
+  const supportData = {
+    supportType: selectedTab,
+    amount,
+    displayName: selectedTab === "monthly" ? displayName?.trim() : undefined
+  };
+
+  try {
+    // Step 4: Call API
+    const response = await createSupport(supportData, token);
+    console.log("Support Success:", response.data);
+
+    alert("Thank you for your support!");
+    
+    // Optionally reset
+    setSelectedAmount(null);
+    setCustomAmount('');
+    setSelectedMonthlyAmount(null);
+    setDisplayName('');
+  } catch (error) {
+    console.error("Support Error:", error?.response?.data || error);
+    alert(error?.response?.data?.message || "Something went wrong.");
+  }
+};
+
+  // console.log("selectedAmount: ", selectedAmount);
+  // console.log("customAmount: ", customAmount);
+  // console.log("displayName: ", displayName);
+  // console.log("selectedMonthlyAmount: ", selectedMonthlyAmount);
 
   return (
     <div className="flex justify-center items-center">
@@ -79,12 +138,42 @@ function HeroSection() {
                       </span>
                     </p>
 
+                    {/* <div className="grid grid-cols-3 gap-3 mb-4 text-[#DE1215]">
+                      {donationAmounts.map((amount, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setSelectedAmount(amount)}
+                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white ${amount === "₹ 1500" ? "bg-red-600 text-white" : "border-[#DE1215]"
+                            }`}
+                        >
+                          {amount}
+                        </button>
+                      ))}
+                    </div> */}
+
+                    {/* <div className='flex justify-between mb-4 gap-3'>
+                      <input
+                        placeholder='Please enter Amount (INR)'
+                        type="number"
+                        className='w-2/3 border border-gray-300 px-4 py-3 text-sm'
+                        value={customAmount}
+                        onChange={(e) => setCustomAmount(e.target.value)}
+                      />
+                      <button className='w-1/3 border border-[#DE1215] text-[#DE1215] lg:px-10 text-sm hover:bg-[#DE1215] hover:text-white font-semibold cursor-pointer'>
+                        CUSTOM
+                      </button>
+                    </div> */}
+
                     <div className="grid grid-cols-3 gap-3 mb-4 text-[#DE1215]">
                       {donationAmounts.map((amount, idx) => (
                         <button
                           key={idx}
-                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white ${amount === "₹ 1500" ? "bg-red-600 text-white" : "border-[#DE1215]"
-                            }`}
+                          onClick={() => {
+                            setSelectedAmount(amount);
+                            setCustomAmount('');
+                          }}
+                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white hover:cursor-pointer
+        ${selectedAmount === amount ? "bg-red-600 text-white" : "border-[#DE1215]"}`}
                         >
                           {amount}
                         </button>
@@ -96,11 +185,22 @@ function HeroSection() {
                         placeholder='Please enter Amount (INR)'
                         type="number"
                         className='w-2/3 border border-gray-300 px-4 py-3 text-sm'
+                        value={customAmount}
+                        onChange={(e) => {
+                          setCustomAmount(e.target.value);
+                          setSelectedAmount(null); // Reset preset selection
+                        }}
                       />
-                      <button className='w-1/3 border border-[#DE1215] text-[#DE1215] lg:px-10 text-sm hover:bg-[#DE1215] hover:text-white font-semibold cursor-pointer'>
+                      <button
+                        className={`w-1/3 border text-sm lg:px-10 font-semibold cursor-pointer 
+      ${customAmount ? "bg-red-600 text-white border-red-600" : "border-[#DE1215] text-[#DE1215] hover:bg-[#DE1215] hover:text-white"}`}
+                      >
                         CUSTOM
                       </button>
                     </div>
+
+
+
 
                     <div className="text-sm mb-4">
                       <p className='mt-6 mb-3 text-start'>
@@ -121,6 +221,8 @@ function HeroSection() {
                       type="text"
                       placeholder="How would you like to be visible on our website?"
                       maxLength={30}
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
                       className="w-full py-3 px-5 text-[0.8rem] mb-4 border border-gray-300"
                     />
                     <p className="text-xs mb-4 mt-[-0.9rem] text-gray-950 text-start">
@@ -128,16 +230,18 @@ function HeroSection() {
                     </p>
 
                     <div className="grid grid-cols-3 gap-3 mb-4 text-[#DE1215]">
-                      {["₹ 500", "₹ 1000", "₹ 1500", "₹ 2000", "₹ 2500", "₹ 3000"].map((amount, index) => (
+                      {donationAmounts.map((amount, index) => (
                         <button
                           key={index}
-                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white ${amount === "₹ 1500" ? "bg-red-600 text-white" : "border-[#DE1215]"
-                            }`}
+                          onClick={() => setSelectedMonthlyAmount(amount)}
+                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white cursor-pointer 
+        ${selectedMonthlyAmount === amount ? "bg-red-600 text-white" : "border-[#DE1215]"}`}
                         >
                           {amount}
                         </button>
                       ))}
                     </div>
+
 
                     <div className="text-sm mb-4 text-start">
                       <p>
@@ -159,7 +263,9 @@ function HeroSection() {
                   </>
                 )}
 
-                <button className="w-full text-sm bg-red-600 text-white py-2 font-semibold flex justify-center items-center gap-2 tracking-wider">
+                <button
+                  onClick={handleSupportSubmit}
+                  className="w-full text-sm bg-red-600 text-white py-2 font-semibold flex justify-center items-center gap-2 tracking-wider">
                   SUPPORT <FaRegHeart className='text-white' />
                 </button>
               </div>

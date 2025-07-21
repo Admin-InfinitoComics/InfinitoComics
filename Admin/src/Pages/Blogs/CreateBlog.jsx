@@ -3,7 +3,6 @@ import { MdVisibility } from 'react-icons/md';
 import { PiFloppyDiskDuotone } from 'react-icons/pi'; 
 import { MdSend, MdAccountCircle } from 'react-icons/md';
 import { FaChevronUp, FaTrash } from 'react-icons/fa';
-import Navbar from './Navbar/Navbar';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
@@ -356,9 +355,9 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
   }
 };
   return (
-    <div className='bg-[#f6f6ff]'>
-    <div  ref={formRef} className="p-20 font-sans relative mx-40">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+    <div className='bg-[#f6f6ff] min-h-screen'>
+    <div  ref={formRef} className="p-4 sm:p-8 md:p-12 lg:p-20 font-sans relative max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <div>
           <p className="text-gray-500 text-lg font-medium">
             Create and publish engaging blog content for your audience
@@ -387,9 +386,9 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
           Draft saved locally!
         </div>
       )}
-      <div className="grid md:grid-cols-3 gap-6">
-        <div className="md:col-span-2">
-          <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-lg p-4 sm:p-6 mb-6 shadow-md">
             <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
               <span className="text-xl">T</span> Title
             </h2>
@@ -401,7 +400,7 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
               style={{ fontFamily: 'DM Sans', fontWeight: '900', color: '#DD1215', height:'100px', fontSize:'1.5rem' }}
             />
           </div>
-           <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+           <div className="bg-white rounded-lg p-4 sm:p-6 mb-6 shadow-md">
               <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
                 <span className="text-xl">T</span> Subject
               </h2>
@@ -413,7 +412,7 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
                 style={{ fontFamily: 'DM Sans', fontWeight: '500', color: '#111111' , height:'100px'}}
               />
            </div>
-           <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+           <div className="bg-white rounded-lg p-4 sm:p-6 mb-6 shadow-md">
             <div className="flex flex-col md:flex-row md:items-center md:gap-6">
               <div className="flex-1 mb-4 md:mb-0">
                 <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
@@ -445,12 +444,12 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
               </div>
             </div>
           </div>
-         <div className="bg-white rounded-lg p-6 mb-6 shadow-md">
+         <div className="bg-white rounded-lg p-4 sm:p-6 mb-6 shadow-md">
            <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
             <span className="text-xl">T</span> Full Story
           </h2>
           {fullStoryBlocks.map((block, index) => (
-            <div key={index} className="mb-6 border p-4 rounded shadow relative">
+            <div key={index} className="mb-6 border p-2 sm:p-4 rounded shadow relative">
              <button
                 onClick={() => {
                   const updatedBlocks = fullStoryBlocks.filter((_, i) => i !== index);
@@ -479,7 +478,7 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
                 id={`fileInput-${index}`}
               />
               {block.image && (
-                <div className="relative mt-2 w-32 h-32 cursor-pointer group mb-3">
+                <div className="relative mt-2 w-24 h-24 sm:w-32 sm:h-32 cursor-pointer group mb-3">
                   <img
                     src= {block.image}
                     alt={`Preview ${index}`}
@@ -501,7 +500,7 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
                 </div>
               )}
               <textarea
-                className="w-full border p-2 rounded mb-2 placeholder-gray-500"
+                className="w-full border p-2 rounded mb-2 placeholder-gray-500 min-h-[100px] sm:min-h-[150px]"
                 placeholder="Enter description..."
                 value={block.description}
                 onChange={(e) => {
@@ -509,7 +508,6 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
                   newBlocks[index].description = e.target.value;
                   setFullStoryBlocks(newBlocks);
                 }}
-                style={{ height: '150px' }}
               ></textarea>
             </div>
           ))}
@@ -539,7 +537,7 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
             Add More Blocks
           </button>
         </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex flex-col sm:flex-row justify-between gap-4">
             <button
               onClick={handleSaveDraft}
               className="flex items-center gap-2 px-6 py-3 border rounded bg-white text-black font-semibold hover:bg-gray-50"
@@ -562,7 +560,7 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
             </button>
           </div>
         </div>
-        <div className="bg-white rounded-lg p-6 shadow-md">
+        <div className="bg-white rounded-lg p-4 sm:p-6 shadow-md mt-6 lg:mt-0">
           <h2 className="text-2xl font-bold flex items-center gap-2 mb-3">
             <MdVisibility /> Preview
           </h2>
@@ -617,7 +615,7 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
       {showBlogs && allBlogs.length > 0 && (  
   <div className="mt-10">
     <h2 ref={blogSectionRef}  className="text-3xl font-bold mb-4">All Blogs</h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {currentBlogs.map((blog) => (
         <div
           key={blog._id}
@@ -692,7 +690,7 @@ const response = await fetch("http://localhost:3000/blog/createblog", {
         </div>
       ))}
     </div>
-    <div className="mt-6 flex justify-center items-center space-x-4">
+    <div className="mt-6 flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
       <button
         disabled={currentPage === 0}
         onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}

@@ -112,6 +112,21 @@ export const getGoldMembers = async (req, res) => {
     }
 };
 
+export const getSupportStatistics = async (req, res) => {
+    try {
+        const stats = await supportService.getSupportStatistics();
+        res.status(200).json({
+            success: true,
+            data: stats
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message || 'Internal server error'
+        });
+    }
+};
+
 // export const getUserTotalSupport = async (req, res) => {
 //     try {
 //         const userId = req.user.id;
@@ -145,5 +160,15 @@ export const getGoldMembers = async (req, res) => {
 //             success: false,
 //             message: error.message || 'Internal server error'
 //         });
+//     }
+// };
+
+// export const cancelMonthlySupport = async (req, res) => {
+//     try {
+//         const userId = req.user.id;
+//         const result = await supportService.cancelMonthlySupport(userId);
+//         res.status(200).json({ success: true, ...result });
+//     } catch (error) {
+//         res.status(400).json({ success: false, message: error.message });
 //     }
 // };

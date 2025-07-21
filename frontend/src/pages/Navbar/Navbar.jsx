@@ -1,5 +1,5 @@
 // 📁 src/components/Header.jsx
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FiSearch, FiMenu, FiX, FiUser  } from "react-icons/fi";
 import logo from "../../../assets/Logo.png";
 import { Heart, ShoppingBag } from "lucide-react";
@@ -7,15 +7,21 @@ import { Link, useNavigate} from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserIcon from '../../../assets/Images/UserIcon.png';
 import { RESEARCH_BASE_URL,FOUNDATION_BASE_URL } from "../../utils/constants";
+import NavbarShimmer from '../../shimmer/landingPageShimmer/navbarShimmer'
 
 const Header = () => {
+  const [loading, setLoading] = useState(true);
   // State to handle mobile menu toggle
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate=useNavigate();
   const user = useSelector((store)=>store.user);
   console.log(user);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
 
-  return (
+  return loading?<NavbarShimmer/>:(
     <div className="text-white font-sans">
       {/* Top Promo & Links Section */}
       <div className="border-b bg-[#202020] border-gray-600 text-sm px-4 sm:px-8 py-4 flex flex-col md:flex-row justify-around items-center gap-40">

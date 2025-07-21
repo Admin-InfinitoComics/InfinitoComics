@@ -1,10 +1,14 @@
-// 📁 src/components/WorkWhereImaginationLeads.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import imaginationImg1 from '../../../assets/Images/career/imginationImg1.png'
 import imaginationImg2 from '../../../assets/Images/career/imaginationImg2.png'
+import ImaginationsLeadsShimmer from '../../shimmer/Career/ImaginationsLeadsShimmer'
 
-const WorkWhereImaginationLeads = () => {
-  return (
+const ImaginationsLeads = () => {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      setTimeout(() => setLoading(false), 2400); 
+    }, []);
+  return loading?<ImaginationsLeadsShimmer/>: (
     <div className="w-full px-4 md:px-20 py-12 space-y-16">
       {/* Section Title */}
       <div className="flex flex-col items-center text-center max-w-4xl mx-auto py-10">
@@ -125,4 +129,4 @@ const WorkWhereImaginationLeads = () => {
   );
 };
 
-export default WorkWhereImaginationLeads;
+export default ImaginationsLeads;

@@ -26,11 +26,10 @@ const ArcheryNews = () => {
       getblog();
     },[])
   return (
-    
-    <div className="ml-50 p-6">
+    <div className="py-6 w-11/12 lg:w-2/3 mx-auto">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-4xl font-extrabold">LATEST UPDATES</h2>
-        <Link to="/all-news" className="text-[#DD1215] font-bold text-sm cursor-pointer mr-50">
+        <h2 className="text-2xl sm:text-4xl font-extrabold">LATEST UPDATES</h2>
+        <Link to="/all-news" className="text-[#DD1215] tracking-widest font-bold text-xs sm:text-sm cursor-pointer mr-2 md::mr-50">
           VIEW MORE &gt;
         </Link>
       </div>

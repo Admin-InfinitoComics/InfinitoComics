@@ -32,7 +32,7 @@ const FAQSection = ({ category }) => {
 
   return (
     <div className="max-w-10/12 mx-auto pt-20 text-left">
-      <h3 className="flex justify-center text-4xl font-bold mb-4">
+      <h3 className="flex justify-center text-[2rem] font-bold mb-4">
         Frequently Asked Questions
       </h3>
 
@@ -50,13 +50,13 @@ const FAQSection = ({ category }) => {
             <div key={faq._id || index} className="py-4">
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center text-2xl font-bold text-black"
+                className="w-full flex justify-between items-center text-left text-[1.4rem] font-bold text-black"
               >
                 <span>{faq.question}</span>
                 {openIndex === index ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
               </button>
               {openIndex === index && (
-                <div className="pt-3 text-xl font-semibold text-gray-700">
+                <div className="pt-3 text-xl font-semibold text-left text-gray-700">
                   {faq.answer}
                 </div>
               )}

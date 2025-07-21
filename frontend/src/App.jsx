@@ -22,6 +22,7 @@ import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
+import AboutUs from './pages/aboutUs/index.jsx'
 
 function App() {
   useEffect(() => {
@@ -55,6 +56,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/loggedin" element={<Loggedin />} />
               <Route path="/Premium" element={<Premium />} />
+              <Route path="/aboutUS" element={<AboutUs />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/Feedback" element={<FeedbackForm />} />
               <Route path="/Dashboard" element={<DashboardPage />} />

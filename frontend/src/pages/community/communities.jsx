@@ -8,7 +8,13 @@ import JoinInnerCircle from './joinInnerCircle'
 import UpcommingEvents from '../Home/UpcomingEvents'
 import JoinUltimate from '../Home/JoinUltimate'
 import Hero from './Hero'
+import ComingSoon from '../../components/comingSoon/comingSoon'
 const communities = () => {
+  const comingSoonActive = true;
+
+  if (comingSoonActive) {
+    return <ComingSoon />;
+  }
   return (
     <div>
       <Banner />

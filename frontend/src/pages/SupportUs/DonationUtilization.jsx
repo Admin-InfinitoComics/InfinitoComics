@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import stories from '../../constants/stories.js';
-
+import React, { useState, useEffect } from 'react';
+import { getAllStories } from '../../services/supportUs.js';
 import { TbArrowBigRightLines, TbArrowBigLeftLines } from "react-icons/tb";
 
 function DonationUtilization() {
@@ -27,6 +26,28 @@ function DonationUtilization() {
     }));
   };
 
+
+  //fetching stories from db
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const allStories = await getAllStories();
+        setStories(allStories);
+      } catch (error) {
+        console.error("Error fetching stories:", error);
+      }
+    };
+
+    fetchStories();
+  }, []);
+
+  useEffect(() => {
+    console.log("Stories on support us page: ", stories)
+  }, [stories]);
+
+
   return (
     <div className="flex justify-center items-center ">
       <div className="w-11/12 lg:w-2/3 bg-white text-gray-800">
@@ -45,16 +66,24 @@ function DonationUtilization() {
         <div className="block lg:hidden relative">
           <div className="px-6 pb-16 transition-all duration-500 ease-in-out">
             <h3 className="text-red-600 font-semibold text-lg mb-1">
-              {stories[activeStory].title}
+              {stories[activeStory]?.title}
             </h3>
-            <p className="text-sm font-bold mb-4 tracking-wider">{stories[activeStory].date}</p>
+            <p className="text-sm font-bold mb-4 tracking-wider">
+              {stories[activeStory]?.eventDate &&
+                new Date(stories[activeStory].eventDate).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                }).toUpperCase()}
+            </p>
+
             <img
-              src={stories[activeStory].image}
+              src={stories[activeStory]?.imageUrl}
               alt={`Story ${activeStory + 1}`}
-              className="w-full h-auto object-cover mb-4"
+              className="w-full h-76 sm:h-84 lg:h-88 object-cover " loading='lazy'
             />
             <p className={`text-sm text-gray-700 leading-relaxed mb-4 ${!expanded ? 'line-clamp-3' : ''}`}>
-              {stories[activeStory].content}
+              {stories[activeStory]?.description}
             </p>
             <button
               className="w-fit bg-red-600 text-white text-sm px-4 py-2 tracking-wider hover:bg-red-700 font-semibold cursor-pointer"
@@ -78,7 +107,7 @@ function DonationUtilization() {
             <button
               className="text-red-600 text-sm font-semibold"
               onClick={() => handleSwipe('left')}
-              disabled={activeStory === stories.length - 1}
+              disabled={activeStory === stories?.length - 1}
             >
               {/* ▶ */}
               <TbArrowBigRightLines />
@@ -89,14 +118,14 @@ function DonationUtilization() {
           <div className=" my-6 h-[3px] bg-red-100 mx-12 ">
             <div
               className="h-full bg-red-600 transition-all duration-300"
-              style={{ width: `${((activeStory + 1) / stories.length) * 100}%` }}
+              style={{ width: `${((activeStory + 1) / stories?.length) * 100}%` }}
             ></div>
           </div>
         </div>
 
         {/* --------- LARGE SCREENS: GRID VIEW WITH VIEW MORE --------- */}
         <div className="hidden lg:grid lg:grid-cols-2 gap-x-6 ">
-          {stories.slice(0, visibleCount).map((story, index) => (
+          {stories?.slice(0, visibleCount).map((story, index) => (
             <React.Fragment key={index}>
               {index % 2 === 0 ? (
                 <>
@@ -107,9 +136,16 @@ function DonationUtilization() {
                         className="absolute top-0 right-0 w-[3px] h-full bg-black transition-all duration-300 group-hover:bg-red-600"
                       ></div>
                       <h3 className="text-red-600 font-semibold text-2xl mb-1">{story.title}</h3>
-                      <p className="text-sm font-bold mb-6 tracking-wider">{story.date}</p>
+                      <p className="text-sm font-bold mb-4 tracking-wider">
+                        {stories[activeStory]?.eventDate &&
+                          new Date(stories[activeStory].eventDate).toLocaleDateString('en-GB', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                          }).toUpperCase()}
+                      </p>
                       <p className={`text-md text-gray-700 leading-relaxed mb-6 ${!expandedStories[index] ? 'line-clamp-3' : ''}`}>
-                        {story.content}
+                        {story.description}
                       </p>
                       <button
                         onClick={() => toggleExpand(index)}
@@ -120,8 +156,8 @@ function DonationUtilization() {
                     </div>
 
                     {/* Right Image Side */}
-                    <div className="pt-12">
-                      <img src={story.image} alt={`Story ${index + 1}`} className="w-full h-auto object-cover" />
+                    <div className="pt-12 ">
+                      <img src={story?.imageUrl} alt={`Story ${index + 1}`} className="w-full h-76 sm:h-84 lg:h-88 object-cover " loading='lazy' />
                     </div>
                   </div>
 
@@ -132,15 +168,22 @@ function DonationUtilization() {
                     <div className="relative pt-12 pr-8">
                       <div
                         className="absolute top-0 right-0 w-[3px] h-full bg-black transition-all duration-300 group-hover:bg-red-600"
-                        
+
                       ></div>
-                      <img src={story.image} alt={`Story ${index + 1}`} className="w-full h-auto object-cover" />
+                      <img src={story?.imageUrl} alt={`Story ${index + 1}`} className="w-full h-76 sm:h-84 lg:h-88 object-cover " loading='lazy' />
                     </div>
                     <div className="flex flex-col justify-center text-left pt-12">
                       <h3 className="text-red-600 font-semibold text-2xl mb-1">{story.title}</h3>
-                      <p className="text-sm font-bold mb-6 tracking-wider">{story.date}</p>
+                      <p className="text-sm font-bold mb-4 tracking-wider">
+                        {stories[activeStory]?.eventDate &&
+                          new Date(stories[activeStory].eventDate).toLocaleDateString('en-GB', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric',
+                          }).toUpperCase()}
+                      </p>
                       <p className={`text-md text-gray-700 leading-relaxed mb-6 ${!expandedStories[index] ? 'line-clamp-3' : ''}`}>
-                        {story.content}
+                        {story.description}
                       </p>
 
                       <button
@@ -159,7 +202,7 @@ function DonationUtilization() {
         </div>
 
         {/* VIEW MORE Button (only for large screens) */}
-        {visibleCount < stories.length && (
+        {visibleCount < stories?.length && (
           <div className="hidden lg:block text-center mb-16">
             <button
               className="text-red-600 border-2 border-red-600 text-sm px-4 py-2 font-semibold tracking-widest transition cursor-pointer hover:text-white hover:bg-red-600"
@@ -171,7 +214,7 @@ function DonationUtilization() {
         )}
 
         {/* End of Stories Message */}
-        {visibleCount >= stories.length && (
+        {visibleCount >= stories?.length && (
           <div className="hidden lg:block text-center mb-16">
             <p className="text-gray-500 text-sm italic tracking-wider mt-5">
               You've reached the end of the stories for now.

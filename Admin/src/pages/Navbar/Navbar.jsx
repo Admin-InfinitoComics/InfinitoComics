@@ -59,6 +59,12 @@ const Navbar = () => {
             CHARACTERS
           </Link>
           <Link
+            to="/research"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+            RESEARCH
+          </Link>
+          <Link
             to="/community"
             className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
           >
@@ -75,7 +81,7 @@ const Navbar = () => {
             to="/createblog"
             className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
           >
-            BLOGS & NEWS
+            BLOGS
           </Link>
            <Link
               to="/timeline"
@@ -145,6 +151,12 @@ const Navbar = () => {
               COMICS
             </Link>
             <Link
+            to="/research"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+            RESEARCH
+          </Link>
+            <Link
               to="/characters"
               onClick={toggleMenu}
               className="text-white hover:text-red-500 transition"
@@ -170,7 +182,7 @@ const Navbar = () => {
               onClick={toggleMenu}
               className="text-white hover:text-red-500 transition"
             >
-              BLOGS & NEWS
+              BLOGS
             </Link>
 
             <Link

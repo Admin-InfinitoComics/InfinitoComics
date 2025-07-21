@@ -8,8 +8,8 @@ import { MapPin, Clock, Briefcase, Globe } from "lucide-react";
 
 const Jobs = () => {
 const location = useLocation();
-  const job = location.state?.job;
-  console.log(job)
+const { job } = location.state || {}
+console.log(job)
   return (
     <>
     <div
@@ -47,10 +47,23 @@ const location = useLocation();
                 <MapPin size={28} />
                 GE Road, Near Raj Kumar College, Raipur, Chhattisgarh 492001
               </div>
-              <div className="flex items-center gap-2">
-                <Clock size={20} />
-                Posted 10 Days Ago
-              </div>
+                <div className="flex items-center gap-2"> 
+                  <Clock size={20} />
+                  {(() => {
+                    const rawDate = job?.postDate;
+                    console.log('Raw postedDate:', rawDate);
+                    if (rawDate) {
+                      // Remove milliseconds and Z if present for robust parsing
+                      const cleanedDate = rawDate.replace(/\.[0-9]+Z$/, '').replace(/Z$/, '');
+                      const dateObj = new Date(cleanedDate);
+                      console.log('Parsed dateObj:', dateObj);
+                      return isNaN(dateObj.getTime())
+                        ? 'Posted date not available'
+                        : `Posted on ${dateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+                    }
+                    return 'Posted date not available';
+                  })()}
+                </div>
             </div>
 
             <div>
@@ -61,44 +74,33 @@ const location = useLocation();
             <div>
               <h2 className="text-blue-800 font-bold text-lg mt-4">Job Details</h2>
               <p className="text-lg text-gray-800 mt-2">
-                Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem
-                placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor.
-                Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer
-                nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra
-                inceptos himenaeos.
-              </p>
+               {job?.description}
+              </p>  
             </div>
-
+            {/* skills */}
             <div >
               <h3 className="text-lg font-semibold mt-6">What you will be doing:</h3>
               <ul className="list-disc list-outside text-lg mt-2 text-gray-800 space-y-1 mx-4">
-                <li>Lorem ipsum dolor sit amet consectetur adipiscing elit.</li>
-                <li >
-                  Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.
-                </li>
-                <li>Tempus leo eu aenean sed diam urna tempor.</li>
-                <li>
-                  Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer
-                  nunc posuere.
-                </li>
-                <li>Ut hendrerit semper vel class aptent taciti sociosqu.</li>
-                <li>Ad litora torquent per conubia nostra inceptos himenaeos.</li>
+                    {Array.isArray(job?.tasks) && job.tasks.length > 0 ? (
+                  job.tasks.map((task, idx) => (
+                    <li key={idx}>{task}</li>
+                  ))
+                ) : (
+                  <li>No tasks listed.</li>
+                )}
               </ul>
             </div>
+            {/* tasks */}
             <div>
-              <h3 className="text-lg font-semibold mt-6">What you will be doing:</h3>
+              <h3 className="text-lg font-semibold mt-6">What you should have</h3>
               <ul className="list-disc list-outside text-lg mt-2 text-gray-800 space-y-1 mx-4">
-                <li>Lorem ipsum dolor sit amet consectetur adipiscing elit.</li>
-                <li>
-                  Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.
-                </li>
-                <li>Tempus leo eu aenean sed diam urna tempor.</li>
-                <li>
-                  Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer
-                  nunc posuere.
-                </li>
-                <li>Ut hendrerit semper vel class aptent taciti sociosqu.</li>
-                <li>Ad litora torquent per conubia nostra inceptos himenaeos.</li>
+                   {Array.isArray(job?.skills) && job.skills.length > 0 ? (
+                  job.skills.map((skill, idx) => (
+                    <li key={idx}>{skill}</li>
+                  ))
+                ) : (
+                  <li>No skills listed.</li>
+                )}
               </ul>
             </div>
           </div>

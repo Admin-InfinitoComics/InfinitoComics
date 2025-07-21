@@ -1,7 +1,11 @@
-import React from 'react';
-
+import React, { useState, useEffect } from "react";import NewsletterSectionShimmer from '../../shimmer/landingPageShimmer/NewsletterSectionShimmer'
 const NewsletterSection = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  return loading?<NewsletterSectionShimmer/>: (
     <div
       className="w-full bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-12 md:px-76 py-12 md:py-20"
       style={{ backgroundImage: "url('/assets/Images/Newsletter.png')" }}

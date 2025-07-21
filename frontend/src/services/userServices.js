@@ -65,7 +65,8 @@ export const signUpUser = async (formData) => {
       password: formData.password,
       name: formData.name,
       dob: formData.dob,
-      username: formData.username.trim().replace(/\s/g, "")
+      username: formData.username.trim().replace(/\s/g, ""),
+      newsLetter: formData.newsLetter
     });
     return response.data;
   } catch (error) {

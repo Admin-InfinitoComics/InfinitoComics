@@ -47,6 +47,7 @@ const ComicConHero = () => {
           shadow-[0_10px_40px_-10px_rgba(0,0,0,0.7)]
           relative z-0
           transition-all duration-1000 ease-in-out
+          -mb-1
         "
         style={{
           backgroundImage: `url(${currentSlideData.image})`,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Gift,
   Leaf,
@@ -7,9 +7,16 @@ import {
   TreeDeciduous,
   CircleCheck,
 } from "lucide-react";
+import PremiumPlansShimmer from "../../shimmer/landingPageShimmer/PremiumPlansShimmer";
+
 
 const PremiumPlans = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      // fetch data / preload hero image ...
+      setTimeout(() => setLoading(false), 2400); // demo
+    }, []);
+  return loading?<PremiumPlansShimmer/>: (
     // Responsive layout: stacked on mobile, horizontal on large screens
     <div className="flex flex-col lg:flex-row justify-center items-center w-full mt-5 p-16 min-h-[600px] px-4 lg:px-32 gap-10">
 

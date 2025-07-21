@@ -22,6 +22,7 @@ import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
+import ErrorPage from './pages/ErrorForm/ErrorPage.jsx';
 
 function App() {
 useEffect(() => {
@@ -81,6 +82,7 @@ useEffect(() => {
             <Route path="/all-news" element={<AllNewsPage />} />
             <Route path="/verifyEmail" element={<OTPVerification/>}/>
             <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+            <Route path ="/ErrorReport" element={<ErrorPage/>}/>
         </Route>
       </Routes>
       </BrowserRouter> 

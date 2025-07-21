@@ -2,12 +2,12 @@ import React from "react";
 
 const OurVision = () => {
   return (
-    <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 py-8 sm:py-12 bg-white text-black font-sans">
+    <div className="w-full px-4 sm:px-8 md:px-16 lg:px-24 py-8 sm:py-12 bg-white text-black font-sans mb-10">
       {/* Section Heading */}
-      <h2 className="text-lg sm:text-xl md:text-3xl font-bold tracking-widest uppercase mb-8 text-center md:text-left mx-0 sm:mx-10 md:mx-20 lg:mx-40">
+      <h2 className="text-lg sm:text-xl md:text-3xl font-bold tracking-widest uppercase mb-8 text-center md:text-left mx-0 sm:mx-10 md:mx-15 lg:mx-50">
         Our Vision
       </h2>
-      <div className="mx-0 sm:mx-10 md:mx-20 lg:mx-40">
+      <div className="mx-0 sm:mx-10 md:mx-15 lg:mx-50">
         {/* Vision Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Card 1: Innovation */}

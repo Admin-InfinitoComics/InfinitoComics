@@ -15,10 +15,10 @@ const fundCategories = [
       { label: "Social Justice & Women’s Rights", dotColor: "#FCA5A5" },
     ],
     expandedItems: [
-      { label: "Youth & Sports", percent: "20%", barColor: "text-red-600 border-red-600" },
-      { label: "Environmental Protection", percent: "20%", barColor: "text-red-500 border-red-500" },
-      { label: "Child Protection", percent: "20%", barColor: "text-red-400 border-red-400" },
-      { label: "Social Justice & Women’s Rights", percent: "20%", barColor: "text-red-300 border-red-300" },
+      { label: "Youth & Sports", percent: "10%", barColor: "text-red-600 border-red-600" },
+      { label: "Environmental Protection", percent: "5%", barColor: "text-red-500 border-red-500" },
+      { label: "Child Protection", percent: "2%", barColor: "text-red-400 border-red-400" },
+      { label: "Social Justice & Women’s Rights", percent: "2%", barColor: "text-red-300 border-red-300" },
     ],
     expandedUlClass: "pl-7",
   },
@@ -36,8 +36,8 @@ const fundCategories = [
     ],
     expandedItems: [
       { label: "Future Technologies", percent: "20%", barColor: "text-[#693434] border-[#693434]" },
-      { label: "Drone Technology & Robotics", percent: "20%", barColor: "text-[#9d6c6c] border-[#9d6c6c]" },
-      { label: "Social & Economic Research", percent: "20%", barColor: "text-[#bd9c9c] border-[#bd9c9c]" },
+      { label: "Drone Technology & Robotics", percent: "10%", barColor: "text-[#9d6c6c] border-[#9d6c6c]" },
+      { label: "Social & Economic Research", percent: "5%", barColor: "text-[#bd9c9c] border-[#bd9c9c]" },
     ],
     expandedUlClass: "pl-8",
   },
@@ -53,8 +53,8 @@ const fundCategories = [
       { label: "Technology Improvement", dotColor: "#9CA3AF" },
     ],
     expandedItems: [
-      { label: "Content Production", percent: "20%", barColor: "text-gray-500 border-gray-500" },
-      { label: "Technology Improvement", percent: "20%", barColor: "text-gray-400 border-gray-400" },
+      { label: "Content Production", percent: "40%", barColor: "text-gray-500 border-gray-500" },
+      { label: "Technology Improvement", percent: "5%", barColor: "text-gray-400 border-gray-400" },
     ],
     expandedUlClass: "pl-4 ml-4",
   }

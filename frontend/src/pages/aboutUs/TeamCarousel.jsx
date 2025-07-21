@@ -46,13 +46,13 @@ const TeamCarousel = () => {
           </button>
 
           {/* Members */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 justify-items-center w-full mx-20" style={{ order: 2 }}>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 justify-items-center w-full mx-20 extra-gap-mobile" style={{ order: 2 }}>
             {teamData[index].members.map((member, idx) => (
               <div key={idx} className="text-center space-y-2">
                 <img
                   src={member.img}
                   alt={member.name}
-                  className="rounded-full border-4 border-white w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 object-cover mx-auto"
+                  className="rounded-full border-4 border-white w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-48 lg:h-48 object-cover aspect-square mx-auto"
                 />
                 <p className="text-xs sm:text-sm md:text-base font-semibold tracking-wide uppercase mt-3 sm:mt-5">{member.name}</p>
                 <p className="text-[10px] sm:text-xs md:text-sm tracking-widest text-gray-300 uppercase">{member.year}</p>
@@ -71,6 +71,14 @@ const TeamCarousel = () => {
         </div>
       </div>
 
+      {/* Custom style for extra small screens (470px or less) */}
+      <style>{`
+        @media (max-width: 470px) {
+          .extra-gap-mobile {
+            gap: 2.5rem !important;
+          }
+        }
+      `}</style>
       {/* Pagination Dots */}
       <div className="flex justify-center mt-6 space-x-2">
         {teamData.map((_, dotIndex) => (

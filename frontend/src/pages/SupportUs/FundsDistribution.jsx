@@ -15,7 +15,7 @@ function FundsDistribution() {
               {/* Donut Chart */}
               <div className="w-1/2 max-w-[50%] mx-auto lg:mx-0 bg-blue-500">
                 <img
-                  src={expanded ? chartExpanded : chartDefault}
+                  src={chartDefault}
                   alt="Fund Distribution Chart"
                   className="w-full h-auto"
                 />

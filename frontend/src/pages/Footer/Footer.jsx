@@ -46,7 +46,7 @@ const Footer = () => {
             <div className="flex flex-col space-y-4">
               <span className="font-bold">FOUNDATION</span>
               <span>RESEARCH</span>
-              <span>SUPPORT US</span>
+              <Link to="/support-us"><span>SUPPORT US</span></Link>
             </div>
           </div>
 
@@ -97,28 +97,28 @@ const Footer = () => {
             <Link to="/careers">CAREER</Link>
             <span>RESEARCH</span>
             <span>INTERNSHIP</span>
-            <span>SUPPORT US</span>
+            <Link to="/support-us">SUPPORT US</Link>
           </div>
-          
-<div className="mt-8 w-full flex rounded overflow-hidden gap-1  px-1 py-1 h-28">
-  {/* Left: Logo Box */}
+
+          <div className="mt-8 w-full flex rounded overflow-hidden gap-1  px-1 py-1 h-28">
+            {/* Left: Logo Box */}
 
 
-  <div className=" flex items-center justify-center">
-    <img src={smallLogo} alt="logo" className="w-48 h-48 object-contain" />
-  </div>
+            <div className=" flex items-center justify-center">
+              <img src={smallLogo} alt="logo" className="w-48 h-48 object-contain" />
+            </div>
 
 
-  {/* Right: Text and Button */}
-  <div className="flex flex-col justify-evenly px-1   flex-grow">
-    <p className="text-[9px] text-left text-white leading-snug mb-2">
-      Unlocks Exclusive Comics, Early Access To New Releases & Member-Only Merch!
-    </p>
-    <button className="bg-white text-black px-2 py-2 text-[11px] text-left font-bold tracking-wide w-full">
-      JOIN INFINITO ULTIMATE ›
-    </button>
-  </div>
-</div>
+            {/* Right: Text and Button */}
+            <div className="flex flex-col justify-evenly px-1   flex-grow">
+              <p className="text-[9px] text-left text-white leading-snug mb-2">
+                Unlocks Exclusive Comics, Early Access To New Releases & Member-Only Merch!
+              </p>
+              <button className="bg-white text-black px-2 py-2 text-[11px] text-left font-bold tracking-wide w-full">
+                JOIN INFINITO ULTIMATE ›
+              </button>
+            </div>
+          </div>
 
 
 
@@ -132,31 +132,31 @@ const Footer = () => {
         </div>
       </div>
 
-{/* Desktop View */}
-<div className="hidden md:flex border-t border-gray-600 mt-10 pt-6 text-[12px] text-gray-400 justify-center items-center gap-x-14 whitespace-nowrap text-center">
-  <span>Terms Of Use</span>
-  <span>Privacy Policy</span>
-  <span>FAQs</span>
-  <span>Children’s Privacy Policy</span>
-  <span>Help Centre</span>
-  <span>© 2025–26 By Infinito Comics</span>
-</div>
+      {/* Desktop View */}
+      <div className="hidden md:flex border-t border-gray-600 mt-10 pt-6 text-[12px] text-gray-400 justify-center items-center gap-x-14 whitespace-nowrap text-center">
+        <span>Terms Of Use</span>
+        <span>Privacy Policy</span>
+        <span>FAQs</span>
+        <span>Children’s Privacy Policy</span>
+        <span>Help Centre</span>
+        <span>© 2025–26 By Infinito Comics</span>
+      </div>
 
-{/* Mobile View */}
-<div className="flex flex-col md:hidden border-t border-gray-600 mt-10 pt-6 text-[12px] text-gray-400 text-center space-y-2">
-  <div className="flex justify-center gap-x-6">
-    <span>Terms Of Use</span>
-    <span>Privacy Policy</span>
-    <span>Help Centre</span>
-  </div>
-  <div className="flex justify-center gap-x-6">
-    <span>Children’s Privacy Policy</span>
-    <span>FAQs</span>
-  </div>
-  <div className="pt-1">
-    © 2025–26 By Infinito Comics
-  </div>
-</div>
+      {/* Mobile View */}
+      <div className="flex flex-col md:hidden border-t border-gray-600 mt-10 pt-6 text-[12px] text-gray-400 text-center space-y-2">
+        <div className="flex justify-center gap-x-6">
+          <span>Terms Of Use</span>
+          <span>Privacy Policy</span>
+          <span>Help Centre</span>
+        </div>
+        <div className="flex justify-center gap-x-6">
+          <span>Children’s Privacy Policy</span>
+          <span>FAQs</span>
+        </div>
+        <div className="pt-1">
+          © 2025–26 By Infinito Comics
+        </div>
+      </div>
 
 
 

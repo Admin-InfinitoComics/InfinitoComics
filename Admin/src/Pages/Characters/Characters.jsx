@@ -4,7 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 
 
-function Timeline() {
+function Characters() {
     const api = `${import.meta.env.VITE_BASE_URL}/timeline`;
 
     const [timelines, setTimelines] = useState([]);
@@ -187,19 +187,19 @@ function Timeline() {
                             />
                         </div>
 
-                        <div className="flex flex-col space-y-0.5">
-                            <label className="font-semibold text-red-600" htmlFor="eventDate">Event Date</label>
-                            <input
-                                id="eventDate"
-                                type="date"
-                                value={form.eventDate}
-                                onChange={(e) => setForm({ ...form, eventDate: e.target.value })}
-                                required
-                                className="w-full border border-grey-500 py-2 px-4 rounded focus:outline-none focus:ring-1 focus:ring-red-500"
-                            />
-                        </div>
 
                         <div className="flex justify-between items-center gap-4 ">
+                            <div className="w-1/2 flex flex-col space-y-0.5">
+                                <label className="font-semibold text-red-600" htmlFor="eventDate">Event Date</label>
+                                <input
+                                    id="eventDate"
+                                    type="date"
+                                    value={form.eventDate}
+                                    onChange={(e) => setForm({ ...form, eventDate: e.target.value })}
+                                    required
+                                    className="w-full border border-grey-500 py-2 px-4 rounded focus:outline-none focus:ring-1 focus:ring-red-500"
+                                />
+                            </div>
                             <div className="w-1/2 flex flex-col space-y-0.5">
                                 <label className="font-semibold text-red-600" htmlFor="pageContext">Page Context</label>
                                 <select
@@ -215,22 +215,22 @@ function Timeline() {
                                 </select>
                             </div>
 
-                            <div className="w-1/2 flex flex-col space-y-0.5">
-                                <label className="font-semibold text-red-600" htmlFor="imageUrl">Upload Image</label>
-                                <input
-                                    id="imageUrl"
-                                    type="file"
-                                    accept="image/*"
-                                    name="imageUrl"
-                                    onChange={handleImageUpload}
-                                    disabled={form.pageContext !== 'support'}
-                                    className="w-full border border-grey-500 py-1 px-4 rounded focus:outline-none focus:ring-1 focus:ring-red-500"
-                                    style={{
-                                        backgroundColor: form.pageContext !== 'support' ? '#f3f4f6' : 'white',
-                                        cursor: form.pageContext !== 'support' ? 'not-allowed' : 'pointer',
-                                    }}
-                                />
-                            </div>
+                        </div>
+                        <div className=" flex flex-col space-y-0.5">
+                            <label className="font-semibold text-red-600" htmlFor="imageUrl">Upload Image</label>
+                            <input
+                                id="imageUrl"
+                                type="file"
+                                accept="image/*"
+                                name="imageUrl"
+                                onChange={handleImageUpload}
+                                disabled={form.pageContext !== 'support'}
+                                className="w-full border border-grey-500 py-1 px-4 rounded focus:outline-none focus:ring-1 focus:ring-red-500"
+                                style={{
+                                    backgroundColor: form.pageContext !== 'support' ? '#f3f4f6' : 'white',
+                                    cursor: form.pageContext !== 'support' ? 'not-allowed' : 'pointer',
+                                }}
+                            />
                         </div>
 
 
@@ -331,4 +331,4 @@ function Timeline() {
     );
 }
 
-export default Timeline;
+export default Characters;

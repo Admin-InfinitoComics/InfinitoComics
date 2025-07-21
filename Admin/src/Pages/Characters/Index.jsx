@@ -1,10 +1,10 @@
 import React from 'react'
-import Timeline from './Timeline.jsx'
+import Characters from './Characters.jsx'
 
 function Index() {
   return (
     <>
-        <Timeline/>
+        <Characters/>
     </>
   )
 }

@@ -6,7 +6,7 @@ import User from './Pages/UserList/UserList';
 import Home from './pages/Home/home';
 import FAQManager from './Pages/Faq/FaqManager';
 import Login from "./Auth/login"
-import Timeline from './Pages/SupportUs/Timeline.jsx'
+import Characters from './Pages/Characters/Characters.jsx'
 import Career from './Pages/career/career'
 
 
@@ -23,7 +23,7 @@ function App() {
           <Route path="/createblog" element={<CreateBlog />} />
           <Route path="/users" element={<User/>}> </Route>
           <Route path="/login" element={<Login />} />  
-          <Route path="/timeline" element={<Timeline/>} />        
+          <Route path="/characters" element={<Characters/>} />        
           <Route path="/career" element={<Career />} />        
          </Route>  
       </Routes>

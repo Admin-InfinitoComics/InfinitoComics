@@ -134,6 +134,48 @@ class SupportService {
     //         throw error;
     //     }
     // }
+
+
+    async getSupportStatistics() {
+        const Support = this.supportRepository.model;
+        // One-time funds
+        const [oneTimeFundsResult] = await Support.aggregate([
+            { $match: { supportType: "one-time" } },
+            { $group: { _id: null, totalFunds: { $sum: "$amount" } } }
+        ]);
+        const oneTimeFunds = oneTimeFundsResult?.totalFunds || 0;
+
+        // Monthly funds calculation
+        const monthlySupports = await Support.find({ supportType: "monthly" });
+        let monthlyFunds = 0;
+        const now = new Date();
+        monthlySupports.forEach(support => {
+            const start = support.createdAt;
+            const end = support.cancelledAt || now;
+            // Calculate the number of months between start and end
+            let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+            // If the end day is after or equal to the start day, count the current month
+            if (end.getDate() >= start.getDate()) months++;
+            if (months < 1) months = 1; // At least 1 month
+            monthlyFunds += support.amount * months;
+        });
+
+        // Other stats
+        const supporterCount = await Support.distinct("userId").then(arr => arr.length);
+        const goldMembers = await Support.countDocuments({ isGoldMember: true, supportType: "monthly" });
+        const oneTimeCount = await Support.countDocuments({ supportType: "one-time" });
+        const monthlyCount = await Support.countDocuments({ supportType: "monthly" });
+
+        return {
+            oneTimeFunds,
+            monthlyFunds,
+            totalFunds: oneTimeFunds + monthlyFunds,
+            supporterCount,
+            goldMembers,
+            oneTimeCount,
+            monthlyCount
+        };
+    }
 }
 
 export default SupportService;

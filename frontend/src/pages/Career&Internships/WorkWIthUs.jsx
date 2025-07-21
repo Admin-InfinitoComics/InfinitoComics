@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import banner from '../../../assets/Images/career/banner.png';
+import WorkWithUsShimmer from '../../shimmer/Career/WorkWIthUsShimmer'
 
 const WorkWIthUs = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      setTimeout(() => setLoading(false), 2400); 
+    }, []);
+  return loading?<WorkWithUsShimmer/>: (
     // Outer container with background image and center alignment
     <div
       className="w-full min-h-[600px] flex items-center shadow-[0_10px_40px_-10px_rgba(0,0,0,0.7)]"

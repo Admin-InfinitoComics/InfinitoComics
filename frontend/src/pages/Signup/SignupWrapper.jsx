@@ -24,7 +24,8 @@ const SignupWrapper = () => {
     password: '',
     name: '',
     dob: '',
-    username: ''
+    username: '',
+    newsLetter: true,
   });
 
   const handleChange = (field, value) => {

@@ -1,10 +1,13 @@
-import React from 'react';
+import { useState, useEffect } from "react";
 import Slider from 'react-slick';
 import { Share2 } from 'lucide-react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import tshirtImage from '../../../assets/Images/tShirts&Collectibles/tshirt.jpg';
 import shareIcon from '../../../assets/Images/shareIcon.png';
+import LandingMerchShimmer from "../../shimmer/landingPageShimmer/landingMerchShimmer";
+
+
 const items = [
   {
     id: 1,
@@ -30,6 +33,11 @@ const items = [
 ];
 
 const CollectorShowcase = () => {
+    const [loading, setLoading] = useState(true);
+     useEffect(() => {
+        // fetch data / preload hero image ...
+        setTimeout(() => setLoading(false), 2400); // demo
+      }, []);
   const settings = {
     dots: true,
     arrows: false,
@@ -40,6 +48,7 @@ const CollectorShowcase = () => {
   };
 
 const renderCard = (item) => (
+  
   <div
     key={item.id}
     className="w-full relative shadow-md  overflow-hidden flex flex-col justify-between"
@@ -104,7 +113,7 @@ const renderCard = (item) => (
 
 
 
-  return (
+  return loading?<LandingMerchShimmer/>: (
     <div className="bg-white py-16 px-4 md:px-10 lg:px-20">
       <div className="w-full">
         {/* Headings */}

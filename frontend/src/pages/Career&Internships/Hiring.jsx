@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 const avatars = Array(15).fill("https://api.dicebear.com/7.x/thumbs/svg?seed=designer");
+import HiringShimmer from '../../shimmer/Career/HiringShimmer'
 
 const Hiring = () => {
- return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      setTimeout(() => setLoading(false), 2400); 
+    }, []);
+ return loading?<HiringShimmer/>: (
     <div className="w-full px-4 md:px-20 py-12 text-center">
       {/* Heading */}
       <h2 className="text-2xl md:text-3xl font-bold mb-3">We are always hiring!</h2>

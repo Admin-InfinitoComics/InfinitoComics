@@ -29,6 +29,9 @@ const SupportSchema = new mongoose.Schema({
     supportAt: {
         type: Date,
         default: Date.now
+    },
+    cancelledAt : {
+        type : Date
     }
 }, { timestamps: true });
 

@@ -62,23 +62,6 @@ const InfinitoUltimateKit = () => {
             )}
           </div>
 
-          <div className="flex justify-left ">
-            <div className="flex items-center gap-[0.5rem]  mt-[1rem]">
-              <input
-                type="checkbox"
-                id="research-addon"
-                checked={includeResearch}
-                onChange={() => setIncludeResearch(!includeResearch)}
-                className="accent-red-600 w-[1.25rem] h-[1.25rem] rounded"
-              />
-              <label
-                htmlFor="research-addon"
-                className="text-[0.875rem] text-white select-none"
-              >
-                Include Research Papers (+₹50)
-              </label>
-            </div>
-          </div>
         </div>
       </div>
 

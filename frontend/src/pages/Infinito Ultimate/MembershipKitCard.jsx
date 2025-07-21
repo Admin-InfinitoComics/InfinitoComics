@@ -10,7 +10,7 @@ const MembershipKitCard = () => {
       <div className="hidden md:flex flex-row w-[90%] max-w-[80.625rem] justify-between items-center h-[39rem] gap-6 bg-white px-10 py-12 shadow-md border">
         
         {/* Left Image */}
-        <div className="md:w-[80%] h-[45rem] flex items-center">
+        <div className="md:w-[67%] h-[45rem] flex items-center">
           <img
             src={membershipKitImage}
             alt="Membership Kit"

@@ -34,7 +34,7 @@ const Home = () => {
         <img
           src={overlayImage}
           alt="Overlay"
-          className="absolute inset-0 w-full h-full z-10 pointer-events-none object-cover"
+          className="absolute inset-0 w-full  h-full z-10 pointer-events-none object-cover"
         />
         <img
           src={leftOverlayImage}
@@ -74,12 +74,12 @@ const Home = () => {
             alt={`Slide ${current + 1}`}
             className="w-full h-full object-cover object-top "
           />
-          <div className="absolute bottom-0 w-full h-34 bg-gradient-to-t from-black to-transparent z-20" />
+          <div className="absolute bottom-0 w-full mt-5 h-45 mb-[-20px] bg-gradient-to-t from-black/90 to-transparent z-20" />
         </div>
 
         {/* 40% Text Section */}
-        <div className="w-full bg-black  py-8 px-8  text-left h-[55vh] flex flex-col justify-center">
-          <h2 className="text-2xl font-bold mt-[-12rem] z-50 ">A UNIVERSE OF STORIES.</h2>
+        <div className="w-full bg-black   px-8  text-left h-[35vh] flex flex-col justify-center">
+          <h2 className="text-2xl font-bold  mt-[-4rem] z-50 ">A UNIVERSE OF STORIES.</h2>
           <h3 className="text-[#DD1215] text-2xl font-bold mb-4 z-50">UNLOCKED.</h3>
           <p className="text-base mb-5 z-50">
             Welcome to Infinito Ultimate — your all-access pass to India’s first multiverse comic subscription. anywhere else.

@@ -86,7 +86,7 @@ const Navbar = () => {
            <Link
               to="/timeline"
               onClick={toggleMenu}
-              className="text-white hover:text-red-500 transition"
+              className="text-white hover:text-red-500 transition px-3 py-2"
             >
               Timeline
             </Link>

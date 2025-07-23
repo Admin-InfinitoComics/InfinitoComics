@@ -5,8 +5,10 @@ const timelineService = new TimelineService();
 
 export const createEvent = async (req, res) => {
   try {
-    const { title, eventDate, description } = req.body;
-    if (!title || !eventDate || !description) {
+    console.log("inside the controller func")
+    const { title, eventDate, category , description, eventNumber } = req.body;
+    console.log(title, eventDate, category, description, eventNumber )
+    if (!title || !eventDate || !description || !category || !eventNumber ) {
       return res.status(400).json({ message: "All fields are required." });
     }
     if (!req.file) {
@@ -17,7 +19,7 @@ export const createEvent = async (req, res) => {
     const uploadResult = await uploadToS3(req.file.buffer, req.file.originalname, req.file.mimetype);
     const imageUrl = uploadResult.Location;
 
-    const event = await timelineService.createEvent({ title, eventDate, description, imageUrl });
+    const event = await timelineService.createEvent({ title, eventDate, category, description, imageUrl, eventNumber });
     res.status(201).json({ data: event, success: true });
   } catch (error) {
     res.status(400).json({ message: error.message, success: false });
@@ -45,7 +47,7 @@ export const getEventById = async (req, res) => {
 
 export const updateEvent = async (req, res) => {
   try {
-    const { title, eventDate, description } = req.body;
+    const { title, eventDate, category, description, eventNumber } = req.body;
     let imageUrl;
 
     // If a new file is uploaded, upload it to S3
@@ -57,7 +59,7 @@ export const updateEvent = async (req, res) => {
       imageUrl = req.body.imageUrl;
     }
 
-    const update = { title, eventDate, description, imageUrl };
+    const update = { title, eventDate, category, description, imageUrl , eventNumber};
     const event = await timelineService.updateEvent(req.params.id, update);
     if (!event) return res.status(404).json({ message: "Event not found", success: false });
     res.status(200).json({ data: event, success: true });

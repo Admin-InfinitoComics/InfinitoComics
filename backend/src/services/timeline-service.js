@@ -13,13 +13,18 @@ class TimelineService {
   
   async createEvent(data) {
     try {
-      // Accepts: { title, eventDate, description, imageUrl }
-      return await this.timelineRepository.create({
-        title: data.title,
-        eventDate: data.eventDate,
-        description: data.description,
-        imageUrl: data.imageUrl
-      });
+      // Accepts: { title, eventDate, description, pageContext, imageUrl }
+      const eventData = {
+      title: data.title,
+      eventDate: data.eventDate,
+      description: data.description,
+      pageContext: data.pageContext,
+    };
+
+    if (data.imageUrl) {
+      eventData.imageUrl = data.imageUrl;
+    }
+    return await this.timelineRepository.create(eventData);
     } catch (error) {
       console.error(`[TimelineService] Error in createEvent:`, error);
       throw new Error('Failed to create event. Please try again later.');
@@ -48,19 +53,25 @@ class TimelineService {
 
 
   async updateEvent(id, data) {
-    try {
-      // Accepts: { title, eventDate, description, imageUrl }
-      return await this.timelineRepository.findByIdandUpdate(id, {
-        title: data.title,
-        eventDate: data.eventDate,
-        description: data.description,
-        imageUrl: data.imageUrl
-      });
-    } catch (error) {
-      console.error(`[TimelineService] Error in updateEvent:`, error);
-      throw new Error('Failed to update event. Please try again later.');
+  try {
+    const updateData = {
+      title: data.title,
+      eventDate: data.eventDate,
+      description: data.description,
+      // pageContext: data.pageContext, 
+    };
+
+    if (data.imageUrl) {
+      updateData.imageUrl = data.imageUrl; // ✅ only if exists
     }
+
+    return await this.timelineRepository.findByIdandUpdate(id, updateData); 
+  } catch (error) {
+    console.error(`[TimelineService] Error in updateEvent:`, error);
+    throw new Error('Failed to update event. Please try again later.');
   }
+}
+
 
   async deleteEvent(id) {
     try {

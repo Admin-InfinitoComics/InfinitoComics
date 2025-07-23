@@ -3,7 +3,7 @@ import chat from '../../../assets/Images/Chat.png';
 import { FaArrowLeft } from 'react-icons/fa';
 import axios from 'axios';
 
-const FeedbackForm = () => {
+const ErrorPage = () => {
   const [formData, setFormData] = useState({
     email: '',
     name: '',
@@ -162,7 +162,7 @@ const FeedbackForm = () => {
 
           <div className="space-y-2">
             <label htmlFor="feedback" className="text-sm font-medium text-red-700">
-              Your Feedback
+              Describe the Error
             </label>
             <textarea
               id="feedback"
@@ -207,7 +207,7 @@ const FeedbackForm = () => {
           className="absolute top-[-40px] right-[-40px] w-52 h-52 object-cover border-4 border-white"
         />
         <div className="space-y-4">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">Your Feedback Preview</h3>
+          <h3 className="text-lg font-bold text-gray-800 mb-4">Error Preview</h3>
           <div className="text-sm text-gray-700">
             <div className="mb-3">
               <strong>Registered Mail:</strong> {formData.email}
@@ -228,4 +228,4 @@ const FeedbackForm = () => {
   );
 };
 
-export default FeedbackForm;
+export default ErrorPage;

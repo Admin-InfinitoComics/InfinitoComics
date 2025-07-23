@@ -23,8 +23,13 @@ import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
 import AboutUs from './pages/aboutUs/index.jsx'
+
+
+import ErrorPage from './pages/ErrorForm/ErrorPage.jsx';
+
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
+
 
 
 function App() {
@@ -85,12 +90,17 @@ function App() {
            <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
             <Route path="/verifyEmail" element={<OTPVerification/>}/>
+
+            <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+            <Route path ="/ErrorReport" element={<ErrorPage/>}/>
+
             <Route path="/createAvatar" element={<SignupStep3/>}/>
             <Route path="/cart" element={<Cart/>}/>
             
             </Route>
           </Routes>
         </BrowserRouter>
+
       </Provider>
     </>
   );

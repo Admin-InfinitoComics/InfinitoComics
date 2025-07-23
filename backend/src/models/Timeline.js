@@ -14,10 +14,16 @@ const TimelineSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-    maxlength: 3000
+    maxlength: 3000,
+    trim: true
   },
   imageUrl: {
     type: String,
+    required: false
+  },
+  pageContext: {
+    type: String,
+    enum: ["about", "support"],
     required: true
   }
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import './LogoLoader.css';
+import './logoLoader.css';
 import logo from '../../../assets/Logo.png'; 
 
 const LogoLoader = () => {

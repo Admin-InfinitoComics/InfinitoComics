@@ -4,7 +4,7 @@ import belowImage from "../../../assets/Images/Ultimate/Botton.png";
 import overlayImage from "../../../assets/Images/Ultimate/OverlayImage.png"; // Replace with actual overlay image path
 import  leftOverlayImage from "../../../assets/Images/Ultimate/leftoverlay.png"; 
 import  rightOverlayImage from "../../../assets/Images/Ultimate/rightoverlay.png"; 
-import universetext from "../../../assets/Images/Ultimate/universetext.png"; // Replace with actual text image path
+import universetext from "../../../assets/Images/Ultimate/universeText.png"; // Replace with actual text image path
 
 const images = [
   { id: 1, url: slide1 },

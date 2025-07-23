@@ -6,6 +6,7 @@ import leftOverlayImage from "../../../assets/Images/Ultimate/leftoverlay.png";
 import rightOverlayImage from "../../../assets/Images/Ultimate/rightoverlay.png";
 import universetext from "../../../assets/Images/Ultimate/universetext.png";
 
+
 const images = [
   { id: 1, url: slide1 },
   { id: 2, url: slide1 },

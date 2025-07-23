@@ -2,6 +2,7 @@ import React from 'react'
 import CharacterCarousel from '../Home/CharacterCarousel'
 import Carousel from './Carousel'
 import NewComicsWeekly from './newComicsWeekly'
+
 import JoinUltimate from '../Home/JoinUltimate'
 import CreatorAccess from './CreatorAccess'
 import MembershipKitCard from './MembershipKitCard'

@@ -22,6 +22,8 @@ import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
+import AboutUs from './pages/aboutUs/index.jsx'
+
 
 import ErrorPage from './pages/ErrorForm/ErrorPage.jsx';
 
@@ -65,6 +67,7 @@ function App() {
           <Route path="/loggedin"  element={<Loggedin/>} />
           <Route path="/Premium"  element={<Premium/>} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />    
+           <Route path="/aboutUS" element={<AboutUs />} />
           <Route path="/Feedback" element={<FeedbackForm/>} /> 
           <Route path="/Dashboard" element={<DashboardPage/>} /> 
           <Route path="/Reset-password" element={<ResetPassword/>} />

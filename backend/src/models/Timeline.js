@@ -25,11 +25,6 @@ const TimelineSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  pageContext: {
-    type: String,
-    enum: ["about", "support"],
-    required: true
-  },
   eventNumber:{
     type: String,
     required: true

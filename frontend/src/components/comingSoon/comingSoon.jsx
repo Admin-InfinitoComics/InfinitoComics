@@ -5,7 +5,6 @@ import gifImage from '../../../../frontend/src/components/comingSoon/Untitled.gi
 const ComingSoonPage = () => {
   return (
     <>
-      {/* Google Fonts */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
       <link

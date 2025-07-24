@@ -28,7 +28,7 @@ import ErrorPage from './pages/ErrorForm/ErrorPage.jsx';
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
 
-
+import Games from './pages/Games/Games.jsx'
 
 function App() {
   useEffect(() => {
@@ -93,6 +93,7 @@ function App() {
 
             <Route path="/createAvatar" element={<SignupStep3/>}/>
             <Route path="/cart" element={<Cart/>}/>
+            <Route path='/games' element={<Games></Games>}></Route>
             
             </Route>
           </Routes>

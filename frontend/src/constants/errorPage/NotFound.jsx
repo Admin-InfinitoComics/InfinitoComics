@@ -1,6 +1,6 @@
 import React from 'react';
 import alienGif from './2.gif';
-
+import { Link } from 'react-router-dom';
 const App = () => {
   return (
     <div className="flex justify-center mb-12 bg-white">
@@ -11,7 +11,7 @@ const App = () => {
           className="max-h-[550px] w-auto object-contain "
         />
 
-        <h1 className="text-blue-300 text-3xl sm:text-4xl md:text-5xl font-serif mb-2">
+        <h1 className="text-blue-300 text-3xl sm:text-4xl md:text-5xl font-mono font-bold mb-2 uppercase">
           Page Not Found!
         </h1>
 
@@ -23,9 +23,11 @@ const App = () => {
           <span>
             Our Heroes will fight it out... meanwhile you can explore more on
           </span>
+          <Link to="/">
           <button className="bg-blue-300 hover:bg-blue-400 text-green-50 px-3 py-1 text-sm sm:text-base rounded">
             INFINITO COMICS
           </button>
+          </Link>
         </div>
       </div>
     </div>

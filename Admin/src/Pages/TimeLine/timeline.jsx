@@ -4,7 +4,7 @@
   import Swal from 'sweetalert2';
   import withReactContent from 'sweetalert2-react-content';
   const MySwal = withReactContent(Swal);
-  const showAlert = (type) => {
+  const showAlert = (type, shouldReload = true) => {
     const config = {
       icon: 'success',
       title: '',
@@ -41,7 +41,9 @@
         config.html = 'Operation completed successfully!';
     }
     MySwal.fire(config).then(() => {
-      window.location.reload(); 
+      if (shouldReload) {
+        window.location.reload();
+    }
     });
   };
 
@@ -188,7 +190,7 @@ const getNextEventNumber = () => {
         throw new Error(result.data.message || "Failed to create timeline event.");
       }
 
-      showAlert('published');
+      showAlert('published', false); 
     } catch (error) {
       console.error(error);
       alert(error.message || "Error while creating timeline event.");

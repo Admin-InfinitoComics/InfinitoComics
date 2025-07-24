@@ -5,17 +5,13 @@ const timelineService = new TimelineService();
 
 export const createEvent = async (req, res) => {
   try {
-    console.log("inside the controller func")
     const { title, eventDate, category , description, eventNumber } = req.body;
-    console.log(title, eventDate, category, description, eventNumber )
     if (!title || !eventDate || !description || !category || !eventNumber ) {
       return res.status(400).json({ message: "All fields are required." });
     }
     if (!req.file) {
       return res.status(400).json({ message: "An image is required." });
     }
-    
-    // Upload the single image to S3 and get the URL
     const uploadResult = await uploadToS3(req.file.buffer, req.file.originalname, req.file.mimetype);
     const imageUrl = uploadResult.Location;
 
@@ -50,12 +46,10 @@ export const updateEvent = async (req, res) => {
     const { title, eventDate, category, description, eventNumber } = req.body;
     let imageUrl;
 
-    // If a new file is uploaded, upload it to S3
     if (req.file) {
       const uploadResult = await uploadToS3(req.file.buffer, req.file.originalname, req.file.mimetype);
       imageUrl = uploadResult.Location;
     } else if (req.body.imageUrl) {
-      // If no new file, use existing imageUrl from body (for partial update)
       imageUrl = req.body.imageUrl;
     }
 

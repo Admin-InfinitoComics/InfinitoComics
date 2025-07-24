@@ -11,15 +11,12 @@ export const getAllItems = async () => {
   }
 };
 
-// API Call Function
 export const addItems = async (block) => {
   const { title, eventDate, category, description, eventNumber, image } = block;
 
-  // Validate all fields
   if (!title || !description || !eventDate || !category || !eventNumber || !image) {
     throw new Error("Please fill all fields in the block before submitting.");
   }
-
   const formData = new FormData();
   formData.append("title", title);
   formData.append("eventDate", eventDate);
@@ -27,8 +24,6 @@ export const addItems = async (block) => {
   formData.append("description", description);
   formData.append("image", image);
   formData.append("eventNumber", String(eventNumber));
-  console.log("inside the func")
-  console.log(title, eventDate, category, description, eventNumber)
 
   const token = localStorage.getItem("authToken");
 
@@ -51,16 +46,13 @@ export const updateItems = async (id, item) => {
   formData.append('eventDate', item.eventDate);
   formData.append('category', item.category)
   formData.append('description', item.description);
-
   formData.append('eventNumber', String(item.eventNumber));
 
-  // Handle optional image: if a new file is being uploaded
   if (item.image instanceof File) {
-    formData.append('image', item.image); // backend expects req.file
+    formData.append('image', item.image); 
   } else if (item.imageUrl) {
-    formData.append('imageUrl', item.imageUrl); // use existing URL if no new file
+    formData.append('imageUrl', item.imageUrl); 
   }
-
   try {
     const response = await axios.put(
       `${BACKEND_URL}/timeline/update/${id}`,
@@ -81,13 +73,12 @@ export const updateItems = async (id, item) => {
 
 
 export const deleteItems = async (id) => {
-     const token = localStorage.getItem("authToken");
-     console.log(token)
+  const token = localStorage.getItem("authToken");
   try {
     const response = await axios.delete(`${BACKEND_URL}/timeline/delete/${id}`, {
-      withCredentials: true, // in case you are using cookies for auth
+      withCredentials: true, 
       headers: {
-        Authorization: `Bearer ${token}`, // ✅ CORRECT placement
+        Authorization: `Bearer ${token}`, 
       },
     });
     return response.data;

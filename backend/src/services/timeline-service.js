@@ -15,7 +15,6 @@ class TimelineService {
     try {
       console.log("data's data")
       console.log(data.title, data.eventDate, data.category, data.description, data.eventNumber)
-      // Accepts: { title, eventDate, description, imageUrl }
       return await this.timelineRepository.create({
         title: data.title,
         eventDate: data.eventDate,
@@ -53,7 +52,6 @@ class TimelineService {
 
   async updateEvent(id, data) {
     try {
-      // Accepts: { title, eventDate, description, imageUrl }
       return await this.timelineRepository.findByIdandUpdate(id, {
         title: data.title,
         eventDate: data.eventDate,

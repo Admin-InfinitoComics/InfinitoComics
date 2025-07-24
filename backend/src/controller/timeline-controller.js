@@ -14,7 +14,7 @@ export const createEvent = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "An image is required." });
     }
-
+    
     // Upload the single image to S3 and get the URL
     const uploadResult = await uploadToS3(req.file.buffer, req.file.originalname, req.file.mimetype);
     const imageUrl = uploadResult.Location;
@@ -29,7 +29,7 @@ export const createEvent = async (req, res) => {
 export const getAllEvents = async (req, res) => {
   try {
     const events = await timelineService.getAllEvents();
-    res.status(200).json({ data: events, success: true });
+    res.status(200).json({ data: events, success: true, message: "All timelines fetched successfully!" });
   } catch (error) {
     res.status(500).json({ message: error.message, success: false });
   }

@@ -97,6 +97,10 @@ function App() {
             <Route path="/createAvatar" element={<SignupStep3/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path='/games' element={<Games></Games>}></Route>
+            <Route path="/characters" element={<Community/>} />
+            <Route path="/comics" element={<Community/>} />
+            <Route path="/animation" element={<Community/>} />
+            <Route path="/shop" element={<Community/>} />
             
             </Route>
           </Routes>

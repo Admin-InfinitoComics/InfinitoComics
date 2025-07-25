@@ -10,6 +10,7 @@ import {
 import logo from '../../../assets/Logo.png';
 import smallLogo from '../../../assets/Images/foot.png';
 import FooterShimmer from '../../shimmer/landingPageShimmer/FooterShimmer'
+import { FOUNDATION_BASE_URL, RESEARCH_BASE_URL } from "../../utils/constants";
 
 const socialLinks = [
   { icon: FaTwitter, url: 'https://x.com/InfinitoHQ' },
@@ -46,13 +47,13 @@ const Footer = () => {
 
           <div className="flex flex-wrap gap-6 text-sm">
             <div className="flex flex-col space-y-4">
-              <span className="font-bold">BLOGS & NEWS</span>
+            <Link to="/news">  <span className="">BLOGS & NEWS</span></Link>
               <Link to="/careers"><span>CAREER</span></Link>
-              <span>INTERNSHIP</span>
+             <Link to="/comics" ><span>COMICS</span></Link> 
             </div>
             <div className="flex flex-col space-y-4">
-              <span className="font-bold">FOUNDATION</span>
-              <span>RESEARCH</span>
+             <Link to={FOUNDATION_BASE_URL}><span className="font">FOUNDATION</span></Link> 
+             <Link to={RESEARCH_BASE_URL} > <span>RESEARCH</span></Link>
               <Link to="/support-us"><span>SUPPORT US</span></Link>
             </div>
           </div>
@@ -80,9 +81,9 @@ const Footer = () => {
                 </p>
               </div>
 
-              <button className="w-full bg-white text-black px-5 py-3 text-sm font-bold tracking-wide">
+             <Link to="/ultimate" > <button className="w-full bg-white text-black px-5 py-3 text-sm font-bold tracking-wide cursor-pointer ">
                 JOIN INFINITO ULTIMATE ›
-              </button>
+              </button></Link>
             </div>
           </div>
         </div>

@@ -24,6 +24,7 @@ import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
+import toast, {Toaster} from 'react-hot-toast'  
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
 
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <Provider store={appStore}>
 
       <BrowserRouter basename="/">

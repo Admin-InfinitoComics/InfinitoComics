@@ -9,6 +9,7 @@ import Login from "./Auth/login"
 import Characters from './Pages/Characters/Characters.jsx'
 import Career from './Pages/career/career'
 
+import TimeLine from './pages/TimeLine/timeline';
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
           <Route path="/login" element={<Login />} />  
           <Route path="/characters" element={<Characters/>} />        
           <Route path="/career" element={<Career />} />        
+          <Route path="/login" element={<Login />} />   
+          <Route path="/timeline" element={<TimeLine />} />     
          </Route>  
       </Routes>
     </BrowserRouter>

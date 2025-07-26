@@ -29,6 +29,7 @@ import ErrorPage from './pages/ErrorForm/ErrorPage.jsx';
 
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
+import toast, {Toaster} from 'react-hot-toast'  
 
 import Games from './pages/Games/Games.jsx'
 
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <Provider store={appStore}>
 
       <BrowserRouter basename="/">

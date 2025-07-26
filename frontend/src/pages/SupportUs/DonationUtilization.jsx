@@ -117,7 +117,7 @@ function DonationUtilization() {
           {/* Red Progress Bar */}
           <div className=" my-6 h-[3px] bg-red-100 mx-12 ">
             <div
-              className="h-full bg-red-600 transition-all duration-300"
+              className="h-full bg-red-600 "
               style={{ width: `${((activeStory + 1) / stories?.length) * 100}%` }}
             ></div>
           </div>
@@ -135,7 +135,7 @@ function DonationUtilization() {
                       <div
                         className="absolute top-0 right-0 w-[3px] h-full bg-black transition-all duration-300 group-hover:bg-red-600"
                       ></div>
-                      <h3 className="text-red-600 font-semibold text-2xl mb-1">{story.title}</h3>
+                      <h3 className="text-red-600 font-semibold text-2xl mb-1 uppercase">{story.title}</h3>
                       <p className="text-sm font-bold mb-4 tracking-wider">
                         {stories[activeStory]?.eventDate &&
                           new Date(stories[activeStory].eventDate).toLocaleDateString('en-GB', {
@@ -144,7 +144,7 @@ function DonationUtilization() {
                             year: 'numeric',
                           }).toUpperCase()}
                       </p>
-                      <p className={`text-md text-gray-700 leading-relaxed mb-6 ${!expandedStories[index] ? 'line-clamp-3' : ''}`}>
+                      <p className={`text-md text-gray-700 leading-relaxed  mt-6 mb-6 ${!expandedStories[index] ? 'line-clamp-3' : ''}`}>
                         {story.description}
                       </p>
                       <button
@@ -157,7 +157,7 @@ function DonationUtilization() {
 
                     {/* Right Image Side */}
                     <div className="pt-12 ">
-                      <img src={story?.imageUrl} alt={`Story ${index + 1}`} className="w-full h-76 sm:h-84 lg:h-88 object-cover " loading='lazy' />
+                      <img src={story?.imageUrl} alt={`Story ${index + 1}`} className="w-full h-56 sm:h-54 lg:h-58 object-cover " loading='lazy' />
                     </div>
                   </div>
 
@@ -170,10 +170,10 @@ function DonationUtilization() {
                         className="absolute top-0 right-0 w-[3px] h-full bg-black transition-all duration-300 group-hover:bg-red-600"
 
                       ></div>
-                      <img src={story?.imageUrl} alt={`Story ${index + 1}`} className="w-full h-76 sm:h-84 lg:h-88 object-cover " loading='lazy' />
+                      <img src={story?.imageUrl} alt={`Story ${index + 1}`} className="w-full h-56 sm:h-54 lg:h-58 object-cover " loading='lazy' />
                     </div>
                     <div className="flex flex-col justify-center text-left pt-12">
-                      <h3 className="text-red-600 font-semibold text-2xl mb-1">{story.title}</h3>
+                      <h3 className="text-red-600 font-semibold text-2xl mb-1 uppercase">{story.title}</h3>
                       <p className="text-sm font-bold mb-4 tracking-wider">
                         {stories[activeStory]?.eventDate &&
                           new Date(stories[activeStory].eventDate).toLocaleDateString('en-GB', {
@@ -182,7 +182,7 @@ function DonationUtilization() {
                             year: 'numeric',
                           }).toUpperCase()}
                       </p>
-                      <p className={`text-md text-gray-700 leading-relaxed mb-6 ${!expandedStories[index] ? 'line-clamp-3' : ''}`}>
+                      <p className={`text-md text-gray-700 leading-relaxed mt-6 mb-6 ${!expandedStories[index] ? 'line-clamp-3' : ''}`}>
                         {story.description}
                       </p>
 

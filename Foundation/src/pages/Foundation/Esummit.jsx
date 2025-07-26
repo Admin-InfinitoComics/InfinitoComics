@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import EsummitImg1 from '../../assets/images/foundation/EsummitImg1.png'
 import EsummitImg2 from '../../assets/images/foundation/EsummitImg2.png'
 import EsummitImg3 from '../../assets/images/foundation/EsummitImg3.png'
 import EsummitImg4 from '../../assets/images/foundation/EsummitImg4.png'
+import EsummitShimmer from '../../shimmer/Foundation/EsummitShimmer'
 const Esummit = () => {
-  return (
+      const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      setTimeout(() => setLoading(false), 2400); 
+    }, []);
+  return loading?<EsummitShimmer/>:  (
     <div>
               <div className='mb-16'>
           <h1 className="font-sans text-center font-bold text-4xl text-red-600 transform scale-y-120">

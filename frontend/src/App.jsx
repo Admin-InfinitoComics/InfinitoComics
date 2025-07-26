@@ -22,12 +22,15 @@ import Ultimate from './pages/Infinito Ultimate/Ultimate';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
+import AboutUs from './pages/aboutUs/index.jsx'
+
 
 import ErrorPage from './pages/ErrorForm/ErrorPage.jsx';
 
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
 
+import Games from './pages/Games/Games.jsx'
 import NotFound from './constants/errorPage/NotFound.jsx'
 import NetworkError from './constants/errorPage/NetworkError'
 
@@ -85,6 +88,7 @@ function App() {
           <Route path="/loggedin"  element={<Loggedin/>} />
           <Route path="/Premium"  element={<Premium/>} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />    
+           <Route path="/aboutUS" element={<AboutUs />} />
           <Route path="/Feedback" element={<FeedbackForm/>} /> 
           <Route path="/Dashboard" element={<DashboardPage/>} /> 
           <Route path="/Reset-password" element={<ResetPassword/>} />
@@ -113,6 +117,7 @@ function App() {
 
             <Route path="/createAvatar" element={<SignupStep3/>}/>
             <Route path="/cart" element={<Cart/>}/>
+            <Route path='/games' element={<Games></Games>}></Route>
 
             <Route path="*" element={<NotFound></NotFound>}></Route>
             

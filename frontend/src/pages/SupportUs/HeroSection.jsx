@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaRegCheckCircle, FaRegHeart } from "react-icons/fa";
 import { useSelector } from 'react-redux';
-import { createSupport } from '../../services/supportUs.js'
-import { useParams } from 'react-router-dom';
+import { createSupport, getStats } from '../../services/supportUs.js'
+import toast, { Toaster } from 'react-hot-toast';
 
 import {
   summaryStats,
@@ -13,63 +13,95 @@ import {
 } from '../../constants/heroSectionData.js';
 
 function HeroSection() {
-  const [selectedTab, setSelectedTab] = useState("one-time");
-  const { token } = useParams()
-  // const token = useSelector((state) => state.user?.token);
-  console.log("Token: ",token);
-
+  
 
   const userName = useSelector((state) => state.user.name);
 
+
+
+  const [selectedTab, setSelectedTab] = useState("one-time");
+
+
+
   //donation details
-  const [selectedAmount, setSelectedAmount] = useState(null);
+  const [selectedAmount, setSelectedAmount] = useState('');
   const [customAmount, setCustomAmount] = useState('');
   const [displayName, setDisplayName] = useState(userName);
   const [selectedMonthlyAmount, setSelectedMonthlyAmount] = useState(null);
+  const [oneTimeAmount, setOneTimeAmount] = useState('');
+  const [monthlyAmount, setMonthlyAmount] = useState('');
 
-
+  // const displayedAmount = customAmount !== '' ? customAmount : selectedAmount;
 
   const handleSupportSubmit = async () => {
-  // Step 1: Determine selected amount
-  const amount = selectedTab === "one-time"
-    ? parseInt(customAmount || selectedAmount?.replace(/[₹,\s]/g, ""))
-    : parseInt(selectedMonthlyAmount?.replace(/[₹,\s]/g, ""));
 
-  // Step 2: Validate amount
-  if (!amount || isNaN(amount)) {
-    alert("Please select or enter a valid amount.");
-    return;
-  }
 
-  // Step 3: Construct payload
-  const supportData = {
-    supportType: selectedTab,
-    amount,
-    displayName: selectedTab === "monthly" ? displayName?.trim() : undefined
+    // Step 1: Determine selected amount
+    const amount = selectedTab === "one-time"
+      ? parseInt(customAmount || selectedAmount?.replace(/[₹,\s]/g, ""))
+      : parseInt(selectedMonthlyAmount?.replace(/[₹,\s]/g, ""));
+
+    // Step 2: Validate amount
+    if (!amount || isNaN(amount)) {
+      alert("Please select or enter a valid amount.");
+      return;
+    }
+
+    // Step 3: Construct payload
+    const supportData = {
+      supportType: selectedTab,
+      amount,
+      displayName: displayName
+    };
+
+    try {
+      // Step 4: Call API
+      const token = localStorage.getItem("authtoken");
+      const response = await createSupport(supportData, token);
+      console.log("Support Success:", response);
+
+      toast.success('Thank you for your support!');
+
+      // Optionally reset
+      setSelectedAmount(null);
+      setCustomAmount('');
+      setSelectedMonthlyAmount(null);
+      setDisplayName('');
+    } catch (error) {
+      console.error("Support Error:", error);
+      alert(error?.response?.data?.message || "Something went wrong.");
+    }
   };
 
-  try {
-    // Step 4: Call API
-    const response = await createSupport(supportData, token);
-    console.log("Support Success:", response.data);
 
-    alert("Thank you for your support!");
-    
-    // Optionally reset
-    setSelectedAmount(null);
-    setCustomAmount('');
-    setSelectedMonthlyAmount(null);
-    setDisplayName('');
-  } catch (error) {
-    console.error("Support Error:", error?.response?.data || error);
-    alert(error?.response?.data?.message || "Something went wrong.");
-  }
-};
+  //getting statistics data
+  const [stats, setStats] = useState({});
 
-  // console.log("selectedAmount: ", selectedAmount);
-  // console.log("customAmount: ", customAmount);
-  // console.log("displayName: ", displayName);
-  // console.log("selectedMonthlyAmount: ", selectedMonthlyAmount);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const data = await getStats();
+        setStats(data);
+      }
+      catch (err) {
+        console.log("Error fetching stats: ", err);
+      }
+    }
+    fetchStats();
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("STATS: ", stats);
+  // }, [stats])
+
+  const monthlyFundsStat = stats.monthlyFunds > 325700 ? stats.monthlyFunds : 325701;
+  const formattedMonthlyFunds = monthlyFundsStat.toLocaleString('en-IN');
+  const individualsStat = stats.supporterCount > 345 ? stats.supporterCount : 344;
+  const formattedIndividualStat = individualsStat.toLocaleString('en-IN');
+
+  // console.log("montly: ", monthlyFundsStat);
+  // console.log("individuals: ", individualsStat);
 
   return (
     <div className="flex justify-center items-center">
@@ -87,11 +119,11 @@ function HeroSection() {
 
               <div className="flex flex-wrap items-center justify-between flex-col sm:flex-row gap-1 my-8 ">
                 <div className='flex flex-col justify-center pr-5 '>
-                  <p className="text-2xl sm:text-3xl font-bold text-center">{summaryStats.totalContribution}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-center">{formattedMonthlyFunds}</p>
                   <p className="text-sm sm:text-md">Monthly Contributions!</p>
                 </div>
                 <div className='flex flex-col items-center justify-center px-5'>
-                  <p className="text-2xl sm:text-3xl font-bold">{summaryStats.individuals}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">{formattedIndividualStat}</p>
                   <p className="text-sm sm:text-md">Individuals</p>
                 </div>
                 <div className='flex flex-col justify-center items-center px-5 '>
@@ -138,32 +170,7 @@ function HeroSection() {
                       </span>
                     </p>
 
-                    {/* <div className="grid grid-cols-3 gap-3 mb-4 text-[#DE1215]">
-                      {donationAmounts.map((amount, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedAmount(amount)}
-                          className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white ${amount === "₹ 1500" ? "bg-red-600 text-white" : "border-[#DE1215]"
-                            }`}
-                        >
-                          {amount}
-                        </button>
-                      ))}
-                    </div> */}
-
-                    {/* <div className='flex justify-between mb-4 gap-3'>
-                      <input
-                        placeholder='Please enter Amount (INR)'
-                        type="number"
-                        className='w-2/3 border border-gray-300 px-4 py-3 text-sm'
-                        value={customAmount}
-                        onChange={(e) => setCustomAmount(e.target.value)}
-                      />
-                      <button className='w-1/3 border border-[#DE1215] text-[#DE1215] lg:px-10 text-sm hover:bg-[#DE1215] hover:text-white font-semibold cursor-pointer'>
-                        CUSTOM
-                      </button>
-                    </div> */}
-
+                    {/* donation amount  */}
                     <div className="grid grid-cols-3 gap-3 mb-4 text-[#DE1215]">
                       {donationAmounts.map((amount, idx) => (
                         <button
@@ -171,6 +178,7 @@ function HeroSection() {
                           onClick={() => {
                             setSelectedAmount(amount);
                             setCustomAmount('');
+                            setOneTimeAmount(amount);
                           }}
                           className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white hover:cursor-pointer
         ${selectedAmount === amount ? "bg-red-600 text-white" : "border-[#DE1215]"}`}
@@ -180,26 +188,32 @@ function HeroSection() {
                       ))}
                     </div>
 
-                    <div className='flex justify-between mb-4 gap-3'>
+                    {/* custom amount section  */}
+                    <div className='flex justify-between mb-3 gap-3'>
                       <input
                         placeholder='Please enter Amount (INR)'
                         type="number"
                         className='w-2/3 border border-gray-300 px-4 py-3 text-sm'
-                        value={customAmount}
+                        value={oneTimeAmount}
                         onChange={(e) => {
                           setCustomAmount(e.target.value);
-                          setSelectedAmount(null); // Reset preset selection
+                          setSelectedAmount('');
+                          setOneTimeAmount(e.target.value);
                         }}
                       />
                       <button
-                        className={`w-1/3 border text-sm lg:px-10 font-semibold cursor-pointer 
-      ${customAmount ? "bg-red-600 text-white border-red-600" : "border-[#DE1215] text-[#DE1215] hover:bg-[#DE1215] hover:text-white"}`}
+                        className={`w-1/3 border text-sm font-semibold cursor-pointer
+            ${customAmount ? "bg-red-600 text-white border-red-600" : "border-[#DE1215] text-[#DE1215] hover:bg-[#DE1215] hover:text-white"}`}
                       >
                         CUSTOM
                       </button>
                     </div>
 
-
+                    {selectedTab === "one-time" && oneTimeAmount && (
+                      <div className="text-center text-sm text-[#DE1215] -mb-4 font-semibold">
+                        Thank you! You chose to support with <span className='font-bold'>{customAmount !== '' ? '₹' : ''} {oneTimeAmount}</span>!
+                      </div>
+                    )}
 
 
                     <div className="text-sm mb-4">
@@ -229,11 +243,14 @@ function HeroSection() {
                       *You’ll show up anonymously if you leave this blank.
                     </p>
 
-                    <div className="grid grid-cols-3 gap-3 mb-4 text-[#DE1215]">
+                    <div className="grid grid-cols-3 gap-3 mb-1 text-[#DE1215]">
                       {donationAmounts.map((amount, index) => (
                         <button
                           key={index}
-                          onClick={() => setSelectedMonthlyAmount(amount)}
+                          onClick={() => {
+                            setSelectedMonthlyAmount(amount);
+                            setMonthlyAmount(amount);
+                          }}
                           className={`border py-2 text-sm font-semibold hover:bg-[#DE1215] hover:text-white cursor-pointer 
         ${selectedMonthlyAmount === amount ? "bg-red-600 text-white" : "border-[#DE1215]"}`}
                         >
@@ -241,7 +258,11 @@ function HeroSection() {
                         </button>
                       ))}
                     </div>
-
+                    {selectedTab === "monthly" && monthlyAmount && (
+                      <div className="text-center text-sm text-[#DE1215] mb-1 font-semibold">
+                        Thank you! You chose to support with <span className='font-bold'>{monthlyAmount}</span>!
+                      </div>
+                    )}
 
                     <div className="text-sm mb-4 text-start">
                       <p>

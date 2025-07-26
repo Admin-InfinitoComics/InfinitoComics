@@ -203,7 +203,7 @@ function DonationUtilization() {
 
         {/* VIEW MORE Button (only for large screens) */}
         {visibleCount < stories?.length && (
-          <div className="hidden lg:block text-center mb-16">
+          <div className="hidden lg:block text-center mb-16 pt-16">
             <button
               className="text-red-600 border-2 border-red-600 text-sm px-4 py-2 font-semibold tracking-widest transition cursor-pointer hover:text-white hover:bg-red-600"
               onClick={() => setVisibleCount(prev => Math.min(prev + 2, stories.length))}
@@ -215,7 +215,7 @@ function DonationUtilization() {
 
         {/* End of Stories Message */}
         {visibleCount >= stories?.length && (
-          <div className="hidden lg:block text-center mb-16">
+          <div className="hidden lg:block text-center mb-16 mt-16">
             <p className="text-gray-500 text-sm italic tracking-wider mt-5">
               You've reached the end of the stories for now.
             </p>

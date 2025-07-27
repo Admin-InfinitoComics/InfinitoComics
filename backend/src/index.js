@@ -45,6 +45,9 @@ app.use('/admin', adminroutes);
 app.use('/timeline', timelineRoutes);
 app.use('/career', CareerRoutes);
 app.use('/support', supportRoutes);
+app.get('/', (req, res) => {
+  res.send('🚀 Backend is up and running!');
+});
 
 const storage = multer.memoryStorage();
 export const upload = multer({

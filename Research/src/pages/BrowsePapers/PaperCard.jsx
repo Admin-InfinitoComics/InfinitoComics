@@ -23,7 +23,8 @@ const PaperCard = ({ paper }) => {
     return `${day}-${month}-${year}`;
   })()}</p>
         <button
-          onClick={() => navigate(`/paper/${paper._id}`)}
+          onClick={() => navigate(`/ReadResearch/`)}
+          
           className="border-2 h-[42px] w-[150px] text-[#202020] border-[#202020] my-2 px-4 py-1.5 font-semibold text-[12px] hover:bg-black hover:text-white transition"
         >
           VIEW PAPER &gt;

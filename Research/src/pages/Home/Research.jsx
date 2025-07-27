@@ -1,5 +1,6 @@
 // ResearchPlans.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 import FAQSection from "./FAQSection"; // Adjust the path if needed
 import "./Research.css";
 import ResearchCards from "./ResearchCards";
@@ -40,12 +41,12 @@ const ResearchPlans = () => {
           <br />
           Join Research Plus today to unlock them all.
         </p>
-        <a
-          href="#"
+        <Link
+          to="/browseResearch"
           className="uppercase mt-4 text-sm md:text-md tracking-widest font-medium text-white bg-red-600 hover:bg-red-700 px-4 py-2 w-max rounded"
         >
           Join Now &rsaquo;
-        </a>
+        </Link>
       </div>
     </div>
 

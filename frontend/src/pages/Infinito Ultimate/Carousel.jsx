@@ -4,7 +4,7 @@ import belowImage from "../../../assets/Images/Ultimate/Botton.png";
 import overlayImage from "../../../assets/Images/Ultimate/OverlayImage.png";
 import leftOverlayImage from "../../../assets/Images/Ultimate/leftoverlay.png";
 import rightOverlayImage from "../../../assets/Images/Ultimate/rightoverlay.png";
-import universetext from "../../../assets/Images/Ultimate/universetext.png";
+import universetext from "../../../assets/Images/Ultimate/ultimateCarousel.jpg"
 
 
 const images = [

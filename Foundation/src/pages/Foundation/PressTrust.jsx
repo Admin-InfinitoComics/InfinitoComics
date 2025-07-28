@@ -1,8 +1,12 @@
-import React from "react";
-import PTI from "../../assets/images/foundation/PTI.png";
+import React, { useState, useEffect } from "react";import PTI from "../../assets/images/foundation/PTI.png";
 import groupPic from "../../assets/images/foundation/groupPic.png";
+import PressTrustShimmer from '../../shimmer/Foundation/PressTrustShimmer'
 const PressTrust = () => {
-  return (
+      const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      setTimeout(() => setLoading(false), 2400); 
+    }, []);
+  return loading?<PressTrustShimmer/>: (
     <div>
 
       <div>

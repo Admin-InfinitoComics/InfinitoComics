@@ -35,7 +35,7 @@ function Journey() {
     return (
         <div className=" flex justify-center">
             <div className="relative w-11/12 lg:w-2/3 ">
-                <h2 className="text-start text-2xl font-bold mb-12 tracking-widest">
+                <h2 className="text-start text-3xl font-bold mb-12 tracking-widest">
                     OUR JOURNEY
                 </h2>
 

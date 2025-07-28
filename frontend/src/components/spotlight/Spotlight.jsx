@@ -19,7 +19,7 @@ const Spotlight = () => {
           backgroundImage: `url(${bgtop})`, // template literal used here
           backgroundSize: "cover", // Make it responsive
         }}
-      ></div>
+      />
       <div className="w-full bg-cover bg-center bg-no-repeat px-4  bg-[#171717] ">
         {/* Wrapper with responsive max-width and padding */}
         <div className="max-w-7xl  mx-auto flex flex-col md:flex-row items-center justify-between gap-10 py-10 md:py-15 px-4 sm:px-6">
@@ -71,10 +71,10 @@ const Spotlight = () => {
       <div
         className="w-full pb-20 -mt-1"
         style={{
-          backgroundImage: `url(${bgbottom})`, // 👈 template literal used here
+          backgroundImage: `url(${bgbottom})`, //   template literal used here
           backgroundSize: "cover", // Make it responsive
         }}
-      ></div>{" "}
+      />
     </>
   );
 };

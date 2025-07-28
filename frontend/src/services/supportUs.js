@@ -12,11 +12,17 @@ export const createSupport = async (supportData, token) => {
     supportData,
     {
       headers: {
-        Authorization: `Bearer ${token}`, // Assuming JWT auth
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     }
   );
 
   return response.data;
+
+};
+
+export const getStats = async () => {
+    const res = await axios.get(`${BASE_URL}/support/statistics`);
+    return res.data.data;
 };

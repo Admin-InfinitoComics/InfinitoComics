@@ -13,12 +13,15 @@ class TimelineService {
   
   async createEvent(data) {
     try {
-      // Accepts: { title, eventDate, description, imageUrl }
+      console.log("data's data")
+      console.log(data.title, data.eventDate, data.category, data.description, data.eventNumber)
       return await this.timelineRepository.create({
         title: data.title,
         eventDate: data.eventDate,
+        category:data.category,
         description: data.description,
-        imageUrl: data.imageUrl
+        imageUrl: data.imageUrl,
+        eventNumber: data.eventNumber
       });
     } catch (error) {
       console.error(`[TimelineService] Error in createEvent:`, error);
@@ -49,12 +52,13 @@ class TimelineService {
 
   async updateEvent(id, data) {
     try {
-      // Accepts: { title, eventDate, description, imageUrl }
       return await this.timelineRepository.findByIdandUpdate(id, {
         title: data.title,
         eventDate: data.eventDate,
+        category: data.category,
         description: data.description,
-        imageUrl: data.imageUrl
+        imageUrl: data.imageUrl,
+        eventNumber: data.eventNumber
       });
     } catch (error) {
       console.error(`[TimelineService] Error in updateEvent:`, error);

@@ -5,11 +5,18 @@ import {
   FaInstagram,
   FaYoutube,
   FaLinkedinIn,
-  FaTwitter,
-  FaPinterestP
+  FaTwitter
 } from 'react-icons/fa';
 import URLs from "../../Utils/utils.js";
 import FooterShimmer from '../../shimmer/FooterShimmer';
+
+const socialLinks = [
+  { icon: FaTwitter, url: 'https://x.com/InfinitoHQ' },
+  { icon: FaYoutube, url: 'https://www.youtube.com/@InfinitoHQ' },
+  { icon: FaFacebookF, url: 'https://www.facebook.com/infinitoHQ' },
+  { icon: FaInstagram, url: 'https://www.instagram.com/infinitoHQ/' },
+  { icon: FaLinkedinIn, url: 'https://www.linkedin.com/company/infinitoHQ' },
+];
 
 const Footer = () => {
     const [loading, setLoading] = useState(true);
@@ -52,13 +59,16 @@ const Footer = () => {
           <div className="px-4">
             <div className="flex flex-col items-start gap-4 w-full max-w-[240px]">
               <div className="flex flex-wrap gap-1">
-                {[FaPinterestP, FaTwitter, FaYoutube, FaFacebookF, FaInstagram, FaLinkedinIn].map((Icon, idx) => (
-                  <div
+                {socialLinks.map(({ icon: Icon, url }, idx) => (
+                  <a
                     key={idx}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="border border-white p-2 rounded hover:text-[#FF2D2D] cursor-pointer"
                   >
                     <Icon className="text-lg" />
-                  </div>
+                  </a>
                 ))}
               </div>
 
@@ -122,10 +132,16 @@ const Footer = () => {
 
 
           <div className="mt-10 flex flex-wrap justify-center  gap-2">
-            {[FaPinterestP, FaTwitter, FaYoutube, FaFacebookF, FaInstagram, FaLinkedinIn].map((Icon, idx) => (
-              <div key={idx} className="border border-white p-2 rounded hover:text-[#FF2D2D] cursor-pointer">
-                <Icon className="text-lg" />
-              </div>
+           {socialLinks.map(({ icon: Icon, url }, idx) => (
+                  <a
+                    key={idx}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border border-white p-2 rounded hover:text-[#FF2D2D] cursor-pointer"
+                  >
+                    <Icon className="text-lg" />
+                  </a>
             ))}
           </div>
         </div>

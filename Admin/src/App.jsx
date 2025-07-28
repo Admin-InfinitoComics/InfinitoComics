@@ -10,6 +10,7 @@ import Comic from './Pages/Comic/Comic.jsx'
 import Career from './Pages/career/career.jsx'
 import ChapterDashboard from './Pages/Comic/ChapterDashboard.jsx';
 
+import TimeLine from './pages/TimeLine/timeline';
 
 function App() {
   return (
@@ -24,10 +25,12 @@ function App() {
           <Route path="/createblog" element={<CreateBlog />} />
           <Route path="/users" element={<User/>}> </Route>
           <Route path="/login" element={<Login />} />  
-          <Route path="/comic" element={<Comic/>} />        
-          <Route path="/career" element={<Career />} />   
+          <Route path="/comic" element={<Comic/>} /> 
           <Route path="/comic/:comicId/chapters" element={<ChapterDashboard />} />
-     
+          <Route path="/characters" element={<Characters/>} />        
+          <Route path="/career" element={<Career />} />        
+          <Route path="/login" element={<Login />} />   
+          <Route path="/timeline" element={<TimeLine />} />     
          </Route>  
       </Routes>
     </BrowserRouter>

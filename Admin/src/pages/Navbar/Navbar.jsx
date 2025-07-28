@@ -83,6 +83,13 @@ const Navbar = () => {
           >
             BLOGS
           </Link>
+           <Link
+              to="/timeline"
+              onClick={toggleMenu}
+              className="text-white hover:text-red-500 transition px-3 py-2"
+            >
+              Timeline
+            </Link>
           {token ? (
             <Popconfirm
               title="Log Out"
@@ -176,6 +183,14 @@ const Navbar = () => {
               className="text-white hover:text-red-500 transition"
             >
               BLOGS
+            </Link>
+
+            <Link
+              to="/timeline"
+              onClick={toggleMenu}
+              className="text-white hover:text-red-500 transition"
+            >
+              Timeline
             </Link>
 
             {token ? (

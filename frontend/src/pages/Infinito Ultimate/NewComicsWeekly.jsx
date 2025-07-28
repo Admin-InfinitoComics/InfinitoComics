@@ -1,5 +1,5 @@
 import React from 'react'
-import ComicCards from '../Home/ComicCards'
+import ComicCard from './ComicCard'
 
 const NewComicsWeekly = () => {
   return (
@@ -12,7 +12,10 @@ const NewComicsWeekly = () => {
           Get first access to all new Infinito titles every Friday — fresh issues, universe crossovers, and more.
         </p>
       </div>
-      <ComicCards/>
+      <div className='w-5/6'>
+        <ComicCard />
+      </div>
+      
     </div>
   )
 }

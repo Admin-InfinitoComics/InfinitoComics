@@ -11,6 +11,10 @@ const TimelineSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
+  category:{
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true,
@@ -21,9 +25,8 @@ const TimelineSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  pageContext: {
+  eventNumber:{
     type: String,
-    enum: ["about", "support"],
     required: true
   }
 });

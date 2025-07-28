@@ -9,7 +9,11 @@ const Body = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === '/') {
+    const isInitialLoad =
+      performance.getEntriesByType('navigation')[0]?.type === 'reload' ||
+      performance.getEntriesByType('navigation')[0]?.type === 'navigate';
+
+    if (location.pathname === '/' && isInitialLoad) {
       setLoading(true);
       const timer = setTimeout(() => {
         setLoading(false);
@@ -19,9 +23,9 @@ const Body = () => {
     } else {
       setLoading(false);
     }
-  }, [location.pathname]);
+  }, []);
 
-  if (loading && location.pathname === '/') {
+  if (loading) {
     return <LogoLoader />;
   }
 

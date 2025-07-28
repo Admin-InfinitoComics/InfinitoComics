@@ -6,8 +6,9 @@ import User from './Pages/UserList/UserList';
 import Home from './pages/Home/home';
 import FAQManager from './Pages/Faq/FaqManager';
 import Login from "./Auth/login"
-import Characters from './Pages/Characters/Characters.jsx'
-import Career from './Pages/career/career'
+import Comic from './Pages/Comic/Comic.jsx'
+import Career from './Pages/career/career.jsx'
+import ChapterDashboard from './Pages/Comic/ChapterDashboard.jsx';
 
 
 function App() {
@@ -23,8 +24,10 @@ function App() {
           <Route path="/createblog" element={<CreateBlog />} />
           <Route path="/users" element={<User/>}> </Route>
           <Route path="/login" element={<Login />} />  
-          <Route path="/characters" element={<Characters/>} />        
-          <Route path="/career" element={<Career />} />        
+          <Route path="/comic" element={<Comic/>} />        
+          <Route path="/career" element={<Career />} />   
+          <Route path="/comic/:comicId/chapters" element={<ChapterDashboard />} />
+     
          </Route>  
       </Routes>
     </BrowserRouter>

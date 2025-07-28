@@ -24,8 +24,8 @@ import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
-import toast, {Toaster} from 'react-hot-toast'  
-
+import Comic from './components/Comics/Comic.jsx'
+import {Toaster} from 'react-hot-toast'
 
 function App() {
   useEffect(() => {
@@ -87,6 +87,7 @@ function App() {
             <Route path="/verifyEmail" element={<OTPVerification/>}/>
             <Route path="/createAvatar" element={<SignupStep3/>}/>
             <Route path="/cart" element={<Cart/>}/>
+            <Route path="/comics" element={<Comic/>}/>
             
             </Route>
           </Routes>

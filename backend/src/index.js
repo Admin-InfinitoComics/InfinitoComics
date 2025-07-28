@@ -13,6 +13,7 @@ import adminroutes from './routes/admin-routes.js';
 import timelineRoutes from './routes/timelineRoutes.js';
 import CareerRoutes from './routes/career-routes.js';
 import supportRoutes from './routes/support-routes.js';
+import comicRoutes from './routes/comic-routes.js';
 
 const allowedOrigins = [
   config.FRONTEND_URL,
@@ -45,6 +46,7 @@ app.use('/admin', adminroutes);
 app.use('/timeline', timelineRoutes);
 app.use('/career', CareerRoutes);
 app.use('/support', supportRoutes);
+app.use('/api/comic', comicRoutes);
 
 const storage = multer.memoryStorage();
 export const upload = multer({

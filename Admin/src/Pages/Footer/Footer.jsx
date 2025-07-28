@@ -8,8 +8,7 @@ import {
   FaTwitter,
   FaPinterestP
 } from 'react-icons/fa';
-import logo from '../../assets/Logo.png';
-import smallLogo from '../../assets/foot.png';
+import URLs from "../../Utils/utils.js";
 import FooterShimmer from '../../shimmer/FooterShimmer';
 
 const Footer = () => {
@@ -26,7 +25,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="px-4">
             <div className="w-44 mx-auto">
-              <img src={logo} alt="Infinito Logo" className="w-full h-auto" />
+              <img src={URLs.Logo_url} alt="Infinito Logo" className="w-full h-auto" />
               <p className="text-[8px] pt-1 leading-tight text-white text-center">
                 WHERE IMAGINATIONS BREAKS BOUNDARIES
               </p>
@@ -64,7 +63,7 @@ const Footer = () => {
               </div>
 
               <div className="flex items-center gap-2 px-3 py-2 text-xs text-left w-full">
-                <img src={smallLogo} alt="logo" className="w-6 h-6 object-contain" />
+                <img src={URLs.foot_url} alt="logo" className="w-6 h-6 object-contain" />
                 <p className="text-white leading-snug">
                   Unlocks Exclusive Comics, Early Access To New Releases & Member-Only Merch!
                 </p>
@@ -83,7 +82,7 @@ const Footer = () => {
       <div className="block md:hidden">
         <div className="text-center px-6">
           <div className="w-56 mx-auto mb-2">
-            <img src={logo} alt="Infinito Logo" className="w-full h-auto" />
+            <img src={URLs.Logo_url} alt="Infinito Logo" className="w-full h-auto" />
           </div>
           <p className="text-[10.5px]  leading-tight">WHERE IMAGINATIONS BREAKS BOUNDARIES</p>
           <p className="mt-3  text-[12px] text-left px-8  text-[#B4B4B4] leading-snug">
@@ -105,7 +104,7 @@ const Footer = () => {
 
 
   <div className=" flex items-center justify-center">
-    <img src={smallLogo} alt="logo" className="w-48 h-48 object-contain" />
+    <img src={URLs.foot_url} alt="logo" className="w-48 h-48 object-contain" />
   </div>
 
 

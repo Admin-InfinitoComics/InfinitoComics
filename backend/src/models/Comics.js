@@ -21,7 +21,8 @@ const comicSchema = mongoose.Schema({
     },
     chapters: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Chapter',
+        ref: 'Timeline',
+        // ref: 'Chapter',
     }]
 },
     { timestamps: true }

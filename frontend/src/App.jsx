@@ -25,6 +25,8 @@ import OTPVerification from './pages/resentOtp/resendOtp';
 import AboutUs from './pages/aboutUs/index.jsx'
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
+import Characters from './pages/Characters/index.jsx'
+import Biography from './pages/biography/Index.jsx'
 
 
 function App() {
@@ -62,6 +64,8 @@ function App() {
           <Route path="/loggedin"  element={<Loggedin/>} />
           <Route path="/Premium"  element={<Premium/>} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />    
+          <Route path="/characters" element={<Characters/>} />    
+          <Route path="/characters/biography" element={<Biography/>} />    
            <Route path="/aboutUS" element={<AboutUs />} />
           <Route path="/Feedback" element={<FeedbackForm/>} /> 
           <Route path="/Dashboard" element={<DashboardPage/>} /> 

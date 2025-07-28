@@ -63,9 +63,11 @@ const Header = () => {
         {/* Login Button (only on desktop) */}
 
         
-<div className="hidden md:block">
+<div className="hidden cursor-pointer md:block">
   {user ? (
-    <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
+    <div className="flex items-center gap-2 pointer border border-white px-4 py-2 uppercase text-sm"
+    onClick={()=>navigate("/dashboard")}>
+      
       <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
       <span className="tracking-wide">
         Hi, {user?.name?.split(" ")[0] || "Guest"}!

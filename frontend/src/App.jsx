@@ -1,4 +1,5 @@
 import './App.css'
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import appStore from './redux/appStore';
@@ -18,16 +19,23 @@ import FeedbackForm from './pages/FeedbackForm/Feedback';
 import News_Display from './pages/News_Blogs/News_Display';
 import SupportUs from './pages/SupportUs/Index.jsx'
 import Ultimate from './pages/Infinito Ultimate/Ultimate';
-import { useEffect } from 'react';
 import Jobs from './pages/Career&Internships/jobs'
 import AllNewsPage from './pages/News_Blogs/AllNewsDisplayPage';
 import OTPVerification from './pages/resentOtp/resendOtp';
 import AboutUs from './pages/aboutUs/index.jsx'
+
+
+import ErrorPage from './pages/ErrorForm/ErrorPage.jsx';
+
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
 import Characters from './pages/Characters/index.jsx'
 import Biography from './pages/biography/Index.jsx'
+import toast, {Toaster} from 'react-hot-toast'  
 
+import Games from './pages/Games/Games.jsx'
+import NotFound from './constants/errorPage/NotFound.jsx'
+import NetworkError from './constants/errorPage/NetworkError'
 
 function App() {
   useEffect(() => {
@@ -51,8 +59,28 @@ function App() {
     return () => window.removeEventListener("message", listener);
   }, []);
 
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  if (!isOnline) {
+    return <NetworkError />;
+  }
+
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <Provider store={appStore}>
 
       <BrowserRouter basename="/">
@@ -89,12 +117,20 @@ function App() {
            <Route path="/ultimate" element={<Ultimate/>} />
             <Route path="/all-news" element={<AllNewsPage />} />
             <Route path="/verifyEmail" element={<OTPVerification/>}/>
+
+            <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+            <Route path ="/ErrorReport" element={<ErrorPage/>}/>
+
             <Route path="/createAvatar" element={<SignupStep3/>}/>
             <Route path="/cart" element={<Cart/>}/>
+            <Route path='/games' element={<Games></Games>}></Route>
+
+            <Route path="*" element={<NotFound></NotFound>}></Route>
             
             </Route>
           </Routes>
         </BrowserRouter>
+
       </Provider>
     </>
   );

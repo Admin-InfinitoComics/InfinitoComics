@@ -11,12 +11,21 @@ const TimelineSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
+  category:{
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     required: true,
-    maxlength: 3000
+    maxlength: 3000,
+    trim: true
   },
   imageUrl: {
+    type: String,
+    required: false
+  },
+  eventNumber:{
     type: String,
     required: true
   }

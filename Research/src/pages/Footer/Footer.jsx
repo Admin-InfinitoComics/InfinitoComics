@@ -4,13 +4,18 @@ import {
   FaInstagram,
   FaYoutube,
   FaLinkedinIn,
-  FaTwitter,
-  FaPinterestP
+  FaTwitter
 } from 'react-icons/fa';
 import logo from '../../../assets/Logo (1).png'; 
 import smallLogo from '../../../assets/Images/foot.png';
 
-
+const socialLinks = [
+  { icon: FaTwitter, url: 'https://x.com/InfinitoHQ' },
+  { icon: FaYoutube, url: 'https://www.youtube.com/@InfinitoHQ' },
+  { icon: FaFacebookF, url: 'https://www.facebook.com/infinitoHQ' },
+  { icon: FaInstagram, url: 'https://www.instagram.com/infinitoHQ/' },
+  { icon: FaLinkedinIn, url: 'https://www.linkedin.com/company/infinitoHQ' },
+];
 const Footer = () => {
   return (
     <footer className="bg-[#121212] text-white px-6 py-10">
@@ -52,13 +57,16 @@ const Footer = () => {
   <div className="flex flex-col items-start gap-4 w-full max-w-[240px]">
    
     <div className="flex flex-wrap gap-1">
-      {[FaPinterestP, FaTwitter, FaYoutube, FaFacebookF, FaInstagram, FaLinkedinIn].map((Icon, idx) => (
-        <div
+      {socialLinks.map(({ icon: Icon, url }, idx) => (
+        <a
           key={idx}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
           className="border border-white p-2 rounded hover:text-[#FF2D2D] cursor-pointer"
         >
           <Icon className="text-lg" />
-        </div>
+        </a>
       ))}
     </div>
 

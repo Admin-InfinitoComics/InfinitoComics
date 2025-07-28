@@ -1,7 +1,7 @@
 import React from 'react';
-import bgTorn from '../../../assets/Images/Ultimate/CreatorAccessMiddle.png'; // middle torn bg
-import topTorn from '../../../assets/Images/Ultimate/CreatorAccessUpper.png'; // top edge image
-import bottomTorn from '../../../assets/Images/Ultimate/CreatorAccessLower.png'; // bottom edge image
+import bgTorn from '../../../assets/Images/Ultimate/CreatorAccessMiddle.png'; 
+import topTorn from '../../../assets/Images/Ultimate/CreatorAccessUpper.png'; 
+import bottomTorn from '../../../assets/Images/Ultimate/CreatorAccessLower.png'; 
 import playIcon from '../../../assets/Images/Ultimate/playIcon.png';
 
 import trailer1 from '../../../assets/Images/Ultimate/trailer1.png';
@@ -23,29 +23,32 @@ const CreatorAccess = () => {
       <img
         src={topTorn}
         alt="Top Torn Edge"
-        className="w-full object-cover block m-0 p-0 -mb-1 "
+        className="w-full object-cover block m-0 p-0 -mb-1"
       />
 
       {/* Main Section with Background */}
       <div className="relative w-full block m-0 p-0">
-        {/* Torn Background Image */}
         <img
           src={bgTorn}
           alt="Background"
-          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none m-0 p-0  "
+          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none m-0 p-0"
         />
 
-        {/* Foreground Content */}
-        <div className="relative z-10 py-[4rem] px-[1rem]  ">
+        <div className="relative z-10 py-[4rem] px-[1rem]">
           <div className="text-center mb-[2.5rem]">
-            <h2 className="text-[1.5rem] md:text-[1.875rem] font-semibold">
+            <h2 className="text-[1.5rem] md:text-[1.875rem] font-semibold leading-relaxed md:leading-tight">
               Unlock Creator Access with Infinito Ultimate
             </h2>
           </div>
 
-          <div className="flex justify-center gap-[2rem] flex-wrap">
+          {/* Cards Container - Desktop flex-wrap, Mobile horizontal scroll */}
+          <div className="flex md:flex-wrap md:justify-center gap-[1rem] overflow-x-auto md:overflow-visible px-4 md:px-0 pb-4 no-scrollbar">
+
             {trailers.map((trailer) => (
-              <div key={trailer.id} className="w-[18.625rem]">
+              <div 
+                key={trailer.id} 
+                className="w-[15rem] md:w-[18.625rem] flex-shrink-0"
+              >
                 <div className="relative w-full h-[8.75rem] md:h-[10rem]">
                   <img
                     src={trailer.image}
@@ -61,6 +64,7 @@ const CreatorAccess = () => {
                 <p className="mt-[0.5rem] text-sm text-center">Watch Trailer</p>
               </div>
             ))}
+
           </div>
         </div>
       </div>
@@ -69,7 +73,7 @@ const CreatorAccess = () => {
       <img
         src={bottomTorn}
         alt="Bottom Torn Edge"
-        className="w-full object-cover block m-0 p-0 -mt-1 "
+        className="w-full object-cover block m-0 p-0 -mt-1"
       />
     </div>
   );

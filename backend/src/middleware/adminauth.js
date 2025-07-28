@@ -12,7 +12,6 @@ export const adminauthenticate = async (req, res, next) => {
     const user = await Admin.findById(decoded.id);
     if (!user) return res.status(401).json({ message: "User not found" });
     req.user = user;
-    console.log(req.user);
     next();
   } catch (err) {
     return res.status(401).json({ message: "Invalid token" });

@@ -1,0 +1,380 @@
+// src/components/characters/AdminPanel.jsx
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import ChipField from './ChipField';
+
+const AdminPanel = ({ editingCharacter, setEditingCharacter, onCharacterSaved }) => {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      knownAs: '',
+      OriginalName: '',
+      BirthDate: '',
+      character: [],
+      interest: [],
+      weapon: [],
+      capability: [],
+      powers: [],
+      height: '',
+      weight: '',
+      age: '',
+      species: '',
+      eyes: '',
+      hair: '',
+      limitation: [],
+      description: '',
+      storylineText: '',
+      storylineImage: null,
+      originText: '',
+      originImage: null,
+      about: '',
+      gender: '',
+      mainImage: null,
+    },
+  });
+
+  // State for chip input fields
+  const [powerInput, setPowerInput] = useState('');
+  const [characterInput, setCharacterInput] = useState('');
+  const [interestInput, setInterestInput] = useState('');
+  const [weaponInput, setWeaponInput] = useState('');
+  const [capabilityInput, setCapabilityInput] = useState('');
+  const [limitationInput, setLimitationInput] = useState('');
+
+  // State for existing images (when editing)
+  const [existingMainImage, setExistingMainImage] = useState(null);
+  const [existingStoryLineImage, setExistingStoryLineImage] = useState(null);
+  const [existingOriginImage, setExistingOriginImage] = useState(null);
+
+  // Watch for images to display previews
+  const mainImageFile = watch('mainImage');
+  const storylineImageFile = watch('storylineImage');
+  const originImageFile = watch('originImage');
+  
+  // Create URLs for image previews
+  const mainImageURL = mainImageFile && mainImageFile[0] ? URL.createObjectURL(mainImageFile[0]) : null;
+  const storylineImageURL = storylineImageFile && storylineImageFile[0] ? URL.createObjectURL(storylineImageFile[0]) : null;
+  const originImageURL = originImageFile && originImageFile[0] ? URL.createObjectURL(originImageFile[0]) : null;
+
+  // Populate form with editing character data when available
+  useEffect(() => {
+    if (editingCharacter) {
+      // Set basic fields
+      Object.keys(editingCharacter).forEach(key => {
+        if (key === 'mainImage') {
+          setExistingMainImage(editingCharacter.mainImage);
+        } else if (key === 'storylineImage') {
+          setExistingStoryLineImage(editingCharacter.storylineImage);
+        } else if (key === 'originImage') {
+          setExistingOriginImage(editingCharacter.originImage);
+        } else if (Array.isArray(editingCharacter[key])) {
+          setValue(key, editingCharacter[key]);
+        } else {
+          setValue(key, editingCharacter[key]);
+        }
+      });
+    } else {
+      // Clear existing images when creating a new character
+      setExistingMainImage(null);
+      setExistingStoryLineImage(null);
+      setExistingOriginImage(null);
+    }
+  }, [editingCharacter, setValue]);
+
+  // Handle form submission
+  const onSubmit = (data) => {
+    // Create a copy of the submitted data
+    const characterData = { ...data };
+    
+    // Handle images
+    if (!mainImageFile || !mainImageFile[0]) {
+      characterData.mainImage = existingMainImage;
+    } else {
+      characterData.mainImage = URL.createObjectURL(mainImageFile[0]);
+    }
+    
+    if (!storylineImageFile || !storylineImageFile[0]) {
+      characterData.storylineImage = existingStoryLineImage;
+    } else {
+      characterData.storylineImage = URL.createObjectURL(storylineImageFile[0]);
+    }
+    
+    if (!originImageFile || !originImageFile[0]) {
+      characterData.originImage = existingOriginImage;
+    } else {
+      characterData.originImage = URL.createObjectURL(originImageFile[0]);
+    }
+    
+    // Ensure these keys don't exist in the data being sent
+    if (characterData.storyLine) delete characterData.storyLine;
+    if (characterData.origin) delete characterData.origin;
+    
+    // If editing, keep the ID
+    if (editingCharacter) {
+      characterData._id = editingCharacter._id;
+      onCharacterSaved(characterData, true);
+      alert('Character updated successfully!');
+    } else {
+      onCharacterSaved(characterData, false);
+      alert('Character created successfully!');
+    }
+    
+    // Reset form and state
+    reset();
+    setEditingCharacter(null);
+  };
+
+  // Handle cancel edit
+  const handleCancel = () => {
+    if (window.confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+      setEditingCharacter(null);
+      reset();
+    }
+  };
+
+  // Define form fields configuration
+  const formFields = [
+    { name: 'knownAs', label: 'Known As', type: 'text', validation: { required: 'Known As is required' } },
+    { name: 'OriginalName', label: 'Original Name', type: 'text', validation: { required: 'Original Name is required' } },
+    { name: 'BirthDate', label: 'Birth Date', type: 'date', validation: { required: 'Birth Date is required' } },
+    { name: 'height', label: 'Height', type: 'text', validation: { required: 'Height is required' } },
+    { name: 'weight', label: 'Weight', type: 'text', validation: { required: 'Weight is required' } },
+    { name: 'age', label: 'Age', type: 'number', validation: { required: 'Age is required', valueAsNumber: true, min: { value: 1, message: 'Age must be at least 1' } } },
+    { name: 'species', label: 'Species', type: 'text', validation: { required: 'Species is required' } },
+    { name: 'eyes', label: 'Eyes', type: 'text', validation: { required: 'Eyes color is required' } },
+    { name: 'hair', label: 'Hair', type: 'text', validation: { required: 'Hair color is required' } },
+    { name: 'gender', label: 'Gender', type: 'select', options: ['Male', 'Female', 'Other'], validation: { required: 'Gender is required' } },
+  ];
+
+  return (
+    <div className="bg-gray-800 p-6 md:p-10 rounded-lg shadow-xl max-w-4xl mx-auto">
+      <h2 className="text-2xl font-bold mb-6 text-center">
+        {editingCharacter ? `Edit Character: ${editingCharacter.knownAs}` : 'Create New Character'}
+      </h2>
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Main Character Image Upload */}
+        <div className="col-span-1 md:col-span-2">
+          <label className="block text-gray-300 font-medium mb-2">Main Character Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            {...register('mainImage', { required: !editingCharacter && 'Main character image is required' })}
+            className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+          />
+          {errors.mainImage && <span className="text-red-500 text-sm mt-1">{errors.mainImage.message}</span>}
+          {mainImageURL ? (
+            <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
+              <img src={mainImageURL} alt="Main character preview" className="w-full h-full object-cover" />
+            </div>
+          ) : existingMainImage && (
+            <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
+              <img src={existingMainImage} alt="Current character" className="w-full h-full object-cover" />
+              <p className="text-sm text-gray-400 mt-1">Current image (upload a new one to change)</p>
+            </div>
+          )}
+        </div>
+
+        {/* Simple Text/Number/Date/Select Fields */}
+        {formFields.map((field) => (
+          <div key={field.name} className="flex flex-col gap-1">
+            <label className="block text-gray-300 font-medium">{field.label}</label>
+            {field.type === 'select' ? (
+              <select
+                {...register(field.name, field.validation)}
+                className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
+              >
+                <option value="">Select a {field.label.toLowerCase()}</option>
+                {field.options.map((option) => (
+                  <option key={option} value={option.toLowerCase()}>{option}</option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type={field.type}
+                {...register(field.name, field.validation)}
+                className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
+              />
+            )}
+            {errors[field.name] && <span className="text-red-500 text-sm mt-1">{errors[field.name].message}</span>}
+          </div>
+        ))}
+
+        {/* Array of Strings (Chips) Fields */}
+        <ChipField 
+          fieldName="powers" 
+          label="Powers" 
+          inputState={powerInput} 
+          setInputState={setPowerInput} 
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+        />
+        <ChipField 
+          fieldName="characteristics" 
+          label="characteristics" 
+          inputState={characterInput} 
+          setInputState={setCharacterInput} 
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+        />
+        <ChipField 
+          fieldName="interest" 
+          label="Interest" 
+          inputState={interestInput} 
+          setInputState={setInterestInput} 
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+        />
+        <ChipField 
+          fieldName="weapon" 
+          label="Weapon" 
+          inputState={weaponInput} 
+          setInputState={setWeaponInput} 
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+        />
+        <ChipField 
+          fieldName="capability" 
+          label="Capability" 
+          inputState={capabilityInput} 
+          setInputState={setCapabilityInput} 
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+        />
+        <ChipField 
+          fieldName="limitation" 
+          label="Limitations" 
+          inputState={limitationInput} 
+          setInputState={setLimitationInput} 
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+        />
+
+        {/* Text Area Fields */}
+        <div className="col-span-1 md:col-span-2">
+          <label className="block text-gray-300 font-medium mb-1">Description</label>
+          <textarea
+            {...register('description', { required: 'Description is required' })}
+            rows="4"
+            className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
+          ></textarea>
+          {errors.description && <span className="text-red-500 text-sm mt-1">{errors.description.message}</span>}
+        </div>
+
+        <div className="col-span-1 md:col-span-2">
+          <label className="block text-gray-300 font-medium mb-1">About</label>
+          <textarea
+            {...register('about', { required: 'About section is required' })}
+            rows="4"
+            className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
+          ></textarea>
+          {errors.about && <span className="text-red-500 text-sm mt-1">{errors.about.message}</span>}
+        </div>
+
+        {/* Story Line Fields */}
+        <div className="col-span-1 md:col-span-2 border-t border-gray-700 pt-6">
+          <h2 className="text-xl font-semibold mb-3">Story Line</h2>
+          <div className="flex flex-col gap-4">
+            <div>
+              <label className="block text-gray-300 font-medium mb-1">Story Line Text</label>
+              <textarea
+                {...register('storylineText', { required: 'Story line text is required' })}
+                rows="4"
+                className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
+              ></textarea>
+              {errors.storylineText && <span className="text-red-500 text-sm mt-1">{errors.storylineText.message}</span>}
+            </div>
+            <div>
+              <label className="block text-gray-300 font-medium mb-1">Story Line Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                {...register('storylineImage', { required: !editingCharacter && 'Story line image is required' })}
+                className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+              />
+              {errors.storylineImage && <span className="text-red-500 text-sm mt-1">{errors.storylineImage.message}</span>}
+              {storylineImageURL ? (
+                <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
+                  <img src={storylineImageURL} alt="Story Line preview" className="w-full h-full object-cover" />
+                </div>
+              ) : existingStoryLineImage && (
+                <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
+                  <img src={existingStoryLineImage} alt="Current storyline" className="w-full h-full object-cover" />
+                  <p className="text-sm text-gray-400 mt-1">Current image (upload a new one to change)</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Origin Fields */}
+        <div className="col-span-1 md:col-span-2 border-t border-gray-700 pt-6">
+          <h2 className="text-xl font-semibold mb-3">Origin</h2>
+          <div className="flex flex-col gap-4">
+            <div>
+              <label className="block text-gray-300 font-medium mb-1">Origin Text</label>
+              <textarea
+                {...register('originText', { required: 'Origin text is required' })}
+                rows="4"
+                className="w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none focus:border-blue-500"
+              ></textarea>
+              {errors.originText && <span className="text-red-500 text-sm mt-1">{errors.originText.message}</span>}
+            </div>
+            <div>
+              <label className="block text-gray-300 font-medium mb-1">Origin Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                {...register('originImage', { required: !editingCharacter && 'Origin image is required' })}
+                className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+              />
+              {errors.originImage && <span className="text-red-500 text-sm mt-1">{errors.originImage.message}</span>}
+              {originImageURL ? (
+                <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
+                  <img src={originImageURL} alt="Origin preview" className="w-full h-full object-cover" />
+                </div>
+              ) : existingOriginImage && (
+                <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
+                  <img src={existingOriginImage} alt="Current origin" className="w-full h-full object-cover" />
+                  <p className="text-sm text-gray-400 mt-1">Current image (upload a new one to change)</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        <div className="col-span-1 md:col-span-2 mt-8 pt-4 border-t border-gray-700 flex gap-4">
+          {editingCharacter && (
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="flex-1 py-3 px-6 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-700 transition-colors focus:outline-none"
+            >
+              Cancel
+            </button>
+          )}
+          <button
+            type="submit"
+            className="flex-1 py-3 px-6 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-colors focus:outline-none"
+          >
+            {editingCharacter ? 'Update Character' : 'Create Character'}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default AdminPanel;

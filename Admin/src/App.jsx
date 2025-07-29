@@ -6,7 +6,7 @@ import User from './Pages/UserList/UserList';
 import Home from './pages/Home/home';
 import FAQManager from './Pages/Faq/FaqManager';
 import Login from "./Auth/login"
-import Characters from './Pages/Characters/Characters.jsx'
+import Characters from './Pages/Characters/CharacterManager'
 import Career from './Pages/career/career'
 
 import TimeLine from './pages/TimeLine/timeline';

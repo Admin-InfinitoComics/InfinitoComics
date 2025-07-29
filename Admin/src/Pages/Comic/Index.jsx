@@ -1,10 +1,10 @@
 import React from 'react'
-import Characters from './Characters.jsx'
+import Comic from './Comic.jsx'
 
 function Index() {
   return (
     <>
-        <Characters/>
+        <Comic/>
     </>
   )
 }

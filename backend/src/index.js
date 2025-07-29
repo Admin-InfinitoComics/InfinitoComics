@@ -13,6 +13,7 @@ import adminroutes from './routes/admin-routes.js';
 import timelineRoutes from './routes/timelineRoutes.js';
 import CareerRoutes from './routes/career-routes.js';
 import supportRoutes from './routes/support-routes.js';
+import comicRoutes from './routes/comic-routes.js';
 import characterRoutes from './routes/character-routes.js';
 
 const allowedOrigins = [
@@ -46,6 +47,7 @@ app.use('/admin', adminroutes);
 app.use('/timeline', timelineRoutes);
 app.use('/career', CareerRoutes);
 app.use('/support', supportRoutes);
+app.use('/api/comic', comicRoutes);
 app.use('/character', characterRoutes);
 app.get('/', (req, res) => {
   res.send('🚀 Backend is up and running!');

@@ -27,6 +27,8 @@ import ErrorPage from './pages/ErrorForm/ErrorPage.jsx';
 import SignupStep3 from './pages/Signup/SignupStep3';
 import Cart from './pages/Cart/Cart';
 import Comic from './components/Comics/Comic.jsx'
+import Characters from './pages/Characters/index.jsx'
+import Biography from './pages/biography/Index.jsx'
 import toast, {Toaster} from 'react-hot-toast'  
 import Games from './pages/Games/Games.jsx'
 import NotFound from './constants/errorPage/NotFound.jsx'
@@ -88,6 +90,8 @@ function App() {
           <Route path="/loggedin"  element={<Loggedin/>} />
           <Route path="/Premium"  element={<Premium/>} />
           <Route path="/forgot-password" element={<ForgotPassword/>} />    
+          <Route path="/characters" element={<Characters/>} />    
+          <Route path="/characters/biography" element={<Biography/>} />    
            <Route path="/aboutUS" element={<AboutUs />} />
           <Route path="/Feedback" element={<FeedbackForm/>} /> 
           <Route path="/Dashboard" element={<DashboardPage/>} /> 

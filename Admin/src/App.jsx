@@ -27,7 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />  
           <Route path="/comic" element={<Comic/>} /> 
           <Route path="/comic/:comicId/chapters" element={<ChapterDashboard />} />
-          <Route path="/characters" element={<Characters/>} />        
+          {/* <Route path="/characters" element={<Characters/>} />         */}
           <Route path="/career" element={<Career />} />        
           <Route path="/login" element={<Login />} />   
           <Route path="/timeline" element={<TimeLine />} />     

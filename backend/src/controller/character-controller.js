@@ -1,12 +1,3 @@
-export const getCharacterList = async (req, res) => {
-  try {
-    const characters = await characterService.getCharacterList();
-    res.status(200).json({ success: true, data: characters });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
 import CharacterService from "../services/character-service.js";
 
 const characterService = new CharacterService();
@@ -27,12 +18,12 @@ export const createCharacter = async (req, res) => {
     // Merge image URLs into request body
     // Parse storyLine and origin as objects if sent as JSON strings
     let storyLine = {
-      text : req.body.storyLine && req.body.storyline.text,
+      text : req.body.storylineText,
       image : ""
 
     }
     let origin = {
-      text : req.body.origin && req.body.origin.text,
+      text : req.body.originText,
       image : ""
 
     }
@@ -46,8 +37,8 @@ export const createCharacter = async (req, res) => {
     if (origin) origin.image = originImageUrl || origin.image;
 
     let storyLineImageUrl = null;
-    if (req.files && req.files.storyLineImage && req.files.storyLineImage[0]) {
-      const file = req.files.storyLineImage[0];
+    if (req.files && req.files.storylineImage && req.files.storylineImage[0]) {
+      const file = req.files.storylineImage[0];
       const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
       storyLineImageUrl = result.Location;
     }
@@ -103,5 +94,14 @@ export const deleteCharacter = async (req, res) => {
     res.status(200).json({ success: true, message: "Character deleted successfully" });
   } catch (error) {
     res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+export const getCharacterList = async (req, res) => {
+  try {
+    const characters = await characterService.getCharacterList();
+    res.status(200).json({ success: true, data: characters });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 };

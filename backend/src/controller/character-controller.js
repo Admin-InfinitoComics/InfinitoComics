@@ -24,19 +24,39 @@ export const createCharacter = async (req, res) => {
       mainImageUrl = result.Location;
     }
 
-    // Handle additional images upload
-    let imagesUrl = [];
-    if (req.files && req.files.images && req.files.images.length > 0) {
-      for (const file of req.files.images) {
-        const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
-        imagesUrl.push(result.Location);
-      }
+    // Merge image URLs into request body
+    // Parse storyLine and origin as objects if sent as JSON strings
+    let storyLine = {
+      text : req.body.storyLine && req.body.storyline.text,
+      image : ""
+
+    }
+    let origin = {
+      text : req.body.origin && req.body.origin.text,
+      image : ""
+
     }
 
-    // Merge image URLs into request body
+    let originImageUrl = null;
+    if (req.files && req.files.originImage && req.files.originImage[0]) {
+      const file = req.files.originImage[0];
+      const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
+      originImageUrl = result.Location;
+    }
+    if (origin) origin.image = originImageUrl || origin.image;
+
+    let storyLineImageUrl = null;
+    if (req.files && req.files.storyLineImage && req.files.storyLineImage[0]) {
+      const file = req.files.storyLineImage[0];
+      const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
+      storyLineImageUrl = result.Location;
+    }
+    if (storyLine) storyLine.image = storyLineImageUrl || storyLine.image;
+
     const characterData = {
       ...req.body,
-      imagesUrl,
+      storyLine,
+      origin,
       mainImageUrl
     };
     const character = await characterService.createCharacter(characterData);

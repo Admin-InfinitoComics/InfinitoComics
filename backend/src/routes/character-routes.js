@@ -23,7 +23,8 @@ router.post(
   '/create', adminauthenticate,
   upload.fields([
     { name: 'mainImage', maxCount: 1 },
-    { name: 'images', maxCount: 10 }
+    { name: 'storylineImage', maxCount: 1 },
+    { name: 'originImage', maxCount: 1 }
   ]),
   createCharacter
 );

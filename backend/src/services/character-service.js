@@ -7,16 +7,15 @@ class CharacterService {
     }
 
     async createCharacter(data) {
-        try {
-                // List of required fields
+        try {   // List of required fields
             const requiredFields = [
                 { key: 'knownAs', value: data.knownAs },
                 { key: 'originalName', value: data.originalName },
                 { key: 'birthDate', value: data.birthDate },
                 { key: 'placeOfOrigin', value: data.placeOfOrigin },
-                { key: 'storyLine', value: data.storyLine },
+                { key: 'storyLine.text', value: data.storyLine && data.storyLine.text },
                 { key: 'about', value: data.about },
-                { key: 'origin', value: data.origin }
+                { key: 'origin.text', value: data.origin && data.origin.text }
             ];
             const missingFields = requiredFields.filter(f => !f.value || f.value.toString().trim() === '').map(f => f.key);
             if (missingFields.length > 0) {
@@ -50,7 +49,6 @@ class CharacterService {
                     }
                 }
             }
-
             // Build the character object
             const characterData = {
                 knownAs : data.knownAs,
@@ -76,40 +74,19 @@ class CharacterService {
                 friends : data.friends,
                 enemies : data.enemies,
                 comicsAppearedIn : data.comicsAppearedIn,
-                storyLine: data.storyLine,
+                storyLine: {
+                    text: data.storyLine && data.storyLine.text,
+                    image: data.storyLine && data.storyLine.image
+                },
                 about: data.about,
-                origin: data.origin,
+                origin: {
+                    text: data.origin && data.origin.text,
+                    image: data.origin && data.origin.image
+                },
                 imagesUrl: data.imagesUrl,
                 gender : data.gender,
                 mainImageUrl: data.mainImageUrl
             };
-            // Convert comma-separated string fields to arrays
-            const arrayFields = [
-                'characteristics',
-                'capabilities',
-                'interests',
-                'weapon',
-                'powers',
-                'limitations'
-            ];
-            for (const field of arrayFields) {
-                if (typeof characterData[field] === 'string') {
-                    characterData[field] = characterData[field].split(',').map(s => s.trim());
-                }
-            }
-            const objectIdFields = ['family', 'friends', 'enemies'];
-            for (const field of objectIdFields) {
-                if (typeof characterData[field] === 'string') {
-                    characterData[field] = characterData[field]
-                        .split(',')
-                        .map(s => mongoose.Types.ObjectId(s.trim()));
-                }
-                if (Array.isArray(characterData[field])) {
-                    characterData[field] = characterData[field].map(id =>
-                        typeof id === 'string' ? mongoose.Types.ObjectId(id.trim()) : id
-                    );
-                }
-            }
             const character = await this.characterRepository.create(characterData);
             return character;
         } catch (error) {

@@ -8,8 +8,7 @@ const TimelineSchema = new mongoose.Schema({
     maxlength: 100
   },
   eventDate: {
-    type: Date,
-    required: true
+    type: Date
   },
   category:{
     type: String,
@@ -21,9 +20,14 @@ const TimelineSchema = new mongoose.Schema({
     maxlength: 3000,
     trim: true
   },
+  month:{
+    type: String
+  },
+  year:{
+    type:String
+  },
   imageUrl: {
-    type: String,
-    required: false
+    type: String
   },
   eventNumber:{
     type: String,

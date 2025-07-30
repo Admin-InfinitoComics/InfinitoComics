@@ -1228,27 +1228,27 @@ return (
                             </div>
                           </div>
                           <div className="group-hover:blur-sm transition-all">
-                            <div className="grid md:grid-cols-[1fr_auto_1fr] items-center gap-6">
-                              {isOdd ? (
-                                <>
-                                  <div className="text-right">
-                                    <h3 className="text-lg font-bold text-red-600 uppercase">{item.title}</h3>
-                                  </div>
-                                  <div>
-                                    <div className="w-0.5 h-16 bg-gradient-to-b from-red-300 to-red-600"></div>
-                                  </div>
-                                  <div className="text-left">
-                                    <p className="text-lg font-semibold text-gray-800 tracking-wide uppercase">{item.month}</p>
-                                    <p className="text-2xl font-bold text-gray-900">{item.year}</p>
-                                  </div>
-                                </>
-                              ) : (
+                            <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-6 transition-all">
+                            {isOdd ? (
+                              <>
+                                <div className="text-right">
+                                  <h3 className="text-lg font-bold text-red-600 uppercase">{item.title}</h3>
+                                </div>
+                                <div className="flex justify-center">
+                                  <div className="w-0.5 h-16 bg-gradient-to-b from-red-300 to-red-600"></div>
+                                </div>
+                                <div className="text-left">
+                                  <p className="text-lg font-semibold text-gray-800 tracking-wide uppercase">{item.month}</p>
+                                  <p className="text-2xl font-bold text-gray-900">{item.year}</p>
+                                </div>
+                              </>
+                            ) : (
                               <>
                                 <div className="text-right">
                                   <p className="text-lg font-semibold text-gray-800 tracking-wide uppercase">{item.month}</p>
                                   <p className="text-2xl font-bold text-gray-900">{item.year}</p>
                                 </div>
-                                <div>
+                                <div className="flex justify-center">
                                   <div className="w-0.5 h-16 bg-gradient-to-b from-gray-500 to-gray-300"></div>
                                 </div>
                                 <div className="text-left">

@@ -62,66 +62,146 @@ function DonationUtilization() {
           </p>
         </div>
 
-        {/* --------- SMALL SCREENS: SWIPE VIEW --------- */}
+        {/* --------- SMALL SCREENS: PAGINATION VIEW --------- */}
         <div className="block lg:hidden relative">
-          <div className="px-6 pb-16 transition-all duration-500 ease-in-out">
-            <h3 className="text-red-600 font-semibold text-lg mb-1">
-              {stories[activeStory]?.title}
-            </h3>
-            <p className="text-sm font-bold mb-4 tracking-wider">
-              {stories[activeStory]?.eventDate &&
-                new Date(stories[activeStory].eventDate).toLocaleDateString('en-GB', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                }).toUpperCase()}
-            </p>
+          {stories.length > 0 && (
+            <div className="relative flex flex-row items-center py-10">
+              {/* Central Line */}
+              <div className="absolute left-1/2 transform -translate-x-1 bg-black w-[3px] h-full z-0" />
 
-            <img
-              src={stories[activeStory]?.imageUrl}
-              alt={`Story ${activeStory + 1}`}
-              className="w-full h-76 sm:h-84 lg:h-88 object-cover " loading='lazy'
-            />
-            <p className={`text-sm text-gray-700 leading-relaxed mb-4 ${!expanded ? 'line-clamp-3' : ''}`}>
-              {stories[activeStory]?.description}
-            </p>
+              {activeStory % 2 === 0 ? (
+                <>
+                  {/* LEFT SIDE - TEXT */}
+                  <div className="w-1/2 text-right pr-4">
+                    <h3 className="text-red-600 font-bold text-lg uppercase">
+                      {stories[activeStory]?.title}
+                    </h3>
+                    <p className="text-sm font-bold mb-3 tracking-wider">
+                      {stories[activeStory]?.eventDate &&
+                      (() => {
+                        const date = new Date(stories[activeStory].eventDate);
+                        const day = date.toLocaleDateString("en-GB", { day: "numeric" });
+                        const month = date.toLocaleDateString("en-GB", { month: "long" }).toUpperCase();
+                        const year = date.getFullYear();
+                        return `${day} ${month} ${year}`;
+                      })()}
+                    </p>
+                    <p
+                      className={`text-sm text-gray-700 mb-4 ${
+                        expanded ? "" : "line-clamp-3"
+                      }`}
+                    >
+                      {stories[activeStory]?.description}
+                    </p>
+                    <button
+                      className="bg-red-600 text-white text-xs px-4 py-2 tracking-wider hover:bg-red-700 font-semibold cursor-pointer"
+                      onClick={() => setExpanded(!expanded)}
+                    >
+                      {expanded ? "SHOW LESS" : "READ MORE"} &gt;
+                    </button>
+                  </div>
+
+                  {/* RIGHT SIDE - IMAGE */}
+                  <div className="w-1/2 pl-4">
+                    <img
+                      src={stories[activeStory]?.imageUrl}
+                      alt={`Story ${activeStory + 1}`}
+                      className="w-full h-40 object-cover rounded"
+                      loading="lazy"
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* LEFT SIDE - IMAGE */}
+                  <div className="w-1/2 pr-4">
+                    <img
+                      src={stories[activeStory]?.imageUrl}
+                      alt={`Story ${activeStory + 1}`}
+                      className="w-full h-40 object-cover rounded"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {/* RIGHT SIDE - TEXT */}
+                  <div className="w-1/2 text-left pl-4">
+                    <h3 className="text-red-600 font-bold text-lg uppercase">
+                      {stories[activeStory]?.title}
+                    </h3>
+                    <p className="text-sm font-bold mb-3 tracking-wider">
+                      {stories[activeStory]?.eventDate &&
+                      (() => {
+                        const date = new Date(stories[activeStory].eventDate);
+                        const day = date.toLocaleDateString("en-GB", { day: "numeric" });
+                        const month = date.toLocaleDateString("en-GB", { month: "long" }).toUpperCase();
+                        const year = date.getFullYear();
+                        return `${day} ${month} ${year}`;
+                      })()}
+                    </p>
+                    <p
+                      className={`text-sm text-gray-700 mb-4 ${
+                        expanded ? "" : "line-clamp-3"
+                      }`}
+                    >
+                      {stories[activeStory]?.description}
+                    </p>
+                    <button
+                      className="bg-red-600 text-white text-xs px-4 py-2 tracking-wider hover:bg-red-700 font-semibold cursor-pointer"
+                      onClick={() => setExpanded(!expanded)}
+                    >
+                      {expanded ? "SHOW LESS" : "READ MORE"} &gt;
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* Colored Central Line */}
+              <div
+                className={`absolute left-1/2 transform -translate-x-1 w-[3px] h-full ${
+                  activeStory % 2 === 0
+                    ? "bg-gradient-to-b from-red-500 to-red-500"
+                    : "bg-gradient-to-b from-gray-700 to-gray-700"
+                }`}
+              />
+            </div>
+          )}
+
+          {/* Pagination Buttons */}
+          <div className="flex justify-between mt-3 px-6">
             <button
-              className="w-fit bg-red-600 text-white text-sm px-4 py-2 tracking-wider hover:bg-red-700 font-semibold cursor-pointer"
-              onClick={() => setExpanded(!expanded)}
-            >
-              {expanded ? 'SHOW LESS' : 'READ MORE'} &gt;
-            </button>
-          </div>
-
-
-          {/* Swipe Buttons */}
-          <div className="flex justify-between px-6 mt-2">
-            <button
-              className="text-red-600 text-sm font-semibold"
-              onClick={() => handleSwipe('right')}
+              onClick={() => setActiveStory((prev) => (prev > 0 ? prev - 1 : prev))}
               disabled={activeStory === 0}
+              className={`px-4 py-2 rounded ${
+                activeStory === 0
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-red-600 text-white"
+              }`}
             >
-              {/* ◀ */}
-              <TbArrowBigLeftLines />
+              Prev
             </button>
+
             <button
-              className="text-red-600 text-sm font-semibold"
-              onClick={() => handleSwipe('left')}
-              disabled={activeStory === stories?.length - 1}
+              onClick={() =>
+                setActiveStory((prev) =>
+                  prev < stories.length - 1 ? prev + 1 : prev
+                )
+              }
+              disabled={activeStory === stories.length - 1}
+              className={`px-4 py-2 rounded ${
+                activeStory === stories.length - 1
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-red-600 text-white"
+              }`}
             >
-              {/* ▶ */}
-              <TbArrowBigRightLines />
+              Next
             </button>
           </div>
 
-          {/* Red Progress Bar */}
-          <div className=" my-6 h-[3px] bg-red-100 mx-12 ">
-            <div
-              className="h-full bg-red-600 "
-              style={{ width: `${((activeStory + 1) / stories?.length) * 100}%` }}
-            ></div>
-          </div>
+          <p className="text-sm text-gray-600 mt-2 text-center">
+            Showing : {activeStory + 1} / {stories.length}
+          </p>
         </div>
+
 
         {/* --------- LARGE SCREENS: GRID VIEW WITH VIEW MORE --------- */}
         <div className="hidden lg:grid lg:grid-cols-2 gap-x-6 ">
@@ -132,16 +212,20 @@ function DonationUtilization() {
                   <div className="col-span-2 lg:grid lg:grid-cols-2 gap-x-6 group">
                     {/* Left Text Side */}
                     <div className="relative flex flex-col justify-center items-end text-center lg:text-right pr-8 pt-12">
-                      <div
-                        className="absolute top-0 right-0 w-[3px] h-full bg-black transition-all duration-300 group-hover:bg-red-600"
-                      ></div>
+                     <div
+                    className={`absolute top-0 right-0 w-[3px] h-full ${
+                      index % 2 === 0
+                        ? "bg-gradient-to-b from-red-600 to-red-400"
+                        : "bg-gradient-to-b from-gray-500 to-gray-400"
+                    }`}
+                  ></div>
                       <h3 className="text-red-600 font-semibold text-2xl mb-1 uppercase">{story.title}</h3>
                       <p className="text-sm font-bold mb-4 tracking-wider">
-                        {stories[activeStory]?.eventDate &&
-                          new Date(stories[activeStory].eventDate).toLocaleDateString('en-GB', {
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric',
+                        {story.eventDate &&
+                          new Date(story.eventDate).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
                           }).toUpperCase()}
                       </p>
                       <p className={`text-md text-gray-700 leading-relaxed  mt-6 mb-6 ${!expandedStories[index] ? 'line-clamp-3' : ''}`}>
@@ -166,20 +250,23 @@ function DonationUtilization() {
                 <>
                   <div className="col-span-2 lg:grid lg:grid-cols-2 gap-x-6 group">
                     <div className="relative pt-12 pr-8">
-                      <div
-                        className="absolute top-0 right-0 w-[3px] h-full bg-black transition-all duration-300 group-hover:bg-red-600"
-
-                      ></div>
+                     <div
+                      className={`absolute top-0 right-0 w-[3px] h-full ${
+                        index % 2 === 0
+                          ? "bg-gradient-to-b from-red-600 to-red-400"
+                          : "bg-gradient-to-b from-gray-500 to-gray-400"
+                      }`}
+                    ></div>
                       <img src={story?.imageUrl} alt={`Story ${index + 1}`} className="w-full h-56 sm:h-54 lg:h-58 object-cover " loading='lazy' />
                     </div>
                     <div className="flex flex-col justify-center text-left pt-12">
                       <h3 className="text-red-600 font-semibold text-2xl mb-1 uppercase">{story.title}</h3>
                       <p className="text-sm font-bold mb-4 tracking-wider">
-                        {stories[activeStory]?.eventDate &&
-                          new Date(stories[activeStory].eventDate).toLocaleDateString('en-GB', {
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric',
+                        {story.eventDate &&
+                          new Date(story.eventDate).toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
                           }).toUpperCase()}
                       </p>
                       <p className={`text-md text-gray-700 leading-relaxed mt-6 mb-6 ${!expandedStories[index] ? 'line-clamp-3' : ''}`}>
@@ -203,7 +290,7 @@ function DonationUtilization() {
 
         {/* VIEW MORE Button (only for large screens) */}
         {visibleCount < stories?.length && (
-          <div className="hidden lg:block text-center mb-16 pt-16">
+          <div className="hidden lg:block text-center mb-16 pt-5">
             <button
               className="text-red-600 border-2 border-red-600 text-sm px-4 py-2 font-semibold tracking-widest transition cursor-pointer hover:text-white hover:bg-red-600"
               onClick={() => setVisibleCount(prev => Math.min(prev + 2, stories.length))}

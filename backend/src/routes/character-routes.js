@@ -15,19 +15,27 @@ const router = express.Router();
 router.get('/getAll', getAllCharacters);
 router.get('/get/:id', getCharacterById);
 
-// Route for minimal character info for frontend
-router.get('/list', getCharacterList);
+// Route for minimal character info for frontend   
+router.get('/list', getCharacterList);       
 
 // Accept multiple images in 'images' field
 router.post(
-  '/create', adminauthenticate,
+  // '/create', adminauthenticate,
+  '/create',
   upload.fields([
     { name: 'mainImage', maxCount: 1 },
-    { name: 'images', maxCount: 10 }
+    { name: 'storylineImage', maxCount: 1 },
+    { name: 'originImage', maxCount: 1 }
   ]),
   createCharacter
 );
-router.put('/update/:id', adminauthenticate, updateCharacter);
-router.delete('/delete/:id', adminauthenticate, deleteCharacter);
+// router.put('/update/:id', adminauthenticate, updateCharacter);
+router.patch('/update/:id',  upload.fields([
+    { name: 'mainImage', maxCount: 1 },
+    { name: 'storylineImage', maxCount: 1 },
+    { name: 'originImage', maxCount: 1 }
+  ]), updateCharacter);
+// router.delete('/delete/:id', adminauthenticate, deleteCharacter);
+router.delete('/delete/:id', deleteCharacter);
 
 export default router;

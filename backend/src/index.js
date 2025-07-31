@@ -15,6 +15,7 @@ import CareerRoutes from './routes/career-routes.js';
 import supportRoutes from './routes/support-routes.js';
 import comicRoutes from './routes/comic-routes.js';
 import characterRoutes from './routes/character-routes.js';
+import aboutTimelineRoutes from './routes/aboutTimelineRoutes.js';
 
 const allowedOrigins = [
   config.FRONTEND_URL,
@@ -45,6 +46,7 @@ app.use('/researchPaper',researchPaperRoutes);
 app.use('/faq',faqRoutes);
 app.use('/admin', adminroutes);
 app.use('/timeline', timelineRoutes);
+app.use('/timeline/aboutUs', aboutTimelineRoutes);
 app.use('/career', CareerRoutes);
 app.use('/support', supportRoutes);
 app.use('/api/comic', comicRoutes);

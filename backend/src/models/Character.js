@@ -87,20 +87,17 @@ const CharacterSchema = new mongoose.Schema({
     ref: 'Comic'
   }],
   storyLine: {
-    type : String,
-    required: true
+    text: { type: String, required: true },
+    image: { type: String }
   },
   about : {
     type: String,
     required: true
   },
-  origin :{
-    type: String,
-    required: true
+  origin: {
+    text: { type: String, required: true },
+    image: { type: String }
   },
-  imagesUrl: [{
-    type: String,
-  }],
   mainImageUrl: {
     type: String,
     required:true

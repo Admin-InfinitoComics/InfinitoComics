@@ -6,9 +6,10 @@ import User from './Pages/UserList/UserList';
 import Home from './Pages/Home/home.jsx';
 import FAQManager from './Pages/Faq/FaqManager';
 import Login from "./Auth/login"
+import Characters from './Pages/Characters/CharacterManager.jsx'
+import Career from './Pages/career/career'
 import Comic from './Pages/Comic/Comic.jsx'
-import Career from './Pages/career/career.jsx'
-import ChapterDashboard from './Pages/Comic/ChapterDashboard.jsx';
+import ChapterDashboard from './Pages/Comic/ChapterDashboard.js';
 
 import TimeLine from './Pages/TimeLine/timeline';
 

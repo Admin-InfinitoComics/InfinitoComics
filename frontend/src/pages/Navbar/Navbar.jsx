@@ -1,27 +1,27 @@
 // 📁 src/components/Header.jsx
-import React, { useState,useEffect } from "react";
-import { FiSearch, FiMenu, FiX, FiUser  } from "react-icons/fi";
+import React, { useState, useEffect } from "react";
+import { FiSearch, FiMenu, FiX, FiUser } from "react-icons/fi";
 import logo from "../../../assets/Logo.png";
 import { Heart, ShoppingBag } from "lucide-react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserIcon from '../../../assets/Images/UserIcon.png';
-import { RESEARCH_BASE_URL,FOUNDATION_BASE_URL } from "../../utils/constants";
+import { RESEARCH_BASE_URL, FOUNDATION_BASE_URL } from "../../utils/constants.js";
 import NavbarShimmer from '../../shimmer/landingPageShimmer/navbarShimmer'
 
 const Header = () => {
   const [loading, setLoading] = useState(true);
   // State to handle mobile menu toggle
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate=useNavigate();
-  const user = useSelector((store)=>store.user);
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
   console.log(user);
-    useEffect(() => {
-      // fetch data / preload hero image ...
-      setTimeout(() => setLoading(false), 2400); // demo
-    }, []);
+  useEffect(() => {
+    // fetch data / preload hero image ...
+    setTimeout(() => setLoading(false), 2400); // demo
+  }, []);
 
-  return loading?<NavbarShimmer/>:(
+  return loading ? <NavbarShimmer /> : (
     <div className="text-white font-sans">
       {/* Top Promo & Links Section */}
       <div className="border-b bg-[#202020] border-gray-600 text-sm px-4 sm:px-8 py-4 flex flex-col md:flex-row justify-around items-center gap-40">
@@ -41,7 +41,7 @@ const Header = () => {
           </Link>
           <Link to={RESEARCH_BASE_URL} className="hover:text-white font-bold">
             Research
-          </Link>          
+          </Link>
           <Link
             to="/support"
             className="hover:text-white font-bold flex items-center gap-1"
@@ -62,33 +62,33 @@ const Header = () => {
 
         {/* Login Button (only on desktop) */}
 
-        
-<div className="hidden cursor-pointer md:block">
-  {user ? (
-    <div className="flex items-center gap-2 pointer border border-white px-4 py-2 uppercase text-sm"
-    onClick={()=>navigate("/dashboard")}>
-      
-      <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
-      <span className="tracking-wide">
-        Hi, {user?.name?.split(" ")[0] || "Guest"}!
-      </span>
 
-    </div>
-  ) : (
-    <button
-      className="border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider"
-      onClick={() => navigate("/login")}
-    >
-      Log In | Sign Up &gt;
-    </button>
-  )}
-</div>
+        <div className="hidden cursor-pointer md:block">
+          {user ? (
+            <div className="flex items-center gap-2 pointer border border-white px-4 py-2 uppercase text-sm"
+              onClick={() => navigate("/dashboard")}>
+
+              <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
+              <span className="tracking-wide">
+                Hi, {user?.name?.split(" ")[0] || "Guest"}!
+              </span>
+
+            </div>
+          ) : (
+            <button
+              className="border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider"
+              onClick={() => navigate("/login")}
+            >
+              Log In | Sign Up &gt;
+            </button>
+          )}
+        </div>
 
         {/* Logo Centered */}
         <Link to='/'>
-        <div className="text-center ">
-          <img src={logo} alt="infinto" className=" w-auto" />
-        </div>
+          <div className="text-center ">
+            <img src={logo} alt="infinto" className=" w-auto" />
+          </div>
         </Link>
         {/* Right Side Buttons */}
         <div className="flex items-center gap-4">
@@ -205,7 +205,7 @@ const Header = () => {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              window.open("http://localhost:3004/?from=main", "_blank");
+              window.open(`${FOUNDATION_BASE_URL}/?from=main`, "_blank");
             }}
             className="hover:underline"
           >
@@ -216,7 +216,7 @@ const Header = () => {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              window.open("http://localhost:3003/?from=main", "_blank");
+              window.open(`${RESEARCH_BASE_URL}/?from=main`, "_blank");
             }}
             className="hover:underline"
           >
@@ -230,19 +230,19 @@ const Header = () => {
           >
             <Heart /> Support Us
           </Link>
-{user ? (
-  <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
-    <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
-    <span className="tracking-wide">Hi, {user.name.split(" ")[0]}!</span>
-  </div>
-) : (
-  <button
-    className="w-full border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider"
-    onClick={() => navigate("/login")}
-  >
-    Log In | Sign Up &gt;
-  </button>
-)}
+          {user ? (
+            <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
+              <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
+              <span className="tracking-wide">Hi, {user.name.split(" ")[0]}!</span>
+            </div>
+          ) : (
+            <button
+              className="w-full border border-white px-6 py-3 uppercase text-md hover:bg-white hover:text-black transition tracking-wider"
+              onClick={() => navigate("/login")}
+            >
+              Log In | Sign Up &gt;
+            </button>
+          )}
         </div>
       )}
     </div>

@@ -48,12 +48,14 @@ const Footer = () => {
             <div className="flex flex-col space-y-4">
               <span className="font-bold">BLOGS & NEWS</span>
               <Link to="/careers"><span>CAREER</span></Link>
-              <span>INTERNSHIP</span>
+              <Link to="/privacy-policy"><span>PRIVACY POLICY</span></Link>
+              <Link to="/refund-policy"><span>REFUND POLICY</span></Link>
             </div>
             <div className="flex flex-col space-y-4">
               <span className="font-bold">FOUNDATION</span>
               <span>RESEARCH</span>
               <Link to="/support-us"><span>SUPPORT US</span></Link>
+              <Link to="/terms-of-service"><span>TERMS OF SERVICE</span></Link>
             </div>
           </div>
 

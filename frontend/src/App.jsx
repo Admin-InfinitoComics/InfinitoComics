@@ -34,6 +34,9 @@ import Games from './pages/Games/Games.jsx'
 import NotFound from './constants/errorPage/NotFound.jsx'
 import NetworkError from './constants/errorPage/NetworkError'
 import {RESEARCH_BASE_URL, FOUNDATION_BASE_URL} from './utils/constants.js'
+import PrivacyPolicy from './pages/Policy/PrivacyPolicy.jsx';
+import RefundPolicy from './pages/Policy/Refund.jsx';
+import TermsOfService from './pages/Policy/TermsofService.jsx';
 
 
 function App() {
@@ -117,13 +120,17 @@ function App() {
             <Route path="/all-news" element={<AllNewsPage />} />
             <Route path="/verifyEmail" element={<OTPVerification/>}/>
 
+
             <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path ="/ErrorReport" element={<ErrorPage/>}/>
 
             <Route path="/createAvatar" element={<SignupStep3/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/comics" element={<Comic/>}/>
+            <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
             <Route path='/games' element={<Games></Games>}></Route>
+            <Route path='/terms-of-service' element={<TermsOfService/>}></Route>
             <Route path="*" element={<NotFound></NotFound>}></Route>
 
             

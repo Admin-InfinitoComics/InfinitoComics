@@ -1,10 +1,16 @@
-// 📁 src/components/WorkWhereImaginationLeads.jsx
-import React from "react";
-import imaginationImg1 from '../../../assets/Images/career/imginationImg1.png'
-import imaginationImg2 from '../../../assets/Images/career/imaginationImg2.png'
+import React, { useState, useEffect } from "react";
+import imaginationImg1 from "../../../assets/Images/career/imginationImg1.png";
+import imaginationImg2 from "../../../assets/Images/career/imaginationImg2.png";
+import ImaginationsLeadsShimmer from "../../shimmer/Career/ImaginationsLeadsShimmer";
 
-const WorkWhereImaginationLeads = () => {
-  return (
+const ImaginationsLeads = () => {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 2400);
+  }, []);
+  return loading ? (
+    <ImaginationsLeadsShimmer />
+  ) : (
     <div className="w-full px-4 md:px-20 py-12 space-y-16">
       {/* Section Title */}
       <div className="flex flex-col items-center text-center max-w-4xl mx-auto py-10">
@@ -12,8 +18,9 @@ const WorkWhereImaginationLeads = () => {
           Work Where Imagination Leads
         </h2>
         <p className="text-gray-600 text-sm md:text-lg tracking-tight">
-          We’re building a future where creativity is limitless, collaboration is seamless,
-          and every voice helps shape the story. Come draw your path with us.
+          We’re building a future where creativity is limitless, collaboration
+          is seamless, and every voice helps shape the story. Come draw your
+          path with us.
         </p>
       </div>
 
@@ -23,7 +30,8 @@ const WorkWhereImaginationLeads = () => {
         <div className="border p-6 rounded-md">
           <h3 className="font-bold mb-2 text-xl">Connected by Stories</h3>
           <p className="text-gray-600 text-lg tracking-tight">
-            From anywhere in the world, we come together to create something unforgettable.
+            From anywhere in the world, we come together to create something
+            unforgettable.
           </p>
         </div>
 
@@ -49,12 +57,15 @@ const WorkWhereImaginationLeads = () => {
         <div className="space-y-6">
           {/* Text Content for Core Values */}
           <div className="mb-12">
-            <h3 className="text-lg md:text-3xl font-semibold mb-5">Our core values</h3>
+            <h3 className="text-lg md:text-3xl font-semibold mb-5">
+              Our core values
+            </h3>
             <p className="text-sm md:text-lg text-gray-800 tracking-tight">
-              These values guide every page we create and every team we build. At Infinito Comics,
-              we believe in telling bold stories—with heart, purpose, and a little bit of mischief.
-              We’re not just making comics; we’re building a culture where creators thrive, grow,
-              and feel seen—wherever they are.
+              These values guide every page we create and every team we build.
+              At Infinito Comics, we believe in telling bold stories—with heart,
+              purpose, and a little bit of mischief. We’re not just making
+              comics; we’re building a culture where creators thrive, grow, and
+              feel seen—wherever they are.
             </p>
           </div>
 
@@ -107,10 +118,14 @@ const WorkWhereImaginationLeads = () => {
 
         {/* Right side text content */}
         <div className="space-y-4">
-          <h3 className="text-lg md:text-3xl font-semibold">Working and Thriving</h3>
+          <h3 className="text-lg md:text-3xl font-semibold">
+            Working and Thriving
+          </h3>
           <p className="text-sm md:text-lg text-black tracking-tight">
-            At Infinito Comics, your well-being fuels our creativity. We’re committed to helping you feel your best—on and off the page.
-            From rest and recharge time to holistic support, we make sure you thrive with a clear mind and a full heart.
+            At Infinito Comics, your well-being fuels our creativity. We’re
+            committed to helping you feel your best—on and off the page. From
+            rest and recharge time to holistic support, we make sure you thrive
+            with a clear mind and a full heart.
           </p>
 
           {/* Benefits list */}
@@ -125,4 +140,4 @@ const WorkWhereImaginationLeads = () => {
   );
 };
 
-export default WorkWhereImaginationLeads;
+export default ImaginationsLeads;

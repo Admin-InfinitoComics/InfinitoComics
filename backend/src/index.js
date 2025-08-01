@@ -3,12 +3,19 @@ import bodyParser from "body-parser";
 const app = express();
 import config from "./config/server-config.js"
 import connect from "./config/database-config.js"
-import router from "./routes/index.js";
+import userroutes from "./routes/user-routes.js";
 import cors from "cors";
 import blogroutes from './routes/blog-routes.js'
 import researchPaperRoutes from './routes/researchPaperRoutes.js';
 import faqRoutes from './routes/faqRoutes.js';
 import multer from 'multer';
+import adminroutes from './routes/admin-routes.js';
+import timelineRoutes from './routes/timelineRoutes.js';
+import CareerRoutes from './routes/career-routes.js';
+import supportRoutes from './routes/support-routes.js';
+import comicRoutes from './routes/comic-routes.js';
+import characterRoutes from './routes/character-routes.js';
+import aboutTimelineRoutes from './routes/aboutTimelineRoutes.js';
 
 const allowedOrigins = [
   config.FRONTEND_URL,
@@ -33,10 +40,20 @@ app.use(cors({
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json());
-app.use('/api', router);
+app.use('/api', userroutes);
 app.use('/blog', blogroutes);
 app.use('/researchPaper',researchPaperRoutes);
 app.use('/faq',faqRoutes);
+app.use('/admin', adminroutes);
+app.use('/timeline', timelineRoutes);
+app.use('/timeline/aboutUs', aboutTimelineRoutes);
+app.use('/career', CareerRoutes);
+app.use('/support', supportRoutes);
+app.use('/api/comic', comicRoutes);
+app.use('/character', characterRoutes);
+app.get('/', (req, res) => {
+  res.send('🚀 Backend is up and running!');
+});
 
 const storage = multer.memoryStorage();
 export const upload = multer({

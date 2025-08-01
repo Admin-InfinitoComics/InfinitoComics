@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import LandingComponent from './LandingComponent';
 import CharacterCarousel from './CharacterCarousel';
 import CharacterSpotlight from './CharacterSpotlight';
@@ -8,32 +8,44 @@ import LandingMerch from './LandingMerch';
 import JoinUltimate from './JoinUltimate';
 import PremiumPlans from './PremiumPlans';
 import FanFavourite from './FanFavourite';
-import Spotlight from './Spotlight';
+import Spotlight from '../../components/spotlight/Spotlight';
 import UpcomingEvents from './UpcomingEvents';
 import FoundationSection from './FoundationSection';
 import ExclusiveContent from './ExclusiveContent';
 import NewsletterSection from '../Footer/Newsletter';
+import Otp from '../resentOtp/resendOtp';
 
 const Home = () => {
+
+  const user = JSON.parse(localStorage.getItem('user'));
+
+    //scroll to top feature
+      useEffect(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, []);
+
   return (
     <div>
-      <LandingComponent/>
-      <CharacterCarousel/>
-      <CharacterSpotlight/>
-      <TodaySpotlight/>
+      <LandingComponent />
+      <CharacterCarousel />
+      <CharacterSpotlight />
+      <TodaySpotlight />
       {/* <HeroSection/> */}
-      <LandingMerch/>
-      <JoinUltimate/>
-      <PremiumPlans/>
-      <FanFavourite/>
-      <Spotlight/>
-      <UpcomingEvents/>
-      <FoundationSection/>
-      <ExclusiveContent/>
+      <LandingMerch />
+      <JoinUltimate />
+      <PremiumPlans />
+      <FanFavourite />
+      <Spotlight />
+      <UpcomingEvents />
+      <FoundationSection />
+      <ExclusiveContent />
       {/* <DashboardPage/> */}
-      <NewsletterSection/>
-    </div>
-  )
-}
+      
+      {user && !user.newsLetter && <NewsletterSection />}
 
-export default Home
+      {/* <Otp/> */}
+    </div>
+  );
+};
+
+export default Home;

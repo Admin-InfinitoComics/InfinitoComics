@@ -184,9 +184,15 @@ const SignupStep1 = ({ formData, handleChange, onNext }) => {
 
           <div className="flex flex-col gap-4 text-sm mt-2">
             <label className="flex items-center gap-3">
-              <input type="checkbox" className="w-5 h-5 accent-[#DD1215] transition-transform duration-200 hover:scale-105" />
-              <span className="text-[#666666] text-[12px] font-semibold">Sign-up to our news letter!</span>
-            </label>
+  <input
+    type="checkbox"
+    checked={formData.newsLetter} // Controlled by formData
+    onChange={(e) => handleInputChange('newsLetter', e.target.checked)}
+    className="w-5 h-5 accent-[#DD1215] transition-transform duration-200 hover:scale-105"
+  />
+  <span className="text-[#666666] text-[12px] font-semibold">Sign-up to our newsletter!</span>
+</label>
+
 
             <label className="flex items-center gap-3">
               <input type="checkbox" required className="w-5 h-5 accent-[#DD1215] transition-transform duration-200 hover:scale-105" />

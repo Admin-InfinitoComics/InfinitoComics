@@ -1,6 +1,6 @@
 import CrudRepository from "./crud-repository.js";
 import User from "../models/User.js";
-
+import { sendEmail } from "../utils/sendEmail.js";
 class UserRepository extends CrudRepository {
   constructor() {
     super(User);
@@ -15,98 +15,73 @@ class UserRepository extends CrudRepository {
     }
   }
 
-  async updateResetPasswordToken(userId, token, expiry) {
-    try {
-      return await User.findByIdAndUpdate(userId, {
-        resetPasswordToken: token,
-        resetPasswordExpires: expiry,
-      });
-    } catch (error) {
-      console.log("Error in updateResetPasswordToken:", error);
-      throw error;
-    }
-  }
+  async createuser(data) {
+        try {
+            const verificationcode = Math.floor(100000 + Math.random() * 900000).toString();
+            const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 mins from now
 
-  async findByResetToken(token) {
-    try {
-      return await User.findOne({
-        resetPasswordToken: token,
-        resetPasswordExpires: { $gt: Date.now() },
-      });
-    } catch (error) {
-      console.log("Error in findByResetToken:", error);
-      throw error;
-    }
-  }
+            const dataWithOtp = {
+            ...data,
+            verificationcode,
+            verificationCodeExpiresAt: expiresAt
+            };
 
-  async updatePasswordByResetToken(token, hashedPassword) {
-    try {
-      return await User.findOneAndUpdate(
-        { resetPasswordToken: token },
-        {
-          password: hashedPassword,
-          resetPasswordToken: undefined,
-          resetPasswordExpires: undefined,
+            const newUser = await User.create(dataWithOtp);
+
+            sendEmail(
+                newUser.email,
+                'Email Verification - Action Required',
+                `Hi ${newUser.name},
+
+                Thank you for registering with us!
+
+                Please use the verification code below to verify your email address. This helps us ensure the security of your account.
+
+                Verification Code: ${verificationcode}
+
+                Note: This code is valid for only 10 minutes.
+
+                If you did not initiate this request, please ignore this email.
+
+                Best regards,  
+                InfinitoArchery`
+            );
+            return newUser;
+        } catch (error) {
+            console.log('something wrong at repo level');
+            throw error;
         }
-      );
-    } catch (error) {
-      console.log("Error in updatePasswordByResetToken:", error);
-      throw error;
     }
-  }
 
-  async updateOtp(userId, otp, expiry) {
-    try {
-      return await User.findByIdAndUpdate(userId, {
-        otp: otp,
-        otpExpiry: expiry,
-        isOtpVerified: false,
-      });
-    } catch (error) {
-      console.log("Error in updateOtp:", error);
-      throw error;
-    }
-  }
+  
 
-  async clearOtp(userId) {
-    try {
-      return await User.findByIdAndUpdate(userId, {
-        otp: undefined,
-        otpExpiry: undefined,
-        isOtpVerified: false,
-      });
-    } catch (error) {
-      console.log("Error in clearOtp:", error);
-      throw error;
-    }
-  }
+      async verify(data) {
+        try {
+            const user = await User.findOne({
+                verificationcode: data.code
+            });
 
-  async setOtpVerified(userId) {
-    try {
-      return await User.findByIdAndUpdate(userId, {
-        isOtpVerified: true,
-        otp: undefined,
-        otpExpiry: undefined,
-      });
-    } catch (error) {
-      console.log("Error in setOtpVerified:", error);
-      throw error;
-    }
-  }
+            // If no user found or OTP doesn't match
+            if (!user) throw new Error("Invalid verification code");
 
-  async updatePasswordAndClearOtp(userId, hashedPassword) {
-    try {
-      return await User.findByIdAndUpdate(userId, {
-        password: hashedPassword,
-        isOtpVerified: false,
-        otp: undefined,
-        otpExpiry: undefined,
-      });
-    } catch (error) {
-      console.log("Error in updatePasswordAndClearOtp:", error);
-      throw error;
-    }
-  }
+            // Check if OTP is expired
+            if (!user.verificationCodeExpiresAt || Date.now() > user.verificationCodeExpiresAt.getTime()) {
+                throw new Error("Verification code has expired");
+            }
+
+            // Mark user as verified
+            user.isverified = true;
+            user.verificationcode = null;
+            user.verificationCodeExpiresAt = null;
+
+            await user.save();
+
+            return user;
+
+        } catch (error) {
+            throw error;
+        }
+      }
 }
 
 export default UserRepository;

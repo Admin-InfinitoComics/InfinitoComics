@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TedXimg1 from '../../assets/images/foundation/TedXimg1.png'
 import TedXimg2 from '../../assets/images/foundation/TedXimg2.png'
 import TedXimg3 from '../../assets/images/foundation/TedXimg3.png'
 import TedXimg4 from '../../assets/images/foundation/TedXimg4.png'
-
+import TedXShimmer from '../../shimmer/Foundation/TedXShimmer'
 const TedX = () => {
-  return (
+      const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      setTimeout(() => setLoading(false), 2400); 
+    }, []);
+  return  loading?<TedXShimmer/>: (
+    <>
+          <div className="mb-16">
+        <h1 className="font-sans text-center font-bold text-4xl text-red-600 transform scale-y-120">
+          INFINITO AT PROFESSIONAL EVENTS
+        </h1>
+      </div>
     <div>
 
       <div className="text-center mb-16 ">
@@ -61,6 +71,7 @@ const TedX = () => {
 
 
     </div>
+    </>
   );
 };
 

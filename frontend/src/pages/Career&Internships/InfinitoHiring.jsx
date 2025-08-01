@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import {steps} from '../../constants/career'
+import InfinitoHiringShimmer from '../../shimmer/Career/InfinitoHiringShimmer '
 
 const InfinitoHiring = () => {
-  return (
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+      setTimeout(() => setLoading(false), 2400); 
+    }, []);
+  return loading? <InfinitoHiringShimmer/>:(
     <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 py-12">
       {/* Heading */}
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-2">

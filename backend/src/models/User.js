@@ -24,7 +24,28 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 30,
     match: [/^[0-9a-zA-Z._]{6,30}$/, 'Username must be 6-30 characters long and contain only letters, underscores (_), and periods (.)']
-  }                                     
+  },
+  newsLetter: {
+    type: Boolean,
+    default: true
+  },
+  isverified: {
+    type: Boolean,
+    default: false
+  },
+  verificationcode: String,
+  verificationCodeExpiresAt: {
+    type: Date
+  },
+  // Subscription and membership fields
+  hasInfinitoUltimate: {
+    type: Boolean,
+    default: false
+  },
+  infinitoUltimateTo: {
+    type: Date,
+    default: null
+  }
 }, {timestamps: true});
 
 UserSchema.pre('save', async function(next) {

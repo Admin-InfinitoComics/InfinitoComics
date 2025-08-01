@@ -1,15 +1,17 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import Navbar from '../pages/Navbar/Navbar';
-import Home from '../pages/Home/home';
+import Navbar from '../Pages/Navbar/Navbar';
+import Home from '../Pages/Home/home';
+import Footer from '../Pages/Footer/Footer';
 const Body = () => {
   return (
     <div>
-        <Navbar></Navbar>
-      <Home/>
-          <Outlet />   
+      <Navbar/>
+      <Outlet /> 
+      <Footer />  
+
     </div>
   )
 }
 
-export default Body
+export default Body;

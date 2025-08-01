@@ -3,16 +3,20 @@ import LoginBackground from '../../../assets/Images/LoginBackground.jpg';
 import Bullet from '../../../assets/Images/Bullet.png';
 import Riza from '../../../assets/Images/Riza Jose.png';
 import { FaGoogle, FaFacebookF, FaApple } from 'react-icons/fa';
+import ASignup from '../../../assets/Images/Signup/ASignup.png';
+import FSignup from '../../../assets/Images/Signup/FSignup.png';
+import GSignup from '../../../assets/Images/Signup/Gsignup.png';
 import { Eye, EyeOff } from 'lucide-react';
 import LoginLogo from '../../../assets/Images/LoginLogo.png';
-import loginBg from '../../../assets/Images/login.png'// Adjust path as needed
+import loginBg from '../../../assets/Images/login.png';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../services/userServices'; // Adjust the import path as necessary
+import { loginUser } from '../../services/userServices';
 import axios from 'axios';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {addUser} from '../../redux/userSlice';
-
+import { addUser } from '../../redux/userSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,24 +26,26 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    setError('');
-    const data = await loginUser(email, password);
-    localStorage.setItem('authtoken', data.token.token);
-    navigate('/');
-    dispatch(addUser(data.token.user));
-  } catch (err) {
-    console.error('Login failed:', err);
-    if (err.response && err.response.status === 401) {
-      setError('Invalid email or password');
-    } else {
-      setError('Something went wrong. Please try again.');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      setError('');
+      const data = await loginUser(email, password);
+      localStorage.setItem('authtoken', data.token.token);
+      dispatch(addUser(data.token.user));
+      toast.success('Login successful!');
+      setTimeout(() => navigate('/'), 1500);
+    } catch (err) {
+      console.error('Login failed:', err);
+      const msg =
+        err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        err?.message ||
+        'Something went wrong. Please try again.';
+      setError(msg);
+      toast.error(msg);
     }
-  }
-};
-
+  };
 
   return (
     <div className="w-full h-screen relative overflow-hidden font-sans">
@@ -121,9 +127,7 @@ const handleLogin = async (e) => {
             </div>
 
             {/* Forgot Password */}
-           
             <Link to="/forgot-password" className="text-sm text-blue-600 cursor-pointer pl-7 text-left">Forgot password?</Link>
-
 
             {/* Submit Button */}
             <div className="flex items-center justify-center">
@@ -136,26 +140,33 @@ const handleLogin = async (e) => {
             </div>
 
             {/* Divider */}
-<div className="flex items-center justify-center w-full mt-1 ">
-  <hr className=" w-[80px] border-gray-300" />
-  <span className="mx-1 text-gray-400 text-xs font-semibold">OR</span>
-  <hr className="w-[80px] border-gray-300" />
-</div>
+            <div className="flex items-center justify-center w-full mt-1 ">
+              <hr className=" w-[80px] border-gray-300" />
+              <span className="mx-1 text-gray-400 text-xs font-semibold">OR</span>
+              <hr className="w-[80px] border-gray-300" />
+            </div>
 
             {/* Social Logins */}
-            <div className="flex justify-center p-4 mt-[-10] gap-3">
-              {[FaGoogle, FaFacebookF, FaApple].map((Icon, idx) => (
+            <div className="flex justify-center p-4 mt-[-10px] gap-3">
+              {[GSignup, FSignup, ASignup].map((iconSrc, idx) => (
                 <div
                   key={idx}
-                  className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded cursor-pointer hover:shadow"
+                  className="w-10 h-10 flex items-center justify-center cursor-pointer hover:shadow"
                 >
-                  <Icon className="text-xl" />
+                  <img
+                    src={iconSrc}
+                    alt={`social-icon-${idx}`}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               ))}
             </div>
           </form>
         </div>
       </div>
+
+      {/* ✅ Toast Container */}
+      <ToastContainer position="top-right" autoClose={3000} pauseOnHover theme="colored" />
     </div>
   );
 };

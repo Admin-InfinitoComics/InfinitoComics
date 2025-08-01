@@ -7,7 +7,6 @@ const getAll = async (req, res) => {
     const users = await userservice.getAll();
     res.status(200).json({ users, success: true });
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -124,6 +123,61 @@ const uploadimage = async (req, res) => {
   }
 }
 
+const verifyemail = async(req, res) => {
+    try {
+        const response = await userservice.verify(req.body);
+        if(!response){
+            return res.status(401).json({
+                success: false,
+                message: "Email verification failed",
+            })
+        }
+        return res.status(201).json({
+            success: true,
+            message: "Email verified successfully",
+        })
+    } catch (error) {
+        return res.status(401).json({
+            message: "Error verifying email",
+            success: false,
+            err: error
+        })
+    }
+}
+
+const forgetPasswordFunc = async(req, res) => {
+    try {
+        const {email} = req.body;
+        if(email) {
+            const user = await userservice.forgetPassword(email);
+            return res.status(200).json({
+                data: user,
+                success: true
+            })
+        }
+        else{
+            return res.status(400).json({
+                message: "email is required"
+            })
+        }
+    } catch (error) {
+        return res.status(400).json({
+            message: error.message,
+        })
+    }
+}
+
+const forgetPasswordEmail = async (req, res) =>  {
+  try {
+    const userId = req.userFromToken.id; 
+    const newPassword = req.body.newPassword;
+    const result = await userservice.resetPassword(userId, newPassword);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
 const Usercontroller = {
   signup,
   login,
@@ -137,6 +191,9 @@ const Usercontroller = {
   verifyOtp,
   resetPassword,
   uploadimage,
+  verifyemail,
+  forgetPasswordFunc,
+  forgetPasswordEmail
 };
 
 export default Usercontroller;

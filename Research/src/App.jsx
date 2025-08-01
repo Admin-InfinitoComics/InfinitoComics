@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from './redux/userSlice'; 
+import { FRONTEND_BASE_URL } from './utils/constants.js';
 
 import Body from './components/Body';
 import Home from './pages/Home/Home';
@@ -18,10 +19,10 @@ useEffect(() => {
 
   if (fromMain === "main" && window.opener) {
     console.log(" Requesting user from main app");
-    window.opener.postMessage("request-user", "http://localhost:3001");
+    window.opener.postMessage("request-user", `${FRONTEND_BASE_URL}`);
 
     const handleMessage = (event) => {
-      if (event.origin !== "http://localhost:3001") return;
+      if (event.origin !== `${FRONTEND_BASE_URL}`) return;
 
       if (event.data?.type === "user-data") {
         try {

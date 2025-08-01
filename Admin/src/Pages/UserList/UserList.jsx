@@ -12,7 +12,6 @@ import {
 import { fetchUser, handleDeleteUser } from "../../services/adminServices";
 
 function UserList() {
-  console.log("hiiii");
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");

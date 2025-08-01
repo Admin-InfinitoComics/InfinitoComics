@@ -33,6 +33,7 @@ import toast, {Toaster} from 'react-hot-toast'
 import Games from './pages/Games/Games.jsx'
 import NotFound from './constants/errorPage/NotFound.jsx'
 import NetworkError from './constants/errorPage/NetworkError'
+import {RESEARCH_BASE_URL, FOUNDATION_BASE_URL} from './utils/constants.js'
 import PrivacyPolicy from './pages/Policy/PrivacyPolicy.jsx';
 import RefundPolicy from './pages/Policy/Refund.jsx';
 import TermsOfService from './pages/Policy/TermsofService.jsx';
@@ -41,7 +42,7 @@ import TermsOfService from './pages/Policy/TermsofService.jsx';
 function App() {
   useEffect(() => {
     const listener = (event) => {
-      const allowedOrigins = ["http://localhost:3003", "http://localhost:3004"];
+      const allowedOrigins = [`${RESEARCH_BASE_URL}`, `${FOUNDATION_BASE_URL}`];
       if (!allowedOrigins.includes(event.origin)) return;
 
       if (event.data === "request-user") {

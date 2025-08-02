@@ -8,7 +8,10 @@ const TimelineSchema = new mongoose.Schema({
     maxlength: 100
   },
   eventDate: {
-    type: Date,
+    type: Date
+  },
+  category:{
+    type: String,
     required: true
   },
   description: {
@@ -17,13 +20,17 @@ const TimelineSchema = new mongoose.Schema({
     maxlength: 3000,
     trim: true
   },
-  imageUrl: {
-    type: String,
-    required: false
+  month:{
+    type: String
   },
-  pageContext: {
+  year:{
+    type:String
+  },
+  imageUrl: {
+    type: String
+  },
+  eventNumber:{
     type: String,
-    enum: ["about", "support"],
     required: true
   }
 });

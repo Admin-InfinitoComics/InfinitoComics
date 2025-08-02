@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import infinitoLogo from '../../../../frontend/assets/Logo.png';
+import URLs from '../../Utils/utils.js';
 import { LogOut } from "lucide-react";
 import { Button, message, Popconfirm } from "antd";
 
@@ -32,7 +32,7 @@ const Navbar = () => {
          className="inline-block px-2 py-1 rounded-lg"
         >
       <img
-       src={infinitoLogo}
+       src={URLs.Logo_url}
        alt="Infinito Logo"
       className="h-12 w-auto object-contain"
        />
@@ -47,10 +47,16 @@ const Navbar = () => {
             HOME
           </Link>
           <Link
-            to="/comics"
+            to="/comic"
             className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
           >
             COMICS
+          </Link>
+          <Link
+            to="/users"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+            USERS
           </Link>
           <Link
             to="/characters"
@@ -83,6 +89,13 @@ const Navbar = () => {
           >
             BLOGS
           </Link>
+           <Link
+              to="/timeline"
+              onClick={toggleMenu}
+              className="text-white hover:text-red-500 transition px-3 py-2"
+            >
+              Timeline
+            </Link>
           {token ? (
             <Popconfirm
               title="Log Out"
@@ -144,6 +157,12 @@ const Navbar = () => {
               COMICS
             </Link>
             <Link
+            to="/users"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+            USERS
+          </Link>
+            <Link
             to="/research"
             className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
           >
@@ -176,6 +195,14 @@ const Navbar = () => {
               className="text-white hover:text-red-500 transition"
             >
               BLOGS
+            </Link>
+
+            <Link
+              to="/timeline"
+              onClick={toggleMenu}
+              className="text-white hover:text-red-500 transition"
+            >
+              Timeline
             </Link>
 
             {token ? (

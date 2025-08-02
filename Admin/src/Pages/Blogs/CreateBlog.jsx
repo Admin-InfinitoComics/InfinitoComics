@@ -5,6 +5,9 @@ import { MdSend, MdAccountCircle } from 'react-icons/md';
 import { FaChevronUp, FaTrash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+
+import { BACKEND_URL } from '../../Utils/constant.js';
+
 const MySwal = withReactContent(Swal);
 const showAlert = (type) => {
   const config = {
@@ -77,7 +80,7 @@ const formRef = useRef(null);
     const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
     if (!confirmDelete) return;
   try {
-   const response = await fetch(`http://localhost:3000/blog/deleteblog/${blogId}`, {
+   const response = await fetch(`${BACKEND_URL}/blog/deleteblog/${blogId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -128,7 +131,7 @@ const handleUpdate = async () => {
   };
 
   try {
-    const response = await fetch(`http://localhost:3000/blog/updateblog/${editingBlog._id}`, {
+    const response = await fetch(`${BACKEND_URL}/blog/updateblog/${editingBlog._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -170,7 +173,7 @@ const handleUpdate = async () => {
 };
   const handleGetAllBlogs = async () => {
   try {
-    const response = await fetch('http://localhost:3000/blog/getallblog');
+    const response = await fetch(`${BACKEND_URL}/blog/getallblog`);
     const result = await response.json();
 
     if (response.ok) {
@@ -325,7 +328,7 @@ const handlePublish = async () => {
  
 
   try {
-const response = await fetch("http://localhost:3000/blog/createblog", {
+const response = await fetch(`${BACKEND_URL}/blog/createblog`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

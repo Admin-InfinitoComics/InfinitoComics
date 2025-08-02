@@ -50,11 +50,16 @@ const Footer = () => {
             <Link to="/news">  <span className="">BLOGS & NEWS</span></Link>
               <Link to="/careers"><span>CAREER</span></Link>
              <Link to="/comics" ><span>COMICS</span></Link> 
+
+              <Link to="/privacy-policy"><span>PRIVACY POLICY</span></Link>
+              <Link to="/refund-policy"><span>REFUND POLICY</span></Link>
+
             </div>
             <div className="flex flex-col space-y-4">
              <Link to={FOUNDATION_BASE_URL}><span className="font">FOUNDATION</span></Link> 
              <Link to={RESEARCH_BASE_URL} > <span>RESEARCH</span></Link>
               <Link to="/support-us"><span>SUPPORT US</span></Link>
+              <Link to="/terms-of-service"><span>TERMS OF SERVICE</span></Link>
             </div>
           </div>
 

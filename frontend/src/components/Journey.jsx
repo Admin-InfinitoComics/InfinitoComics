@@ -1,88 +1,189 @@
-import React from 'react';
-
-const journeyData = [
-    {
-        date: 'AUGUST 2022',
-        title: 'STARTED AT RAIPUR',
-        content:
-            'In 2022, Infinito started business at Raipur, Chhattisgarh and grew as a result of collaborative effort and contributions from individuals across India.',
-        align: 'left',
-    },
-    {
-        date: 'MAY 2023',
-        title: 'CORE TEAM DEVELOPMENT',
-        content:
-            'With a determined mindset, we embarked on building a robust team to drive the growth of Infinito. Additionally, we achieved our first milestone by generating revenue through services in the AR/CG–XR industry.',
-        align: 'right',
-    },
-    {
-        date: 'AUGUST 2024',
-        title: 'LONG–RUN PLANNING & INTEGRATION',
-        content:
-            'With a bold vision and unwavering dedication, we are launching an exciting range of technologies while advancing in-house automation and project pipelines, seamlessly integrating AR/AI, XR, and ML technologies.',
-        align: 'left',
-    },
-    {
-        date: 'JANUARY 2025',
-        title: 'WE ARE LIVE!',
-        content:
-            'We are now live and committed to creating impactful solutions that drive the growth and development of the AR/CG–XR industry in India.',
-        align: 'right',
-    },
-];
+import React, { useState, useEffect } from "react";
+import { getAllAboutStories } from "../services/aboutUs";
 
 function Journey() {
-    return (
-        <div className=" flex justify-center">
-            <div className="relative w-11/12 lg:w-2/3 ">
-                <h2 className="text-start text-3xl font-bold mb-12 tracking-widest">
-                    OUR JOURNEY
-                </h2>
+  const [stories, setStories] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-                {/* Central Vertical Line */}
-                <div className="absolute left-1/2 transform -translate-x-1 bg-black w-[4px] h-fit z-0" />
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        const allStories = await getAllAboutStories();
+        setStories(allStories);
+      } catch (error) {
+        console.error("Error fetching About Us stories:", error);
+      }
+    };
+    fetchStories();
+  }, []);
 
-                {journeyData.map((item, index) => (
-                    <div
-                        key={index}
-                        className="group relative z-10 flex flex-row items-center py-8 sm:py-10 lg:py-16  "
-                    >
-                        {/* Left Side */}
-                        {item.align === 'left' && (
-                            <>
-                                <div className="w-1/2 md:pr-6 text-right pr-4">
-                                    <h3 className="text-red-600 font-bold text-sm sm:text-lg lg:text-xl">{item.title}</h3>
-                                    <p className="text-sm sm:text-md text-gray-700 mt-4">{item.content}</p>
-                                </div>
-                                <div className="block w-1/2 pl-6 text-center text-3xl sm:text-5xl font-bold tracking-wider text-gray-800 leading-tight">
-                                    <div>{item.date.split(' ')[0]}</div>
-                                    <div>{item.date.split(' ')[1]}</div>
-                                </div>
+  const handleNext = () => {
+    if (currentIndex < stories.length - 1) setCurrentIndex((prev) => prev + 1);
+  };
 
-                            </>
-                        )}
+  const handlePrev = () => {
+    if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
+  };
 
-                        {/* Right Side */}
-                        {item.align === 'right' && (
-                            <>
-                                <div className="block w-1/2 pr-6 text-center text-3xl sm:text-5xl font-bold tracking-wider text-gray-800 ">
-                                    <div>{item.date.split(' ')[0]}</div>
-                                    <div>{item.date.split(' ')[1]}</div>
-                                </div>
-                                <div className="w-1/2 pl-2 md:pl-6 right">
-                                    <h3 className="text-red-600 font-bold text-sm sm:text-lg lg:text-xl">{item.title}</h3>
-                                    <p className="text-sm sm:text-md text-gray-700 mt-4">{item.content}</p>
-                                </div>
-                            </>
-                        )}
+  return (
+    <div className="flex justify-center">
+      <div className="relative w-11/12 lg:w-2/3">
+        <h2 className="text-start text-3xl font-bold mb-12 tracking-widest">
+          OUR JOURNEY
+        </h2>
 
-                        {/* Red Line Overlay on Hover */}
-                        <div className="absolute left-1/2 transform -translate-x-1 w-[4px] h-full bg-black group-hover:bg-red-600 transition-all duration-300" />
+        {/* 🔹 MOBILE VIEW – Pagination with same layout */}
+        <div className="block lg:hidden relative">
+          {stories.length > 0 && (
+            <div className="relative flex flex-row items-center py-12">
+              {/* Central Line */}
+              <div className="absolute left-1/2 transform -translate-x-1 bg-black w-[3px] h-full z-0" />
+
+              {currentIndex % 2 === 0 ? (
+                <>
+                  {/* LEFT TEXT */}
+                  <div className="w-1/2 text-right pr-4">
+                    <h3 className="text-red-600 font-bold text-lg uppercase">
+                      {stories[currentIndex]?.title}
+                    </h3>
+                    <p className="text-gray-700 text-sm mt-3">
+                      {stories[currentIndex]?.description}
+                    </p>
+                  </div>
+
+                  {/* RIGHT DATE */}
+                  <div className="w-1/2 text-center text-2xl font-bold tracking-widest text-gray-900">
+                    <div>{stories[currentIndex]?.month?.toUpperCase()}</div>
+                    <div className="text-5xl tracking-widest">
+                      {stories[currentIndex]?.year}
                     </div>
-                ))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* LEFT DATE */}
+                  <div className="w-1/2 text-center text-2xl font-bold tracking-widest text-gray-900">
+                    <div>{stories[currentIndex]?.month?.toUpperCase()}</div>
+                    <div className="text-5xl tracking-widest">
+                      {stories[currentIndex]?.year}
+                    </div>
+                  </div>
+
+                  {/* RIGHT TEXT */}
+                  <div className="w-1/2 text-left pl-4">
+                    <h3 className="text-red-600 font-bold text-lg uppercase">
+                      {stories[currentIndex]?.title}
+                    </h3>
+                    <p className="text-gray-700 text-sm mt-3">
+                      {stories[currentIndex]?.description}
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {/* 🔹 Colored Line */}
+              <div
+                className={`absolute left-1/2 transform -translate-x-1 w-[3px] h-full ${
+                  currentIndex % 2 === 0
+                    ? "bg-gradient-to-b from-red-500 to-red-500"
+                    : "bg-gradient-to-b from-gray-700 to-gray-700"
+                }`}
+              />
             </div>
+          )}
+
+          {/* 🔹 Pagination Controls */}
+          <div className="flex justify-between mt-4">
+            <button
+              onClick={handlePrev}
+              disabled={currentIndex === 0}
+              className={`px-4 py-2 rounded ${
+                currentIndex === 0
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-red-600 text-white"
+              }`}
+            >
+              Prev
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={currentIndex === stories.length - 1}
+              className={`px-4 py-2 rounded ${
+                currentIndex === stories.length - 1
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-red-600 text-white"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+
+          <p className="text-sm text-gray-600 mt-2 text-center">
+            Showing : {currentIndex + 1} / {stories.length}
+          </p>
         </div>
-    );
+
+        {/* 🔹 DESKTOP VIEW – Show all blocks */}
+        <div className="hidden lg:block relative">
+          <div className="absolute left-1/2 transform -translate-x-1 bg-black w-[3px] h-full z-0" />
+          {stories.map((story, index) => {
+            const isOdd = index % 2 === 0;
+            return (
+              <div
+                key={story._id}
+                className="relative z-10 flex flex-row items-center py-12"
+              >
+                {isOdd ? (
+                  <>
+                    <div className="w-1/2 text-right pr-5">
+                      <h3 className="text-red-600 font-bold text-lg uppercase">
+                        {story.title}
+                      </h3>
+                      <p className="text-gray-700 text-sm mt-3">
+                        {story.description}
+                      </p>
+                    </div>
+                    <div className="w-1/2 text-center text-2xl font-bold tracking-widest text-gray-900">
+                      <div className="text-4xl">{story.month?.toUpperCase()}</div>
+                      <div className="text-6xl tracking-widest">
+                        {story.year}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-1/2 text-center text-2xl font-bold tracking-widest text-gray-900">
+                      <div className="text-4xl">{story.month?.toUpperCase()}</div>
+                      <div className="text-6xl tracking-widest">
+                        {story.year}
+                      </div>
+                    </div>
+                    <div className="w-1/2 text-left pl-5">
+                      <h3 className="text-red-600 font-bold text-lg uppercase">
+                        {story.title}
+                      </h3>
+                      <p className="text-gray-700 text-sm mt-3">
+                        {story.description}
+                      </p>
+                    </div>
+                  </>
+                )}
+
+                {/* Colored Line */}
+                <div
+                  className={`absolute left-1/2 transform -translate-x-1 w-[3px] h-full ${
+                    isOdd
+                      ? "bg-gradient-to-b from-red-500 to-red-500"
+                      : "bg-gradient-to-b from-gray-700 to-gray-700"
+                  }`}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Journey;

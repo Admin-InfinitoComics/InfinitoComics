@@ -10,7 +10,6 @@ class CharacterService {
         try {   // List of required fields
             const requiredFields = [
                 { key: 'knownAs', value: data.knownAs },
-                { key: 'originalName', value: data.originalName },
                 { key: 'birthDate', value: data.birthDate },
                 { key: 'placeOfOrigin', value: data.placeOfOrigin },
                 { key: 'storyLine.text', value: data.storyLine && data.storyLine.text },

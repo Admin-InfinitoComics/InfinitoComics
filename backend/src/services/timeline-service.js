@@ -13,8 +13,6 @@ class TimelineService {
   
   async createEvent(data) {
     try {
-      console.log("data's data")
-      console.log(data.title, data.eventDate, data.category, data.description, data.eventNumber)
       return await this.timelineRepository.create({
         title: data.title,
         eventDate: data.eventDate,

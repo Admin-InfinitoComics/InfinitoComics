@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaLeaf, FaArrowRight } from "react-icons/fa";
+import { BASE_URL } from "../../utils/constants.js";
 
 // Import images from local assets
 import profileImg from "../../../assets/Images/captainMarvel.png";
@@ -46,7 +47,7 @@ const MyAccountPage = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:3000/api/logout", {}, { withCredentials: true });
+      await axios.post(`${BASE_URL}/api/logout`, {}, { withCredentials: true });
       // Optionally clear localStorage/sessionStorage if used
       localStorage.removeItem("user");
       navigate("/login");
@@ -64,14 +65,14 @@ const MyAccountPage = () => {
           <img src={profileImg} alt="Avatar" className="w-28 h-28 mb-6" />
           <div className="w-full flex items-center justify-between text-xs text-gray-500 mb-2">
             <span>{userData.username}</span>
-            <button className="ml-2 text-gray-400 hover:text-black"><svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg></button>
+            <button className="ml-2 text-gray-400 hover:text-black"><svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z" /></svg></button>
           </div>
           <div className="w-full flex items-center justify-between mb-4">
             <span className="font-semibold text-base truncate">{userData.username}</span>
           </div>
           <div className="w-full flex items-center justify-between text-xs text-gray-500 mb-2">
             <span>{userData.email}</span>
-            <button className="ml-2 text-gray-400 hover:text-black"><svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg></button>
+            <button className="ml-2 text-gray-400 hover:text-black"><svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z" /></svg></button>
           </div>
           <div className="w-full flex items-center justify-between">
             <span className="font-semibold text-base truncate">{userData.email}</span>
@@ -105,9 +106,9 @@ const MyAccountPage = () => {
             <div className="flex flex-row gap-4">
               {["PURCHASED", "READING HISTORY", "MY GAMES", "MY WISHLIST"].map((item, index) => (
                 <div key={index} className="relative w-44 h-32 bg-gray-100 flex-shrink-0">
-                  <img 
-                    src={comicImg} 
-                    alt={item} 
+                  <img
+                    src={comicImg}
+                    alt={item}
                     className="w-full h-full object-cover" />
                   <div className="absolute bottom-0 left-0 right-0 px-3 py-2 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
                     <span className="uppercase text-xs tracking-widest flex items-center justify-between w-full">
@@ -125,9 +126,9 @@ const MyAccountPage = () => {
             <div className="flex flex-row gap-4">
               {["TRACK ORDERS", "ORDER HISTORY"].map((item, index) => (
                 <div key={index} className="relative w-44 h-32 bg-gray-100 flex-shrink-0">
-                  <img 
-                    src={comicImg} 
-                    alt={item} 
+                  <img
+                    src={comicImg}
+                    alt={item}
                     className="w-full h-full object-cover" />
                   <div className="absolute bottom-0 left-0 right-0 px-3 py-2 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white">
                     <span className="uppercase text-xs tracking-widest flex items-center justify-between w-full">
@@ -139,33 +140,32 @@ const MyAccountPage = () => {
             </div>
           </div>
 
-{/* Account Settings */}
-<div className="mb-10">
-  <div className="text-lg font-semibold mb-4">Account Settings</div>
-  <div className="flex flex-col gap-4">
-    {/* State Setup */}
-    {[
-      {
-        label: 'Subscriptions related mails',
-        stateKey: 'subscriptions',
-      },
+          {/* Account Settings */}
+          <div className="mb-10">
+            <div className="text-lg font-semibold mb-4">Account Settings</div>
+            <div className="flex flex-col gap-4">
+              {/* State Setup */}
+              {[
+                {
+                  label: 'Subscriptions related mails',
+                  stateKey: 'subscriptions',
+                },
 
-    ].map(({ label, stateKey }) => (
-      <ToggleRow key={stateKey} label={label} />
-    ))}
-  </div>
-</div>
-
+              ].map(({ label, stateKey }) => (
+                <ToggleRow key={stateKey} label={label} />
+              ))}
+            </div>
+          </div>
 
           {/* Footer Buttons */}
           <div className="flex flex-row justify-between items-center mt-8">
             <div className="flex gap-4">
               <button className="border border-black px-6 py-2 text-xs tracking-widest font-bold uppercase rounded-none transition hover:bg-gray-100 flex items-center group"
-              onClick={()=>{navigate("/feedback")}}>
+                onClick={() => { navigate("/feedback") }}>
                 GIVE FEEDBACK <FaArrowRight className="ml-2 text-xs group-hover:translate-x-1 transition-transform" />
               </button>
               <button className="border border-black px-6 py-2 text-xs tracking-widest font-bold uppercase rounded-none transition hover:bg-gray-100 flex items-center group"
-              onClick={()=>{navigate("/ErrorReport")}}>
+                onClick={() => { navigate("/ErrorReport") }}>
                 SUPPORT US <FaArrowRight className="ml-2 text-xs group-hover:translate-x-1 transition-transform" />
               </button>
               <button
@@ -179,7 +179,7 @@ const MyAccountPage = () => {
               DELETE MY ACCOUNT
             </button>
           </div>
-          
+
         </div>
       </div>
     </div>

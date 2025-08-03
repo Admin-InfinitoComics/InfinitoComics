@@ -107,6 +107,22 @@ export const updateChapter = async (req, res) => {
 
     let chapImage, chapPdf;
 
+    const comic = await comicChapServices.getComicById(comicId);
+    if (!comic) {
+      return res.status(404).json({ success: false, message: "Comic not found" });
+    }
+
+    const duplicateChapter = comic.chapters.find(
+      (chap) => chap.chapNum === chapNum && chap._id.toString() !== chapterId
+    );
+
+    if (duplicateChapter) {
+      return res.status(400).json({
+        success: false,
+        message: "Chapter number already exists. Enter another number.",
+      });
+    }
+
     if (req.files?.chapterImage?.[0]) {
       const uploadImg = await uploadToS3(
         req.files.chapterImage[0].buffer,

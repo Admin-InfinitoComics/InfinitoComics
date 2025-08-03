@@ -153,7 +153,42 @@ const formatDate = (dateString) => {
 
 const handleUpdateChapter = async (e) => {
   e.preventDefault();
+  if (
+    existingChapters.includes(chapterData.chapterNumber) &&
+    chapterData.chapterNumber !== chap?.chapNum?.toString()
+  ) {
+    alert("Chapter number already exists. Enter another number.");
+    return;
+  }
+
+  const isSameTitle = chapterData.title.trim() === (chap?.title || "");
+  const isSameChapterNum =
+    chapterData.chapterNumber === chap?.chapNum?.toString();
+  const isSameReleaseDate =
+    chapterData.releaseDate === chap?.releaseDate?.split("T")[0];
+
+  const isSameImage =
+    (chap?.chapImage && chapterData.chapterImage?.url === chap.chapImage) ||
+    (!chap?.chapImage && !chapterData.chapterImage);
+
+  const isSamePdf =
+    (chap?.chapPdf && chapterData.chapterPdf?.url === chap.chapPdf) ||
+    (!chap?.chapPdf && !chapterData.chapterPdf);
+
+  const isUnchanged = 
+    isSameTitle &&
+    isSameChapterNum &&
+    isSameReleaseDate &&
+    isSameImage &&  
+    isSamePdf;   
+
+  if (isUnchanged) {
+    alert("Please update something before updating this chapter.");
+    return;
+  }
+
   if (!window.confirm("Are you sure you want to update this chapter?")) return;
+  
   try {
     const result = await updateChapter(comic._id, chap._id, chapterData);
     if (result.success) {

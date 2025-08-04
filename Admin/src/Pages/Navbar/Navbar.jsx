@@ -53,6 +53,12 @@ const Navbar = () => {
             COMICS
           </Link>
           <Link
+            to="/users"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+            USERS
+          </Link>
+          <Link
             to="/characters"
             className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
           >
@@ -150,6 +156,12 @@ const Navbar = () => {
             >
               COMICS
             </Link>
+            <Link
+            to="/users"
+            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
+          >
+            USERS
+          </Link>
             <Link
             to="/research"
             className="text-white hover:text-red-500 transition duration-200 px-3 py-2"

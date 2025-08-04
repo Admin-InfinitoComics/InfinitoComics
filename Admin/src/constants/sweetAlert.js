@@ -17,19 +17,19 @@ export const showAlert = (type, onConfirm) => {
   };
   switch (type) {
     case "published":
-      config.title = "🎉 Blog Published!";
-      config.html = `<strong>Your blog has been <span style="color:#4CAF50;">successfully published</span>!</strong>`;
+      config.title = "🎉 Chapter Published!";
+      config.html = `<strong>Your chapter has been <span style="color:#4CAF50;">successfully published</span>!</strong>`;
       config.icon = "success";
       break;
     case "updated":
-      config.title = "✏️ Blog Updated!";
-      config.html = `<strong>Your blog changes have been <span style="color:#2196F3;">saved</span>!</strong>`;
+      config.title = "✏️ Chapter Updated!";
+      config.html = `<strong>Your chapter changes have been <span style="color:#2196F3;">saved</span>!</strong>`;
       config.icon = "info";
       config.confirmButtonColor = "#2196F3";
       break;
     case "deleted":
-      config.title = "🗑️ Blog Deleted!";
-      config.html = `<strong>The blog has been <span style="color:#f44336;">permanently removed</span>.</strong>`;
+      config.title = "🗑️ Chapter Deleted!";
+      config.html = `<strong>The chapter has been <span style="color:#f44336;">permanently removed</span>.</strong>`;
       config.icon = "warning";
       config.confirmButtonColor = "#f44336";
       break;

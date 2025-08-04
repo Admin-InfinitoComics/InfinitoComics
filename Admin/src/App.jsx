@@ -10,7 +10,11 @@ import Comic from './Pages/Comic/Comic.jsx'
 import Career from './Pages/career/career.jsx'
 import ChapterDashboard from './Pages/Comic/ChapterDashboard.jsx';
 
+import PaperCreate from "./Pages/Research/PaperCreate";
+
+
 import TimeLine from './Pages/TimeLine/timeline';
+import ResearchManager from './Pages/Research/ResearchManager.jsx';
 
 function App() {
   return (
@@ -31,6 +35,9 @@ function App() {
           <Route path="/career" element={<Career />} />        
           <Route path="/login" element={<Login />} />   
           <Route path="/timeline" element={<TimeLine />} />     
+          <Route path="/research" element={<ResearchManager />} />
+          <Route path="/research/create" element={<PaperCreate />} />
+
          </Route>  
       </Routes>
     </BrowserRouter>

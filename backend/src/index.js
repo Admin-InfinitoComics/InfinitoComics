@@ -5,8 +5,7 @@ import config from "./config/server-config.js"
 import connect from "./config/database-config.js"
 import userroutes from "./routes/user-routes.js";
 import cors from "cors";
-import blogroutes from './routes/blog-routes.js'
-import researchPaperRoutes from './routes/researchPaperRoutes.js';
+import blogroutes from './routes/blog-routes.js';
 import faqRoutes from './routes/faqRoutes.js';
 import multer from 'multer';
 import adminroutes from './routes/admin-routes.js';
@@ -15,6 +14,7 @@ import CareerRoutes from './routes/career-routes.js';
 import supportRoutes from './routes/support-routes.js';
 import comicRoutes from './routes/comic-routes.js';
 import characterRoutes from './routes/character-routes.js';
+import researchPaperRoutes from './routes/research-paper-routes.js';
 
 const allowedOrigins = [
   config.FRONTEND_URL,
@@ -36,13 +36,16 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
+// Parse JSON bodies (extended with body-parser for larger payloads)
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json());
+
+// API Routes
 app.use('/api', userroutes);
 app.use('/blog', blogroutes);
-app.use('/researchPaper',researchPaperRoutes);
-app.use('/faq',faqRoutes);
+app.use('/research-papers', researchPaperRoutes); // New research paper routes
+app.use('/faq', faqRoutes);
 app.use('/admin', adminroutes);
 app.use('/timeline', timelineRoutes);
 app.use('/career', CareerRoutes);

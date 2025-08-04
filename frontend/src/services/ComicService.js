@@ -6,3 +6,15 @@ export const fetchComics = async () => {
     // console.log("RES in services: ", res);
     return res.data.data;
 }
+
+export const fetchChapter = async (comicId) => {
+    console.log(comicId)
+  try {
+    const res = await axios.get(`${BASE_URL}/api/comicChap/${comicId}/chapters`);
+    console.log(res);
+    return res.data.data; // assuming response structure is same as fetchComics
+  } catch (error) {
+    console.error("Error fetching chapters:", error);
+    throw error;
+  }
+};

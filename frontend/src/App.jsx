@@ -131,8 +131,15 @@ function App() {
             <Route path="/comicChap/:comicId/chapters" element={<ComicChap></ComicChap>}></Route>
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
             <Route path='/games' element={<Games></Games>}></Route>
+
+            <Route path="/characters" element={<Community/>} />
+            <Route path="/comics" element={<Community/>} />
+            <Route path="/animation" element={<Community/>} />
+            <Route path="/shop" element={<Community/>} />
+
             <Route path='/terms-of-service' element={<TermsOfService/>}></Route>
             <Route path="*" element={<NotFound></NotFound>}></Route>
+
 
             
             </Route>

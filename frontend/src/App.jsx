@@ -129,6 +129,7 @@ function App() {
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/comics" element={<Comic/>}/>
             <Route path="/comicChap/:comicId/chapters" element={<ComicChap></ComicChap>}></Route>
+            <Route path="/comicChap/:comicId/chapters/pdfView" element={<ComicChap></ComicChap>}></Route>
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
             <Route path='/games' element={<Games></Games>}></Route>
 

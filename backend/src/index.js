@@ -22,7 +22,8 @@ const allowedOrigins = [
   config.FRONTEND_URL,
   config.ADMIN_URL,
   config.RESEARCH_URL,
-  config.FOUNDATION_URL
+  config.FOUNDATION_URL,
+  config.VERCEL_URL
 ];
 
 app.use(cors({

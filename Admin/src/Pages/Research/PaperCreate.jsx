@@ -51,6 +51,7 @@ const PaperCreate = () => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        withCredentials: true,
       });
 
       toast.success("Research paper created successfully!");
@@ -64,9 +65,7 @@ const PaperCreate = () => {
   return (
     <div className="p-8 max-w-5xl mx-auto bg-white shadow-lg rounded-xl mt-10">
       <Toaster position="top-right" />
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">
-        Create Research Paper
-      </h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">Create Research Paper</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>

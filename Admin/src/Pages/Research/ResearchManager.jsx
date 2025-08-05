@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { BACKEND_URL } from "../../Utils/constant";
+import { motion } from "framer-motion";
+import { BACKEND_URL } from "../../Utils/constant"; // ✅ backend URL import
 
 const ResearchManager = () => {
   const [papers, setPapers] = useState([]);
@@ -18,7 +19,7 @@ const ResearchManager = () => {
 
   const fetchPapers = async () => {
     try {
-      const res = await axios.get(`${BACKEND_URL}/research-papers`); // ✅ updated
+      const res = await axios.get(`${BACKEND_URL}/research-papers`);
       const docs = res?.data?.data || res?.data?.docs || [];
       setPapers(docs);
     } catch (err) {
@@ -47,7 +48,9 @@ const ResearchManager = () => {
     toast.success("Switched to edit mode");
   };
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleAuthorChange = (index, field, value) => {
     const updated = [...form.authors];
@@ -65,10 +68,7 @@ const ResearchManager = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(
-        `${BACKEND_URL}/research-papers/${selectedPaper._id}`, // ✅ updated
-        form
-      );
+      await axios.put(`${BACKEND_URL}/research-papers/${selectedPaper._id}`, form);
       toast.success("Paper updated successfully!");
       fetchPapers();
       setMode("list");
@@ -184,10 +184,24 @@ const ResearchManager = () => {
       {mode === "view" && selectedPaper && (
         <div className="bg-white p-6 rounded shadow space-y-4 mt-4">
           <h2 className="text-2xl font-semibold text-gray-800">{selectedPaper.title}</h2>
-          <p><strong className="text-gray-700">Publication:</strong> {new Date(selectedPaper.publicationDate).toLocaleDateString()}</p>
-          <p><strong className="text-gray-700">Authors:</strong> {selectedPaper.authors.map((a) => a.name).join(", ")}</p>
+          <p>
+            <strong className="text-gray-700">Publication:</strong>{" "}
+            {new Date(selectedPaper.publicationDate).toLocaleDateString()}
+          </p>
+          <p>
+            <strong className="text-gray-700">Authors:</strong>{" "}
+            {selectedPaper.authors.map((a) => a.name).join(", ")}
+          </p>
           <div className="grid gap-4 mt-4">
-            {["abstract", "introduction", "relatedWork", "methodology", "experimentalResults", "discussion", "conclusion"].map((key) => (
+            {[
+              "abstract",
+              "introduction",
+              "relatedWork",
+              "methodology",
+              "experimentalResults",
+              "discussion",
+              "conclusion",
+            ].map((key) => (
               <div key={key}>
                 <h3 className="font-semibold capitalize border-b pb-1 text-gray-700">{key}</h3>
                 <p className="text-gray-800">{selectedPaper[key]}</p>
@@ -200,27 +214,82 @@ const ResearchManager = () => {
       {mode === "edit" && form && (
         <form onSubmit={handleUpdate} className="bg-white p-6 mt-6 rounded shadow space-y-6">
           <h2 className="text-2xl font-bold text-gray-800">Edit Paper</h2>
-          <input name="title" value={form.title} onChange={handleChange} placeholder="Title" className="w-full border px-4 py-2 rounded" required />
-          {["abstract", "introduction", "relatedWork", "methodology", "experimentalResults", "discussion", "conclusion"].map((key) => (
-            <textarea key={key} name={key} value={form[key]} onChange={handleChange} placeholder={key} className="w-full border px-4 py-2 rounded" required />
+          <input
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            placeholder="Title"
+            className="w-full border px-4 py-2 rounded"
+            required
+          />
+          {[
+            "abstract",
+            "introduction",
+            "relatedWork",
+            "methodology",
+            "experimentalResults",
+            "discussion",
+            "conclusion",
+          ].map((key) => (
+            <textarea
+              key={key}
+              name={key}
+              value={form[key]}
+              onChange={handleChange}
+              placeholder={key}
+              className="w-full border px-4 py-2 rounded"
+              required
+            />
           ))}
-          <input type="date" name="publicationDate" value={form.publicationDate} onChange={handleChange} className="border px-4 py-2 rounded" required />
+          <input
+            type="date"
+            name="publicationDate"
+            value={form.publicationDate}
+            onChange={handleChange}
+            className="border px-4 py-2 rounded"
+            required
+          />
 
           <div>
             <label className="font-semibold">Authors</label>
             {form.authors.map((author, i) => (
               <div key={i} className="flex flex-col sm:flex-row gap-2 mt-2">
-                <input type="text" placeholder="Name" value={author.name} onChange={(e) => handleAuthorChange(i, "name", e.target.value)} className="flex-1 border px-3 py-2 rounded" />
-                <input type="email" placeholder="Email" value={author.email} onChange={(e) => handleAuthorChange(i, "email", e.target.value)} className="flex-1 border px-3 py-2 rounded" />
-                <input type="text" placeholder="Affiliation" value={author.affiliation} onChange={(e) => handleAuthorChange(i, "affiliation", e.target.value)} className="flex-1 border px-3 py-2 rounded" />
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={author.name}
+                  onChange={(e) => handleAuthorChange(i, "name", e.target.value)}
+                  className="flex-1 border px-3 py-2 rounded"
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={author.email}
+                  onChange={(e) => handleAuthorChange(i, "email", e.target.value)}
+                  className="flex-1 border px-3 py-2 rounded"
+                />
+                <input
+                  type="text"
+                  placeholder="Affiliation"
+                  value={author.affiliation}
+                  onChange={(e) => handleAuthorChange(i, "affiliation", e.target.value)}
+                  className="flex-1 border px-3 py-2 rounded"
+                />
               </div>
             ))}
-            <button type="button" onClick={addAuthor} className="mt-2 px-4 py-1 bg-green-500 text-white rounded hover:bg-green-600">
+            <button
+              type="button"
+              onClick={addAuthor}
+              className="mt-2 px-4 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+            >
               + Add Author
             </button>
           </div>
 
-          <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+          >
             Save Changes
           </button>
         </form>

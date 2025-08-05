@@ -1,18 +1,22 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Body from './components/Body';
-import CreateBlog from './pages/Blogs/CreateBlog.jsx';
+import CreateBlog from './Pages/Blogs/CreateBlog.jsx';
 import User from './Pages/UserList/UserList';
 import Home from './Pages/Home/home.jsx';
 import FAQManager from './Pages/Faq/FaqManager';
 import Login from "./Auth/login"
 import Characters from './Pages/Characters/CharacterManager.jsx'
 import Career from './Pages/career/career'
-import Comic from './pages/Comic/Comic.jsx'
-import ChapterDashboard from './pages/Comic/ChapterDashboard.jsx';
+import Comic from './Pages/Comic/Comic.jsx'
+import ChapterDashboard from './Pages/Comic/ChapterDashboard.jsx';
+
+import PaperCreate from "./Pages/Research/PaperCreate";
+
 
 import TimeLine from './Pages/TimeLine/timeline';
-import ComicChap from './pages/Comic/comicChapters.jsx'
+import ResearchManager from './Pages/Research/ResearchManager.jsx';
+import ComicChap from './Pages/Comic/comicChapters.jsx'
 
 function App() {
   return (
@@ -34,6 +38,9 @@ function App() {
           {/* <Route path="/characters" element={<Characters/>} />         */}
           <Route path="/career" element={<Career />} />        
           <Route path="/login" element={<Login />} />   
+          <Route path="/timeline" element={<TimeLine />} />     
+          <Route path="/research" element={<ResearchManager />} />
+          <Route path="/research/create" element={<PaperCreate />} />
           <Route path="/timeline" element={<TimeLine />} />   
           <Route path='/comicChap/:comicId/chapters' element={<ComicChap></ComicChap>}></Route>  
          </Route>  

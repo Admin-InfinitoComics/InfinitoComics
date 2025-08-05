@@ -43,7 +43,7 @@ const Header = () => {
             Research
           </Link>
           <Link
-            to="/support"
+            to="/support-us"
             className="hover:text-white font-bold flex items-center gap-1"
           >
             <Heart className="mx-1" /> Support Us

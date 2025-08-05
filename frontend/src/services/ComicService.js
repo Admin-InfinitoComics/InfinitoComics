@@ -12,7 +12,7 @@ export const fetchChapter = async (comicId) => {
   try {
     const res = await axios.get(`${BASE_URL}/api/comicChap/${comicId}/chapters`);
     console.log(res);
-    return res.data.data; // assuming response structure is same as fetchComics
+    return res.data.data; 
   } catch (error) {
     console.error("Error fetching chapters:", error);
     throw error;

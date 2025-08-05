@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
-import { fetchChapter } from "../../services/ComicService.js"; // adjust path as needed
+import { fetchChapter } from "../../services/ComicService.js"; 
 
 const ComicChap = () => {
   const { comicId } = useParams();
@@ -24,7 +24,6 @@ const ComicChap = () => {
     getChapters();
   }, [comicId]);
 
-  // Show PDF full-screen if in pdfView route
   if (isReaderView && selectedPdf) {
     return (
       <div className="h-screen w-screen bg-black flex flex-col">
@@ -34,7 +33,6 @@ const ComicChap = () => {
               onClick={() => navigate(`/comicChap/${comicId}/chapters`)}
               className="text-white hover:text-gray-300 text-lg sm:text-xl"
             >
-              {/* Unicode arrow or you can use an icon */}
               &#8592;
             </button>
             <span className="text-sm sm:text-base font-medium">
@@ -42,7 +40,6 @@ const ComicChap = () => {
             </span>
           </div>
         </div>
-
         <iframe
           src={`${selectedPdf.url}#toolbar=0&navpanes=0&scrollbar=0`}
           title="Chapter PDF"
@@ -52,49 +49,47 @@ const ComicChap = () => {
       </div>
     );
   }
-
-  // Normal view with chapter list
-  return (
-    <div className="bg-white p-2 sm:p-8 max-w-5xl mx-auto mt-10">
-      <div>
-        {chapters.map((chap) => (
-          <div
-            key={chap._id}
-            className="group bg-white hover:bg-gray-50 border-1 border-gray-200 transition-all duration-300 hover:shadow-lg"
-            onClick={() => {
-              setSelectedPdf({ url: chap.chapPdf, title: chap.title });
-              navigate(`/comicChap/${comicId}/chapters/pdfView`);
-            }}
-          >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-start sm:items-center w-full">
-                <div className="w-32 h-17 sm:w-32 sm:h-17 flex-shrink-0 flex items-center justify-center shadow-md">
-                  <img
-                    src={chap.chapImage}
-                    alt="Chapter"
-                    className="w-full h-full object-fill"
-                  />
-                </div>
-                <div className="flex justify-between items-center w-full">
-                  <h3 className="text-xl font-medium text-gray-800 truncate max-w-[200px] sm:max-w-xs ml-6">
-                    {chap.title}
-                  </h3>
-                  {chap.releaseDate && (
-                    <span className="text-base font-normal text-gray-600 whitespace-nowrap mr-15">
-                      {new Date(chap.releaseDate).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </span>
-                  )}
-                </div>
+return (
+  <div className="bg-white p-2 sm:p-8 max-w-5xl mx-auto mt-10">
+    <div>
+      {chapters.map((chap) => (
+        <div
+          key={chap._id}
+          className="group bg-white hover:bg-gray-50 border-1 border-gray-200 transition-all duration-300 hover:shadow-lg"
+          onClick={() => {
+            setSelectedPdf({ url: chap.chapPdf, title: chap.title });
+            navigate(`/comicChap/${comicId}/chapters/pdfView`);
+          }}
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center w-full">
+              <div className="w-32 h-17 sm:w-32 sm:h-17 flex-shrink-0 flex items-center justify-center shadow-md">
+                <img
+                  src={chap.chapImage}
+                  alt="Chapter"
+                  className="w-full h-full object-fill"
+                />
+              </div>
+              <div className="flex justify-between items-center w-full">
+                <h3 className="text-xl font-medium text-gray-800 truncate max-w-[200px] sm:max-w-xs ml-6">
+                  {chap.title}
+                </h3>
+                {chap.releaseDate && (
+                  <span className="text-base font-normal text-gray-600 whitespace-nowrap mr-15">
+                    {new Date(chap.releaseDate).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                )}
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
+  </div>
   );
 };
 

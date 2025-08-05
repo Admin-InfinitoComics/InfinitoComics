@@ -152,7 +152,8 @@ const Header = () => {
           </li>
           <li>
             <Link
-              to="/aboutUs"
+              to="/aboutUS"
+
               className="uppercase tracking-wider font-semibold hover:text-white cursor-pointer border-l border-gray-600 px-5"
             >
               About Us

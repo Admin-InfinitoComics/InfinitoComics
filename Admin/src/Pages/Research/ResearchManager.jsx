@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { motion } from "framer-motion";
+import { BACKEND_URL } from "../../Utils/constant";
 
 const ResearchManager = () => {
   const [papers, setPapers] = useState([]);
@@ -18,7 +18,7 @@ const ResearchManager = () => {
 
   const fetchPapers = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/research-papers");
+      const res = await axios.get(`${BACKEND_URL}/research-papers`); // ✅ updated
       const docs = res?.data?.data || res?.data?.docs || [];
       setPapers(docs);
     } catch (err) {
@@ -66,7 +66,7 @@ const ResearchManager = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:3000/research-papers/${selectedPaper._id}`,
+        `${BACKEND_URL}/research-papers/${selectedPaper._id}`, // ✅ updated
         form
       );
       toast.success("Paper updated successfully!");

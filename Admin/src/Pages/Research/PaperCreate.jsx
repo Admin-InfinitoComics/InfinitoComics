@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { BACKEND_URL } from "../../Utils/constant";
 
 const PaperCreate = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const PaperCreate = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("authToken");
-      await axios.post("http://localhost:3000/research-papers", form, {
+      await axios.post(`${BACKEND_URL}/research-papers`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -63,7 +64,6 @@ const PaperCreate = () => {
   return (
     <div className="p-8 max-w-5xl mx-auto bg-white shadow-lg rounded-xl mt-10">
       <Toaster position="top-right" />
-
       <h1 className="text-3xl font-bold text-gray-900 mb-8">
         Create Research Paper
       </h1>

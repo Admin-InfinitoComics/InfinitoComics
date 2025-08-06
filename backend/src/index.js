@@ -24,9 +24,7 @@ const allowedOrigins = [
   config.ADMIN_URL,
   config.RESEARCH_URL,
   config.FOUNDATION_URL,
-  config.VERCEL_URL
 ];
-console.log("CORS Allowed Origins:", allowedOrigins);
 
 app.use(cors({
   origin: function (origin, callback) {

@@ -116,7 +116,7 @@ const CharacterSchema = new mongoose.Schema({
     required: true
   },
   power2ImageUrl:{
-    type : string,
+    type : String,
     required : true
   },
   power3ImageUrl:{

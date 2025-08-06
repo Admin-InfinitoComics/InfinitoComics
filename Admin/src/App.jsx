@@ -9,7 +9,7 @@ import Login from "./Auth/login"
 import Characters from './Pages/Characters/CharacterManager.jsx'
 import Career from './Pages/career/career'
 import Comic from './Pages/Comic/Comic.jsx'
-import ChapterDashboard from './Pages/Comic/ChapterDashboard.js';
+import ChapterDashboard from './Pages/Comic/ChapterDashboard.jsx';
 
 import TimeLine from './Pages/TimeLine/timeline';
 
@@ -28,7 +28,7 @@ function App() {
           <Route path="/login" element={<Login />} />  
           <Route path="/comic" element={<Comic/>} /> 
           <Route path="/comic/:comicId/chapters" element={<ChapterDashboard />} />
-          {/* <Route path="/characters" element={<Characters/>} />         */}
+          <Route path="/characters" element={<Characters/>} />        
           <Route path="/career" element={<Career />} />        
           <Route path="/login" element={<Login />} />   
           <Route path="/timeline" element={<TimeLine />} />     

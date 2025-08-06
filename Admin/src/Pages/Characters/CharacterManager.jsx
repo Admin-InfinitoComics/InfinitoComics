@@ -1,4 +1,3 @@
-// src/components/characters/CharacterManager.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AllCharacters from './AllCharacters';
@@ -134,9 +133,14 @@ const CharacterManager = () => {
       // ---- POST REQUEST FOR CREATE ----
       const newId = String(nextId);
       setNextId(nextId + 1);
+
+      // Log the clean character data before FormData conversion
+      console.log('Clean character data before FormData:', cleanCharacter);
+      
       const formData = new FormData();
       Object.keys(cleanCharacter).forEach(key => {
-        if (key !== 'mainImage' && key !== 'storylineImage' && key !== 'originImage') {
+        if (key !== 'mainImage' && key !== 'storylineImage' && key !== 'originImage' && 
+            key !== 'mainLandscapeImage' && key !== 'power1Image' && key !== 'power2Image' && key !== 'power3Image') {
           if (Array.isArray(cleanCharacter[key])) {
             cleanCharacter[key].forEach(item => {
               formData.append(key, item);
@@ -147,6 +151,8 @@ const CharacterManager = () => {
         }
       });
       formData.append('_id', newId);
+      
+      // Handle all image fields
       if (cleanCharacter.mainImage) {
         if (cleanCharacter.mainImage instanceof File) {
           formData.append('mainImage', cleanCharacter.mainImage);
@@ -154,6 +160,39 @@ const CharacterManager = () => {
           formData.append('mainImageUrl', cleanCharacter.mainImage);
         }
       }
+      
+      if (cleanCharacter.mainLandscapeImage) {
+        if (cleanCharacter.mainLandscapeImage instanceof File) {
+          formData.append('mainLandscapeImage', cleanCharacter.mainLandscapeImage);
+        } else if (typeof cleanCharacter.mainLandscapeImage === 'string') {
+          formData.append('mainLandscapeImageUrl', cleanCharacter.mainLandscapeImage);
+        }
+      }
+      
+      if (cleanCharacter.power1Image) {
+        if (cleanCharacter.power1Image instanceof File) {
+          formData.append('power1Image', cleanCharacter.power1Image);
+        } else if (typeof cleanCharacter.power1Image === 'string') {
+          formData.append('power1ImageUrl', cleanCharacter.power1Image);
+        }
+      }
+      
+      if (cleanCharacter.power2Image) {
+        if (cleanCharacter.power2Image instanceof File) {
+          formData.append('power2Image', cleanCharacter.power2Image);
+        } else if (typeof cleanCharacter.power2Image === 'string') {
+          formData.append('power2ImageUrl', cleanCharacter.power2Image);
+        }
+      }
+      
+      if (cleanCharacter.power3Image) {
+        if (cleanCharacter.power3Image instanceof File) {
+          formData.append('power3Image', cleanCharacter.power3Image);
+        } else if (typeof cleanCharacter.power3Image === 'string') {
+          formData.append('power3ImageUrl', cleanCharacter.power3Image);
+        }
+      }
+      
       if (cleanCharacter.storylineImage) {
         if (cleanCharacter.storylineImage instanceof File) {
           formData.append('storylineImage', cleanCharacter.storylineImage);
@@ -161,6 +200,7 @@ const CharacterManager = () => {
           formData.append('storylineImageUrl', cleanCharacter.storylineImage);
         }
       }
+      
       if (cleanCharacter.originImage) {
         if (cleanCharacter.originImage instanceof File) {
           formData.append('originImage', cleanCharacter.originImage);
@@ -168,10 +208,18 @@ const CharacterManager = () => {
           formData.append('originImageUrl', cleanCharacter.originImage);
         }
       }
+      
+      // Log FormData entries
+      console.log('FormData being sent to backend:');
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + (pair[1] instanceof File ? `File: ${pair[1].name}` : pair[1]));
+      }
+      
       try {
         const res = await createCharacter(formData);
         await fetchCharacters();
       } catch (error) {
+        console.error('Error creating character:', error);
         const newCharacter = { ...cleanCharacter, _id: newId };
         setCharacters(prevCharacters => [...prevCharacters, newCharacter]);
       }

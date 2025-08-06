@@ -1,4 +1,3 @@
-// src/components/characters/AllCharacters.jsx
 import React from "react";
 
 const AllCharacters = ({

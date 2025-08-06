@@ -46,7 +46,7 @@ const Footer = () => {
           <div className="flex flex-wrap gap-6 text-sm">
             <div className="flex flex-col space-y-4">
               <span>BLOGS & NEWS</span>
-              <Link to="/careers"><span>CAREER</span></Link>
+              <Link to="/career"><span>CAREER</span></Link>
               <span>INTERNSHIP</span>
             </div>
             <div className="flex flex-col space-y-4">
@@ -103,7 +103,7 @@ const Footer = () => {
           <div className="mt-8 grid grid-cols-2 gap-y-4 px-5 pr-2 gap-x-12 text-sm font-medium text-left">
             <span>BLOGS & NEWS</span>
             <span>FOUNDATION</span>
-            <Link to="/careers">CAREER</Link>
+            <Link to="/career">CAREER</Link>
             <span>RESEARCH</span>
             <span>INTERNSHIP</span>
             <span>SUPPORT US</span>

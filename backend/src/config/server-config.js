@@ -18,10 +18,6 @@ export default {
     SMTP_PORT: process.env.SMTP_PORT,
     SMTP_SERVER: process.env.SMTP_SERVER,
     FORGET_PASSWORD_EXPIRY: process.env.FORGET_PASSWORD_EXPIRY,
-<<<<<<< HEAD
     RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,
     RAZORPAY_SECRET_KEY: process.env.RAZORPAY_SECRET_KEY
-=======
-    VERCEL_URL: process.env.VERCEL_URL || "https://infinito-comics.vercel.app/"
->>>>>>> d24d2e26909bb711587eaeb40f9c06bef9bef6cd
 }

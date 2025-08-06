@@ -16,21 +16,15 @@ import comicRoutes from './routes/comic-routes.js';
 import characterRoutes from './routes/character-routes.js';
 import researchPaperRoutes from './routes/research-paper-routes.js';
 import aboutTimelineRoutes from './routes/aboutTimelineRoutes.js';
-<<<<<<< HEAD
-import paymentroutes from "./routes/payment-routes.js";
-=======
 import paymentRoutes from './routes/payment-routes.js'
 import comicChapRoutes from './routes/comicChap-routes.js'
->>>>>>> d24d2e26909bb711587eaeb40f9c06bef9bef6cd
 
 const allowedOrigins = [
   config.FRONTEND_URL,
   config.ADMIN_URL,
   config.RESEARCH_URL,
   config.FOUNDATION_URL,
-  config.VERCEL_URL
 ];
-console.log("CORS Allowed Origins:", allowedOrigins);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -63,11 +57,7 @@ app.use('/support', supportRoutes);
 app.use('/api/comic', comicRoutes);
 app.use('/api/comicChap', comicChapRoutes);
 app.use('/character', characterRoutes);
-<<<<<<< HEAD
-app.use('/payment', paymentroutes);
-=======
 app.use('/payment', paymentRoutes);
->>>>>>> d24d2e26909bb711587eaeb40f9c06bef9bef6cd
 app.get('/', (req, res) => {
   res.send('🚀 Backend is up and running!');
 });

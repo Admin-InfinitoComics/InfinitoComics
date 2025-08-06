@@ -25,7 +25,12 @@ router.post(
   upload.fields([
     { name: 'mainImage', maxCount: 1 },
     { name: 'storylineImage', maxCount: 1 },
-    { name: 'originImage', maxCount: 1 }
+    { name: 'originImage', maxCount: 1 },
+    { name : 'mainLandscapeImage', maxcount : 1},
+    { name : 'power1Image', maxcount : 1},
+    { name : 'power2Image', maxcount : 1},
+    { name : 'power3Image', maxcount :1},
+
   ]),
   createCharacter
 );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import banner from '../../../assets/Images/career/banner.png';
 import WorkWithUsShimmer from '../../shimmer/Career/WorkWIthUsShimmer'
+import careerUrls from '../../utils/imagesUrls/carrerUrls.js';
 
 const WorkWIthUs = () => {
     const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ const WorkWIthUs = () => {
     <div
       className="w-full min-h-[600px] flex items-center shadow-[0_10px_40px_-10px_rgba(0,0,0,0.7)]"
       style={{
-        backgroundImage: `url(${banner})`, // Background banner image
+        backgroundImage: `url(${careerUrls.BANNER_URL})`, // Background banner image
         backgroundSize: 'cover',           // Cover entire div
         backgroundPosition: 'center',      // Center the image
       }}

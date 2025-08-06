@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import imaginationImg1 from "../../../assets/Images/career/imginationImg1.png";
-import imaginationImg2 from "../../../assets/Images/career/imaginationImg2.png";
 import ImaginationsLeadsShimmer from "../../shimmer/Career/ImaginationsLeadsShimmer";
+import careerUrls from "../../utils/imagesUrls/carrerUrls.js"; // Importing URLs for images
 
 const ImaginationsLeads = () => {
   const [loading, setLoading] = useState(true);
@@ -101,7 +100,7 @@ const ImaginationsLeads = () => {
 
         {/* Sticky Note Image - responsive image with adaptive height */}
         <img
-          src={imaginationImg1}
+          src={careerUrls.CAREER_IMAGE_2}
           alt="team planning with sticky notes"
           className="rounded shadow-md object-cover w-full h-72 md:h-96 lg:h-[350px] max-w-lg mx-auto"
         />
@@ -111,7 +110,7 @@ const ImaginationsLeads = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-25 items-center max-w-6xl mx-auto  mb-20 md:mt-40  ">
         {/* Left side image */}
         <img
-          src={imaginationImg2}
+          src={careerUrls.CAREER_IMAGE_1}
           alt="team working on computer"
           className="rounded shadow-md object-cover w-full h-72 md:h-96 lg:h-[350px] max-w-lg "
         />

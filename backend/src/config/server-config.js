@@ -17,5 +17,6 @@ export default {
     EMAIL_PASS: process.env.EMAIL_PASS,
     SMTP_PORT: process.env.SMTP_PORT,
     SMTP_SERVER: process.env.SMTP_SERVER,
-    FORGET_PASSWORD_EXPIRY: process.env.FORGET_PASSWORD_EXPIRY
+    FORGET_PASSWORD_EXPIRY: process.env.FORGET_PASSWORD_EXPIRY,
+    VERCEL_URL: process.env.VERCEL_URL || "https://infinito-comics.vercel.app/"
 }

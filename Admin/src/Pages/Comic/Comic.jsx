@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { fetchComics, createComic, updateComic, deleteComic, getComicById } from '../../services/comicServices.js'
-
+import { deleteChapter } from "../../services/comicChapServices.js";
+import { showAlert } from "../../constants/sweetAlert";
 const Comic = () => {
     const [comicData, setComicData] = useState({
         coverImg: "",
@@ -18,6 +19,7 @@ const Comic = () => {
     const [selectedComicId, setSelectedComicId] = useState(null);
 
     const [visibleCount, setVisibleCount] = useState(4);
+    const [chapters, setChapters] = useState([]);
 
     const token = localStorage.getItem("authToken");
     // console.log("Token from comic.jsx file: ", token);
@@ -137,6 +139,21 @@ const Comic = () => {
         fetchAllComics();
     }, []);
 
+    const handleDeleteChapter = async (comicId, chapterId) => {
+      if (!window.confirm("Are you sure you want to delete this chapter?")) return;
+    
+      try {
+        await deleteChapter(comicId, chapterId);
+        setChapters((prevChapters) =>
+          prevChapters.filter((chap) => chap._id !== chapterId)
+        );
+        showAlert("deleted"); 
+      } catch (err) {
+        console.error("Error deleting chapter:", err);
+        alert("Failed to delete chapter.");
+      }
+    };
+
     return (
         <>
             <Toaster position="top-right" reverseOrder={false} />
@@ -238,7 +255,7 @@ const Comic = () => {
                                 src={
                                     previewImg ||
                                     (typeof comicData.coverImg === "string" && comicData.coverImg) ||
-                                    "https://via.placeholder.com/300x400?text=Preview"
+                                    "/fallback.jpg"
                                 }
                                 alt="Cover Image"
                                 className="w-[15.5rem] h-[21rem] object-cover shadow-md"
@@ -276,9 +293,71 @@ const Comic = () => {
                                 <p className="text-xs text-gray-600  font-medium">
                                     <span className="text-gray-700">Authors:</span> {comic.authors.join(", ")}
                                 </p>
-                                <p className="text-xs text-gray-600 font-medium">
-                                    <span className="text-gray-700">Chapters:</span> {comic.chapters.length}
-                                </p>
+                                <div className="relative group inline-block">
+                                <div className="cursor-pointer transition-all duration-200 rounded-md px-2 py-1 group-hover:bg-blue-50 inline-flex items-center">
+                                    <p className="text-xs text-gray-600 font-medium group-hover:text-blue-700 transition-colors">
+                                    <span className="text-gray-700 group-hover:text-blue-800">Chapters:</span> {comic.chapters.length}
+                                    </p>
+                                </div>
+                                {comic.chapters.length > 1 && (
+                                    <div className="absolute top-0 left-full ml-2 bg-white shadow-xl border border-gray-400 rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 whitespace-nowrap">
+                                    <button
+                                       onClick={() => navigate(`/comicChap/${comic._id}/chapters`, { state: { comic } })}
+                                        className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-600 text-white rounded-md hover:from-red-600 hover:to-red-500 text-xs font-medium transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-1 "
+                                    >
+                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                        View All
+                                    </button>
+                                    </div>
+                                )}
+                                {comic.chapters.length === 1 && (
+                                    <div className="absolute top-full left-0 mt-1 bg-white shadow-xl border border-gray-200 rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 z-10 min-w-48">
+                                    <div className="space-y-2">
+                                        <button
+                                        onClick={() => { 
+                                            localStorage.setItem("selectedComic", JSON.stringify(comic)); 
+                                            navigate(`/chapters/${comic.chapters[0]._id}/open`, { 
+                                                state: { chap: comic.chapters[0], comicId: comic._id } 
+                                            }); 
+                                        }}
+                                        className="w-full px-3 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-md hover:from-green-600 hover:to-green-700 text-xs font-medium transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+                                        >
+                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                        Open Chapter
+                                        </button>
+                                        
+                                        <button
+                                        onClick={() => navigate(`/chapters/${comic.chapters[0]._id}/edit`, { state: { chap: comic.chapters[0], comicId: comic._id } })}
+                                        className="w-full px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md hover:from-blue-600 hover:to-blue-700 text-xs font-medium transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+                                        >
+                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                        Edit Chapter
+                                        </button>
+                                        
+                                        <button
+                                        onClick={() => {
+                                           handleDeleteChapter(comic._id, comic.chapters[0]._id);
+                                        }}
+                                        className="w-full px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md hover:from-red-600 hover:to-red-700 text-xs font-medium transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+                                        >
+                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                        Delete Chapter
+                                        </button>
+                                    </div>
+                                    <div className="absolute -top-1 left-4 w-2 h-2 bg-white border-l border-t border-gray-200 transform rotate-45"></div>
+                                    </div>
+                                )}
+                                </div>
                                 <div className="flex gap-1  mt-4 ">
                                     <button
                                         onClick={() => handleEdit(comic)}
@@ -323,11 +402,16 @@ const Comic = () => {
                                     </div>
 
 
-                                    <button
-                                        onClick={() => navigate(`${comic._id}/chapters`)}
-                                        className="flex-1 border-2 border-red-600 text-red-600 bg-white  hover:bg-red-600 hover:text-white font-semibold py-1 px-1 transition"
+                                   <button
+                                    onClick={() => {
+                                        localStorage.setItem("selectedComic", JSON.stringify(comic));
+                                        navigate(`/comic/${comic._id}/chapters`, {
+                                        state: { comic }, 
+                                        });
+                                    }}
+                                    className="flex-1 border-2 border-red-600 text-red-600 bg-white hover:bg-red-600 hover:text-white font-semibold py-1 px-1 transition"
                                     >
-                                        Add Chapter
+                                    Add Chapter
                                     </button>
                                 </div>
 

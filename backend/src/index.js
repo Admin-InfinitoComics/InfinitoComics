@@ -16,6 +16,7 @@ import comicRoutes from './routes/comic-routes.js';
 import characterRoutes from './routes/character-routes.js';
 import researchPaperRoutes from './routes/research-paper-routes.js';
 import aboutTimelineRoutes from './routes/aboutTimelineRoutes.js';
+import paymentRoutes from './routes/payment-routes.js'
 import comicChapRoutes from './routes/comicChap-routes.js'
 
 const allowedOrigins = [
@@ -58,6 +59,7 @@ app.use('/support', supportRoutes);
 app.use('/api/comic', comicRoutes);
 app.use('/api/comicChap', comicChapRoutes);
 app.use('/character', characterRoutes);
+app.use('/payment', paymentRoutes);
 app.get('/', (req, res) => {
   res.send('🚀 Backend is up and running!');
 });

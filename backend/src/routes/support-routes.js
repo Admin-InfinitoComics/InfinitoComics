@@ -14,6 +14,7 @@ const router = express.Router();
 
 // Create a new support (donation)
 router.post('/create', authenticate, createSupport);
+// router.post('/create', createSupport);
 
 // Get current user's supports
 router.get('/my-supports', authenticate, getUserSupports);

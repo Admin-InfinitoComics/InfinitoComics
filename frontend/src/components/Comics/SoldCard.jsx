@@ -5,15 +5,15 @@ const SoldCard = ({ comic }) => {
         <div className="w-[132.5rem] flex justify-center items-center bg-white">
             <div className="relative w-[12.5rem] overflow-hidden bg-white">
                 {/* SOLD OUT Badge */}
-                <div className="absolute top-2 left-2 z-10 bg-red-600 text-white text-[0.65rem] px-2 py-1 rounded shadow tracking-wider font-semibold">
-                    SOLD OUT
+                <div className="absolute top-2 left-2 z-10 bg-green-600 text-white text-[0.65rem] px-2 py-1 rounded shadow tracking-wider font-semibold">
+                    UPCOMING
                 </div>
 
                 {/* Comic Image */}
                 <img
                     src={comic.coverImg || "https://via.placeholder.com/300x400?text=Preview"}
                     alt="Cover"
-                    className="w-[15.5rem] h-[16rem] object-cover shadow-md opacity-60 grayscale"
+                    className="w-[15.5rem] h-[16rem] object-cover shadow-md opacity-80 grayscale"
                 />
 
                 {/* Comic Title */}

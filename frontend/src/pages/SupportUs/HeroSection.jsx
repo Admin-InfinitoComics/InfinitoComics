@@ -57,6 +57,7 @@ function HeroSection() {
     try {
       // Step 4: Call API
       const token = localStorage.getItem("authtoken");
+      console.log("Token", token);
       const response = await createSupport(supportData, token);
       console.log("Support Success:", response);
 

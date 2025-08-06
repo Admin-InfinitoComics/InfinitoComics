@@ -31,7 +31,7 @@ function Comic() {
   };
 
   return (
-    <div className="w-11/12 lg:w-2/3 mx-auto mt-12">
+    <div className="w-11/12 lg:w-2/3 mx-auto my-16">
       <div className="flex justify-between items-center mb-4 ">
         <h2 className="text-2xl font-bold text-gray-800 uppercase tracking-widest">Fan Favourites &gt;</h2>
         <button className="text-red-600 text-[0.6rem] font-bold tracking-widest hover:underline hover:cursor-pointer">VIEW MORE &gt;</button>

@@ -45,6 +45,22 @@ const UserSchema = new mongoose.Schema({
   infinitoUltimateTo: {
     type: Date,
     default: null
+  },
+  hasInfinitoUltimateKit: {
+    type: Boolean,
+    default: false
+  },
+  hasMonthlyMembership: {
+    type: Boolean,
+    default: false
+  },
+  hasHalfYearlyMembership:{
+    type: Boolean,
+    default: false
+  },
+  hasAnnualMembership: {
+    type: Boolean,
+    default: false
   }
 }, {timestamps: true});
 

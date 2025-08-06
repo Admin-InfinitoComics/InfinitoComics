@@ -1,8 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Upi from '../../../../assets/Images/Cart/Upi.png';
-import Master from '../../../../assets/Images/Cart/Master.png';
-import Visa from '../../../../assets/Images/Cart/Visa.png';
+import cartUrls from '../../../utils/imagesUrls/cartUrls.js'; // Import the URLs from the constants file
 
 const Step2 = ({ onNext }) => {
   const navigate = useNavigate();
@@ -57,8 +55,8 @@ const Step2 = ({ onNext }) => {
         >
           <div className="flex items-center gap-4">
             <span className="font-medium">Credit or Debit Card</span>
-            <img src={Visa} alt="Visa" className="h-5" />
-            <img src={Master} alt="Mastercard" className="h-5" />
+            <img src={cartUrls.VISA_URL} alt="Visa" className="h-5" />
+            <img src={cartUrls.MASTERCARD_URL} alt="Mastercard" className="h-5" />
           </div>
           <span>&gt;</span>
         </div>
@@ -70,7 +68,7 @@ const Step2 = ({ onNext }) => {
         >
           <div className="flex items-center gap-4">
             <span className="font-medium">UPI AutoPay</span>
-            <img src={Upi} alt="UPI" className="h-4" />
+            <img src={cartUrls.UPI_URL} alt="UPI" className="h-4" />
           </div>
           <span>&gt;</span>
         </div>

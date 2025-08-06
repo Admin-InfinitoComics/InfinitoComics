@@ -30,6 +30,8 @@ function Comic() {
     sliderRef.current.scrollBy({ left: 260, behavior: 'smooth' });
   };
 
+  const reversedComics = comics.slice().reverse();
+
   return (
     <div className="w-11/12 lg:w-2/3 mx-auto my-16">
       <div className="flex justify-between items-center mb-4 ">
@@ -53,12 +55,12 @@ function Comic() {
         >
           <>
             {/* First 2 as available */}
-            {comics.slice(0, 2).map((comic) => (
+            {reversedComics.slice(0, 2).map((comic) => (
               <ComicCard key={comic._id} comic={comic} />
             ))}
 
             {/* Rest as sold out */}
-            {comics.slice(2).map((comic) => (
+            {reversedComics.slice(2).map((comic) => (
               <SoldCard key={comic._id} comic={comic} />
             ))}
           </>

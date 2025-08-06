@@ -84,40 +84,43 @@ export const updateCharacter = async (req, res) => {
       return res.status(404).json({ success: false, message: "Character not found" });
     }
 
-    // Handle main image update
-    let mainImageUrl = existingCharacter.mainImageUrl;
-    if (req.files && req.files.mainImage && req.files.mainImage[0]) {
-      const mainImageFile = req.files.mainImage[0];
-      const result = await uploadToS3(mainImageFile.buffer, mainImageFile.originalname, mainImageFile.mimetype);
-      mainImageUrl = result.Location;
+    // Handle all image fields
+    const imageFields = [
+      'mainImage',
+      'storylineImage',
+      'originImage',
+      'mainLandscapeImage',
+      'power1Image',
+      'power2Image',
+      'power3Image'
+    ];
+    const uploadedImages = {};
+    for (const field of imageFields) {
+      if (req.files && req.files[field] && req.files[field][0]) {
+        const file = req.files[field][0];
+        const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
+        uploadedImages[field] = result.Location;
+      }
     }
 
-    // Handle storyline image update
+    // Build storyLine and origin objects
     let storyLine = {
       text: req.body.storylineText ?? existingCharacter.storyLine.text,
-      image: existingCharacter.storyLine.image
+      image: uploadedImages['storylineImage'] || existingCharacter.storyLine.image
     };
-    if (req.files && req.files.storylineImage && req.files.storylineImage[0]) {
-      const file = req.files.storylineImage[0];
-      const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
-      storyLine.image = result.Location;
-    }
-
-    // Handle origin image update
     let origin = {
       text: req.body.originText ?? existingCharacter.origin.text,
-      image: existingCharacter.origin.image
+      image: uploadedImages['originImage'] || existingCharacter.origin.image
     };
-    if (req.files && req.files.originImage && req.files.originImage[0]) {
-      const file = req.files.originImage[0];
-      const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
-      origin.image = result.Location;
-    }
 
     // Prepare updated data
     const updatedData = {
       ...req.body,
-      mainImageUrl,
+      mainImageUrl: uploadedImages['mainImage'] || existingCharacter.mainImageUrl,
+      mainLandscapeImage: uploadedImages['mainLandscapeImage'] || existingCharacter.mainLandscapeImage,
+      power1Image: uploadedImages['power1Image'] || existingCharacter.power1Image,
+      power2Image: uploadedImages['power2Image'] || existingCharacter.power2Image,
+      power3Image: uploadedImages['power3Image'] || existingCharacter.power3Image,
       storyLine,
       origin
     };

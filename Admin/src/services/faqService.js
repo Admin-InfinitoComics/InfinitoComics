@@ -1,18 +1,18 @@
 import axios from "axios";
-import { API_URL } from "../Utils/constant";
+import { BACKEND_URL } from "../Utils/constant";
 
 export const getAllFaqs = async () => {
-  return await axios.get(API_URL);
+  return axios.get(`${BACKEND_URL}/faq`);
 };
 
 export const addFaq = async (faq) => {
-  return await axios.post(API_URL, faq);
+  return axios.post(`${BACKEND_URL}/faq`, faq);
 };
 
 export const updateFaq = async (id, updatedFaq) => {
-  return await axios.put(`${API_URL}/${id}`, updatedFaq);
+  return axios.put(`${BACKEND_URL}/faq/${id}`, updatedFaq);
 };
 
 export const deleteFaq = async (id) => {
-  return await axios.delete(`${API_URL}/${id}`);
+  return axios.delete(`${BACKEND_URL}/faq/${id}`);
 };

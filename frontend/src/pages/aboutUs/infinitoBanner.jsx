@@ -1,5 +1,5 @@
 import banner from '../../../assets/Images/aboutUs/banner.png'
-import bottom from '../../../assets/Images/aboutUs/bottom.png'
+import bottom from '../../../assets/Images/aboutUs/Bottom.png'
 const InfinitoBanner = () => {
   return (
     <>

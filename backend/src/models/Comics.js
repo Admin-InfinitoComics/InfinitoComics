@@ -1,9 +1,34 @@
 import mongoose from "mongoose";
 
+const comicChapSchema = new mongoose.Schema(
+  {
+    chapNum: {
+      type: String
+    },
+    chapImage: {
+      type: String
+    },
+    title: {
+      type: String
+    },
+    releaseDate: {
+      type: Date
+    },
+    chapPdf: {
+      type: String
+    },
+  },
+  { timestamps: true }
+);
+
 const comicSchema = mongoose.Schema({
     coverImg: {
         type: String,
         required: true
+    },
+    bannerImg: {
+      type: String,
+      required: true
     },
     title: {
         type: String,
@@ -19,11 +44,7 @@ const comicSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    chapters: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Timeline',
-        // ref: 'Chapter',
-    }]
+    chapters: [comicChapSchema]
 },
     { timestamps: true }
 )

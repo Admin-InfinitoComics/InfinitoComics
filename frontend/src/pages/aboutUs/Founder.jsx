@@ -1,6 +1,6 @@
 import React from "react";
 import { FaInstagram, FaFacebookF, FaLinkedinIn, FaYoutube } from "react-icons/fa";
-import founderImage from "../../../assets/Images/aboutUs/founder.png"; // replace with your path
+import aboutUsUrls from "../../utils/imagesUrls/aboutUsUrls.js"; // Import the URL from the constants file
 
 const FounderSection = () => {
   return (
@@ -15,7 +15,7 @@ const FounderSection = () => {
         <div className="flex flex-col md:flex-row gap-8 items-start">
           {/* Founder Image */}
           <img
-            src={founderImage}
+            src={aboutUsUrls.FOUNDER_URL} // Use the URL from the constants file or fallback to local image
             alt="Founder"
             className="w-full max-w-xs md:w-[240px] h-auto object-cover mx-auto md:mx-0"
           />

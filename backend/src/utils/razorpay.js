@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import razorpay from 'razorpay';
 import config from '../config/server-config.js';
 
@@ -23,3 +24,13 @@ export const createOrder = async (amount, currency = 'INR') => {
 }
 
 
+=======
+import Razorpay from "razorpay";
+
+var instance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_SECRET_KEY
+})
+
+export default instance;
+>>>>>>> d24d2e26909bb711587eaeb40f9c06bef9bef6cd

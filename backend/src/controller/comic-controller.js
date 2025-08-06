@@ -19,6 +19,8 @@ const createComic = async (req, res) => {
             }
         }
 
+        if(chapters) chapters = JSON.parse(chapters);
+
         //authors validation
         if (!Array.isArray(authors) || authors.length === 0 || authors.some(a => typeof a !== 'string' || !a.trim())) {
             return res.status(400).json({
@@ -31,18 +33,28 @@ const createComic = async (req, res) => {
         if (!title || !authors || !releasedYear) {
             return res.status(400).json({ success: false, message: "All fields are required" });
         }
+        
+        // Validate files
+        if (!req.files?.coverImg || !req.files?.bannerImg) {
+            return res.status(400).json({ success: false, message: "Both cover and banner images are required." });
+        }
 
-        if (!req.file) {
-            return res.status(400).json({ success: false, message: "Cover Image is required" });
-        }
-        const uploadResult = await uploadToS3(req.file.buffer, req.file.originalname, req.file.mimetype);
-        const imageurl = uploadResult.Location;
-        if (!imageurl) {
-            return res.status(500).json({ success: false, message: "Failed to upload image" });
-        }
+        // Upload both images
+        const coverUpload = await uploadToS3(
+            req.files.coverImg[0].buffer,
+            req.files.coverImg[0].originalname,
+            req.files.coverImg[0].mimetype
+        );
+
+        const bannerUpload = await uploadToS3(
+            req.files.bannerImg[0].buffer,
+            req.files.bannerImg[0].originalname,
+            req.files.bannerImg[0].mimetype
+        );
 
         const comicObj = {
-            coverImg: imageurl,
+            coverImg: coverUpload.Location,
+            bannerImg: bannerUpload.Location,
             title,
             authors,
             releasedYear,
@@ -56,7 +68,6 @@ const createComic = async (req, res) => {
             message: "successfully created comic!",
             data: savedComic
         })
-
     }
     catch (err) {
         console.log("Error in creating comic", err);
@@ -65,9 +76,6 @@ const createComic = async (req, res) => {
             message: "Failed to create comic. Please try again!"
         })
     }
-
-
-
 }
 
 const updateComic = async (req, res) => {
@@ -109,15 +117,40 @@ const updateComic = async (req, res) => {
         if (releasedYear) comicObj.releasedYear = releasedYear;
         // if (chapters) comicObj.chapters = chapters;
 
-        let imageurl;
-        if (req.file) {
-            const uploadResult = await uploadToS3(req.file.buffer, req.file.originalname, req.file.mimetype);
-            imageurl = uploadResult.Location;
-        } else if (req.body.coverImg) {
-            imageurl = req.body.coverImg;
-        }
-        if (imageurl) comicObj.coverImg = imageurl;
+        // let imageurl;
+        // if (req.file) {
+        //     const uploadResult = await uploadToS3(req.file.buffer, req.file.originalname, req.file.mimetype);
+        //     imageurl = uploadResult.Location;
+        // } else if (req.body.coverImg) {
+        //     imageurl = req.body.coverImg;
+        // }
+        // if (imageurl) comicObj.coverImg = imageurl;
 
+        // COVER IMAGE update (via req.files or fallback to body)
+        if (req.files?.coverImg) {
+            const coverUpload = await uploadToS3(
+                req.files.coverImg[0].buffer,
+                req.files.coverImg[0].originalname,
+                req.files.coverImg[0].mimetype
+            );
+            comicObj.coverImg = coverUpload.Location;
+        } else if (req.body.coverImg) {
+            comicObj.coverImg = req.body.coverImg;
+        }
+
+        // BANNER IMAGE update (same logic)
+        if (req.files?.bannerImg) {
+            const bannerUpload = await uploadToS3(
+                req.files.bannerImg[0].buffer,
+                req.files.bannerImg[0].originalname,
+                req.files.bannerImg[0].mimetype
+            );
+            comicObj.bannerImg = bannerUpload.Location;
+        } else if (req.body.bannerImg) {
+            comicObj.bannerImg = req.body.bannerImg;
+        }
+
+        // Update in DB
         const updatedComic = await comicService.updateComic(comicId, comicObj);
         if (!updatedComic) {
             res.status(404).json({ success: false, message: "Comic not found!" });

@@ -5,8 +5,24 @@ import { adminauthenticate } from '../middleware/adminauth.js';
 const router = express.Router();
 
 //protected routes - only for admins
-router.post('/', upload.single("coverImg"), comicController.createComic);
-router.put('/:id', upload.single("coverImg"), comicController.updateComic);
+router.post(
+    '/',
+    upload.fields([
+        { name: "coverImg", maxCount: 1 },
+        { name: "bannerImg", maxCount: 1 },
+    ]),
+    comicController.createComic
+);
+
+router.put(
+    '/:id',
+    upload.fields([
+        { name: "coverImg", maxCount: 1 },
+        { name: "bannerImg", maxCount: 1 },
+    ]),
+    comicController.updateComic
+);
+
 router.delete("/:id", comicController.deleteComic);
 // router.post('/', adminauthenticate, upload.single("coverImg"), comicController.createComic);
 // router.put('/:id', adminauthenticate, upload.single("coverImg"), comicController.updateComic);

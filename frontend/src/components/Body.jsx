@@ -29,11 +29,13 @@ const Body = () => {
     return <LogoLoader />;
   }
 
+  const isReaderView = location.pathname.includes("/comicChap/") && location.pathname.includes("/pdfView");
+
   return (
     <div>
-      <Navbar />
+       {!isReaderView && <Navbar />}
       <Outlet />
-      <Footer />
+      {!isReaderView && <Footer />}
     </div>
   );
 };

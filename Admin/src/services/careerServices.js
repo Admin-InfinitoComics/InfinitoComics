@@ -25,4 +25,4 @@ export const fetchJob = async ()=>{
     const res = await axios.get(BACKEND_URL+"/career/getall")
     return res;
 }
-   
+    

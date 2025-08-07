@@ -3,7 +3,9 @@ import axios from 'axios';
 import AllCharacters from './AllCharacters';
 import AdminPanel from './AdminPanel';
 import { cleanCharacterData } from './formConfig';
-import { fetchCharactersData, deleteCharacter, updateCharacter, createCharacter} from '../../services/characterService';
+import { fetchCharactersData, deleteCharacter, updateCharacter, createCharacter } from '../../services/characterService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CharacterManager = () => {
   const [activeTab, setActiveTab] = useState('create');
@@ -13,6 +15,8 @@ const CharacterManager = () => {
   const [originalCharacter, setOriginalCharacter] = useState(null); // For PATCH
   const [loading, setLoading] = useState(true);
   const [nextId, setNextId] = useState(1);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [characterToDelete, setCharacterToDelete] = useState(null);
 
   // Fetch all characters from backend
   const fetchCharacters = async () => {
@@ -24,6 +28,7 @@ const CharacterManager = () => {
     } catch (error) {
       console.error('Error fetching characters:', error);
       setCharacters([]);
+      toast.error('Error fetching characters!');
     }
     setLoading(false);
   };
@@ -32,9 +37,9 @@ const CharacterManager = () => {
     fetchCharacters();
   }, []);
 
-  const filteredCharacters = characters.filter(character => 
+  const filteredCharacters = characters.filter(character =>
     (character.knownAs?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-     character.originalName?.toLowerCase().includes(searchQuery.toLowerCase()))
+      character.originalName?.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   // Helper: Get only changed fields for PATCH
@@ -66,16 +71,28 @@ const CharacterManager = () => {
     setActiveTab('create');
   };
 
-  const handleDeleteCharacter = async (characterId) => {
-    if (window.confirm('Are you sure you want to delete this character?')) {
-      try {
-        const res = await deleteCharacter(characterId);
-        await fetchCharacters(); // Refresh the list after successful delete
-      } catch (error) {
-        alert('Failed to delete character from server. Removing locally.');
-        setCharacters(characters.filter(char => char._id !== characterId));
-      }
+  const handleDeleteCharacter = (characterId) => {
+    setCharacterToDelete(characterId);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteCharacter = async () => {
+    if (!characterToDelete) return;
+    try {
+      await deleteCharacter(characterToDelete);
+      await fetchCharacters();
+      toast.success('Character deleted successfully!');
+    } catch (error) {
+      toast.error('Failed to delete character from server. Removing locally.');
+      setCharacters(characters.filter(char => char._id !== characterToDelete));
     }
+    setShowDeleteModal(false);
+    setCharacterToDelete(null);
+  };
+
+  const cancelDeleteCharacter = () => {
+    setShowDeleteModal(false);
+    setCharacterToDelete(null);
   };
 
   const handleCharacterSaved = async (updatedCharacter, isEditing) => {
@@ -83,7 +100,7 @@ const CharacterManager = () => {
 
     if (isEditing) {
       if (!cleanCharacter._id) {
-        alert('Character ID missing for update!');
+        toast.error('Character ID missing for update!');
         return;
       }
 
@@ -92,7 +109,7 @@ const CharacterManager = () => {
 
       // If nothing changed, do nothing
       if (Object.keys(changedFields).length === 0) {
-        alert('No changes detected.');
+        toast.info('No changes detected.');
         setEditingCharacter(null);
         setOriginalCharacter(null);
         return;
@@ -121,11 +138,21 @@ const CharacterManager = () => {
         headers = { 'Content-Type': 'application/json' };
       }
 
+      console.log('Update - Data being sent to backend:');
+      if (dataToSend instanceof FormData) {
+        for (let pair of dataToSend.entries()) {
+          console.log(pair[0] + ': ' + (pair[1] instanceof File ? `File: ${pair[1].name}` : pair[1]));
+        }
+      } else {
+        console.log(dataToSend);
+      }
+
       try {
-        const res = await updateCharacter(cleanCharacter._id,dataToSend,headers);
+        const res = await updateCharacter(cleanCharacter._id, dataToSend, headers);
         await fetchCharacters();
+        toast.success('Character updated successfully!');
       } catch (error) {
-        alert('Failed to update character on server.');
+        toast.error('Failed to update character on server.');
       }
       setEditingCharacter(null);
       setOriginalCharacter(null);
@@ -136,11 +163,11 @@ const CharacterManager = () => {
 
       // Log the clean character data before FormData conversion
       console.log('Clean character data before FormData:', cleanCharacter);
-      
+
       const formData = new FormData();
       Object.keys(cleanCharacter).forEach(key => {
-        if (key !== 'mainImage' && key !== 'storylineImage' && key !== 'originImage' && 
-            key !== 'mainLandscapeImage' && key !== 'power1Image' && key !== 'power2Image' && key !== 'power3Image') {
+        if (key !== 'mainImage' && key !== 'storylineImage' && key !== 'originImage' &&
+          key !== 'mainLandscapeImage' && key !== 'power1Image' && key !== 'power2Image' && key !== 'power3Image') {
           if (Array.isArray(cleanCharacter[key])) {
             cleanCharacter[key].forEach(item => {
               formData.append(key, item);
@@ -151,8 +178,8 @@ const CharacterManager = () => {
         }
       });
       formData.append('_id', newId);
-      
-      // Handle all image fields
+
+      // Handle all image fields consistently - just like mainImage
       if (cleanCharacter.mainImage) {
         if (cleanCharacter.mainImage instanceof File) {
           formData.append('mainImage', cleanCharacter.mainImage);
@@ -160,7 +187,7 @@ const CharacterManager = () => {
           formData.append('mainImageUrl', cleanCharacter.mainImage);
         }
       }
-      
+
       if (cleanCharacter.mainLandscapeImage) {
         if (cleanCharacter.mainLandscapeImage instanceof File) {
           formData.append('mainLandscapeImage', cleanCharacter.mainLandscapeImage);
@@ -168,7 +195,7 @@ const CharacterManager = () => {
           formData.append('mainLandscapeImageUrl', cleanCharacter.mainLandscapeImage);
         }
       }
-      
+
       if (cleanCharacter.power1Image) {
         if (cleanCharacter.power1Image instanceof File) {
           formData.append('power1Image', cleanCharacter.power1Image);
@@ -176,7 +203,7 @@ const CharacterManager = () => {
           formData.append('power1ImageUrl', cleanCharacter.power1Image);
         }
       }
-      
+
       if (cleanCharacter.power2Image) {
         if (cleanCharacter.power2Image instanceof File) {
           formData.append('power2Image', cleanCharacter.power2Image);
@@ -184,7 +211,7 @@ const CharacterManager = () => {
           formData.append('power2ImageUrl', cleanCharacter.power2Image);
         }
       }
-      
+
       if (cleanCharacter.power3Image) {
         if (cleanCharacter.power3Image instanceof File) {
           formData.append('power3Image', cleanCharacter.power3Image);
@@ -192,7 +219,7 @@ const CharacterManager = () => {
           formData.append('power3ImageUrl', cleanCharacter.power3Image);
         }
       }
-      
+
       if (cleanCharacter.storylineImage) {
         if (cleanCharacter.storylineImage instanceof File) {
           formData.append('storylineImage', cleanCharacter.storylineImage);
@@ -200,7 +227,7 @@ const CharacterManager = () => {
           formData.append('storylineImageUrl', cleanCharacter.storylineImage);
         }
       }
-      
+
       if (cleanCharacter.originImage) {
         if (cleanCharacter.originImage instanceof File) {
           formData.append('originImage', cleanCharacter.originImage);
@@ -208,13 +235,7 @@ const CharacterManager = () => {
           formData.append('originImageUrl', cleanCharacter.originImage);
         }
       }
-      
-      // Log FormData entries
-      console.log('FormData being sent to backend:');
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + (pair[1] instanceof File ? `File: ${pair[1].name}` : pair[1]));
-      }
-      
+
       try {
         const res = await createCharacter(formData);
         await fetchCharacters();
@@ -222,57 +243,82 @@ const CharacterManager = () => {
         console.error('Error creating character:', error);
         const newCharacter = { ...cleanCharacter, _id: newId };
         setCharacters(prevCharacters => [...prevCharacters, newCharacter]);
+        toast.error('Error creating character on server. Added locally.');
       }
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-4 md:p-8">
-      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center text-blue-500">
-        Character Management System
-      </h1>
-      <div className="flex border-b border-gray-700 mb-6">
-        <button
-          className={`py-2 px-4 font-medium ${
-            activeTab === 'create' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-400'
-          }`}
-          onClick={() => setActiveTab('create')}
-        >
-          {editingCharacter ? 'Edit Character' : 'Create Character'}
-        </button>
-        <button
-          className={`py-2 px-4 font-medium ${
-            activeTab === 'all' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-400'
-          }`}
-          onClick={() => {
-            setActiveTab('all');
-            setEditingCharacter(null);
-            setOriginalCharacter(null);
-          }}
-        >
-          All Characters
-        </button>
+    <>
+      <ToastContainer />
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-gray-800 rounded-lg p-6 shadow-lg w-full max-w-sm">
+            <h2 className="text-lg font-bold text-white mb-4">Delete Character</h2>
+            <p className="text-gray-300 mb-6">Are you sure you want to delete this character?</p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={cancelDeleteCharacter}
+                className="px-4 py-2 rounded bg-gray-600 text-white hover:bg-gray-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDeleteCharacter}
+                className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="min-h-screen bg-gray-900 text-white p-4 md:p-8">
+        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center text-blue-500">
+          Character Management System
+        </h1>
+        <div className="flex border-b border-gray-700 mb-6">
+          <button
+            className={`py-2 px-4 font-medium ${activeTab === 'create' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-400'
+              }`}
+            onClick={() => setActiveTab('create')}
+          >
+            {editingCharacter ? 'Edit Character' : 'Create Character'}
+          </button>
+          <button
+            className={`py-2 px-4 font-medium ${activeTab === 'all' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-400'
+              }`}
+            onClick={() => {
+              setActiveTab('all');
+              setEditingCharacter(null);
+              setOriginalCharacter(null);
+            }}
+          >
+            All Characters
+          </button>
+        </div>
+        <div className="tab-content">
+          {activeTab === 'create' ? (
+            <AdminPanel
+              editingCharacter={editingCharacter}
+              setEditingCharacter={setEditingCharacter}
+              onCharacterSaved={handleCharacterSaved}
+            />
+          ) : (
+            <AllCharacters
+              characters={filteredCharacters}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              onEdit={handleEditCharacter}
+              onDelete={handleDeleteCharacter}
+              loading={loading}
+              onRefresh={fetchCharacters}
+            />
+          )}
+        </div>
       </div>
-      <div className="tab-content">
-        {activeTab === 'create' ? (
-          <AdminPanel 
-            editingCharacter={editingCharacter} 
-            setEditingCharacter={setEditingCharacter} 
-            onCharacterSaved={handleCharacterSaved}
-          />
-        ) : (
-          <AllCharacters 
-            characters={filteredCharacters} 
-            searchQuery={searchQuery} 
-            setSearchQuery={setSearchQuery}
-            onEdit={handleEditCharacter}
-            onDelete={handleDeleteCharacter}
-            loading={loading}
-            onRefresh={fetchCharacters}
-          />
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

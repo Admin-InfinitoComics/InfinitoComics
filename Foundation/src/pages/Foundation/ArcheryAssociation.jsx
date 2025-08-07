@@ -9,27 +9,27 @@ import img6 from "../../assets/images/foundation/img6.png";
 import img7 from "../../assets/images/foundation/img7.png";
 import img8 from "../../assets/images/foundation/img8.png";
 import ArcheryAssociationShimmer from '../../shimmer/Foundation/ArcheryAssociationShimmer'
+
 const ArcheryAssociation = () => {
-      const [loading, setLoading] = useState(true);
-    useEffect(() => {
-      setTimeout(() => setLoading(false), 2400); 
-    }, []);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 2400); 
+  }, []);
   return loading ? <ArcheryAssociationShimmer/>: (
     <>
-      <div className="flex flex-col my-14">
-
+      <div className="flex flex-col my-8 md:my-14">
         <div>
-          <h1 className="font-sans text-center font-bold text-4xl text-red-600 transform scale-y-120">
+          <h1 className="font-sans text-center font-bold text-2xl md:text-4xl text-red-600 transform scale-y-120">
             BIHAR ARCHERY ASSOCIATION
           </h1>
         </div>
 
-        <span className="flex justify-center items-center w-full h-full my-10">
-          <img src={logo} alt="logo" className="max-w-full h-auto" />
+        <span className="flex justify-center items-center w-full h-full my-6 md:my-10">
+          <img src={logo} alt="logo" className="max-w-[180px] md:max-w-full h-auto" />
         </span>
 
-        <div className=" mx-80 p-4">
-          <p className="text-justify text-lg">
+        <div className="mx-4 md:mx-20 lg:mx-80 p-2 md:p-4">
+          <p className="text-justify text-base md:text-lg">
             INFINITO is honored to collaborate with the{" "}
             <strong className="text-red-600"> Bihar Archery Association</strong>{" "}
             as the{" "}
@@ -47,51 +47,17 @@ const ArcheryAssociation = () => {
         </div>
       </div>
 
-      <div className="flex justify-center p-1 mb-20">
-        <div className="grid grid-cols-4 gap-6 max-w-7xl">
-          {/* Row 1 */}
-          <img
-            src={img1}
-            alt="Placeholder 1"
-            className="w-[500px] h-48 object-cover   shadow-sm"
-          />
-          <img
-            src={img2}
-            alt="Placeholder 2"
-            className="w-[500px] h-48 object-cover   shadow-sm"
-          />
-          <img
-            src={img3}
-            alt="Placeholder 3"
-            className="w-[500px] h-48 object-cover   shadow-sm"
-          />
-          <img
-            src={img4}
-            alt="Placeholder 4"
-            className="w-[500px] h-48 object-cover   shadow-sm"
-          />
-
-          {/* Row 2 */}
-          <img
-            src={img5}
-            alt="Placeholder 5"
-            className="w-[500px] h-48 object-cover   shadow-sm"
-          />
-          <img
-            src={img6}
-            alt="Placeholder 6"
-            className="w-[500px] h-48 object-cover   shadow-sm"
-          />
-          <img
-            src={img7}
-            alt="Placeholder 7"
-            className="w-[500px] h-48 object-cover   shadow-sm"
-          />
-          <img
-            src={img8}
-            alt="Placeholder 8"
-            className="w-[500px] h-48 object-cover   shadow-sm"
-          />
+      <div className="flex justify-center p-1 mb-10 md:mb-20">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 w-full max-w-7xl px-2">
+          {/* Images */}
+          {[img1, img2, img3, img4, img5, img6, img7, img8].map((img, idx) => (
+            <img
+              key={idx}
+              src={img}
+              alt={`Placeholder ${idx + 1}`}
+              className="w-full h-40 sm:h-48 md:h-48 lg:h-56 object-cover rounded shadow-sm"
+            />
+          ))}
         </div>
       </div>
     </>

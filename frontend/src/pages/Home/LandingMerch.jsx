@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Slider from 'react-slick';
-import { Share2 } from 'lucide-react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import tshirtImage from '../../../assets/Images/tShirts&Collectibles/tshirt.jpg';
@@ -62,17 +61,7 @@ const renderCard = (item) => (
       }}
     >
       {/* Share icon */}
-      <button
-        className="absolute top-4 right-4 bg-transparent z-10"
-        style={{ padding: "0.375rem" }}
-      >
-        <img
-          src={shareIcon}
-          alt="Share"F
-          className="object-contain"
-          style={{ width: "3rem", height: "3rem" }}
-        />
-      </button>
+     
 
       {/* Text overlay */}
       <div

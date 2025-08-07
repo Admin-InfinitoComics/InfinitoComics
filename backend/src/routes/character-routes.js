@@ -23,9 +23,14 @@ router.post(
   // '/create', adminauthenticate,
   '/create',
   upload.fields([
-    { name: 'mainImage', maxCount: 1 },
+  { name: 'mainImage', maxCount: 1 },
     { name: 'storylineImage', maxCount: 1 },
-    { name: 'originImage', maxCount: 1 }
+    { name: 'originImage', maxCount: 1 },
+    { name : 'mainLandscapeImage', maxCount : 1},
+    { name : 'power1Image', maxCount : 1},
+    { name : 'power2Image', maxCount : 1},
+    { name : 'power3Image', maxCount :1},
+
   ]),
   createCharacter
 );
@@ -33,7 +38,11 @@ router.post(
 router.patch('/update/:id',  upload.fields([
     { name: 'mainImage', maxCount: 1 },
     { name: 'storylineImage', maxCount: 1 },
-    { name: 'originImage', maxCount: 1 }
+    { name: 'originImage', maxCount: 1 },
+     { name : 'mainLandscapeImage', maxCount : 1},
+    { name : 'power1Image', maxCount : 1},
+    { name : 'power2Image', maxCount : 1},
+    { name : 'power3Image', maxCount :1},
   ]), updateCharacter);
 // router.delete('/delete/:id', adminauthenticate, deleteCharacter);
 router.delete('/delete/:id', deleteCharacter);

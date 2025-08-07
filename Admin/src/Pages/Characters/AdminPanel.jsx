@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ChipField from "./ChipField";
+import { toast } from 'react-toastify';
 
 const AdminPanel = ({
   editingCharacter,
@@ -181,17 +182,17 @@ const AdminPanel = ({
     if (editingCharacter) {
       characterData._id = editingCharacter._id;
       onCharacterSaved(characterData, true);
-      console.log(characterData)
-      alert("Character updated successfully!");
+      console.log(characterData);
     } else {
       onCharacterSaved(characterData, false);
-      alert("Character created successfully!");
+      toast.success("Character created successfully!");
     }
     reset();
     setEditingCharacter(null);
   };
 
   const handleCancel = () => {
+    // Use toast.info() for confirm dialog with custom buttons
     if (
       window.confirm(
         "Are you sure you want to cancel? Any unsaved changes will be lost."
@@ -199,6 +200,7 @@ const AdminPanel = ({
     ) {
       setEditingCharacter(null);
       reset();
+      toast.info("Changes discarded");
     }
   };
 
@@ -258,8 +260,8 @@ const AdminPanel = ({
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
-        {/* Main Character Image Upload */}
-        <div className="col-span-1 md:col-span-2">
+        {/* Main Character Image and Landscape Image in one row */}
+        <div className="col-span-1">
           <label className="block text-gray-300 font-medium mb-2">
             Main Character Image
           </label>
@@ -300,17 +302,23 @@ const AdminPanel = ({
           )}
         </div>
 
-        {/* Main Landscape Image Upload */}
-        <div className="col-span-1 md:col-span-2">
+        <div className="col-span-1">
           <label className="block text-gray-300 font-medium mb-2">
             Main Landscape Image
           </label>
           <input
             type="file"
             accept="image/*"
-            {...register("mainLandscapeImage")}
+            {...register("mainLandscapeImage", {
+              required: !editingCharacter && "Main landscape image is required",
+            })}
             className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
           />
+          {errors.mainLandscapeImage && (
+            <span className="text-red-500 text-sm mt-1">
+              {errors.mainLandscapeImage.message}
+            </span>
+          )}
           {mainLandscapeImageURL ? (
             <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
               <img
@@ -335,110 +343,138 @@ const AdminPanel = ({
           )}
         </div>
 
-        {/* Power Images Upload */}
+        {/* Horizontal Rule */}
+        <hr className="col-span-1 md:col-span-2 border-gray-600 my-2" />
+
+        {/* Power Images in one row */}
         <div className="col-span-1 md:col-span-2">
-          <label className="block text-gray-300 font-medium mb-2">
-            Power 1 Image
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            {...register("power1Image")}
-            className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
-          />
-          {power1ImageURL ? (
-            <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
-              <img
-                src={power1ImageURL}
-                alt="Power 1 preview"
-                className="w-full h-full object-cover"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-gray-300 font-medium mb-2">
+                Power 1 Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                {...register("power1Image", {
+                  required: !editingCharacter && "Power 1 image is required",
+                })}
+                className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
               />
+              {errors.power1Image && (
+                <span className="text-red-500 text-sm mt-1">
+                  {errors.power1Image.message}
+                </span>
+              )}
+              {power1ImageURL ? (
+                <div className="mt-4 w-full h-32 overflow-hidden rounded-lg border-2 border-gray-700">
+                  <img
+                    src={power1ImageURL}
+                    alt="Power 1 preview"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                existingPower1Image && (
+                  <div className="mt-4 w-full h-32 overflow-hidden rounded-lg border-2 border-gray-700">
+                    <img
+                      src={existingPower1Image}
+                      alt="Current power 1 image"
+                      className="w-full h-full object-cover"
+                    />
+                    <p className="text-sm text-gray-400 mt-1">
+                      Current image (upload a new one to change)
+                    </p>
+                  </div>
+                )
+              )}
             </div>
-          ) : (
-            existingPower1Image && (
-              <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
-                <img
-                  src={existingPower1Image}
-                  alt="Current power 1 image"
-                  className="w-full h-full object-cover"
-                />
-                <p className="text-sm text-gray-400 mt-1">
-                  Current image (upload a new one to change)
-                </p>
-              </div>
-            )
-          )}
+
+            <div>
+              <label className="block text-gray-300 font-medium mb-2">
+                Power 2 Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                {...register("power2Image", {
+                  required: !editingCharacter && "Power 2 image is required",
+                })}
+                className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+              />
+              {errors.power2Image && (
+                <span className="text-red-500 text-sm mt-1">
+                  {errors.power2Image.message}
+                </span>
+              )}
+              {power2ImageURL ? (
+                <div className="mt-4 w-full h-32 overflow-hidden rounded-lg border-2 border-gray-700">
+                  <img
+                    src={power2ImageURL}
+                    alt="Power 2 preview"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                existingPower2Image && (
+                  <div className="mt-4 w-full h-32 overflow-hidden rounded-lg border-2 border-gray-700">
+                    <img
+                      src={existingPower2Image}
+                      alt="Current power 2 image"
+                      className="w-full h-full object-cover"
+                    />
+                    <p className="text-sm text-gray-400 mt-1">
+                      Current image (upload a new one to change)
+                    </p>
+                  </div>
+                )
+              )}
+            </div>
+
+            <div>
+              <label className="block text-gray-300 font-medium mb-2">
+                Power 3 Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                {...register("power3Image", {
+                  required: !editingCharacter && "Power 3 image is required",
+                })}
+                className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
+              />
+              {errors.power3Image && (
+                <span className="text-red-500 text-sm mt-1">
+                  {errors.power3Image.message}
+                </span>
+              )}
+              {power3ImageURL ? (
+                <div className="mt-4 w-full h-32 overflow-hidden rounded-lg border-2 border-gray-700">
+                  <img
+                    src={power3ImageURL}
+                    alt="Power 3 preview"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                existingPower3Image && (
+                  <div className="mt-4 w-full h-32 overflow-hidden rounded-lg border-2 border-gray-700">
+                    <img
+                      src={existingPower3Image}
+                      alt="Current power 3 image"
+                      className="w-full h-full object-cover"
+                    />
+                    <p className="text-sm text-gray-400 mt-1">
+                      Current image (upload a new one to change)
+                    </p>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
         </div>
 
-        <div className="col-span-1 md:col-span-2">
-          <label className="block text-gray-300 font-medium mb-2">
-            Power 2 Image
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            {...register("power2Image")}
-            className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
-          />
-          {power2ImageURL ? (
-            <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
-              <img
-                src={power2ImageURL}
-                alt="Power 2 preview"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ) : (
-            existingPower2Image && (
-              <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
-                <img
-                  src={existingPower2Image}
-                  alt="Current power 2 image"
-                  className="w-full h-full object-cover"
-                />
-                <p className="text-sm text-gray-400 mt-1">
-                  Current image (upload a new one to change)
-                </p>
-              </div>
-            )
-          )}
-        </div>
-
-        <div className="col-span-1 md:col-span-2">
-          <label className="block text-gray-300 font-medium mb-2">
-            Power 3 Image
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            {...register("power3Image")}
-            className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
-          />
-          {power3ImageURL ? (
-            <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
-              <img
-                src={power3ImageURL}
-                alt="Power 3 preview"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ) : (
-            existingPower3Image && (
-              <div className="mt-4 w-40 h-40 overflow-hidden rounded-lg border-2 border-gray-700">
-                <img
-                  src={existingPower3Image}
-                  alt="Current power 3 image"
-                  className="w-full h-full object-cover"
-                />
-                <p className="text-sm text-gray-400 mt-1">
-                  Current image (upload a new one to change)
-                </p>
-              </div>
-            )
-          )}
-        </div>
-
-        {/* Simple Text/Number/Date/Select Fields */}
+        {/* Rest of the form remains unchanged */}
         {formFields.slice(0, 3).map((field) => (
           <div key={field.name} className="flex flex-col gap-1">
             <label className="block text-gray-300 font-medium">

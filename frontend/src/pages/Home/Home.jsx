@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import LandingComponent from './LandingComponent';
-import CharacterCarousel from './CharacterCarousel';
 import CharacterSpotlight from './CharacterSpotlight';
 import TodaySpotlight from './TodaySpotlight';
 import HeroSection from './Merch';
@@ -14,6 +13,7 @@ import FoundationSection from './FoundationSection';
 import ExclusiveContent from './ExclusiveContent';
 import NewsletterSection from '../Footer/Newsletter';
 import Otp from '../resentOtp/resendOtp';
+import CharacterCarousel from '../Characters/CharacterCarousel'
 
 const Home = () => {
 
@@ -27,17 +27,13 @@ const Home = () => {
   return (
     <div>
       <LandingComponent />
-      <CharacterCarousel />
+      <CharacterCarousel/>
       <CharacterSpotlight />
-      <TodaySpotlight />
-      {/* <HeroSection/> */}
       <LandingMerch />
       <JoinUltimate />
       <PremiumPlans />
-      <FanFavourite />
       <Spotlight />
-      <UpcomingEvents />
-      <FoundationSection />
+    
       <ExclusiveContent />
       {/* <DashboardPage/> */}
       

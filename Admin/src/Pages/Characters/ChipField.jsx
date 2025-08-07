@@ -1,4 +1,3 @@
-// src/components/characters/ChipField.jsx
 import React from 'react';
 
 const ChipField = ({ fieldName, label, inputState, setInputState, watch, setValue, errors }) => {

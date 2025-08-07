@@ -6,6 +6,7 @@ export const createCharacter = async (req, res) => {
   try {
     const { uploadToS3 } = await import('../utils/aws.js');
 
+
     // Upload all image fields
     const imageFields = [
       'mainImage',
@@ -41,10 +42,10 @@ export const createCharacter = async (req, res) => {
       storyLine,
       origin,
       mainImageUrl: uploadedImages['mainImage'] || "",
-      mainLandscapeImage: uploadedImages['mainLandscapeImage'] || "",
-      power1Image: uploadedImages['power1Image'] || "",
-      power2Image: uploadedImages['power2Image'] || "",
-      power3Image: uploadedImages['power3Image'] || ""
+      mainLandscapeImageUrl: uploadedImages['mainLandscapeImage'] || "",
+      power1ImageUrl: uploadedImages['power1Image'] || "",
+      power2ImageUrl: uploadedImages['power2Image'] || "",
+      power3ImageUrl: uploadedImages['power3Image'] || ""
     };
 
     const character = await characterService.createCharacter(characterData);
@@ -117,10 +118,10 @@ export const updateCharacter = async (req, res) => {
     const updatedData = {
       ...req.body,
       mainImageUrl: uploadedImages['mainImage'] || existingCharacter.mainImageUrl,
-      mainLandscapeImage: uploadedImages['mainLandscapeImage'] || existingCharacter.mainLandscapeImage,
-      power1Image: uploadedImages['power1Image'] || existingCharacter.power1Image,
-      power2Image: uploadedImages['power2Image'] || existingCharacter.power2Image,
-      power3Image: uploadedImages['power3Image'] || existingCharacter.power3Image,
+      mainLandscapeImageUrl: uploadedImages['mainLandscapeImage'] || existingCharacter.mainLandscapeImage,
+      power1ImageUrl: uploadedImages['power1Image'] || existingCharacter.power1Image,
+      power2ImageUrl: uploadedImages['power2Image'] || existingCharacter.power2Image,
+      power3ImageUrl: uploadedImages['power3Image'] || existingCharacter.power3Image,
       storyLine,
       origin
     };

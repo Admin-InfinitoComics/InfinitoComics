@@ -1,5 +1,3 @@
-// src/components/characters/formConfig.js
-
 export const formFields = [
   { name: 'knownAs', label: 'Known As', type: 'text', validation: { required: 'Known As is required' } },
   { name: 'originalName', label: 'Original Name', type: 'text', validation: {} }, // not required
@@ -15,7 +13,6 @@ export const formFields = [
 ];
 
 // Helper function to clean character data
-// Helper function to clean character data
 export const cleanCharacterData = (character) => {
   const cleanCharacter = { ...character };
 
@@ -28,9 +25,22 @@ export const cleanCharacterData = (character) => {
     cleanCharacter.originText = character.origin.text || '';
     cleanCharacter.originImage = character.origin.image || null;
   }
-  // Map mainImageUrl to mainImage for the form
+  
+  // Map image URLs to image fields for the form
   if (character.mainImageUrl) {
     cleanCharacter.mainImage = character.mainImageUrl;
+  }
+  if (character.mainLandscapeImageUrl) {
+    cleanCharacter.mainLandscapeImage = character.mainLandscapeImageUrl;
+  }
+  if (character.power1ImageUrl) {
+    cleanCharacter.power1Image = character.power1ImageUrl;
+  }
+  if (character.power2ImageUrl) {
+    cleanCharacter.power2Image = character.power2ImageUrl;
+  }
+  if (character.power3ImageUrl) {
+    cleanCharacter.power3Image = character.power3ImageUrl;
   }
 
   // Fix: Convert birthDate to YYYY-MM-DD for input type="date"
@@ -57,6 +67,10 @@ export const cleanCharacterData = (character) => {
   delete cleanCharacter.storyLine;
   delete cleanCharacter.origin;
   delete cleanCharacter.mainImageUrl;
+  delete cleanCharacter.mainLandscapeImageUrl;
+  delete cleanCharacter.power1ImageUrl;
+  delete cleanCharacter.power2ImageUrl;
+  delete cleanCharacter.power3ImageUrl;
 
   return cleanCharacter;
 };

@@ -13,7 +13,6 @@ import ChapterDashboard from './Pages/Comic/ChapterDashboard.jsx';
 
 import PaperCreate from "./Pages/Research/PaperCreate";
 
-
 import TimeLine from './Pages/TimeLine/timeline';
 import ResearchManager from './Pages/Research/ResearchManager.jsx';
 import ComicChap from './Pages/Comic/comicChapters.jsx'
@@ -32,9 +31,10 @@ function App() {
           <Route path="/users" element={<User/>}> </Route>
           <Route path="/login" element={<Login />} />  
           <Route path="/comic" element={<Comic/>} /> 
-          <Route path="/comic/:comicId/chapters" element={<ChapterDashboard />} />
+          <Route path="/comic/:comicId/chapters" element={<ChapterDashboard />} /> 
           <Route path='/chapters/:chapId/open' element={<ChapterDashboard></ChapterDashboard>}></Route>
           <Route path="/chapters/:chapId/edit" element={<ChapterDashboard></ChapterDashboard>}></Route>
+
           <Route path="/characters" element={<Characters/>} />
           <Route path="/career" element={<Career />} />        
           <Route path="/login" element={<Login />} />   

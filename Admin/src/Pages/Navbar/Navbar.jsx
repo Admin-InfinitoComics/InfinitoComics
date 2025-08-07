@@ -70,12 +70,6 @@ const Navbar = () => {
           >
             RESEARCH
           </Link>
-          <Link
-            to="/community"
-            className="text-white hover:text-red-500 transition duration-200 px-3 py-2"
-          >
-            COMMUNITY
-          </Link>
             <Link
               to="/createfaq"
               onClick={toggleMenu}

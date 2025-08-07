@@ -113,7 +113,7 @@ const CharacterSchema = new mongoose.Schema({
   },
   power1ImageUrl:{
     type: String,
-    required: true
+    required: true 
   },
   power2ImageUrl:{
     type : String,
@@ -123,9 +123,10 @@ const CharacterSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-
+ 
 
 
 }, { timestamps: true });
 
 export default mongoose.model('Character', CharacterSchema);
+  

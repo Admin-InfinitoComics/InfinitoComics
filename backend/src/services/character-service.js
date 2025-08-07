@@ -49,7 +49,7 @@ class CharacterService {
                 }
             }
             // Build the character object
-            const characterData = {
+const characterData = {
                 knownAs : data.knownAs,
                 originalName: data.originalName,
                 birthDate: data.birthDate,
@@ -84,7 +84,11 @@ class CharacterService {
                 },
                 imagesUrl: data.imagesUrl,
                 gender : data.gender,
-                mainImageUrl: data.mainImageUrl
+                mainImageUrl: data.mainImageUrl,
+                mainLandscapeImageUrl: data.mainLandscapeImageUrl,
+                power1ImageUrl: data.power1ImageUrl,
+                power2ImageUrl: data.power2ImageUrl,
+                power3ImageUrl: data.power3ImageUrl
             };
             const character = await this.characterRepository.create(characterData);
             return character;

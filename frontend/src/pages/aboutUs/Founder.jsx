@@ -25,7 +25,7 @@ const FounderSection = () => {
             {/* Name and Role */}
             <div>
               <h3 className="text-red-600 text-xl sm:text-2xl md:text-3xl font-bold tracking-wider uppercase">
-                A.R. Rajan Sharma
+                A.R Rajan Sharma
               </h3>
               <p className="text-black text-md sm:text-sm font-semibold tracking-widest mt-1">
                 FOUNDER & CEO

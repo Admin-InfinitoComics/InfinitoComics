@@ -68,7 +68,7 @@ function UserList() {
     <div className="max-w-6xl mx-auto p-4">
         <Toaster position="top-center" /> 
       {/* Search & Filter */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 mt-20">
         <div className="relative w-full md:w-1/2">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -150,8 +150,8 @@ function UserList() {
 
       {/* User List */}
       {paginated.length === 0 ? (
-        <div className="flex justify-center items-center h-40 text-gray-400 text-lg font-semibold">
-          No user found
+        <div className="flex justify-center items-center min-h-[52vh] py-24 text-gray-400 text-2xl font-semibold">
+          No user available
         </div>
       ) : (
         <motion.div

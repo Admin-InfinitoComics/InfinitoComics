@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { characters } from "../../constants/character"; // import your data
 import { useNavigate } from "react-router-dom";
 
-const filters = ["ALIGNMENT", "SERIES", "TYPE", "IMPRINTS", "DATE RANGES"];
-
 const AtoZOptions = ["A to Z", "Z to A"];
 
 const PAGE_SIZE = 12;
@@ -74,124 +72,108 @@ export default function CharacterBrowser() {
           </select>
         </div>
       </div>
-      {/* Main content */}
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* Sidebar */}
-        <div className="w-full md:w-1/4 max-w-xs">
-          {/* Search */}
-          <div className="flex items-center border border-gray-300 rounded mb-4">
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 px-3 py-2 text-sm focus:outline-none"
-            />
-            <button className="px-3 py-2">
-              <svg
-                width="16"
-                height="16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="7" cy="7" r="5" />
-                <path d="M11 11L15 15" />
-              </svg>
-            </button>
+
+      {/* Search Bar */}
+      <div className="flex items-center border border-gray-300 rounded mb-6 max-w-md">
+        <input
+          type="text"
+          placeholder="What are you looking for?"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 px-3 py-2 text-sm focus:outline-none"
+        />
+        <button className="px-3 py-2">
+          <svg
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <circle cx="7" cy="7" r="5" />
+            <path d="M11 11L15 15" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Characters grid */}
+      <div className="w-full">
+        {paginated.length === 0 ? (
+          <div className="flex items-center justify-center h-40 text-lg font-bold text-gray-400">
+            Oops, no character found
           </div>
-          {/* Filters */}
-          <div className="space-y-2">
-            {filters.map((f) => (
-              <div
-                key={f}
-                className="flex items-center justify-between border border-gray-300 rounded px-3 py-2 text-xs font-semibold tracking-widest bg-white"
-              >
-                <span>{f}</span>
-                <span className="text-lg font-bold">+</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        {/* Characters grid */}
-    <div className="w-full md:w-3/4">
-      {paginated.length === 0 ? (
-        <div className="flex items-center justify-center h-40 text-lg font-bold text-gray-400">
-          Oops, no character found
-        </div>
-      ) : (
-        <>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {paginated.map((char, idx) => (
-              <div
-                key={char.id}
-                className="flex flex-col cursor-pointer"
-                onClick={() =>
-                  navigate("/characters/biography", { state: { id: char.id } })
-                }
-              >
-                <div className={`relative w-full aspect-[3/4] rounded-t ${char.bg} flex items-end justify-center`}>
-                  <img
-                    src={char.image}
-                    alt={char.name}
-                    className="h-40 sm:h-48 md:h-56 object-contain mx-auto"
-                    draggable="false"
-                  />
+        ) : (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {paginated.map((char, idx) => (
+                <div
+                  key={char.id}
+                  className="flex flex-col cursor-pointer"
+                  onClick={() =>
+                    navigate("/characters/biography", { state: { id: char.id } })
+                  }
+                >
+                  <div className={`relative w-full aspect-[3/4] rounded-t ${char.bg} flex items-end justify-center`}>
+                    <img
+                      src={char.image}
+                      alt={char.name}
+                      className="h-40 sm:h-48 md:h-56 object-contain mx-auto"
+                      draggable="false"
+                    />
+                  </div>
+                  <div className="bg-black text-white text-xs md:text-sm font-medium tracking-widest text-center py-2 rounded-b">
+                    {char.name}
+                  </div>
                 </div>
-                <div className="bg-black text-white text-xs md:text-sm font-medium tracking-widest text-center py-2 rounded-b">
-                  {char.name}
-                </div>
-              </div>
-            ))}
-          </div>
-              {/* Pagination */}
-              <div className="flex items-center justify-center mt-8 space-x-1">
-                <button
-                  className="border border-gray-400 rounded w-8 h-8 flex items-center justify-center text-lg"
-                  disabled={page === 1}
-                  onClick={() => setPage(page - 1)}
-                >
-                  &lt;
-                </button>
-                {getPagination().map((p, i) =>
-                  p === "..." ? (
-                    <span
-                      key={i}
-                      className="w-8 h-8 flex items-center justify-center text-lg"
-                    >
-                      ...
-                    </span>
-                  ) : (
-                    <button
-                      key={i}
-                      className={`border border-gray-400 rounded w-8 h-8 flex items-center justify-center text-lg ${
-                        page === p
-                          ? "bg-red-500 text-white border-red-500"
-                          : "bg-white"
-                      }`}
-                      onClick={() => setPage(p)}
-                    >
-                      {p}
-                    </button>
-                  )
-                )}
-                <button
-                  className="border border-gray-400 rounded w-8 h-8 flex items-center justify-center text-lg"
-                  disabled={page === totalPages}
-                  onClick={() => setPage(page + 1)}
-                >
-                  &gt;
-                </button>
-                <a
-                  href="#"
-                  className="ml-6 text-xs font-semibold tracking-widest underline hover:text-red-500"
-                >
-                  SEE ALL &gt;
-                </a>
-              </div>
-            </>
-          )}
-        </div>
+              ))}
+            </div>
+            {/* Pagination */}
+            <div className="flex items-center justify-center mt-8 space-x-1">
+              <button
+                className="border border-gray-400 rounded w-8 h-8 flex items-center justify-center text-lg"
+                disabled={page === 1}
+                onClick={() => setPage(page - 1)}
+              >
+                &lt;
+              </button>
+              {getPagination().map((p, i) =>
+                p === "..." ? (
+                  <span
+                    key={i}
+                    className="w-8 h-8 flex items-center justify-center text-lg"
+                  >
+                    ...
+                  </span>
+                ) : (
+                  <button
+                    key={i}
+                    className={`border border-gray-400 rounded w-8 h-8 flex items-center justify-center text-lg ${
+                      page === p
+                        ? "bg-red-500 text-white border-red-500"
+                        : "bg-white"
+                    }`}
+                    onClick={() => setPage(p)}
+                  >
+                    {p}
+                  </button>
+                )
+              )}
+              <button
+                className="border border-gray-400 rounded w-8 h-8 flex items-center justify-center text-lg"
+                disabled={page === totalPages}
+                onClick={() => setPage(page + 1)}
+              >
+                &gt;
+              </button>
+              <a
+                href="#"
+                className="ml-6 text-xs font-semibold tracking-widest underline hover:text-red-500"
+              >
+                SEE ALL &gt;
+              </a>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

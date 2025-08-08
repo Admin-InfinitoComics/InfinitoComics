@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PaperCard from './PaperCard';
 import PaperSearchBar from './PaperSearchBar';
 import PaperCardShimmer from './Shimmer/PaperCardShimmer';
 import PaperSearchBarShimmer from './Shimmer/PaperSearchBarShimmer';
 import BrowseSectionShimmer from './Shimmer/BrowseSectionShimmer';
-
-
+import { readResearchService } from '../../services/readResearchService';
 const BrowsePapers = ({ allPapers, isLoading }) => {
+  const navigate = useNavigate();
   const [visibleCount, setVisibleCount] = useState(3);
   const [searchText, setSearchText] = useState('');
   const [journalText, setJournalText] = useState('');
@@ -41,6 +42,19 @@ const BrowsePapers = ({ allPapers, isLoading }) => {
 
   const handleShowMore = () => setVisibleCount(filteredPapers.length);
   const handleShowLess = () => setVisibleCount(3);
+
+  // ✅ Fetch paper details before navigating
+  const handlePaperClick = async (id) => {
+    try {
+      const paperDetails = await readResearchService(id); // fetch full paper
+      console.log("Full paper data:", paperDetails);
+
+      // Pass paper details via route state
+      navigate(`/readresearch/${id}`, { state: { paper: paperDetails.data } });
+    } catch (error) {
+      console.error("Failed to fetch paper details:", error);
+    }
+  };
 
   const categories = ['all', 'business', 'psychology', 'design', 'development'];
 
@@ -100,11 +114,15 @@ const BrowsePapers = ({ allPapers, isLoading }) => {
             ) : (
               <>
                 {filteredPapers.slice(0, visibleCount).map((paper) => (
-                  <PaperCard key={paper._id} paper={paper} />
+                  <div
+                    key={paper._id}
+                   
+                    className="cursor-pointer"
+                  >
+                    <PaperCard paper={paper} />
+                  </div>
                 ))}
                 {filteredPapers.length > 3 && (
-
-
                   <div className="mt-6 mb-6 text-center">
                     {visibleCount < filteredPapers.length ? (
                       <button

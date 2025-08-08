@@ -1,82 +1,113 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { readResearchService } from '../../services/readResearchService';
 
 const ReadResearch = () => {
+  const { id } = useParams();
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [paper, setPaper] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleUnlock = () => {
-    setIsUnlocked(true);
-  };
+  const handleUnlock = () => setIsUnlocked(true);
+
+  useEffect(() => {
+    const fetchPaper = async () => {
+      try {
+        setLoading(true);
+        const res = await readResearchService(id);
+        // ✅ Fix: store only the paper data
+        setPaper(res.data); 
+      } catch (error) {
+        console.error('Failed to fetch research paper:', error);
+        setPaper(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) fetchPaper();
+  }, [id]);
+
+  if (loading) {
+    return <p className="text-center py-20">Loading research paper...</p>;
+  }
+
+  if (!paper) {
+    return (
+      <p className="text-center py-20 text-red-500">
+        Research paper not found.
+      </p>
+    );
+  }
 
   return (
     <div className="bg-[#fdfdfd] py-12 px-4 sm:px-6 md:px-10">
       <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-12">
-
-        {/* Left Section */}
+        
+        {/* Left Content */}
         <div className="w-full lg:w-9/12 text-justify">
           <p className="text-xl text-gray-500 italic mb-1">
-            <span className="text-red-600 font-semibold">Journal</span> | Date Published
+            <span className="text-red-600 font-semibold">
+              {paper.journalName || 'Journal'}
+            </span>{' '}
+            | {paper.publishedAt ? new Date(paper.publishedAt).toLocaleDateString() : 'N/A'}
           </p>
+
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-left">
-            Title Of The Research Paper
+            {paper.title}
           </h1>
 
-          <p className="text-2xl text-gray-700 font-medium mb-2 text-left">Authors</p>
+          {paper.authors?.length > 0 && (
+            <p className="text-2xl text-gray-700 font-medium mb-2 text-left">
+              {paper.authors.join(', ')}
+            </p>
+          )}
 
           <div className="flex gap-10 border-y border-gray-200 py-4 mb-6">
             <div>
-              <p className="text-4xl border-l-4 px-3 border-gray-200 text-red-600 font-bold leading-tight">7</p>
+              <p className="text-4xl border-l-4 px-3 border-gray-200 text-red-600 font-bold leading-tight">
+                {paper.citations || 0}
+              </p>
               <p className="text-sm text-gray-600">Citations</p>
             </div>
             <div>
-              <p className="text-4xl border-l-4 px-3 border-gray-200 text-red-600 font-bold leading-tight">12</p>
-              <p className="text-sm text-gray-600">Downloads</p>
+              <p className="text-4xl border-l-4 px-3 border-gray-200 text-red-600 font-bold leading-tight">
+                {paper.views || 0}
+              </p>
+              <p className="text-sm text-gray-600">Views</p>
             </div>
           </div>
 
           {/* Abstract */}
-          <h2 className="text-2xl font-semibold mb-2 text-left">Abstract</h2>
-          <p className="text-gray-800 leading-relaxed text-justify">
-            Behavioral psychology has played a key role in shaping modern UX design by helping create
-            digital experiences that guide user behavior and build long–term engagement. It is commonly
-            used in habit-forming designs, where features like reminders, rewards, and habit loops
-            encourage repeated use. At the same time, the growth of adaptive UX systems that use
-            predictive analytics to personalize user experiences, has introduced new ways of responding
-            to individual user needs in real–time.
-          </p>
-          <p className="text-gray-800 mb-2 leading-relaxed text-justify">
-            This paper explores how behavioral psychology principles are used in user experience design
-            for habit formation, and predictive analytics in adaptive UX systems. The study employs a
-            literature review of key behavioral models, and case studies from real–world applications to
-            identify similarities, differences and implications. By highlighting design patterns, engagement
-            techniques, and potential risks, the research aims to offer actionable insights for UX
-            designers striving to create effective, ethical, and user–centered digital experiences.
-          </p>
+          {paper.abstract && (
+            <>
+              <h2 className="text-2xl font-semibold mb-2 text-left">Abstract</h2>
+              <p className="text-gray-800 leading-relaxed">{paper.abstract}</p>
+            </>
+          )}
 
           {/* Keywords */}
-          <h3 className="text-xl font-semibold mb-1 text-left">Keywords:</h3>
-          <p className="text-gray-700 mb-4 text-justify">
-            Behavioral Psychology, UX Design, Habit Formation, Adaptive UX, Predictive Analytics, User Engagement.
-          </p>
+          {paper.keywords?.length > 0 && (
+            <>
+              <h3 className="text-xl font-semibold mb-1 text-left">Keywords:</h3>
+              <p className="text-gray-700 mb-4">{paper.keywords.join(', ')}</p>
+            </>
+          )}
 
           {/* Introduction */}
-          <h2 className="text-xl font-semibold mb-2 text-left">Introduction</h2>
-          <div className="relative overflow-hidden transition-all duration-300 ease-in-out">
-            <div className={`${isUnlocked ? '' : 'max-h-[180px] overflow-hidden relative'}`}>
-              <p className="text-gray-800 leading-relaxed text-justify">
-                Behavioral psychology has played a key role in shaping modern UX design by helping create
-                digital experiences that guide user behavior and build long–term engagement. It is commonly
-                used in habit–forming designs, where features like reminders, rewards, and habit loops
-                encourage repeated use. At the same time, the growth of adaptive UX systems that use
-                predictive analytics to personalize user experiences, has introduced new ways of responding
-                to individual user needs in real–time. This paper explores how behavioral psychology principles
-                are used in user experience design, focusing on practical implications, data ethics, and
-                measurable outcomes in user-centered digital design environments.
-              </p>
-              {!isUnlocked && (
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#fdfdfd] to-transparent pointer-events-none" />
-              )}
-            </div>
-          </div>
+          {paper.introduction && (
+            <>
+              <h2 className="text-xl font-semibold mb-2 text-left">Introduction</h2>
+              <div className="relative overflow-hidden transition-all duration-300 ease-in-out">
+                <div className={`${isUnlocked ? '' : 'max-h-[180px] overflow-hidden relative'}`}>
+                  <p className="text-gray-800 leading-relaxed">{paper.introduction}</p>
+                  {!isUnlocked && (
+                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#fdfdfd] to-transparent pointer-events-none" />
+                  )}
+                </div>
+              </div>
+            </>
+          )}
 
           {!isUnlocked && (
             <div className="text-center my-6">
@@ -89,79 +120,46 @@ const ReadResearch = () => {
             </div>
           )}
 
-          {/* --- Right Section (MOBILE only) above References --- */}
+          {/* Mobile Buy Section */}
           <div className="block lg:hidden mt-10">
-            <div className="p-6 sm:p-10 shadow-xl rounded-sm bg-white">
-              <h3 className="text-lg font-semibold mb-6">Buy Paper Now</h3>
-              <p className="text-2xl font-medium mb-4">₹49.00</p>
-              <button className="mb-8 border border-black px-4 py-2 text-sm font-semibold tracking-wide hover:bg-black hover:text-white transition">
-                Get Full Access &gt;
-              </button>
-
-              <h3 className="text-lg font-semibold mb-6">View Membership Plans</h3>
-              {[1, 2, 3].map((item) => (
-                <div
-                  key={item}
-                  className="mb-6 border-l-2 border-gray-200 pl-4 text-sm cursor-pointer hover:text-red-600 transition"
-                >
-                  <p className="font-medium uppercase text-xs tracking-wider">Access via Institution &gt;</p>
-                  <p className="text-gray-600 mt-1">
-                    The Description Of The Plan. How To Use It, Is It Available
-                  </p>
-                </div>
-              ))}
-
-              <button className="w-8/12 border border-black px-4 py-2 text-sm font-semibold tracking-wide hover:bg-black hover:text-white transition">
-                View All Plans &gt;
-              </button>
-            </div>
+            <BuyPaperCard price={paper.price} />
           </div>
 
           {/* References */}
-          <h2 className="text-xl font-semibold mb-3 mt-10 text-left">References</h2>
-          <ol className="text-sm text-gray-800 list-decimal list-inside space-y-4 text-justify">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <li key={i}>
-                Sun Y, Li WF, Chen NY, et al. Induction chemotherapy plus concurrent chemoradiotherapy
-                versus concurrent chemoradiotherapy alone in locoregionally advanced nasopharyngeal
-                carcinoma: a phase 3, multicentre, randomised controlled trial. <i>Lancet Oncol.</i> 2016;17(11):1509-1520.
-                <span className="text-red-600 italic"> doi:10.1016/s1470-2045(16)30410-7</span>
-              </li>
-            ))}
-          </ol>
+          {paper.references?.length > 0 && (
+            <>
+              <h2 className="text-xl font-semibold mb-3 mt-10 text-left">References</h2>
+              <ol className="text-sm text-gray-800 list-decimal list-inside space-y-4">
+                {paper.references.map((ref, i) => (
+                  <li key={i}>
+                    {/* ✅ Handle object reference */}
+                    {typeof ref === 'string'
+                      ? ref
+                      : `${ref.text}${ref.doi ? ` (DOI: ${ref.doi})` : ''}`}
+                  </li>
+                ))}
+              </ol>
+            </>
+          )}
         </div>
 
-        {/* --- Right Section (DESKTOP only) --- */}
+        {/* Desktop Buy Section */}
         <div className="hidden lg:block w-full lg:w-5/12">
-          <div className="p-6 sm:p-10 shadow-xl rounded-sm bg-white">
-            <h3 className="text-lg font-semibold mb-6">Buy Paper Now</h3>
-            <p className="text-2xl font-medium mb-4">₹49.00</p>
-            <button className="mb-8 border border-black px-4 py-2 text-sm font-semibold tracking-wide hover:bg-black hover:text-white transition">
-              Get Full Access &gt;
-            </button>
-
-            <h3 className="text-lg font-semibold mb-6">View Membership Plans</h3>
-            {[1, 2, 3].map((item) => (
-              <div
-                key={item}
-                className="mb-6 border-l-2 border-gray-200 pl-4 text-sm cursor-pointer hover:text-red-600 transition"
-              >
-                <p className="font-medium uppercase text-xs tracking-wider">Access via Institution &gt;</p>
-                <p className="text-gray-600 mt-1">
-                  The Description Of The Plan. How To Use It, Is It Available
-                </p>
-              </div>
-            ))}
-
-            <button className="w-8/12 border border-black px-4 py-2 text-sm font-semibold tracking-wide hover:bg-black hover:text-white transition">
-              View All Plans &gt;
-            </button>
-          </div>
+          <BuyPaperCard price={paper.price} />
         </div>
-
       </div>
     </div>
   );
 };
+
+const BuyPaperCard = ({ price }) => (
+  <div className="p-6 sm:p-10 shadow-xl rounded-sm bg-white">
+    <h3 className="text-lg font-semibold mb-6">Buy Paper Now</h3>
+    <p className="text-2xl font-medium mb-4">₹{price || '49.00'}</p>
+    <button className="border border-black px-4 py-2 text-sm font-semibold tracking-wide hover:bg-black hover:text-white transition">
+      Get Full Access &gt;
+    </button>
+  </div>
+);
 
 export default ReadResearch;

@@ -251,7 +251,6 @@ const PremiumPlans = () => {
             <strong>Best Offer</strong>
           </div>
         </div>
-
   const responsiveSliderSettings = {
     dots: true,
     infinite: false,

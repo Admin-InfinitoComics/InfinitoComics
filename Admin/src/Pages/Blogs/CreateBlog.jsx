@@ -134,7 +134,8 @@ const handleUpdate = async () => {
     const response = await fetch(`${BACKEND_URL}/blog/updateblog/${editingBlog._id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(payload)
     });
@@ -172,6 +173,7 @@ const handleUpdate = async () => {
   }
 };
   const handleGetAllBlogs = async () => {
+    console.log(BACKEND_URL);
   try {
     const response = await fetch(`${BACKEND_URL}/blog/getallblog`);
     const result = await response.json();

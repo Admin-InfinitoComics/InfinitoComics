@@ -24,6 +24,7 @@ const allowedOrigins = [
   config.ADMIN_URL,
   config.RESEARCH_URL,
   config.FOUNDATION_URL,
+  'http://localhost:3002'
 ];
 
 app.use(cors({
@@ -35,7 +36,7 @@ app.use(cors({
       return callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));

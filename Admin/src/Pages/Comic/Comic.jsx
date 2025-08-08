@@ -416,7 +416,17 @@ const Comic = () => {
                     <h2 className="text-2xl font-semibold text-red-700 mb-6">All Comics Preview</h2>
 
                     <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-8">
-                        {[...comics].reverse().slice(0, visibleCount).map((comic) => (
+                    
+                        {comics.length === 0 ? (
+                            <div className="flex justify-center items-center flex-col mt-10">
+                                <p className="text-gray-500 text-lg mb-4">No comics available.</p>
+                                <button
+                                className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition"
+                                >
+                                Add Comic
+                                </button>
+                            </div>
+                            ) : ([...comics].reverse().slice(0, visibleCount).map((comic) => (
                             <div className="flex gap-8 justify-center items-start bg-gray-50 p-4">
 
 
@@ -443,7 +453,7 @@ const Comic = () => {
                                                 </p>
                                             </div>
                                             {comic.chapters.length > 1 && (
-                                                <div className="absolute top-0 left-full ml-2 bg-white shadow-xl border border-gray-400 rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 whitespace-nowrap">
+                                                <div className="absolute top-0 right-full mr-3 bg-white shadow-xl border border-gray-400 rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 whitespace-nowrap">
                                                     <button
                                                         onClick={() => navigate(`/comicChap/${comic._id}/chapters`, { state: { comic } })}
                                                         className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-600 text-white rounded-md hover:from-red-600 hover:to-red-500 text-xs font-medium transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-1 "
@@ -457,7 +467,7 @@ const Comic = () => {
                                                 </div>
                                             )}
                                             {comic.chapters.length === 1 && (
-                                                <div className="absolute top-full left-0 mt-1 bg-white shadow-xl border border-gray-200 rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 z-10 min-w-48">
+                                                <div className="absolute top-0 right-full mr-3 bg-white shadow-xl border border-gray-200 rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 z-10 min-w-48">
                                                     <div className="space-y-2">
                                                         <button
                                                             onClick={() => {
@@ -576,7 +586,7 @@ const Comic = () => {
 
                                 </div>
                             </div>
-                        ))}
+                        )))}
 
 
 

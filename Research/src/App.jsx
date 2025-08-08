@@ -51,7 +51,7 @@ useEffect(() => {
       <Route path="/" element={<Body/>} >
       <Route path="/" element={<Home/>} />
       <Route path="ResearchPlans" element={<ResearchPlans/>} />
-      <Route path="ReadResearch" element={<ReadResearch/>} />\
+      <Route path="readresearch/:id" element={<ReadResearch />} />
       <Route path="/browseResearch" element={<Paper/>} />
       
       </Route>

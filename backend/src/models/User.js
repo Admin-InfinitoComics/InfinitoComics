@@ -50,17 +50,10 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  hasMonthlyMembership: {
-    type: Boolean,
-    default: false
-  },
-  hasHalfYearlyMembership:{
-    type: Boolean,
-    default: false
-  },
-  hasAnnualMembership: {
-    type: Boolean,
-    default: false
+  membershipType: {
+    type: String,
+    enum: ["", "Monthly", "HalfYear", "Annual"],
+    default: ""
   }
 }, {timestamps: true});
 

@@ -9,7 +9,7 @@ import {
   CircleCheck,
 } from "lucide-react";
 import PremiumPlansShimmer from "../../shimmer/landingPageShimmer/PremiumPlansShimmer";
-import {BASE_URL} from '../../utils/constants.js'
+import { BASE_URL } from '../../utils/constants.js'
 
 const PremiumPlans = () => {
   const [loading, setLoading] = useState(true);
@@ -19,44 +19,70 @@ const PremiumPlans = () => {
   }, []);
 
 
+  //3rd api call of razorpay
+  const [isUserPremium, setIsUserPremium] = useState(false);
+  useEffect(() => {
+    verifyPremiumUser();
+  }, [])
 
+  const verifyPremiumUser = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/premium/verify", {
+        withCredentials: true,
+      });
 
-  //razorpay integration
-  const handleBuyClick = async (type) => {
-    const token = localStorage.getItem("authtoken");
-
-    const res = await axios.post(`${BASE_URL}/payment/create`, {
-      membershipType: type
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`
+      if (res.data.isPremium) {
+        setIsUserPremium(true);
+      } else {
+        setIsUserPremium(false);
       }
-    });
-    console.log("RESPONSE FROM BACKEND: ", res.data.data);
-    const data = res.data.data;
+    } catch (error) {
+      console.error("Error verifying premium user:", error);
+      setIsUserPremium(false);
+    }
+  };
 
-    const options = {
-      key: data.keyId,
-      amount: data.amount,
-      currency: data.currency,
-      name: "Infinito Comics",
-      description: "Test transaction",
-      order_id: data.orderId, 
-      prefill: {
-        name: data.notes.name,
-        email: data.notes.email,
-      },
-      theme: {
-        "color": "#3399cc"
-      },
-      
-    };
-    const rzp = window.Razorpay(options); 
-    rzp.open(); 
-  }
+  console.log("isUserPremium: ", isUserPremium)
 
+  // Razorpay integration
+  const handleBuyClick = async (type) => {
+    try {
+      const token = localStorage.getItem("authtoken");
 
- 
+      const res = await axios.post(
+        `${BASE_URL}/payment/create`,
+        { membershipType: type },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      const data = res.data.data;
+      console.log("RESPONSE FROM BACKEND: ", data);
+
+      const options = {
+        key: data.keyId,
+        amount: data.amount,
+        currency: "INR",
+        name: "Infinito Comics",
+        description: `${type} Membership Purchase`,
+        order_id: data.orderId,
+        theme: {
+          color: "#3399cc"
+        },
+        handler: verifyPremiumUser
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Error initiating Razorpay payment: ", error);
+      alert("Something went wrong while creating the order. Please try again!");
+    }
+  };
+
 
   return loading ? <PremiumPlansShimmer /> : (
     <>

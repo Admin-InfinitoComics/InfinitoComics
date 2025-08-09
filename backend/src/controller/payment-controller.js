@@ -10,6 +10,15 @@ export const createOrder = async (req, res) => {
         // console.log("USER: ", user)
         const { membershipType } = req.body;
 
+        // validating membershipType
+        const validMemberships = ["Monthly", "HalfYear", "Annual"];
+        if (!validMemberships.includes(membershipType)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid membership type",
+            });
+        }
+
         const order = await razorpayInstance.orders.create({
             "amount": (paymentPlans[membershipType]) * 100,
             "currency": "INR",
@@ -24,8 +33,6 @@ export const createOrder = async (req, res) => {
         })
 
         //on success, save the order in db
-        // console.log("created order: ",order)
-
         const payment = new Payment({
             orderId: order.id,
             amount: order.amount,
@@ -33,12 +40,11 @@ export const createOrder = async (req, res) => {
             receipt: order.receipt,
             notes: order.notes
         });
-        // console.log("created PAYMENT: ", payment);
 
         const savedPayment = await payment.save();
 
 
-        //return back order details to fronted
+        //returning order details to fronted
         res.status(200).json({
             success: true,
             message: "Successfully created order",
@@ -71,7 +77,7 @@ export const webhooksetup = async (req, res) => {
             return res.status(400).json({ message: "Webhook signature is invalid" })
         }
 
-        //change payment status to paid in db
+        //changing payment status in db
         const paymentDetails = req.body.payload.payment.entity;
 
         const payment = await Payment.findOne({ orderId: paymentDetails.order_id });
@@ -81,7 +87,7 @@ export const webhooksetup = async (req, res) => {
         payment.status = paymentDetails.status;
         await payment.save();
 
-        //add membership to user
+        //adding membership to user
         const userId = payment.notes?.userId;
         const membershipType = payment.notes?.membershipType;
 
@@ -94,15 +100,21 @@ export const webhooksetup = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // Set flags based on membershipType
-        if (membershipType === "Monthly") {
-            user.hasMonthlyMembership = true;
-        } else if (membershipType === "HalfYear") {
-            user.hasHalfYearlyMembership = true;
-        } else if (membershipType === "Annual") {
-            user.hasAnnualMembership = true;
-        }else if(membershipType === "UltimateKit"){
-            user.hasInfinitoUltimateKit = true
+        // updating membership based on type
+        if (["Monthly", "HalfYear", "Annual"].includes(membershipType)) {
+            user.membershipType = membershipType;
+
+            // membership expiry logic
+            const now = new Date();
+            if (membershipType === "Monthly") {
+                user.infinitoUltimateTo = new Date(now.setMonth(now.getMonth() + 1));
+            } else if (membershipType === "HalfYear") {
+                user.infinitoUltimateTo = new Date(now.setMonth(now.getMonth() + 6));
+            } else if (membershipType === "Annual") {
+                user.infinitoUltimateTo = new Date(now.setFullYear(now.getFullYear() + 1));
+            }
+        } else if (membershipType === "UltimateKit") {
+            user.hasInfinitoUltimateKit = true;
         }
         await user.save();
         return res.status(200).json({ message: "Webhook received successfully!" })
@@ -117,15 +129,26 @@ export const webhooksetup = async (req, res) => {
 }
 
 export const verifyPayment = async (req, res) => {
-        try {
-            const user = req.user.toJSON();
-            console.log("User from payment controller: ", user)
-            if (user.isPremium) {
-                return res.json({ ...user });
-            }
-            return res.json({ ...user });
-        }
-        catch (err) {
-            console.log("Error verifying payment: ", err);
-        }
-    }
+  try {
+    const user = req.user;
+
+    // checking for valid membership type
+    const hasMembership = ["Monthly", "HalfYear", "Annual"].includes(user.membershipType);
+
+    const isPremium = user.hasInfinitoUltimateKit || hasMembership;
+
+    return res.status(200).json({
+      success: true,
+      isPremium,
+      membershipType: user.membershipType || "",
+      hasInfinitoUltimateKit: user.hasInfinitoUltimateKit || false,
+    });
+  } catch (err) {
+    console.log("Error verifying payment: ", err);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to verify payment status"
+    });
+  }
+};
+

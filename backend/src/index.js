@@ -24,9 +24,8 @@ const allowedOrigins = [
   config.ADMIN_URL,
   config.RESEARCH_URL,
   config.FOUNDATION_URL,
-  config.VERCEL_URL
+  'http://localhost:3002'
 ];
-console.log("CORS Allowed Origins:", allowedOrigins);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -37,7 +36,7 @@ app.use(cors({
       return callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+
+
 import axios from "axios";
 import {
   Gift,
@@ -8,12 +10,15 @@ import {
   TreeDeciduous,
   CircleCheck,
 } from "lucide-react";
+
 import PremiumPlansShimmer from "../../shimmer/landingPageShimmer/PremiumPlansShimmer";
 import { BASE_URL } from '../../utils/constants.js'
+
 
 const PremiumPlans = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+
     // fetch data / preload hero image ...
     setTimeout(() => setLoading(false), 2400); // demo
   }, []);
@@ -272,7 +277,47 @@ const PremiumPlans = () => {
             <strong>Best Offer</strong>
           </div>
         </div>
+  const responsiveSliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    centerMode: true,
+    centerPadding: "20px",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          centerMode: false,
+          centerPadding: "0px",
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          centerMode: true,
+          centerPadding: "20px",
+        },
+      },
+    ],
+  };
 
+  return (
+    <div className="w-full mt-5 p-4 lg:p-16">
+      {/* Mobile & Tablet View Carousel */}
+      <div className="block lg:hidden">
+        <Slider {...responsiveSliderSettings}>
+          {plans.map((plan, index) => (
+            <div key={index} className="px-2">
+              <div className="mx-auto h-[640px]">{renderCard(plan, index)}</div>
+            </div>
+          ))}
+        </Slider>
+      </div>
 
 
       </div>

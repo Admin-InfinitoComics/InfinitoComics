@@ -1,9 +1,14 @@
 import React from "react";
-
+import { useNavigate } from 'react-router-dom';
 const Card = ({ comic }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/comicChap/${comic._id}/chapters`);
+  };
   return (
     <div className="w-[132.5rem] flex justify-center items-center bg-white">
-      <div className="w-[13.5rem] overflow-hidden">
+      <div  onClick={handleClick} className="w-[13.5rem] overflow-hidden">
         <img
           src={
             comic.coverImg ||

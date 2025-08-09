@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
-import { BACKEND_URL } from "../../Utils/constant"; // ✅ backend URL import
+import { BACKEND_URL } from "../../Utils/constant";
 
 const ResearchManager = () => {
   const [papers, setPapers] = useState([]);
@@ -35,7 +35,6 @@ const ResearchManager = () => {
   const handleView = (paper) => {
     setSelectedPaper(paper);
     setMode("view");
-    toast.success("Switched to view mode");
   };
 
   const handleEdit = (paper) => {
@@ -45,8 +44,26 @@ const ResearchManager = () => {
     });
     setSelectedPaper(paper);
     setMode("edit");
-    toast.success("Switched to edit mode");
   };
+
+const handleDelete = async (paperId) => {
+  if (!window.confirm("Are you sure you want to delete this paper?")) return;
+
+  try {
+    await axios.delete(`${BACKEND_URL}/research-papers/${paperId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    });
+    toast.success("Paper deleted successfully");
+    fetchPapers();
+    setMode("list");
+  } catch (err) {
+    console.error("Delete failed:", err?.response?.data || err);
+    toast.error("Failed to delete paper");
+  }
+};
+
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -73,14 +90,14 @@ const ResearchManager = () => {
       fetchPapers();
       setMode("list");
     } catch (err) {
-      console.error("Update failed", err);
+      console.error("Update failed", err?.response?.data || err);
       toast.error("Failed to update paper.");
     }
   };
 
   return (
     <div className="p-6 max-w-7xl mx-auto text-black">
-      <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
+      <div className="flex flex-wrap justify-between items-center mb-6 gap-4 mt-20">
         <h1 className="text-3xl font-bold text-gray-800">Research Paper Manager</h1>
         <div className="flex flex-wrap gap-2">
           {["list", "view", "edit"].map((m) => (
@@ -90,10 +107,8 @@ const ResearchManager = () => {
                 if (m === "view" || m === "edit") {
                   if (!selectedPaper) return toast.error("Select a paper first");
                   m === "edit" ? handleEdit(selectedPaper) : setMode("view");
-                  toast.success(`Switched to ${m} mode`);
                 } else {
                   setMode("list");
-                  toast.success("Switched to list view");
                 }
               }}
               className={`px-4 py-2 rounded transition ${
@@ -163,21 +178,17 @@ const ResearchManager = () => {
                     >
                       Edit
                     </button>
+                    <button
+                      onClick={() => handleDelete(paper._id)}
+                      className="text-red-600 font-medium hover:underline"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </motion.div>
               ))
             )}
           </div>
-          {papers.length > 0 && (
-            <div className="text-center mt-10">
-              <button
-                onClick={() => navigate("/research/create")}
-                className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-full text-lg shadow transition"
-              >
-                + Create New Research Paper
-              </button>
-            </div>
-          )}
         </>
       )}
 

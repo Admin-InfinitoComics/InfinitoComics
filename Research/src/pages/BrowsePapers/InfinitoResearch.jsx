@@ -86,7 +86,7 @@ const InfinitoCarousel = ({ researchPaper, isLoading }) => {
 
 
 
-        {/* Right carousel card */}
+        {/* Right carousel card
         <div className="absolute right-70 w-[450px] h-[452px] z-50 mb-6 bg-white text-black shadow-xl py-12 px-10">
           <h2 className="text-[30px] font-bold my-2 mb-1 line-clamp-2">
             {researchPaper[currentIndex].title}
@@ -100,7 +100,7 @@ const InfinitoCarousel = ({ researchPaper, isLoading }) => {
           <button className="border-2 h-[42px] w-[150px] text-[#202020] border-[#202020] my-2 px-4 py-1.5 font-semibold text-[12px] hover:bg-black hover:text-white transition">
             VIEW PAPER ›
           </button>
-        </div>
+        </div> */}
 
       </div>
     </div>

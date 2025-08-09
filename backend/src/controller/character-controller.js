@@ -3,61 +3,54 @@ import CharacterService from "../services/character-service.js";
 const characterService = new CharacterService();
 
 export const createCharacter = async (req, res) => {
-  console.log("req body",req.body);
-  console.log("idhr files",req.files)
   try {
-    // Import AWS upload utility
     const { uploadToS3 } = await import('../utils/aws.js');
 
-    // Handle main image upload
-    let mainImageUrl = null;
-    if (req.files && req.files.mainImage && req.files.mainImage[0]) {
-      const mainImageFile = req.files.mainImage[0];
-      const result = await uploadToS3(mainImageFile.buffer, mainImageFile.originalname, mainImageFile.mimetype);
-      mainImageUrl = result.Location;
+
+    // Upload all image fields
+    const imageFields = [
+      'mainImage',
+      'storylineImage',
+      'originImage',
+      'mainLandscapeImage',
+      'power1Image',
+      'power2Image',
+      'power3Image'
+    ];
+    const uploadedImages = {};
+    for (const field of imageFields) {
+      if (req.files && req.files[field] && req.files[field][0]) {
+        const file = req.files[field][0];
+        const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
+        uploadedImages[field] = result.Location;
+      }
     }
 
-    // Merge image URLs into request body
-    // Parse storyLine and origin as objects if sent as JSON strings
+    // Build storyLine and origin objects
     let storyLine = {
-      text : req.body.storylineText,
-      image : ""
-
-    }
+      text: req.body.storylineText,
+      image: uploadedImages['storylineImage'] || ""
+    };
     let origin = {
-      text : req.body.originText,
-      image : ""
+      text: req.body.originText,
+      image: uploadedImages['originImage'] || ""
+    };
 
-    }
-
-    let originImageUrl = null;
-    if (req.files && req.files.originImage && req.files.originImage[0]) {
-      const file = req.files.originImage[0];
-      const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
-      originImageUrl = result.Location;
-    }
-    if (origin) origin.image = originImageUrl || origin.image;
-
-    let storyLineImageUrl = null;
-    if (req.files && req.files.storylineImage && req.files.storylineImage[0]) {
-      const file = req.files.storylineImage[0];
-      const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
-      storyLineImageUrl = result.Location;
-    }
-    if (storyLine) storyLine.image = storyLineImageUrl || storyLine.image;
-  
+    // Build character data object
     const characterData = {
       ...req.body,
       storyLine,
       origin,
-      mainImageUrl
+      mainImageUrl: uploadedImages['mainImage'] || "",
+      mainLandscapeImageUrl: uploadedImages['mainLandscapeImage'] || "",
+      power1ImageUrl: uploadedImages['power1Image'] || "",
+      power2ImageUrl: uploadedImages['power2Image'] || "",
+      power3ImageUrl: uploadedImages['power3Image'] || ""
     };
-    // console.log(characterData);
+
     const character = await characterService.createCharacter(characterData);
     res.status(201).json({ success: true, data: character });
   } catch (error) {
-    // console.log("hiiiiii")
-    console.log(error.message)
     res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -92,40 +85,43 @@ export const updateCharacter = async (req, res) => {
       return res.status(404).json({ success: false, message: "Character not found" });
     }
 
-    // Handle main image update
-    let mainImageUrl = existingCharacter.mainImageUrl;
-    if (req.files && req.files.mainImage && req.files.mainImage[0]) {
-      const mainImageFile = req.files.mainImage[0];
-      const result = await uploadToS3(mainImageFile.buffer, mainImageFile.originalname, mainImageFile.mimetype);
-      mainImageUrl = result.Location;
+    // Handle all image fields
+    const imageFields = [
+      'mainImage',
+      'storylineImage',
+      'originImage',
+      'mainLandscapeImage',
+      'power1Image',
+      'power2Image',
+      'power3Image'
+    ];
+    const uploadedImages = {};
+    for (const field of imageFields) {
+      if (req.files && req.files[field] && req.files[field][0]) {
+        const file = req.files[field][0];
+        const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
+        uploadedImages[field] = result.Location;
+      }
     }
 
-    // Handle storyline image update
+    // Build storyLine and origin objects
     let storyLine = {
       text: req.body.storylineText ?? existingCharacter.storyLine.text,
-      image: existingCharacter.storyLine.image
+      image: uploadedImages['storylineImage'] || existingCharacter.storyLine.image
     };
-    if (req.files && req.files.storylineImage && req.files.storylineImage[0]) {
-      const file = req.files.storylineImage[0];
-      const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
-      storyLine.image = result.Location;
-    }
-
-    // Handle origin image update
     let origin = {
       text: req.body.originText ?? existingCharacter.origin.text,
-      image: existingCharacter.origin.image
+      image: uploadedImages['originImage'] || existingCharacter.origin.image
     };
-    if (req.files && req.files.originImage && req.files.originImage[0]) {
-      const file = req.files.originImage[0];
-      const result = await uploadToS3(file.buffer, file.originalname, file.mimetype);
-      origin.image = result.Location;
-    }
 
     // Prepare updated data
     const updatedData = {
       ...req.body,
-      mainImageUrl,
+      mainImageUrl: uploadedImages['mainImage'] || existingCharacter.mainImageUrl,
+      mainLandscapeImageUrl: uploadedImages['mainLandscapeImage'] || existingCharacter.mainLandscapeImage,
+      power1ImageUrl: uploadedImages['power1Image'] || existingCharacter.power1Image,
+      power2ImageUrl: uploadedImages['power2Image'] || existingCharacter.power2Image,
+      power3ImageUrl: uploadedImages['power3Image'] || existingCharacter.power3Image,
       storyLine,
       origin
     };

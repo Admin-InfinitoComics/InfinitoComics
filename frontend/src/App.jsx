@@ -37,7 +37,7 @@ import {RESEARCH_BASE_URL, FOUNDATION_BASE_URL} from './utils/constants.js'
 import PrivacyPolicy from './pages/Policy/PrivacyPolicy.jsx';
 import RefundPolicy from './pages/Policy/Refund.jsx';
 import TermsOfService from './pages/Policy/TermsofService.jsx';
-
+import ComicChap from './components/Comics/comicChap.jsx'
 
 function App() {
   useEffect(() => {
@@ -128,6 +128,8 @@ function App() {
             <Route path="/createAvatar" element={<SignupStep3/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/comics" element={<Comic/>}/>
+            <Route path="/comicChap/:comicId/chapters" element={<ComicChap></ComicChap>}></Route>
+            <Route path="/comicChap/:comicId/chapters/pdfView" element={<ComicChap></ComicChap>}></Route>
             <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
             <Route path='/games' element={<Games></Games>}></Route>
 

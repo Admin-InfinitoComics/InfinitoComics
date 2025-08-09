@@ -106,7 +106,27 @@ const CharacterSchema = new mongoose.Schema({
     type: String,
     enum: ['Male', 'Female', 'Other'],
     required: true
-  }
+  },
+  mainLandscapeImageUrl :{
+    type: String,
+    required: true
+  },
+  power1ImageUrl:{
+    type: String,
+    required: true 
+  },
+  power2ImageUrl:{
+    type : String,
+    required : true
+  },
+  power3ImageUrl:{
+    type: String,
+    required: true
+  },
+ 
+
+
 }, { timestamps: true });
 
 export default mongoose.model('Character', CharacterSchema);
+  

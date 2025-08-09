@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import LandingComponent from './LandingComponent';
-import CharacterCarousel from './CharacterCarousel';
 import CharacterSpotlight from './CharacterSpotlight';
 import TodaySpotlight from './TodaySpotlight';
 import HeroSection from './Merch';
@@ -14,7 +13,11 @@ import FoundationSection from './FoundationSection';
 import ExclusiveContent from './ExclusiveContent';
 import NewsletterSection from '../Footer/Newsletter';
 import Otp from '../resentOtp/resendOtp';
+<<<<<<< HEAD
 import Comic from '../../components/Comics/Comic.jsx'
+=======
+import CharacterCarousel from '../Characters/CharacterCarousel'
+>>>>>>> 1ec7972da5652bbab40ddf2c3a402ed1661a4b00
 
 const Home = () => {
 
@@ -28,20 +31,17 @@ const Home = () => {
   return (
     <div>
       <LandingComponent />
-      <CharacterCarousel />
+      <CharacterCarousel/>
       <CharacterSpotlight />
       {/* <TodaySpotlight /> */}
       <Comic/>
       {/* <HeroSection/> */}
       <LandingMerch />
       <JoinUltimate />
-      <PremiumPlans />
-      <FanFavourite />
+      {/* <PremiumPlans /> */}
       <Spotlight />
-      <UpcomingEvents />
-      <FoundationSection />
+    
       <ExclusiveContent />
-      {/* <DashboardPage/> */}
       
       {user && !user.newsLetter && <NewsletterSection />}
 

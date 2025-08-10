@@ -169,13 +169,6 @@ const Navbar = () => {
             >
               CHARACTERS
             </Link>
-            <Link
-              to="/community"
-              onClick={toggleMenu}
-              className="text-white hover:text-red-500 transition"
-            >
-              COMMUNITY
-            </Link>
               <Link
               to="/createfaq"
               onClick={toggleMenu}

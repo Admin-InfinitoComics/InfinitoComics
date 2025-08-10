@@ -31,11 +31,10 @@ const Home = () => {
       <CharacterSpotlight />
       <LandingMerch />
       <JoinUltimate />
-      <PremiumPlans />
+      {/* <PremiumPlans /> */}
       <Spotlight />
     
       <ExclusiveContent />
-      {/* <DashboardPage/> */}
       
       {user && !user.newsLetter && <NewsletterSection />}
 

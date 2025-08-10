@@ -32,10 +32,10 @@ function App() {
           <Route path="/login" element={<Login />} />  
           <Route path="/comic" element={<Comic/>} /> 
           <Route path="/comic/:comicId/chapters" element={<ChapterDashboard />} />
-          <Route path="/characters" element={<Characters/>} />   
           <Route path='/chapters/:chapId/open' element={<ChapterDashboard></ChapterDashboard>}></Route>
           <Route path="/chapters/:chapId/edit" element={<ChapterDashboard></ChapterDashboard>}></Route>
           <Route path="/career" element={<Career />} />        
+          <Route path="/characters" element={<Characters/>} />   
           <Route path="/login" element={<Login />} />   
           <Route path="/timeline" element={<TimeLine />} />     
           <Route path="/research" element={<ResearchManager />} />

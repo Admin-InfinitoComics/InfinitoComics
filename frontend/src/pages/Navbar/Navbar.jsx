@@ -15,7 +15,6 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
-  console.log(user);
   useEffect(() => {
     // fetch data / preload hero image ...
     setTimeout(() => setLoading(false), 2400); // demo

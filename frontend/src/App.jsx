@@ -29,7 +29,7 @@ import Cart from './pages/Cart/Cart';
 import Comic from './components/Comics/Comic.jsx'
 import Characters from './pages/Characters/index.jsx'
 import Biography from './pages/biography/Index.jsx'
-import toast, {Toaster} from 'react-hot-toast'  
+import {Toaster} from 'react-hot-toast'  
 import Games from './pages/Games/Games.jsx'
 import NotFound from './constants/errorPage/NotFound.jsx'
 import NetworkError from './constants/errorPage/NetworkError'

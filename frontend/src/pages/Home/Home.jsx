@@ -31,8 +31,7 @@ const Home = () => {
       <CharacterSpotlight />
       <LandingMerch />
       <JoinUltimate />
-      {/* <PremiumPlans /> */}
-      <Spotlight />
+      <PremiumPlans />
     
       <ExclusiveContent />
       

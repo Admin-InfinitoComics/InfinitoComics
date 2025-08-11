@@ -24,7 +24,6 @@ const allowedOrigins = [
   config.ADMIN_URL,
   config.RESEARCH_URL,
   config.FOUNDATION_URL,
-  'http://localhost:3002'
 ];
 
 app.use(cors({

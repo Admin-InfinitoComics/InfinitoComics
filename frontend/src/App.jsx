@@ -29,7 +29,7 @@ import Cart from './pages/Cart/Cart';
 import Comic from './components/Comics/Comic.jsx'
 import Characters from './pages/Characters/index.jsx'
 import Biography from './pages/biography/Index.jsx'
-import toast, {Toaster} from 'react-hot-toast'  
+import {Toaster} from 'react-hot-toast'  
 import Games from './pages/Games/Games.jsx'
 import NotFound from './constants/errorPage/NotFound.jsx'
 import NetworkError from './constants/errorPage/NetworkError'
@@ -37,7 +37,7 @@ import {RESEARCH_BASE_URL, FOUNDATION_BASE_URL} from './utils/constants.js'
 import PrivacyPolicy from './pages/Policy/PrivacyPolicy.jsx';
 import RefundPolicy from './pages/Policy/Refund.jsx';
 import TermsOfService from './pages/Policy/TermsofService.jsx';
-import ComicChap from './components/Comics/comicChap.jsx'
+import ComicChap from './components/Comics/ComicChap.jsx'
 
 function App() {
   useEffect(() => {

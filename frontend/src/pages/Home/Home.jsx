@@ -13,6 +13,7 @@ import FoundationSection from './FoundationSection';
 import ExclusiveContent from './ExclusiveContent';
 import NewsletterSection from '../Footer/Newsletter';
 import Otp from '../resentOtp/resendOtp';
+import Comic from '../../components/Comics/Comic.jsx'
 import CharacterCarousel from '../Characters/CharacterCarousel'
 
 const Home = () => {
@@ -29,6 +30,9 @@ const Home = () => {
       <LandingComponent />
       <CharacterCarousel/>
       <CharacterSpotlight />
+      {/* <TodaySpotlight /> */}
+      {/* <Comic/> */}
+      {/* <HeroSection/> */}
       <LandingMerch />
       <JoinUltimate />
       <PremiumPlans />

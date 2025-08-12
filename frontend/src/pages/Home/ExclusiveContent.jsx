@@ -83,12 +83,8 @@ const ExclusiveContent = () => {
 
               {/* QR Code section */}
               <div className="flex flex-col sm:flex-row items-center gap-2 opacity-70 cursor-not-allowed">
-                <img
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://your-app-link.com"
-                  alt="QR Code"
-                  className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px]"
-                />
-                <span className="text-xs w-[100px] text-gray-600 text-center sm:text-left">
+                
+                <span className="text-xl w-[100px] text-gray-600 text-center sm:text-left">
                   Coming Soon
                 </span>
               </div>

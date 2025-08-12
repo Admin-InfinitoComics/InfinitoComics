@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import UserIcon from '../../../assets/Images/UserIcon.png';
-import { useSelector } from 'react-redux'; // ✅ Redux hook
-import { useEffect } from 'react';
-import {FOUNDATION_BASE_URL} from '../../../../frontend/src/utils/constants';
-import {FRONTEND_BASE_URL} from '../../../../frontend/src/utils/constants';
-
-
+import { useSelector } from 'react-redux';
+import { FOUNDATION_BASE_URL, FRONTEND_BASE_URL } from '../../../../frontend/src/utils/constants';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user); // ✅ Get user from Redux
+  const user = useSelector((state) => state.user);
   const [menuOpen, setMenuOpen] = useState(false);
-  useEffect(() => {
-  }, [user]);
+
+  useEffect(() => {}, [user]);
+
   return (
     <div className="text-white font-sans">
       {/* Top Banner */}
@@ -23,17 +20,18 @@ const Navbar = () => {
           Use code <span className="font-bold">INFIN10</span> to get 10% off on our shop!
         </div>
         <div className="hidden lg:flex gap-20 pl-4">
-          <Link to={FRONTEND_BASE_URL+"/comics"} className="hover:underline">Comics</Link>
-<a href={FOUNDATION_BASE_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
-  Foundation
-</a>
-<a href={FRONTEND_BASE_URL + "/support-us"} target="_blank" rel="noopener noreferrer" className="hover:underline">
-  Support Us
-</a>
-<a href={FRONTEND_BASE_URL + "/news"} target="_blank" rel="noopener noreferrer" className="hover:underline">
-  News and Blogs
-</a>
-
+          <Link to={FRONTEND_BASE_URL + "/comics"} className="hover:underline">Comics</Link>
+          <a href={FOUNDATION_BASE_URL} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Foundation
+          </a>
+          <a href={FRONTEND_BASE_URL + "/support-us"} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            Support Us
+          </a>
+          <a href={FRONTEND_BASE_URL + "/news"} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            News and Blogs
+          </a>
+          {/* ✅ Browse tab added */}
+          <Link to="/browseResearch" className="hover:underline">Browse</Link>
         </div>
       </div>
 
@@ -58,7 +56,6 @@ const Navbar = () => {
 
         {/* ----------- Desktop Navbar ----------- */}
         <div className="hidden lg:flex items-center justify-between w-full">
-          {/* Auth Button or User Greeting */}
           {user ? (
             <div className="flex items-center gap-2 border border-white px-4 py-2 uppercase text-sm">
               <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
@@ -73,7 +70,6 @@ const Navbar = () => {
             </button>
           )}
 
-          {/* Logo */}
           <div>
             <img
               src="/assets/Images/research/researchLOGO.png"
@@ -82,7 +78,6 @@ const Navbar = () => {
             />
           </div>
 
-          {/* Search */}
           <div className="flex items-center gap-4">
             <input
               type="text"
@@ -103,6 +98,8 @@ const Navbar = () => {
           <Link to="/foundation" className="block text-sm hover:underline" onClick={() => setMenuOpen(false)}>Foundation</Link>
           <Link to="/researchPlans" className="block text-sm hover:underline" onClick={() => setMenuOpen(false)}>Research</Link>
           <Link to="/funding" className="block text-sm hover:underline" onClick={() => setMenuOpen(false)}>Funding</Link>
+          {/* ✅ Browse tab added */}
+          <Link to="/browseResearch" className="block text-sm hover:underline" onClick={() => setMenuOpen(false)}>Browse</Link>
         </div>
       )}
     </div>

@@ -11,7 +11,7 @@ export const createOrder = async (req, res) => {
         const { membershipType } = req.body;
 
         // validating membershipType
-        const validMemberships = ["Monthly", "HalfYear", "Annual","UltimateKit"];
+        const validMemberships = ["Monthly", "HalfYear", "Annual", "UltimateKit"];
         if (!validMemberships.includes(membershipType)) {
             return res.status(400).json({
                 success: false,
@@ -107,11 +107,11 @@ export const webhooksetup = async (req, res) => {
             // membership expiry logic
             const now = new Date();
             if (membershipType === "Monthly") {
-                user.infinitoUltimateTo = new Date(now.setMonth(now.getMonth() + 1));
+                user.infinitoUltimateTo = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
             } else if (membershipType === "HalfYear") {
-                user.infinitoUltimateTo = new Date(now.setMonth(now.getMonth() + 6));
+                user.infinitoUltimateTo = new Date(Date.now() + 182 * 24 * 60 * 60 * 1000);
             } else if (membershipType === "Annual") {
-                user.infinitoUltimateTo = new Date(now.setFullYear(now.getFullYear() + 1));
+                user.infinitoUltimateTo = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
             }
         } else if (membershipType === "UltimateKit") {
             user.hasInfinitoUltimateKit = true;
@@ -129,27 +129,27 @@ export const webhooksetup = async (req, res) => {
 }
 
 export const verifyPayment = async (req, res) => {
-  try { 
-    console.log("PAYMENT VERIFICATION STARTED...")
-    const user = req.user;
+    try {
+        console.log("PAYMENT VERIFICATION STARTED...")
+        const user = req.user;
 
-    // checking for valid membership type
-    const hasMembership = ["Monthly", "HalfYear", "Annual"].includes(user.membershipType);
+        // checking for valid membership type
+        const hasMembership = ["Monthly", "HalfYear", "Annual"].includes(user.membershipType);
 
-    const isPremium = user.hasInfinitoUltimateKit || hasMembership;
+        const isPremium = user.hasInfinitoUltimateKit || hasMembership;
 
-    return res.status(200).json({
-      success: true,
-      isPremium,
-      membershipType: user.membershipType || "",
-      hasInfinitoUltimateKit: user.hasInfinitoUltimateKit || false,
-    });
-  } catch (err) {
-    console.log("Error verifying payment: ", err);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to verify payment status"
-    });
-  }
+        return res.status(200).json({
+            success: true,
+            isPremium,
+            membershipType: user.membershipType || "",
+            hasInfinitoUltimateKit: user.hasInfinitoUltimateKit || false,
+        });
+    } catch (err) {
+        console.log("Error verifying payment: ", err);
+        return res.status(500).json({
+            success: false,
+            message: "Failed to verify payment status"
+        });
+    }
 };
 

@@ -1,8 +1,8 @@
 import Razorpay from "razorpay";
-
+import config from "../config/server-config.js";
 var instance = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_SECRET_KEY
+    key_id: config.RAZORPAY_KEY_ID,
+    key_secret: config.RAZORPAY_SECRET_KEY
 })
 
 export default instance;

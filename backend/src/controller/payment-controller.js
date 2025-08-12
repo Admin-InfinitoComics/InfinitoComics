@@ -129,7 +129,8 @@ export const webhooksetup = async (req, res) => {
 }
 
 export const verifyPayment = async (req, res) => {
-  try {
+  try { 
+    console.log("PAYMENT VERIFICATION STARTED...")
     const user = req.user;
 
     // checking for valid membership type

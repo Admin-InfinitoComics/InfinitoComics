@@ -39,7 +39,7 @@ const PremiumPlans = () => {
   // Verify premium user
   const verifyPremiumUser = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/premium/verify", {
+      const res = await axios.get(BASE_URL + "/verify", {
         withCredentials: true,
       });
       console.log("here: ",res.data)
@@ -56,6 +56,7 @@ const PremiumPlans = () => {
 
     try {
       const token = localStorage.getItem("authtoken");
+      console.log(BASE_URL)
       const res = await axios.post(
         `${BASE_URL}/payment/create`,
         { membershipType: type },

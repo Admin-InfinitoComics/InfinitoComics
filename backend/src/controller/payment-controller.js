@@ -1,4 +1,4 @@
-import Payment from "../models/payment.js";
+import Payment from "../models/Payment.js";
 import razorpayInstance from '../utils/razorpay.js'
 import { paymentPlans } from '../constant/constants.js'
 import User from '../models/User.js'

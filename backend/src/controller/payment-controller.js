@@ -11,7 +11,7 @@ export const createOrder = async (req, res) => {
         const { membershipType } = req.body;
 
         // validating membershipType
-        const validMemberships = ["Monthly", "HalfYear", "Annual"];
+        const validMemberships = ["Monthly", "HalfYear", "Annual","UltimateKit"];
         if (!validMemberships.includes(membershipType)) {
             return res.status(400).json({
                 success: false,

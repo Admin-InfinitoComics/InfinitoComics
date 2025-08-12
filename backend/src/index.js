@@ -19,7 +19,7 @@ import aboutTimelineRoutes from './routes/aboutTimelineRoutes.js';
 import paymentRoutes from './routes/payment-routes.js'
 import comicChapRoutes from './routes/comicChap-routes.js'
 app.use(cors({
-  origin: (origin, cb) => cb(null, true), // kisi bhi origin ko allow karega
+  origin: '*', // kisi bhi origin ko allow karega
   credentials: true
 }));
 app.use(bodyParser.json({ limit: '50mb' }));

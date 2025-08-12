@@ -23,8 +23,7 @@ const allowedOrigins = [
   config.FRONTEND_URL,
   config.ADMIN_URL,
   config.RESEARCH_URL,
-  config.FOUNDATION_URL,
-  'http://localhost:3002'
+  config.FOUNDATION_URL
 ];
 
 app.use(cors({
@@ -55,8 +54,8 @@ app.use('/timeline', timelineRoutes);
 app.use('/timeline/aboutUs', aboutTimelineRoutes);
 app.use('/career', CareerRoutes);
 app.use('/support', supportRoutes);
-app.use('/api/comic', comicRoutes);
-app.use('/api/comicChap', comicChapRoutes);
+app.use('/comic', comicRoutes);
+app.use('/comicChap', comicChapRoutes);
 app.use('/character', characterRoutes);
 app.use('/payment', paymentRoutes);
 app.get('/', (req, res) => {

@@ -19,7 +19,7 @@ const ComicChapters = () => {
       if (savedComic) {
         setComic(JSON.parse(savedComic));
       } else {
-        axios.get(`/api/comic/${comicId}`).then((res) => setComic(res.data));
+        axios.get(`/comic/${comicId}`).then((res) => setComic(res.data));
       }
     }
   }, [state, comicId]);

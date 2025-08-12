@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from '../utils/constants';
+import { BACKEND_URL } from '../utils/constants';
 
 /**
  * Fetch a specific research paper by its ID.
@@ -14,7 +14,7 @@ export const readResearchService = async (paperId) => {
   }
 
   try {
-    const { data } = await axios.get(`${BASE_URL}/research-papers/${paperId}`);
+    const { data } = await axios.get(`${BACKEND_URL}/research-papers/${paperId}`);
     console.log("Fetched research paper:", data);
     return data;
   } catch (error) {

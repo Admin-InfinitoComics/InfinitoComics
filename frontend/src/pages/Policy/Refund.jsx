@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import RefundPolicyPDF from "../../../public/RefundPolicy.pdf";
+const RefundPolicyPDF = "/RefundPolicy.pdf";
 
 const Section = ({ title, icon, children }) => (
   <motion.section

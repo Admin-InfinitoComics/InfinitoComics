@@ -277,7 +277,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import PrivacyPolicy1 from "../../../public/PrivacyPolicy.pdf";
+const PrivacyPolicy1 =  "/PrivacyPolicy.pdf";
 
 const Section = ({ title, icon, children }) => (
   <motion.section

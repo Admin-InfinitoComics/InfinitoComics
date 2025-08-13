@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-const AntiHarassmentPDF = "/AntiHarassmentPolicy.pdf";
+import AntiHarassmentPDF from "../../../public/AntiHarrasmentPolicy.pdf"
 
 
 const Section = ({ title, icon, children }) => (

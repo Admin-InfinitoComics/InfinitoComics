@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import ChildPrivacyPDF from "../../../public/ChildrenPrivacyPolicy.pdf";
+const ChildPrivacyPDF = "/ChildrenPrivacyPolicy.pdf";
 
 const Section = ({ title, icon, children }) => (
   <motion.section

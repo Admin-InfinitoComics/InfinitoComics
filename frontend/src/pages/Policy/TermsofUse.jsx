@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import TermsOfUsePDF from "../../../public/TermsOfUse.pdf";
+const TermsOfUsePDF = '/TermsofUse.pdf';
 
 const Section = ({ title, icon, children }) => (
   <motion.section

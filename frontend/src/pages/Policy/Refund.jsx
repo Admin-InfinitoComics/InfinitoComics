@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import RefundPolicyPDF from "../../../public/RefundPolicy.pdf";
 
 const Section = ({ title, icon, children }) => (
   <motion.section
@@ -30,12 +31,17 @@ const RefundPolicy = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl font-bold text-gray-900">💸 Refund Policy</h1>
+          <h1 className="text-4xl font-bold text-gray-900">💰 Refund Policy</h1>
+          <p className="text-sm text-gray-500 mb-2 font-bold">
+            Effective Date: 15th August, 2025
+          </p>
           <p className="text-gray-700 text-lg">
-            Our commitment to fairness in the AVGC (Animation, VFX, Gaming, Comics) industry.
+            At Infinito Comics, we are committed to providing our customers with a seamless and enjoyable
+experience. This Refund Policy outlines the terms and conditions regarding refunds for our digital
+content. Please read this policy carefully prior to making a purchase
           </p>
           <a
-            href="/RefundPolicy.pdf"
+            href={RefundPolicyPDF}
             download
             className="inline-block mt-4 bg-[#FF2D2D] text-white px-4 py-2 rounded font-semibold text-sm hover:bg-red-700 transition"
           >
@@ -52,42 +58,79 @@ const RefundPolicy = () => {
 
         {/* Sections */}
         <div className="space-y-8">
-          <Section title="Eligibility for Refunds" icon="📝">
+          {/* <Section title="Introduction" icon="📜">
             <p>
-              Purchases made on Infinito Comics, including digital comics, merchandise, subscriptions, and event tickets, are eligible for refunds under specific conditions outlined below.
+              At Infinito Comics, we are committed to providing our customers with a seamless and enjoyable 
+              experience. This Refund Policy outlines the terms and conditions regarding refunds for our digital 
+              content. Please read this policy carefully prior to making a purchase.
             </p>
-            <ul className="list-disc pl-5 text-gray-700">
-              <li>Digital products (comics, downloads) are refundable only if the content is inaccessible or corrupted, and reported within 48 hours of purchase.</li>
-              <li>Physical merchandise can be refunded or replaced if damaged, defective, or incorrect, provided you notify us within 7 days of delivery.</li>
-              <li>Subscription fees are non-refundable once the service period has started, except in cases of technical failure on our end.</li>
-              <li>Event tickets are refundable only if the event is canceled or rescheduled by Infinito Comics.</li>
+          </Section> */}
+
+          <Section title="Digital Content Refunds" icon="💻">
+            <p>
+              Infinito Comics does not offer refunds for digital comic purchases, which include downloadable 
+              files, online reading access, or permanently licensed content, once the order is confirmed and 
+              access has been granted. This policy is in place due to the nature of digital content, which, once 
+              delivered, cannot be “returned” in the traditional sense and remains in the customer’s possession 
+              indefinitely.
+            </p>
+          </Section>
+
+          <Section title="Exceptions – Technical Issues" icon="⚠️">
+            <p>
+              Customers who encounter technical difficulties that prevent access to purchased digital content 
+              may contact our Customer Support team at <strong>support@infinitocomics.com</strong> within 7 calendar days 
+              of the purchase date. Acceptable issues for review include, but are not limited to:
+            </p>
+            <ul className="list-disc pl-5 text-gray-700 space-y-1">
+              <li>Broken or corrupted digital files</li>
+              <li>Non-functional access links</li>
+              <li>Incorrect product delivered (e.g., wrong comic title)</li>
             </ul>
           </Section>
 
-          <Section title="How to Request a Refund" icon="📧">
+          <Section title="Resolution Process" icon="🛠️">
             <p>
-              To initiate a refund, please contact our support team at <a href="mailto:support@infinitocomics.com" className="text-red-600 hover:underline">support@infinitocomics.com</a> with your order details, reason for refund, and any supporting evidence (photos for merchandise).
+              Upon receipt of a refund request, our support team will acknowledge the request within 48 business 
+              hours. We may require additional information, such as screenshots, error messages, or 
+              device/browser specifications, to verify the reported issue.
             </p>
             <p>
-              Our team will review your request and respond within 3 business days.
+              Once the issue is verified, we will take one of the following actions:
             </p>
-          </Section>
-
-          <Section title="Refund Process & Timeline" icon="⏳">
-            <p>
-              Approved refunds will be processed to your original payment method within 7-10 business days. You will receive a confirmation email once your refund is initiated.
-            </p>
-            <p>
-              For merchandise returns, you may be asked to ship the item back. Return shipping costs are covered only for defective or incorrect items.
-            </p>
-          </Section>
-
-          <Section title="Exceptions & Important Notes" icon="⚠️">
-            <ul className="list-disc pl-5 text-gray-700">
-              <li>Refunds are not applicable for change of mind or accidental purchases.</li>
-              <li>Downloaded or accessed digital content is generally non-refundable unless proven defective.</li>
-              <li>All refund decisions are at the sole discretion of Infinito Comics, in accordance with industry standards.</li>
+            <ul className="list-disc pl-5 text-gray-700 space-y-1">
+              <li>Restore access to the correct product, or</li>
+              <li>Issue a refund to the original payment method.</li>
             </ul>
+          </Section>
+
+          <Section title="Refund Timeline" icon="⏳">
+            <p>
+              Approved refunds will be processed within 7–10 business days following verification. Please note 
+              that processing times may vary based on your bank, card issuer, or payment gateway.
+            </p>
+          </Section>
+
+          <Section title="Non-Refundable Situations" icon="🚫">
+            <p>Refunds will not be granted under the following circumstances:</p>
+            <ul className="list-disc pl-5 text-gray-700 space-y-1">
+              <li>The request is submitted more than 7 days after the purchase date.</li>
+              <li>Access issues arise from internet connectivity problems, device compatibility, or outdated software on the customer’s end.</li>
+              <li>The customer has accessed and consumed the majority of the digital content but subsequently requests a refund due to dissatisfaction.</li>
+            </ul>
+          </Section>
+
+          <Section title="Acknowledgement" icon="✅">
+            <p>
+              By purchasing from Infinito Comics, you acknowledge that you have read, understood, and agreed 
+              to this Refund Policy. For any questions or concerns, please contact our Customer Support team.
+            </p>
+          </Section>
+
+          <Section title="Contact Information" icon="📧">
+            <p>
+              Email: <strong>infinito.comics1@gmail.com</strong>
+            </p>
           </Section>
         </div>
 
@@ -98,10 +141,11 @@ const RefundPolicy = () => {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          “We value your experience. If something goes wrong, our team is here to make it right.”
+          “We aim to make every purchase a satisfying one. If an issue arises, we are here to help.”
         </motion.div>
       </div>
     </div>
   );
 };
+
 export default RefundPolicy;

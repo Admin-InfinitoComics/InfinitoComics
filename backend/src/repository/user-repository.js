@@ -44,7 +44,7 @@ class UserRepository extends CrudRepository {
                 If you did not initiate this request, please ignore this email.
 
                 Best regards,  
-                InfinitoArchery`
+                Infinito Comics`
             );
             return newUser;
         } catch (error) {

@@ -15,7 +15,7 @@ import {
 function HeroSection() {
   
 
-  const userName = useSelector((state) => state.user.name);
+  const userName = useSelector((state) => state?.user?.name);
 
 
 

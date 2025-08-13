@@ -196,7 +196,7 @@ const Header = () => {
           >
             <ShoppingBag /> Shop
           </Link>
-          <Link to="/blogs" className="block font-bold hover:text-white">
+          <Link to="/news" className="block font-bold hover:text-white">
             Blogs & News
           </Link>
 
@@ -225,7 +225,7 @@ const Header = () => {
 
 
           <Link
-            to="/support"
+            to="/support-us"
             className="font-bold hover:text-white flex items-center gap-2"
           >
             <Heart /> Support Us

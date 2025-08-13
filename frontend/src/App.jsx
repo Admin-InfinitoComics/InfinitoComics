@@ -36,8 +36,10 @@ import NetworkError from './constants/errorPage/NetworkError'
 import {RESEARCH_BASE_URL, FOUNDATION_BASE_URL} from './utils/constants.js'
 import PrivacyPolicy from './pages/Policy/PrivacyPolicy.jsx';
 import RefundPolicy from './pages/Policy/Refund.jsx';
-import TermsOfService from './pages/Policy/TermsofService.jsx';
+import TermsOfUse from './pages/Policy/TermsofUse.jsx';
 import ComicChap from './components/Comics/ComicChap.jsx'
+import ChildrensPrivacyPolicy from './pages/Policy/Children.jsx';
+import AntiHarassmentPolicy from './pages/Policy/AntiHarassment.jsx';
 
 function App() {
   useEffect(() => {
@@ -136,9 +138,10 @@ function App() {
             <Route path="/characters" element={<Community/>} />
             <Route path="/comics" element={<Community/>} />
             <Route path="/animation" element={<Community/>} />
-            <Route path="/shop" element={<Community/>} />
-
-            <Route path='/terms-of-service' element={<TermsOfService/>}></Route>
+            <Route path="/shop" element={<Community/>} />\
+            <Route path="/children-privacy-policy" element={<ChildrensPrivacyPolicy/>}></Route>
+            <Route path="/anti-harassment" element={<AntiHarassmentPolicy/>}></Route>
+            <Route path='/terms-of-use' element={<TermsOfUse/>}></Route>
             <Route path="*" element={<NotFound></NotFound>}></Route>
 
 

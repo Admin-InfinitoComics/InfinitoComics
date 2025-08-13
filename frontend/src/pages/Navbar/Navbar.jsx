@@ -206,6 +206,7 @@ const Header = () => {
             className="block font-bold hover:text-white flex items-center gap-2"
           >
             <ShoppingBag /> Shop
+
           </Link> */}
           <a
             href="https://www.infinitostyle.com/"
@@ -215,7 +216,9 @@ const Header = () => {
           >
             <ShoppingBag /> SHOP
           </a>
-          <Link to="/blogs" className="block font-bold hover:text-white">
+
+          <Link to="/news" className="block font-bold hover:text-white">
+
             Blogs & News
           </Link>
 
@@ -242,7 +245,7 @@ const Header = () => {
           </a>
 
           <Link
-            to="/support"
+            to="/support-us"
             className="font-bold hover:text-white flex items-center gap-2"
           >
             <Heart /> Support Us

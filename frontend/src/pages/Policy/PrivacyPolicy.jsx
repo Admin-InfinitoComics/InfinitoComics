@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import PrivacyPolicyPDF from "../../../public/privacypolicy.pdf";
 
+
 const Section = ({ title, icon, children }) => (
   <motion.section
     className="bg-white shadow-md hover:shadow-xl rounded-xl p-6 space-y-4 transition-all duration-300"

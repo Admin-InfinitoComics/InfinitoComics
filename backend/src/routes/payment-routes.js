@@ -6,6 +6,6 @@ const paymentRoutes = express.Router();
 
 paymentRoutes.post('/create',authenticate, createOrder);
 paymentRoutes.get('/webhook', webhooksetup);
-paymentRoutes.get('/verify', verifyPayment)
+paymentRoutes.get('/verify', authenticate, verifyPayment)
 
 export default paymentRoutes;

@@ -37,7 +37,7 @@ const All_news = () => {
     <div className="flex justify-center items-start text-gray-800 my-16">
       <div className="w-11/12 lg:w-2/3 flex flex-col lg:flex-row gap-6">
         {/* Main News Section */}
-        <div className="w-full lg:w-2/3">
+        <div className="w-full">
           {blogs.map((item, index) => (
             <div key={index} className="flex flex-col lg:flex-row gap-3 mb-6">
               <img
@@ -62,7 +62,7 @@ const All_news = () => {
         </div>
 
         {/* Desktop Trending */}
-        <div className="hidden lg:block w-full lg:w-[350px] max-h-[57rem] overflow-y-auto bg-[#3C3C3C] border-t-6 border-red-600 px-4 py-3">
+        {/* <div className="hidden lg:block w-full lg:w-[350px] max-h-[57rem] overflow-y-auto bg-[#3C3C3C] border-t-6 border-red-600 px-4 py-3">
           <h1 className="text-white font-bold text-xl tracking-wider mb-5">
             TRENDING NEWS
           </h1>
@@ -80,17 +80,16 @@ const All_news = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Mobile Trending - Slider */}
-        <div className="lg:hidden mt-6 w-full">
+        {/* <div className="lg:hidden mt-6 w-full">
           <div className="bg-[#3C3C3C] border-t-4 border-red-600 px-4 py-4 relative">
             <h1 className="text-white font-bold text-2xl lg:text-2xl tracking-wider mb-3 flex justify-between items-center">
               <p>TRENDING NEWS</p>
               <p className='text-red-500 text-sm md:text-md tracking-widest'>VIEW MORE &gt;</p> 
             </h1>
 
-            {/* Slider Buttons */}
             <div className="flex justify-between items-center mb-3">
               <button onClick={prevSlide} disabled={slideIndex === 0}>
                 <ChevronLeft className="text-white" />
@@ -103,7 +102,6 @@ const All_news = () => {
               </button>
             </div>
 
-            {/* Slider Content */}
             <div className="overflow-hidden">
               <div
                 className="flex transition-transform duration-500 ease-in-out"
@@ -127,7 +125,7 @@ const All_news = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

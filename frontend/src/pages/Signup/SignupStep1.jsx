@@ -7,6 +7,8 @@ import GSignup from '../../../assets/Images/Signup/Gsignup.png';
 import { Link } from 'react-router-dom';
 
 const SignupStep1 = ({ formData, handleChange, onNext }) => {
+    console.log("step1")
+
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({ email: '', password: '' });
   const [touched, setTouched] = useState({ email: false, password: false });

@@ -18,9 +18,16 @@ import researchPaperRoutes from './routes/research-paper-routes.js';
 import aboutTimelineRoutes from './routes/aboutTimelineRoutes.js';
 import paymentRoutes from './routes/payment-routes.js'
 import comicChapRoutes from './routes/comicChap-routes.js'
+const allowedOrigins = [
+  config.FRONTEND_URL,
+  config.ADMIN_URL,
+  config.RESEARCH_URL,
+  config.FOUNDATION_URL
+];
+
 app.use(cors({
-  origin: '*', // kisi bhi origin ko allow karega
-  credentials: true
+  origin: allowedOrigins,
+  credentials: true
 }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));

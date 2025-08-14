@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import InfinitoLogo from '../../../assets/Images/LoginLogo.png'; // Your Infinito logo
+import InfinitoLogo from '../../../assets/Images/LoginLogo.png'; // Infinito logo
 import Avatar from '../../../assets/Images/Signup/Avatar.png'; // Character avatar
 import ComicImg from '../../../assets/Images/Signup/ComicImg.png';
 import CharacterImg from '../../../assets/Images/Signup/CharacterImg.png';
@@ -9,78 +9,76 @@ import GamesImg from '../../../assets/Images/Signup/GamesImg.png';
 import { ArrowLeft } from 'lucide-react';
 import { useSelector } from 'react-redux';
 
-const SignupStep5 = ({onBack}) => {
-  const user = useSelector((store)=>store.user)
+const SignupStep5 = ({ onBack }) => {
+  const user = useSelector((store) => store.user);
   const navigate = useNavigate();
 
   return (
-    <div className=" w-[50%] bg-white px-24 py-10 flex flex-col items-center h-[78%]  font-sans relative">
-          <div
-            className="absolute top-5 left-5 p-2 rounded-full cursor-pointer bg-red-100 text-red-700 hover:text-red-600 hover:bg-red-200    transition-all duration-200"
-            onClick={() => onBack()}
-          >   
-            <ArrowLeft size={20} />
-         </div>
-      {/* Logo */}
-      <div className="absolute top-6 flex flex-col items-center">
-        <img src={InfinitoLogo} alt="Infinito" className="w-[200px] m-4" />
-        <p className="text-xl tracking-widest text-black mt-[-5px] font-semibold ">All set, let the adventure begin! </p>
+    <div className="w-full max-w-screen-xl bg-white px-4 sm:px-8 md:px-16 py-6 md:py-10 flex flex-col items-center min-h-[75vh] font-sans relative rounded-lg shadow-md">
+      {/* Back Button */}
+      <div
+        className="absolute top-4 left-4 p-2 rounded-full cursor-pointer bg-red-100 text-red-700 hover:text-red-600 hover:bg-red-200 transition-all duration-200"
+        onClick={() => onBack()}
+      >
+        <ArrowLeft size={20} />
+      </div>
+
+      {/* Logo & Title */}
+      <div className="flex flex-col items-center text-center mt-2 md:mt-4">
+        <img
+          src={InfinitoLogo}
+          alt="Infinito"
+          className="w-36 md:w-48 lg:w-56 mb-3"
+        />
+        <p className="text-lg sm:text-xl md:text-2xl font-semibold tracking-wide text-gray-900">
+          All set, let the adventure begin!
+        </p>
       </div>
 
       {/* Main Content */}
-      <div className="flex w-full max-w-[1000px] mt-28  justify-between items-start">
+      <div className="flex flex-col md:flex-row w-full max-w-5xl mt-8 md:mt-14 justify-center items-center gap-8">
         {/* Left: Avatar & Username */}
-        <div className="flex flex-col items-center mt-4 ml-[-20px] gap-2">
-          <img src={Avatar} alt="Character" className="h-[300px] object-contain" />
-          <p className="text-[10px] text-[#666666] font-semibold tracking-widest mt-2">USER NAME</p>
-          <p className="text-sm font-semibold tracking-wide lowercase mt-[-5px] ">{user.username}</p>
+        <div className="flex flex-col items-center gap-2">
+          <img
+            src={Avatar}
+            alt="Character"
+            className="h-40 sm:h-48 md:h-56 lg:h-64 object-contain"
+          />
+          <p className="text-xs sm:text-sm text-gray-600 font-semibold tracking-widest">
+            USER NAME
+          </p>
+          <p className="text-sm sm:text-base md:text-lg font-semibold tracking-wide lowercase">
+            {user.username}
+          </p>
         </div>
 
         {/* Right: Interactive Tiles */}
-        <div className="grid grid-cols-2 gap-6">
-          <button
-            onClick={() => navigate('/')}
-            className=" flex flex-col items-center justify-center"
-          >
-            <img src={ComicImg} alt="Characters" className=" w-[180px] h-[180px]  object-contain" />
-
-          </button>
-
-          <button
-            onClick={() => navigate('/')}
-            className=" flex flex-col items-center justify-center"
-          >
-            <img src={CharacterImg} alt="Characters" className=" w-[180px] h-[180px]  object-contain" />
-
-          </button>
-
-          <button
-            onClick={() => navigate('/')}
-            className=" flex flex-col items-center justify-center"
-          >
-            <img src={CommunityImg} alt="Characters" className=" w-[180px] h-[180px]  object-contain" />
-
-          </button>
-
-          <button
-            onClick={() => navigate('/')}
-            className=" flex flex-col items-center justify-center"
-          >
-            <img src={GamesImg} alt="Characters" className=" w-[180px] h-[180px]  object-contain" />
-
-          </button>
+        <div className="grid grid-cols-2 gap-4 sm:gap-6">
+          {[ComicImg, CharacterImg, CommunityImg, GamesImg].map(
+            (img, index) => (
+              <button
+                key={index}
+                onClick={() => navigate('/')}
+                className="flex flex-col items-center justify-center hover:scale-105 transition-transform"
+              >
+                <img
+                  src={img}
+                  alt={`Tile ${index + 1}`}
+                  className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 object-contain"
+                />
+              </button>
+            )
+          )}
         </div>
       </div>
 
-
       {/* Skip Button */}
       <button
-  onClick={() => navigate('/')}
-  className="absolute bottom-12 right-1/4 mr-16 text-xs tracking-widest text-black-100 hover:underline font-bold"
->
-  SKIP
-</button>
-
+        onClick={() => navigate('/')}
+        className="absolute bottom-6 right-6 text-xs sm:text-sm md:text-base tracking-widest text-gray-700 hover:underline font-bold"
+      >
+        SKIP
+      </button>
     </div>
   );
 };

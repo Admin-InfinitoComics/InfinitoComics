@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import bgImage from '../../../assets/Images/bgImage.png'; // 🔹 Background image for full section
 import character from '../../../assets/Images/character.png'; // 🔹 Character image (left side)
 import JoinUltimateShimmer from "../../shimmer/landingPageShimmer/JoinUltimateShimmer";
+import {  useNavigate } from "react-router-dom";
 const JoinUltimate = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     useEffect(() => {
       // fetch data / preload hero image ...
@@ -34,7 +36,10 @@ const JoinUltimate = () => {
 
         {/* 🔸 Call to Action Button */}
         <div className='flex justify-center md:justify-start'>
-          <button className="bg-red-600 hover:bg-red-700 text-white m-4 py-3 px-5 text-sm md:text-lg transition-all duration-300 w-[120px]">
+          <button className="bg-red-600 hover:bg-red-700 text-white m-4 py-3 px-5 text-sm md:text-lg transition-all duration-300 w-[120px] hover:cursor-pointer"
+          onClick={()=>{
+             navigate("/ultimate")
+          }}>
             Join Now
           </button>
         </div>

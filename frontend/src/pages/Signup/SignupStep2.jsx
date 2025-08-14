@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
+  console.log("step2")
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({ name: '', dob: '', username: '' });
   const [touched, setTouched] = useState({ name: false, dob: false, username: false });
@@ -112,8 +113,8 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
       dispatch(addUser(data.data));
       toast.success('Successfully signed up!');
       setTimeout(() => {
-        onNext();
-        navigate('/verifyEmail'); // delay to allow toast to show
+        onNext(); // This will now go directly to step 5
+        navigate('/verifyEmail');
       }, 2000);
       
     } catch (err) {
@@ -180,16 +181,16 @@ const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
         <div className="flex flex-col items-start justify-between mt-[-20px] h-21">
           <h2 className="text-2xl font-semibold text-left text-[#1f1f1f]">Welcome to Infinito</h2>
           <p className="text-sm text-left text-gray-600">
-            Complete your profile to enjoy this community to the fullest. It only takes{' '}
-            <span className="text-red-600 font-semibold">2</span> steps!
+            Complete your profile to enjoy this community to the fullest. Just{' '}
+            <span className="text-red-600 font-semibold">1</span> more step!
           </p>
         </div>
 
         <div className="flex items-center justify-center gap-2">
           <div className="w-34 h-1 bg-red-600" />
           <div className="w-6 h-6 flex items-center justify-center border-2 border-red-600 text-red-600 text-sm font-bold">1</div>
-          <div className="w-34 h-1 bg-gray-300" />
-          <div className="w-6 h-6 flex items-center justify-center border-2 border-gray-300 text-gray-400 text-sm font-semibold">2</div>
+          <div className="w-34 h-1 bg-red-600" />
+          <div className="w-6 h-6 flex items-center justify-center border-2 border-red-600 text-red-600 text-sm font-semibold">2</div>
         </div>
 
         <form className="w-full flex flex-col gap-1" onSubmit={handleSignup}>

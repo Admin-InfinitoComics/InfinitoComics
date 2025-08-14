@@ -6,6 +6,7 @@ import Pencil from '../../../assets/Images/Signup/Pencil.png';
 
 
 const SignupStep3 = ({ onNext, onBack }) => {
+  console.log("step3")
   const handleSubmit = (e) => {
     e.preventDefault();
     onNext();

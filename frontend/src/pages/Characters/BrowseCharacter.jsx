@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { characters } from "../../constants/character"; // import your data
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAll } from "../../services/CharacterServices";
 
 const AtoZOptions = ["A to Z", "Z to A"];
-
 const PAGE_SIZE = 12;
 
 function getPaginatedData(data, page, pageSize) {
@@ -15,9 +14,31 @@ export default function CharacterBrowser() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [atoz, setAtoz] = useState(AtoZOptions[0]);
+  const [characters, setCharacters] = useState([]); // renamed to plural for clarity
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
-  // Filter and sort
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      try {
+        const resData = await getAll();
+        const charArray = Array.isArray(resData.data) ? resData.data : [];
+        const formatted = charArray.map((char) => ({
+          id: char._id,
+          name: char.originalName || "Unknown",
+          image: char.mainImageUrl || "",
+        }));
+        setCharacters(formatted);
+      } catch (err) {
+        console.error("Error fetching characters:", err);
+      } finally {
+        setTimeout(() => setLoading(false), 2400);
+      }
+    };
+    fetchCharacters();
+  }, []);
+
+  // Filter and sort dynamically from state
   let filtered = characters.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -30,7 +51,6 @@ export default function CharacterBrowser() {
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = getPaginatedData(filtered, page, PAGE_SIZE);
 
-  // Pagination logic for ellipsis
   const getPagination = () => {
     let arr = [];
     if (totalPages <= 5) {
@@ -47,8 +67,7 @@ export default function CharacterBrowser() {
     return arr;
   };
 
-  // Reset to page 1 on search or sort change
-  React.useEffect(() => {
+  useEffect(() => {
     setPage(1);
   }, [search, atoz]);
 
@@ -57,8 +76,10 @@ export default function CharacterBrowser() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
         <h2 className="text-lg md:text-xl font-bold tracking-widest mb-2 md:mb-0">
-          BROWSE ALL CHARACTERS <span className="font-normal">(2500+)</span>
+          BROWSE ALL CHARACTERS{" "}
+          <span className="font-normal">({characters.length})</span>
         </h2>
+
         {/* AtoZ filter */}
         <div className="flex items-center">
           <select
@@ -98,22 +119,26 @@ export default function CharacterBrowser() {
 
       {/* Characters grid */}
       <div className="w-full">
-        {paginated.length === 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center h-40 text-lg font-bold text-gray-400">
+            Loading...
+          </div>
+        ) : paginated.length === 0 ? (
           <div className="flex items-center justify-center h-40 text-lg font-bold text-gray-400">
             Oops, no character found
           </div>
         ) : (
           <>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {paginated.map((char, idx) => (
+              {paginated.map((char) => (
                 <div
                   key={char.id}
                   className="flex flex-col cursor-pointer"
                   onClick={() =>
-                    navigate("/characters/biography", { state: { id: char.id } })
+                    navigate("/characters/biography", { state: char.id })
                   }
                 >
-                  <div className={`relative w-full aspect-[3/4] rounded-t ${char.bg} flex items-end justify-center`}>
+                  <div className="relative w-full aspect-[3/4] rounded-t flex items-end justify-center">
                     <img
                       src={char.image}
                       alt={char.name}
@@ -127,6 +152,7 @@ export default function CharacterBrowser() {
                 </div>
               ))}
             </div>
+
             {/* Pagination */}
             <div className="flex items-center justify-center mt-8 space-x-1">
               <button

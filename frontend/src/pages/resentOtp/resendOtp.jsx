@@ -5,6 +5,7 @@ import axios from "axios";
 import { verifyEmail } from "../../services/userServices";
 
 const OTPVerification = () => {
+  console.log("hi in verify otp");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [activeInput, setActiveInput] = useState(0);
   const [error, setError] = useState("");

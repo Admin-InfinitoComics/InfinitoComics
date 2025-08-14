@@ -68,8 +68,8 @@ const Login = () => {
       </div>
 
       {/* Characters */}
-      <img src={Bullet} alt="Bullet" className="absolute left-56 bottom-8 h-[700px] z-50 object-contain pointer-events-none" />
-      <img src={Riza} alt="Riza" className="absolute right-48 bottom-8 h-[700px] z-50 object-contain pointer-events-none" />
+      {/* <img src={Bullet} alt="Bullet" className="absolute left-56 bottom-8 h-[700px] z-50 object-contain pointer-events-none" />
+      <img src={Riza} alt="Riza" className="absolute right-48 bottom-8 h-[700px] z-50 object-contain pointer-events-none" /> */}
 
       {/* Central Card */}
       <div className="absolute inset-0 z-30 flex items-center justify-center">

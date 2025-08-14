@@ -72,6 +72,10 @@ const PremiumPlans = () => {
         order_id: data.orderId,
         theme: { color: "#3399cc" },
         handler: verifyPremiumUser,
+        // handler: function(res)
+        // {
+        //   alert("successfully");
+        // }
       };
 
       const rzp = new window.Razorpay(options);

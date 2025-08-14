@@ -18,6 +18,8 @@ import researchPaperRoutes from './routes/research-paper-routes.js';
 import aboutTimelineRoutes from './routes/aboutTimelineRoutes.js';
 import paymentRoutes from './routes/payment-routes.js'
 import comicChapRoutes from './routes/comicChap-routes.js'
+
+
 const allowedOrigins = [
   config.FRONTEND_URL,
   config.ADMIN_URL,
@@ -43,8 +45,8 @@ app.use('/timeline', timelineRoutes);
 app.use('/timeline/aboutUs', aboutTimelineRoutes);
 app.use('/career', CareerRoutes);
 app.use('/support', supportRoutes);
-app.use('/api/comic', comicRoutes);
-app.use('/api/comicChap', comicChapRoutes);
+app.use('/comic', comicRoutes);
+app.use('/comicChap', comicChapRoutes);
 app.use('/character', characterRoutes);
 app.use('/payment', paymentRoutes);
 app.get('/', (req, res) => {

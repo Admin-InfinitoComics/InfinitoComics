@@ -11,10 +11,11 @@ function Comic() {
   const fetchAllComics = async () => {
     try {
       const res = await fetchComics();
-      setComics(res);
+      setComics(Array.isArray(res) ? res : []);
     }
     catch (err) {
       console.log("Error fetching comics from frontend file(Comic.js): ", err);
+       setComics([]);
     }
   }
 
@@ -30,7 +31,7 @@ function Comic() {
     sliderRef.current.scrollBy({ left: 260, behavior: 'smooth' });
   };
 
-  const reversedComics = comics.slice().reverse();
+  const reversedComics = (comics || []).slice().reverse();
 
   return (
     <div className="w-11/12 lg:w-2/3 mx-auto mt-16">

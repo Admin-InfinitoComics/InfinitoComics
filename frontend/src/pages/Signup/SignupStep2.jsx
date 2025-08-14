@@ -9,7 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignupStep2 = ({ formData, handleChange, onNext, onBack }) => {
-  console.log("step2")
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({ name: '', dob: '', username: '' });
   const [touched, setTouched] = useState({ name: false, dob: false, username: false });

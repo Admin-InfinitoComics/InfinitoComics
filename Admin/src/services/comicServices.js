@@ -2,7 +2,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../Utils/constant.js";
 
 
-const BASE_URL = `${BACKEND_URL}/api/comic`;
+const BASE_URL = `${BACKEND_URL}/comic`;
 
 export const fetchComics = async () => {
   const response = await axios.get(BASE_URL);

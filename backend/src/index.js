@@ -27,7 +27,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: '*', // kisi bhi origin ko allow karega
+  origin: allowedOrigins,
   credentials: true
 }));
 app.use(bodyParser.json({ limit: '50mb' }));

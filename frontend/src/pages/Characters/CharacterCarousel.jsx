@@ -1,160 +1,172 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import CharacterCarouselShimmer from "../../shimmer/landingPageShimmer/characterCarouselShimmer";
+import { getAll } from "../../services/CharacterServices";
 
-const characters = [
-  {
-    id: 1,
-    name: "BATTLE BEAST",
-    image: "https://i.imgur.com/1.png",
-    bg: "bg-cyan-100",
-  },
-  {
-    id: 2,
-    name: "KALARI",
-    image: "https://i.imgur.com/2.png",
-    bg: "bg-pink-100",
-  },
-  {
-    id: 3,
-    name: "KALARI",
-    image: "https://i.imgur.com/2.png",
-    bg: "bg-pink-100",
-  },
-  {
-    id: 4,
-    name: "POISON",
-    image: "https://i.imgur.com/3.png",
-    bg: "bg-gray-100",
-  },
-  {
-    id: 5,
-    name: "BULLET",
-    image: "https://i.imgur.com/4.png",
-    bg: "bg-yellow-100",
-  },
-  {
-    id: 6,
-    name: "RIZAL",
-    image: "https://i.imgur.com/5.png",
-    bg: "bg-pink-200",
-  },
-  {
-    id: 7,
-    name: "BULLET",
-    image: "https://i.imgur.com/4.png",
-    bg: "bg-yellow-100",
-  },
-  {
-    id: 8,
-    name: "RIZAL",
-    image: "https://i.imgur.com/5.png",
-    bg: "bg-pink-200",
-  },
-  // Add more if you want to test sliding
-];
-
-
-
-// Responsive slides to show
+// Decide slides per view dynamically
 const getSlidesToShow = () => {
-  if (window.innerWidth < 640) return 1; // mobile
-  if (window.innerWidth < 1024) return 3; // tablet
-  return 5; // desktop
+  if (window.innerWidth < 640) return 1; // Mobile
+  if (window.innerWidth < 1024) return 2; // Tablet
+  return 4; // Desktop
 };
 
-
 const FeaturedCharactersCarousel = () => {
+  const [loading, setLoading] = useState(true);
   const [slidesToShow, setSlidesToShow] = useState(getSlidesToShow());
-  const [currentGroup, setCurrentGroup] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [characters, setCharacters] = useState([]);
+  const [sliding, setSliding] = useState(false);
+  const navigate = useNavigate();
 
+  // Fetch characters from API
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      try {
+        const resData = await getAll();
+        const charArray = Array.isArray(resData.data) ? resData.data : [];
+        const formatted = charArray.map((char) => ({
+          id: char._id,
+          name: char.originalName || "Unknown",
+          image: char.mainImageUrl || "",
+        }));
+        setCharacters(formatted);
+      } catch (err) {
+        console.error("Error fetching characters:", err);
+      } finally {
+        setTimeout(() => setLoading(false), 2400);
+      }
+    };
+    fetchCharacters();
+  }, []);
+
+  // Update slidesToShow on resize
   useEffect(() => {
     const handleResize = () => {
       setSlidesToShow(getSlidesToShow());
-      setCurrentGroup(0); // Reset to first group on resize
+      setCurrentIndex(0);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Pagination
   const totalGroups = Math.ceil(characters.length / slidesToShow);
 
-  const prevGroup = () => setCurrentGroup((prev) => Math.max(prev - 1, 0));
-  const nextGroup = () => setCurrentGroup((prev) => Math.min(prev + 1, totalGroups - 1));
+  const nextSlide = () => {
+    setSliding(true);
+    setTimeout(() => {
+      if (currentIndex + slidesToShow < characters.length) {
+        setCurrentIndex(currentIndex + slidesToShow);
+      } else {
+        setCurrentIndex(0);
+      }
+      setSliding(false);
+    }, 300);
+  };
 
-  // Get the characters for the current group
-  const visibleCharacters = characters.slice(
-    currentGroup * slidesToShow,
-    currentGroup * slidesToShow + slidesToShow
-  );
+  const prevSlide = () => {
+    setSliding(true);
+    setTimeout(() => {
+      if (currentIndex - slidesToShow >= 0) {
+        setCurrentIndex(currentIndex - slidesToShow);
+      } else {
+        const lastPageIndex =
+          Math.floor((characters.length - 1) / slidesToShow) * slidesToShow;
+        setCurrentIndex(lastPageIndex);
+      }
+      setSliding(false);
+    }, 300);
+  };
 
-  const navigate = useNavigate();
+  if (loading) return <CharacterCarouselShimmer />;
 
   return (
-    <div className="w-full flex flex-col py-4 px-2 sm:py-6 sm:px-0">
-      <h2 className="text-xl md:text-2xl font-bold tracking-widest mb-6 mx-4 md:mx-30 lg:mx-50">
-        FEATURED CHARACTERS
-      </h2>
-      <div className="relative w-full">
-        <div className="flex items-center mx-2 md:mx-20 lg:mx-40">
-          {/* Prev Button */}
-          <button
-            onClick={prevGroup}
-            disabled={currentGroup === 0}
-            className="hidden md:block p-2 text-2xl font-bold text-gray-500 hover:text-black disabled:opacity-30"
+    <div className="w-full px-4 py-8 sm:py-12 bg-white">
+      <div className="max-w-full mx-4 sm:mx-8 lg:mx-20 xl:mx-40">
+        {/* Title & View All */}
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 sm:mb-10 gap-4">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold tracking-widest uppercase text-center sm:text-left">
+            Featured Characters
+          </h2>
+          <Link
+            to="/characters"
+            className="text-sm sm:text-base md:text-lg text-red-600 hover:underline"
           >
-            &#8592;
+            View All ›
+          </Link>
+        </div>
+
+        <div className="relative">
+          {/* Prev Arrow */}
+          <button
+            onClick={prevSlide}
+            disabled={sliding}
+            className="absolute left-2 sm:-left-4 lg:-left-8 top-1/2 transform -translate-y-1/2 bg-white border p-1 sm:p-2 z-20 shadow-md"
+          >
+            <ChevronLeft size={20} />
           </button>
-          {/* Slides */}
-          <div className="flex overflow-hidden w-full">
-            <div className="flex w-full">
-              {visibleCharacters.map((char, idx) => (
+
+          {/* Carousel */}
+          <div
+            className={`grid transition-all duration-500 ease-in-out ${
+              slidesToShow === 1
+                ? "grid-cols-1"
+                : slidesToShow === 2
+                ? "grid-cols-1 sm:grid-cols-2"
+                : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"
+            } gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4 md:px-6 ${
+              sliding
+                ? "opacity-0 transform translate-x-[-10px]"
+                : "opacity-100 transform translate-x-0"
+            }`}
+          >
+            {characters
+              .slice(currentIndex, currentIndex + slidesToShow)
+              .map((char) => (
                 <div
                   key={char.id}
-                  className={`px-1 min-w-[120px] sm:px-3 sm:min-w-[180px] flex-1 cursor-pointer`}
-                  onClick={() => navigate(`/characters/biography`, { state: char })}
+                  className="relative flex flex-col items-center justify-between h-[260px] sm:h-[320px] md:h-[380px] w-full mx-auto cursor-pointer"
+                  onClick={() =>
+                    navigate("/characters/biography", { state: char.id })
+                  }
                 >
-                  <div
-                    className={` ${char.bg} flex flex-col items-center justify-end h-80 md:h-96 relative`}
-                  >
-                    <img
-                      src={char.image}
-                      alt={char.name}
-                      className="h-60 md:h-72 object-contain mx-auto"
-                      draggable="false"
-                    />
-                  </div>
-                  <div className="bg-black text-white text-xs md:text-sm font-medium tracking-widest text-center py-3 ">
-                    {char.name}
+                  <img
+                    src={char.image}
+                    alt={char.name}
+                    className="h-[160px] sm:h-[200px] md:h-[280px] object-contain"
+                  />
+                  <div className="bg-black w-full text-center py-2 sm:py-3">
+                    <p className="text-white text-xs sm:text-sm md:text-base tracking-widest truncate px-2">
+                      {char.name}
+                    </p>
                   </div>
                 </div>
               ))}
-            </div>
           </div>
-          {/* Next Button */}
+
+          {/* Next Arrow */}
           <button
-            onClick={nextGroup}
-            disabled={currentGroup === totalGroups - 1}
-            className="hidden md:block p-2 text-2xl font-bold text-gray-500 hover:text-black disabled:opacity-30"
+            onClick={nextSlide}
+            disabled={sliding}
+            className="absolute right-2 sm:-right-4 lg:-right-8 top-1/2 transform -translate-y-1/2 bg-white border p-1 sm:p-2 z-20 shadow-md"
           >
-            &#8594;
+            <ChevronRight size={20} />
           </button>
         </div>
-        {/* Mobile Arrows */}
-        <div className="flex justify-between mt-4 md:hidden">
-          <button
-            onClick={prevGroup}
-            disabled={currentGroup === 0}
-            className="p-2 text-2xl font-bold text-gray-500 hover:text-black disabled:opacity-30"
-          >
-            &#8592;
-          </button>
-          <button
-            onClick={nextGroup}
-            disabled={currentGroup === totalGroups - 1}
-            className="p-2 text-2xl font-bold text-gray-500 hover:text-black disabled:opacity-30"
-          >
-            &#8594;
-          </button>
+
+        {/* Pagination Dots */}
+        <div className="flex justify-center mt-6 gap-2">
+          {Array.from({ length: totalGroups }).map((_, index) => (
+            <div
+              key={index}
+              className={`w-4 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex / slidesToShow
+                  ? "bg-red-600"
+                  : "bg-gray-300 border border-black"
+              }`}
+            ></div>
+          ))}
         </div>
       </div>
     </div>

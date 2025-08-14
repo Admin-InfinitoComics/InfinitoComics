@@ -31,12 +31,11 @@ const Home = () => {
       <CharacterCarousel/>
       <CharacterSpotlight />
       {/* <TodaySpotlight /> */}
-      <Comic/>
+      {/* <Comic/> */}
       {/* <HeroSection/> */}
       <LandingMerch />
       <JoinUltimate />
-      {/* <PremiumPlans /> */}
-      <Spotlight />
+      <PremiumPlans />
     
       <ExclusiveContent />
       

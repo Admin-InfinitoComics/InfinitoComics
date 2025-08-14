@@ -15,8 +15,7 @@ const ReadResearch = () => {
       try {
         setLoading(true);
         const res = await readResearchService(id);
-        // ✅ Fix: store only the paper data
-        setPaper(res.data); 
+        setPaper(res.data);
       } catch (error) {
         console.error('Failed to fetch research paper:', error);
         setPaper(null);
@@ -41,24 +40,24 @@ const ReadResearch = () => {
   }
 
   return (
-    <div className="bg-[#fdfdfd] py-12 px-4 sm:px-6 md:px-10">
-      <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-12">
+    <div className="bg-[#fdfdfd] py-12 px-4 sm:px-6 md:px-10 overflow-x-hidden">
+      <div className="max-w-[1200px] mx-auto flex flex-col lg:flex-row gap-12 break-words">
         
         {/* Left Content */}
-        <div className="w-full lg:w-9/12 text-justify">
-          <p className="text-xl text-gray-500 italic mb-1">
+        <div className="w-full lg:w-9/12 text-justify break-words">
+          <p className="text-xl text-gray-500 italic mb-1 break-words">
             <span className="text-red-600 font-semibold">
               {paper.journalName || 'Journal'}
             </span>{' '}
             | {paper.publishedAt ? new Date(paper.publishedAt).toLocaleDateString() : 'N/A'}
           </p>
 
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-left">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-left break-words">
             {paper.title}
           </h1>
 
           {paper.authors?.length > 0 && (
-            <p className="text-2xl text-gray-700 font-medium mb-2 text-left">
+            <p className="text-2xl text-gray-700 font-medium mb-2 text-left break-words">
               {paper.authors.join(', ')}
             </p>
           )}
@@ -82,7 +81,7 @@ const ReadResearch = () => {
           {paper.abstract && (
             <>
               <h2 className="text-2xl font-semibold mb-2 text-left">Abstract</h2>
-              <p className="text-gray-800 leading-relaxed">{paper.abstract}</p>
+              <p className="text-gray-800 leading-relaxed break-words">{paper.abstract}</p>
             </>
           )}
 
@@ -90,7 +89,7 @@ const ReadResearch = () => {
           {paper.keywords?.length > 0 && (
             <>
               <h3 className="text-xl font-semibold mb-1 text-left">Keywords:</h3>
-              <p className="text-gray-700 mb-4">{paper.keywords.join(', ')}</p>
+              <p className="text-gray-700 mb-4 break-words">{paper.keywords.join(', ')}</p>
             </>
           )}
 
@@ -100,7 +99,7 @@ const ReadResearch = () => {
               <h2 className="text-xl font-semibold mb-2 text-left">Introduction</h2>
               <div className="relative overflow-hidden transition-all duration-300 ease-in-out">
                 <div className={`${isUnlocked ? '' : 'max-h-[180px] overflow-hidden relative'}`}>
-                  <p className="text-gray-800 leading-relaxed">{paper.introduction}</p>
+                  <p className="text-gray-800 leading-relaxed break-words">{paper.introduction}</p>
                   {!isUnlocked && (
                     <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#fdfdfd] to-transparent pointer-events-none" />
                   )}
@@ -129,10 +128,9 @@ const ReadResearch = () => {
           {paper.references?.length > 0 && (
             <>
               <h2 className="text-xl font-semibold mb-3 mt-10 text-left">References</h2>
-              <ol className="text-sm text-gray-800 list-decimal list-inside space-y-4">
+              <ol className="text-sm text-gray-800 list-decimal list-inside space-y-4 break-words">
                 {paper.references.map((ref, i) => (
-                  <li key={i}>
-                    {/* ✅ Handle object reference */}
+                  <li key={i} className="break-words">
                     {typeof ref === 'string'
                       ? ref
                       : `${ref.text}${ref.doi ? ` (DOI: ${ref.doi})` : ''}`}

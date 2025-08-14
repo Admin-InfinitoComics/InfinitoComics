@@ -105,15 +105,16 @@ const renderCard = (item) => (
   return loading?<LandingMerchShimmer/>: (
     <div className="bg-white py-16 px-4 md:px-10 lg:px-20">
       <div className="w-full">
-        {/* Headings */}
-        <div className="mb-10 ">
-          <p className="text-[18px] md:text-[20px] font-medium text-black tracking-wide">
-            Exclusive Merch
-          </p>
-          <h2 className="text-[28px] md:text-[36px] font-bold tracking-widest uppercase">
-            Collector’s Paradise
-          </h2>
-        </div>
+{/* Headings */}
+<div className="mb-10 mx-5 md:mx-50 text-center md:text-left">
+  <p className="text-sm sm:text-base md:text-lg font-medium text-black tracking-wide">
+    Exclusive Merch
+  </p>
+  <h2 className="text-xl sm:text-2xl md:text-4xl font-bold tracking-widest uppercase leading-tight">
+    Collector’s Paradise
+  </h2>
+</div>
+
 
         {/* Mobile View Slider */}
         <div className="md:hidden">

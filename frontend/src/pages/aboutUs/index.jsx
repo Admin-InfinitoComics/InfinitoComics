@@ -11,7 +11,7 @@ const index = () => {
       <Founder/>
       <TeamCarousel/>
       <OurVision/>
-      <TimeLine/>
+      {/* <TimeLine/> */}
     </>
   )
 }

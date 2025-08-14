@@ -12,7 +12,7 @@ export const addChapter = async (comicId, chapterData) => {
 
   const token = localStorage.getItem("authToken");
 
-  return axios.post(`${BACKEND_URL}/api/comicChap/${comicId}/chapters`, formData, {
+  return axios.post(`${BACKEND_URL}/comicChap/${comicId}/chapters`, formData, {
      headers: {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
@@ -23,7 +23,7 @@ export const addChapter = async (comicId, chapterData) => {
 
 export const getAllChapters = async (comicId) => {
   try {
-    const response = await axios.get(`${BACKEND_URL}/api/comicChap/${comicId}/chapters`);
+    const response = await axios.get(`${BACKEND_URL}/comicChap/${comicId}/chapters`);
     return response.data.data; 
   } catch (error) {
     console.error("Failed to fetch chapters", error);
@@ -35,7 +35,7 @@ export const deleteChapter = async (comicId, chapterId) => {
   const token = localStorage.getItem("authToken");
   try {
     const response = await axios.delete(
-      `${BACKEND_URL}/api/comicChap/${comicId}/chapters/${chapterId}`,
+      `${BACKEND_URL}/comicChap/${comicId}/chapters/${chapterId}`,
       {
         withCredentials: true,
         headers: {
@@ -72,7 +72,7 @@ export const updateChapter = async (comicId, chapterId, chapterData) => {
 
   try {
     const response = await axios.put(
-      `${BACKEND_URL}/api/comicChap/${comicId}/chapters/${chapterId}`,
+      `${BACKEND_URL}/comicChap/${comicId}/chapters/${chapterId}`,
       formData,
       {
         headers: {

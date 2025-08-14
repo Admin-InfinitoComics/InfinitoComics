@@ -28,7 +28,7 @@ const ResearchPaperSchema = new mongoose.Schema({
   },
   authors: {
     type: [AuthorSchema],
-    required: true,
+    required: true, 
     validate: {
       validator: arrayLimit,
       message: 'At least one author is required'

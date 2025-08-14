@@ -23,23 +23,13 @@ const allowedOrigins = [
   config.FRONTEND_URL,
   config.ADMIN_URL,
   config.RESEARCH_URL,
-  config.FOUNDATION_URL,
+  config.FOUNDATION_URL
 ];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+  origin: allowedOrigins,
+  credentials: true
 }));
-// Parse JSON bodies (extended with body-parser for larger payloads)
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json());
@@ -54,8 +44,8 @@ app.use('/timeline', timelineRoutes);
 app.use('/timeline/aboutUs', aboutTimelineRoutes);
 app.use('/career', CareerRoutes);
 app.use('/support', supportRoutes);
-app.use('/api/comic', comicRoutes);
-app.use('/api/comicChap', comicChapRoutes);
+app.use('/comic', comicRoutes);
+app.use('/comicChap', comicChapRoutes);
 app.use('/character', characterRoutes);
 app.use('/payment', paymentRoutes);
 app.get('/', (req, res) => {

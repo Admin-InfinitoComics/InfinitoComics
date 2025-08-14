@@ -112,6 +112,7 @@ const characterData = {
             return characters.map(char => ({
                 characterId: char._id,
                 characterName: char.knownAs,
+                characterOriginalName: char.originalName,
                 characterMainImageUrl: char.mainImageUrl || null
             }));
         } catch (error) {

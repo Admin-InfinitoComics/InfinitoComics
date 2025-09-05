@@ -6,6 +6,7 @@ import Pencil from '../../../assets/Images/Signup/Pencil.png';
 import { ArrowLeft } from 'lucide-react';
 
 const SignupStep4 = ({ onNext, onBack }) => {
+  console.log("step4")
   const handleSubmit = (e) => {
     e.preventDefault();
     onNext();

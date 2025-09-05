@@ -5,8 +5,6 @@ import Bullet from '../../../assets/Images/Bullet.png';
 import Riza from '../../../assets/Images/Riza Jose.png';
 import SignupStep1 from './SignupStep1';
 import SignupStep2 from './SignupStep2';
-import SignupStep3 from './SignupStep3';
-import SignupStep4 from './SignupStep4';
 import SignupStep5 from './SignupStep5';
 
 const SignupWrapper = () => {
@@ -16,8 +14,21 @@ const SignupWrapper = () => {
 
   const [step, setStep] = useState(initialStep);
 
-  const nextStep = () => setStep((prev) => Math.min(prev + 1, 5));
-  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+  const nextStep = () => {
+    if (step === 1) {
+      setStep(2);
+    } else if (step === 2) {
+      setStep(5); // Skip steps 3 and 4, go directly to 5
+    }
+  };
+
+  const prevStep = () => {
+    if (step === 5) {
+      setStep(2); // Go back from 5 to 2
+    } else if (step === 2) {
+      setStep(1);
+    }
+  };
 
   const [formData, setFormData] = useState({
     email: '',
@@ -52,10 +63,6 @@ const SignupWrapper = () => {
           />
         );
       case 3:
-        return <SignupStep3 onNext={nextStep} onBack={prevStep} />;
-      case 4:
-        return <SignupStep4 onNext={nextStep} onBack={prevStep} />;
-      case 5:
         return <SignupStep5 onBack={prevStep} />;
       default:
         return null;
@@ -85,8 +92,8 @@ const SignupWrapper = () => {
         />
       </div>
 
-      {/* Characters (only visible for steps 1 to 3) */}
-      {step < 4 && (
+      {/* Characters (only visible for steps 1 and 2) */}
+      {/* {step < 5 && (
         <>
           <img
             src={Bullet}
@@ -99,7 +106,7 @@ const SignupWrapper = () => {
             className="absolute right-48 bottom-8 h-[700px] z-50 object-contain pointer-events-none"
           />
         </>
-      )}
+      )} */}
 
       {/* Step Form */}
       <div className="absolute inset-0 z-30 flex items-center justify-center">

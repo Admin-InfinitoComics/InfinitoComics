@@ -19,7 +19,7 @@ const Ultimate = () => {
       <CreatorAccess/>
       <MembershipKitCard/>
       <Faqs/>
-      <JoinUltimate/>
+      {/* <JoinUltimate/> */}
 
     </div>
   )

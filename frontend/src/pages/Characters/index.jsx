@@ -9,9 +9,9 @@ const index = () => {
     <div>
       <CharacterSpotlight/>
       <CharacterCarousel/>
-      <FavCharacter/>
-      <OurTeam/>
-      <HeroVillainSplit/>
+      {/* <FavCharacter/> */}
+      {/* <OurTeam/> */}
+      {/* <HeroVillainSplit/> */}
       <BrowseCharacter/>
     </div>
   )

@@ -267,7 +267,7 @@ const PremiumPlans = () => {
     ],
   };
 
-  return  loading ? <PremiumPlansShimmer/>:  (
+return  loading ? <PremiumPlansShimmer/>:  (
     <div className="w-full mt-5 p-4 lg:p-16">
       {isMobile ? (
         // Mobile & tablet → slider

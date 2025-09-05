@@ -36,6 +36,7 @@ import NetworkError from './constants/errorPage/NetworkError'
 import {RESEARCH_BASE_URL, FOUNDATION_BASE_URL} from './utils/constants.js'
 import PrivacyPolicy from './pages/Policy/PrivacyPolicy.jsx';
 import RefundPolicy from './pages/Policy/Refund.jsx';
+import TermsOfService from './pages/Policy/TermsofService.jsx';
 import TermsOfUse from './pages/Policy/TermsofUse.jsx';
 import ComicChap from './components/Comics/ComicChap.jsx'
 import ChildrensPrivacyPolicy from './pages/Policy/Children.jsx';
